@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="border bg-dark">
+    <div>
       <p>Let's GO !</p>
       <DecisionCard />
     </div>
