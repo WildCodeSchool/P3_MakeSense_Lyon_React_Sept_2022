@@ -1,12 +1,11 @@
 /* eslint-disable import/no-unresolved */
-import DecisionCard from "@components/user/DecisionCard";
+import Authentification from "@pages/Authentification";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <p>Let's GO !</p>
-      <DecisionCard />
+      <Authentification />
     </div>
   );
 }
