@@ -6,7 +6,7 @@ function Connexion() {
   return (
     <div className="connexionPage flex flex-col justify-center items-center text-white ">
       <div className="w-full bg-primary-main rounded-lg max-w-md xl:p-0 shadow-1 mt-36 relative ">
-        {/* <div className="connexion-YellowRectangle"></div> */}
+        <div className="connexion-YellowRectangle"></div>
         <div className="p-6 space-y-6 sm:p-8">
           <h1 className="text-primary-yellow text-center font-bold leading-tight tracking-tight text-3xl">
             CONNEXION
