@@ -3,6 +3,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      "xl-max": { max: "1279px" },
+      "lg-max": { max: "1023px" },
+      "md-max": { max: "767px" },
+      "sm-max": { max: "639px" },
+    },
     extend: {
       colors: {
         primary: {
@@ -13,6 +19,9 @@ module.exports = {
           green: "#78AB92",
           nav: "#196C84",
         },
+      },
+      boxShadow: {
+        1: "10px 10px 20px 0 rgba(50, 0, 50, 0.3)",
       },
     },
   },
