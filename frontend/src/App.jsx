@@ -1,12 +1,13 @@
-/* eslint-disable import/no-unresolved */
-import DecisionCard from "@components/user/DecisionCard";
+/* eslint-disable import/order */
+import HomeUser from "./pages/user/HomeUser";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [open, setOpen] = useState(true);
   return (
-    <div>
-      <p>Let's GO !</p>
-      <DecisionCard />
+    <div className="flex w-screen">
+      <HomeUser open={open} setOpen={setOpen} />
     </div>
   );
 }
