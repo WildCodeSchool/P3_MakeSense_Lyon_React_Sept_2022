@@ -1,0 +1,60 @@
+main {
+  margin: auto 50px;
+}
+
+.decision-resume img {
+  display: inline;
+  margin-right: 5px;
+}
+
+.decision-resume {
+  font-size: 1.6rem;
+}
+
+.decision-explaination {
+  max-width: 20ch;
+}
+
+.headerDecision {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  font-size: 1.8rem;
+  color: #196c84;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+
+.headerDecision img {
+  width: 170px;
+  height: auto;
+  margin: 10px;
+}
+
+.exitCreationDecision img {
+  margin: 2rem 1.5rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.exitCreationDecision img:hover {
+  transform: scale(1.5) rotate(90deg);
+}
+
+.exitCreationDecision {
+  float: right;
+  display: block;
+}
+
+.containerDate {
+  border-radius: 5px;
+  height: 28px;
+  width: 252px;
+  border: 2px solid #e5e7eb;
+}
+
+#buttonEnvoyerDecision {
+  float: right;
+  margin-right: 120px;
+}
