@@ -10,7 +10,7 @@ import TimeStepperHome from "@components/user/TimeStepperHome";
 
 export default function Home({ open, setOpen }) {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden	">
       <Sidebar open={open} setOpen={setOpen} />
       <div className="flex flex-col">
         <p className="pl-14 pt-3 text-xl">Bonjour Madeline</p>
