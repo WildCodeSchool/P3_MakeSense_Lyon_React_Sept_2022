@@ -1,0 +1,12 @@
+.timeStepper {
+  width: 15vw;
+  height: 50vh;
+  border: 1px solid #e36164;
+  border-radius: 50px;
+}
+
+.ligneStepper {
+  width: 150px;
+  border-top: 4px solid #0c3944;
+  rotate: 90deg;
+}
