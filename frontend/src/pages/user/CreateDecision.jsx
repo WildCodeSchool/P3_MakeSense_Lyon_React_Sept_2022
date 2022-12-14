@@ -1,23 +1,37 @@
 /* eslint-disable import/order */
-import React, { useState } from "react";
+import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import logo from "../../assets/logo-makesense.png";
-import exit from "../../assets/icons/x.svg";
 import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useStartDateConflictOfDecisionContext } from "../../contexts/StartDateConflictOfDecisionContext";
+import { useStartDateFinalOfDecisionContext } from "../../contexts/StartDateFinalOfDecisionContext";
+import { useStartDateOfDecisionContext } from "../../contexts/StartDateOfDecisionContext";
+import { useValueBeneficeOfDecisionContext } from "../../contexts/ValueBeneficeOfDecisionContext";
+import { useValueImpactOfDecisionContext } from "../../contexts/ValueImpactOfDecisionContext";
+import { useValueDecisionContext } from "../../contexts/ValueDecisionContext";
+import { useValueRiskOfDecisionContext } from "../../contexts/ValueRIskOfDecisionContext";
+import "react-quill/dist/quill.bubble.css";
 
 export default function CreateDecision() {
-  const [valueDecision, setValueDecision] = useState("");
-  const [valueImpact, setValueImpact] = useState("");
-  const [valueBenefice, setValueBenefice] = useState("");
-  const [valueRisk, setValueRisk] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [startDateConflict, setStartDateConflict] = useState(new Date());
-  const [startDateFinal, setStartDateFinal] = useState(new Date());
+  const { startDateConflictOfDecision, setStartDateConflictOfDecision } =
+    useStartDateConflictOfDecisionContext();
+  const { startDateFinalOfDecision, setStartDateFinalOfDecision } =
+    useStartDateFinalOfDecisionContext();
+  const { startDateOfDecision, setStartDateOfDecision } =
+    useStartDateOfDecisionContext();
+  const { valueBeneficeOfDecision, setValueBeneficeOfDecision } =
+    useValueBeneficeOfDecisionContext();
+  const { valueImpactOfDecision, setValueImpactOfDecision } =
+    useValueImpactOfDecisionContext();
+  const { valueDecision, setValueDecision } = useValueDecisionContext();
+  const { valueRiskOfDecision, setValueRiskOfDecision } =
+    useValueRiskOfDecisionContext();
 
+  // modules for react-quill editor text
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -33,14 +47,10 @@ export default function CreateDecision() {
   return (
     <div>
       <header className="headerDecision">
-        <h1>Avatar</h1>
         <h1>Créer une décision</h1>
         <img src={logo} alt="logo-MakeSense" />
       </header>
       <main>
-        <button className="exitCreationDecision" type="button">
-          <img src={exit} alt="exit" />
-        </button>
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">
             <p className="mt-20 decision-resume">
@@ -76,46 +86,46 @@ export default function CreateDecision() {
             <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
             <ReactQuill
               theme="snow"
-              value={valueImpact}
-              onChange={setValueImpact}
+              value={valueImpactOfDecision}
+              onChange={setValueImpactOfDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
             <ReactQuill
               theme="snow"
-              value={valueBenefice}
-              onChange={setValueBenefice}
+              value={valueBeneficeOfDecision}
+              onChange={setValueBeneficeOfDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Risques potentiels :</h2>
             <ReactQuill
               theme="snow"
-              value={valueRisk}
-              onChange={setValueRisk}
+              value={valueRiskOfDecision}
+              onChange={setValueRiskOfDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Deadline pour :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  selected={startDateOfDecision}
+                  onChange={(date) => setStartDateOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Donner son avis"
                 />
               </div>
               <div className="containerDate">
                 <DatePicker
-                  selected={startDateConflict}
-                  onChange={(date) => setStartDateConflict(date)}
+                  selected={startDateConflictOfDecision}
+                  onChange={(date) => setStartDateConflictOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Rentrer en conflit"
                 />
               </div>
               <div className="containerDate">
                 <DatePicker
-                  selected={startDateFinal}
-                  onChange={(date) => setStartDateFinal(date)}
+                  selected={startDateFinalOfDecision}
+                  onChange={(date) => setStartDateFinalOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Décision final"
                 />
