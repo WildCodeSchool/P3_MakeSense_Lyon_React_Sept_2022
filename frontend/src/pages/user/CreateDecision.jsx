@@ -1,5 +1,5 @@
 /* eslint-disable import/order */
-import React from "react";
+import { React, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import logo from "../../assets/logo-makesense.png";
@@ -7,31 +7,21 @@ import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useStartDateConflictOfDecisionContext } from "../../contexts/StartDateConflictOfDecisionContext";
-import { useStartDateFinalOfDecisionContext } from "../../contexts/StartDateFinalOfDecisionContext";
-import { useStartDateOfDecisionContext } from "../../contexts/StartDateOfDecisionContext";
-import { useValueBeneficeOfDecisionContext } from "../../contexts/ValueBeneficeOfDecisionContext";
-import { useValueImpactOfDecisionContext } from "../../contexts/ValueImpactOfDecisionContext";
-import { useValueDecisionContext } from "../../contexts/ValueDecisionContext";
-import { useValueRiskOfDecisionContext } from "../../contexts/ValueRIskOfDecisionContext";
 import "react-quill/dist/quill.bubble.css";
 
 export default function CreateDecision() {
-  const { startDateConflictOfDecision, setStartDateConflictOfDecision } =
-    useStartDateConflictOfDecisionContext();
-  const { startDateFinalOfDecision, setStartDateFinalOfDecision } =
-    useStartDateFinalOfDecisionContext();
-  const { startDateOfDecision, setStartDateOfDecision } =
-    useStartDateOfDecisionContext();
-  const { valueBeneficeOfDecision, setValueBeneficeOfDecision } =
-    useValueBeneficeOfDecisionContext();
-  const { valueImpactOfDecision, setValueImpactOfDecision } =
-    useValueImpactOfDecisionContext();
-  const { valueDecision, setValueDecision } = useValueDecisionContext();
-  const { valueRiskOfDecision, setValueRiskOfDecision } =
-    useValueRiskOfDecisionContext();
+  const [startDateConflictOfDecision, setStartDateConflictOfDecision] =
+    useState(new Date());
+  const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState(
+    new Date()
+  );
+  const [startDateOfDecision, setStartDateOfDecision] = useState(new Date());
+  const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
+  const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
+  const [valueDecision, setValueDecision] = useState("");
+  const [valueRiskOfDecision, setValueRiskOfDecision] = useState("");
 
-  // modules for react-quill editor text
+  // modules for react-quill text editor
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -45,12 +35,12 @@ export default function CreateDecision() {
   };
 
   return (
-    <div>
+    <div className="w-screen">
       <header className="headerDecision">
         <h1>Créer une décision</h1>
         <img src={logo} alt="logo-MakeSense" />
       </header>
-      <main>
+      <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">
             <p className="mt-20 decision-resume">
