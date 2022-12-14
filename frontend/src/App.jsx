@@ -15,6 +15,12 @@ import Decisions from "@pages/user/Decisions";
 
 function App() {
   const [open, setOpen] = useState(true);
+  const sidebarStyle = (
+    <aside className="h-screen sticky top-0">
+      <Sidebar open={open} setOpen={setOpen} />
+    </aside>
+  );
+
   return (
     <div className="flex">
       <Routes>
@@ -23,7 +29,7 @@ function App() {
           path="/home"
           element={
             <>
-              <Sidebar open={open} setOpen={setOpen} />
+              {sidebarStyle}
               <HomeUser open={open} setOpen={setOpen} />
             </>
           }
@@ -32,8 +38,7 @@ function App() {
           path="/create-decision"
           element={
             <>
-              <Sidebar open={open} setOpen={setOpen} />
-              <CreateDecision />
+              {sidebarStyle} <CreateDecision />
             </>
           }
         />
@@ -41,7 +46,7 @@ function App() {
           path="*"
           element={
             <>
-              <Sidebar open={open} setOpen={setOpen} />
+              {sidebarStyle}
               <h1>404 Not Found</h1>
             </>
           }
@@ -51,7 +56,7 @@ function App() {
           path="/my-profile"
           element={
             <>
-              <Sidebar open={open} setOpen={setOpen} />
+              {sidebarStyle}
               <Profile />
             </>
           }
@@ -61,7 +66,7 @@ function App() {
           path="/decision"
           element={
             <>
-              <Sidebar open={open} setOpen={setOpen} />
+              {sidebarStyle}
               <Decisions />
             </>
           }
