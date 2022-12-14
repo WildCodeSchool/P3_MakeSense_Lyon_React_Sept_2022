@@ -15,10 +15,10 @@ function Connexion() {
         />
       </a>
       <div className="connexionBloc flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-primary-main rounded-lg max-w-md xl:p-0 shadow-1 mt-24 relative ">
+        <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 shadow-1 mt-24 relative ">
           <div className="connexion-YellowRectangle" />
           <div className="p-6 space-y-6 sm:p-8">
-            <h1 className="text-primary-yellow text-center font-bold leading-tight tracking-tight text-3xl">
+            <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               CONNEXION
             </h1>
             <p className="text-2xl text-center">Accédez à votre compte </p>
@@ -76,7 +76,7 @@ function Connexion() {
               <div className="text-center ">
                 <button
                   type="submit"
-                  className=" text-white hover:bg-primary-red font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
+                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER
                 </button>
@@ -85,7 +85,7 @@ function Connexion() {
                 <div className="mb-1">
                   <a
                     href="http"
-                    className="text-white font-medium hover:underline hover:text-primary-yellow"
+                    className="text-white font-medium hover:underline hover:text-flash-yellow"
                   >
                     Mot de passe oublié?
                   </a>
@@ -105,9 +105,9 @@ function Connexion() {
         <div className="auth-LeftPicture absolute top-60 -left-0">
           <img src={peoplepicture} alt="PicturePrésentation" width={520} />
         </div>
-        <div className="auth-OvaleRed bg-primary-red rounded-full rotate-[150deg] absolute w-52 h-24 right-12 bottom-64" />
+        <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[150deg] absolute w-52 h-24 right-12 bottom-64" />
         <div className="auth-Ovale" />
-        <div className="auth-textOvale absolute right-44 bottom-32 text-primary-red text-xl ">
+        <div className="auth-textOvale absolute right-44 bottom-32 text-red-pink text-xl ">
           <p className="hover:underline">
             <a href="help"> Besoin d'aides ?</a>
           </p>

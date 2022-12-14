@@ -17,14 +17,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: {
-          main: "#0C3944",
-          yellow: "#FFF30D",
-          red: "#E36164",
-          orange: "#F3976B",
-          green: "#78AB92",
-          nav: "#196C84",
-        },
+        "dark-blue": "#0C3944",
+        "light-blue": "#186c84",
+        "red-pink": "#E36164",
+        "flash-yellow": "#FFF30D",
+        "light-green": "#82B99E",
+        "light-orange": "#F3976B",
+        "light-grey": "#f7f7f7",
+        "nav-color": "#196C84",
       },
       boxShadow: {
         1: "10px 10px 20px 0 rgba(50, 0, 50, 0.3)",
