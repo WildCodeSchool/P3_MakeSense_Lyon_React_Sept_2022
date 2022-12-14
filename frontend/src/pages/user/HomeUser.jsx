@@ -3,15 +3,13 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable import/no-unresolved */
 import React from "react";
-import Sidebar from "@components/user/Sidebar";
 import DecisionCard from "@components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import TimeStepperHome from "@components/user/TimeStepperHome";
 
-export default function Home({ open, setOpen }) {
+export default function Home({ open }) {
   return (
-    <div className="flex h-screen overflow-hidden	">
-      <Sidebar open={open} setOpen={setOpen} />
+    <div className="flex h-screen">
       <div className="flex flex-col">
         <p className="pl-14 pt-3 text-xl">Bonjour Madeline</p>
         <p className="pl-14 pt-2 text-x font-extralight">
