@@ -1,18 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import Sidebar from "../../components/user/Sidebar";
+import { useNavigate } from "react-router-dom";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
 
-export default function Decisions({ open, setOpen }) {
+export default function Decisions({ open }) {
+  const navigate = useNavigate();
   return (
     <div className="flex h-screen overflow-hidden ">
-      <div className="">
-        <Sidebar open={open} setOpen={setOpen} />
-      </div>
-
       <div className="w-5/6">
         <div className="flex flex-col">
           <div className="w-auto h-16 ">
@@ -26,6 +23,7 @@ export default function Decisions({ open, setOpen }) {
             />
           </div>
           <button
+            onClick={() => navigate("/create-decision")}
             type="button"
             className="w-44 ml-20 mt-10 mb-5 h-10 bg-red-pink rounded-3xl text-white"
           >
@@ -73,7 +71,7 @@ export default function Decisions({ open, setOpen }) {
               Abandonnées
             </button>
           </div>
-          <div className=" ml-20 overflow-y-scroll pt-10">
+          <div className=" ml-20 pt-10">
             <div
               className={
                 open ? "flex flex-wrap w-8/12" : "flex flex-wrap w-10/12"
