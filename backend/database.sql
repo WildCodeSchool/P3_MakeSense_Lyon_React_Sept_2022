@@ -26,7 +26,7 @@ CREATE TABLE status_decision (
   unresolved int
 );
 
-INSERT INTO status conflict VALUES ('3');
+INSERT INTO status_decision (conflict) VALUES (3);
 
 
 DROP TABLE IF EXISTS decision;
@@ -37,7 +37,7 @@ CREATE TABLE decision (
   content text, 
   impact text,
   risk text,
-  date_creation DATETIME NOT NULL DEFAULT NOW(),
+  date_decision_creation DATETIME NOT NULL DEFAULT NOW(),
   date_decision_conflict datetime,
   date_decision_final_planned datetime,
   date_decision_close datetime,
@@ -47,7 +47,7 @@ CREATE TABLE decision (
   FOREIGN KEY (status_decision_id) REFERENCES status_decision(id)
 );
 
-INSERT INTO decision (title, description, impact, risk, date_decision_creation, date_decision_final_planned) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23');
+INSERT INTO decision (title, content, impact, risk, date_decision_creation, date_decision_final_planned) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23');
 
 
 DROP TABLE IF EXISTS comment;
