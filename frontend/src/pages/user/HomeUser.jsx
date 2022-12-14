@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home({ open }) {
   const navigate = useNavigate();
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-2/3">
       <div className="flex flex-col">
         <p className="pl-14 pt-3 text-xl">Bonjour Madeline</p>
         <p className="pl-14 pt-2 text-x font-extralight">
@@ -36,11 +36,7 @@ export default function Home({ open }) {
               + Nouvelle décision
             </button>
           </div>
-          <div
-            className={
-              open ? "flex flex-wrap w-8/12" : "flex flex-wrap w-10/12"
-            }
-          >
+          <div className={open ? "flex flex-wrap " : "flex flex-wrap "}>
             <DecisionCard />
             <DecisionCard />
             <DecisionCard />
