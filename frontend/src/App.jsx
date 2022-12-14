@@ -16,7 +16,7 @@ function App() {
   const [open, setOpen] = useState(true);
   return (
     <div className="flex">
-      <aside className="h-screen sticky top-0">
+      <aside className="h-screen sticky top-0 overflow-hidden">
         <Sidebar open={open} setOpen={setOpen} />
       </aside>
       <Routes>

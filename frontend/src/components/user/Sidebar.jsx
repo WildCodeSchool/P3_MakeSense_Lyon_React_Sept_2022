@@ -9,7 +9,7 @@ export default function Sidebar({ open, setOpen }) {
     <div
       className={`${
         open ? "w-72" : "w-20"
-      } bg-light-blue duration-300 h-screen relative text-white`}
+      } bg-light-blue duration-300 h-screen flex flex-col text-white`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,8 +19,8 @@ export default function Sidebar({ open, setOpen }) {
         stroke="currentColor"
         className={`${
           open
-            ? "w-7 h-7 absolute right-0 m-3 cursor-pointer"
-            : "w-7 h-7 absolute right-0 m-3 cursor-pointer rotate-180"
+            ? "w-7 h-7 absolute right-3 top-2 cursor-pointer"
+            : "w-7 h-7 absolute right-3 top-2 cursor-pointer rotate-180"
         }`}
         onClick={() => setOpen(!open)}
       >
@@ -31,7 +31,7 @@ export default function Sidebar({ open, setOpen }) {
         />
       </svg>
 
-      <div className="pt-36">
+      <div className="pt-10">
         <div className="flex flex-row items-center pr-4 pt-3">
           <div className="yellow-point mr-2"></div>
           <svg
@@ -117,9 +117,9 @@ export default function Sidebar({ open, setOpen }) {
           </NavLink>
         </div>
       </div>
-      <div className="flex flex-row items-center pt-64">
+      <div className="flex flex-row items-center pt-4">
         <div className={`${open ? "yellow-point mr-4" : "hidden"}`}></div>
-        <p className={`${open ? "text-x" : "hidden"}`}>Changer de pays</p>
+        <p className={`${open ? "text-xl" : "hidden"}`}>Changer de pays</p>
       </div>
       <p
         className={`${
