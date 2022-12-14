@@ -6,8 +6,10 @@ import React from "react";
 import DecisionCard from "@components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import TimeStepperHome from "@components/user/TimeStepperHome";
+import { useNavigate } from "react-router-dom";
 
 export default function Home({ open }) {
+  const navigate = useNavigate();
   return (
     <div className="flex h-screen">
       <div className="flex flex-col">
@@ -28,6 +30,7 @@ export default function Home({ open }) {
             </h2>
             <button
               type="button"
+              onClick={() => navigate("/create-decision")}
               className="w-44 m-4 h-10 bg-red-pink rounded-3xl text-white"
             >
               + Nouvelle décision
