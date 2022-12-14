@@ -1,12 +1,11 @@
 /* eslint-disable import/no-unresolved */
-import DecisionCard from "@components/user/DecisionCard";
+import DecisionDetails from "./pages/user/DecisionDetails";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <p>Let's GO !</p>
-      <DecisionCard />
+      <DecisionDetails />
     </div>
   );
 }
