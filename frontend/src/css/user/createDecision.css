@@ -1,0 +1,46 @@
+.mainCreateDecision {
+  margin: auto 50px;
+}
+
+.decision-resume img {
+  display: inline;
+  margin-right: 5px;
+}
+
+.decision-resume {
+  font-size: 1.6rem;
+}
+
+.decision-explaination {
+  max-width: 20ch;
+}
+
+.headerDecision {
+  font-size: 1.8rem;
+  color: #196c84;
+  text-align: center;
+  background-color: #f7f7f7;
+}
+
+.headerDecision h1 {
+  display: inline-block;
+}
+
+.headerDecision img {
+  width: 170px;
+  float: right;
+  margin: 10px;
+}
+
+.containerDate {
+  border-radius: 5px;
+  height: 28px;
+  width: 252px;
+  border: 2px solid #e5e7eb;
+}
+
+#buttonEnvoyerDecision {
+  float: right;
+  margin-right: 120px;
+  margin-bottom: 30px;
+}

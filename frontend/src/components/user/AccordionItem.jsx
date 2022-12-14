@@ -26,7 +26,7 @@ export default function AccordionItem({ faq, onToggle, active }) {
 
       {/* The following ternary allows to show the details when the item is active */}
       <div className={`answer_wrapper ${active ? "open" : ""}`}>
-        <div className="answer">{details}</div>
+        <div className="answer my-6">{details}</div>
       </div>
     </li>
   );
