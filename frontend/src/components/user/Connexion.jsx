@@ -1,13 +1,22 @@
 import React from "react";
-// eslint-disable-next-line import/no-unresolved, import/no-absolute-path
-import "/src/css/user/Connexion.css";
+import "../../css/user/Connexion.css";
+import peoplepicture from "../../assets/peoplepicture.png";
+import "../../assets/logo-makesense.png";
 
 function Connexion() {
   return (
-    <div>
-      <div className="connexionPage flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-primary-main rounded-lg max-w-md xl:p-0 shadow-1 mt-36 relative ">
-          {/* <div className="connexion-YellowRectangle" /> */}
+    <div className="connexionPage">
+      <a href="accueil">
+        <img
+          className="p-6"
+          src="/src/assets/logo-makesense.png"
+          alt="logo"
+          width={350}
+        />
+      </a>
+      <div className="connexionBloc flex flex-col justify-center items-center text-white ">
+        <div className="w-full bg-primary-main rounded-lg max-w-md xl:p-0 shadow-1 mt-24 relative ">
+          <div className="connexion-YellowRectangle" />
           <div className="p-6 space-y-6 sm:p-8">
             <h1 className="text-primary-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               CONNEXION
@@ -92,6 +101,21 @@ function Connexion() {
           </div>
         </div>
       </div>
+      <section className="xxl-max:hidden">
+        <div className="auth-LeftPicture absolute top-60 -left-0">
+          <img src={peoplepicture} alt="PicturePrésentation" width={520} />
+        </div>
+        <div className="auth-OvaleRed bg-primary-red rounded-full rotate-[150deg] absolute w-52 h-24 right-12 bottom-64" />
+        <div className="auth-Ovale" />
+        <div className="auth-textOvale absolute right-44 bottom-32 text-primary-red text-xl ">
+          <p className="hover:underline">
+            <a href="help"> Besoin d'aides ?</a>
+          </p>
+          <p className="mt-4 hover:underline">
+            <a href="mentions"> Mentions légales</a>
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

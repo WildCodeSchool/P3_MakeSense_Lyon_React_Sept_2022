@@ -1,5 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import Authentification from "@pages/Authentification";
+import Authentification from "./pages/Authentification";
 import "./App.css";
 
 function App() {
