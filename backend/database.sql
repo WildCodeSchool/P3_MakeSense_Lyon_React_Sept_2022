@@ -13,7 +13,7 @@ CREATE TABLE user (
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
-INSERT INTO user (firstname, lastname, email, city, phone, avatar, password, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23');
+INSERT INTO user (firstname, lastname, email, city, phone, avatar, password, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('Madeline', 'Phara', 'madeline.phara@gmail.com', 'Lyon', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('John', 'Doe', 'john.doe@gmail.com', 'Katmandu', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('Davy', 'Mccree', 'davy.mccree@gmail.com', 'Oslo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23');
 
 DROP TABLE IF EXISTS status_decision;
 
@@ -47,7 +47,7 @@ CREATE TABLE decision (
   FOREIGN KEY (status_decision_id) REFERENCES status_decision(id)
 );
 
-INSERT INTO decision (title, content, impact, risk, date_decision_creation, date_decision_final_planned) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23');
+INSERT INTO decision (title, content, impact, risk, date_decision_creation,date_decision_conflict, date_decision_final_planned, date_decision_close) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23'),('Surfer toute la vie', 'Acheter 250 plaches de surf', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23'),('Acheter un 4X4 pour poluer la planete', 'voici ma description', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23'),('Aller a tahiti', 'Pour plus de 100000euros', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23');
 
 
 DROP TABLE IF EXISTS comment;
@@ -63,7 +63,7 @@ CREATE TABLE comment (
   FOREIGN KEY (decision_id) REFERENCES decision(id)
 );
 
-INSERT INTO comment (content, vote, date_creation) VALUES ('Je suis un commentaire', 'Pour', '2022-10-13 12:12:23');
+INSERT INTO comment (content, vote, date_creation) VALUES ('Je suis un commentaire', 'Pour', '2022-10-13 12:12:23'),('Je suis un deuxieme commentaire', 'Pour', '2022-10-13 12:12:23'),('Je suis un troisieme commentaire', 'Pour', '2022-10-13 12:12:23'), ('Je suis un quatrieme commentaire', 'Pour', '2022-10-13 12:12:23');
 
 DROP TABLE IF EXISTS expert_decision;
 
