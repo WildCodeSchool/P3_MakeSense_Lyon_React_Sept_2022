@@ -10,10 +10,10 @@ CREATE TABLE user (
   avatar varchar(255),
   password varchar(100) NOT NULL,
   is_admin tinyint NOT NULL,
-  date_creation datetime NOT NULL
+  date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
-INSERT INTO user (firstname, lastname, email, city, phone, avatar, password, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatar', '12345', '1', '13/10/2022');
+INSERT INTO user (firstname, lastname, email, city, phone, avatar, password, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23');
 
 DROP TABLE IF EXISTS status_decision;
 
@@ -23,7 +23,7 @@ CREATE TABLE status_decision (
   in_progress int,
   conflict int,
   finished int,
-  unresolved int,
+  unresolved int
 );
 
 INSERT INTO status conflict VALUES ('3');
@@ -37,17 +37,17 @@ CREATE TABLE decision (
   content text, 
   impact text,
   risk text,
-  date_decision_creation datetime NOT NULL,
+  date_creation DATETIME NOT NULL DEFAULT NOW(),
   date_decision_conflict datetime,
   date_decision_final_planned datetime,
   date_decision_close datetime,
   user_id int,
   status_decision_id int,
   FOREIGN KEY (user_id) REFERENCES user(id),
-  FOREIGN KEY (status_decision_id) REFERENCES status_decision(id),
+  FOREIGN KEY (status_decision_id) REFERENCES status_decision(id)
 );
 
-INSERT INTO decision (title, description, impact, risk, date_decision_creation, date_decision_final_planned) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '13/10/2022', '25/06/2023');
+INSERT INTO decision (title, description, impact, risk, date_decision_creation, date_decision_final_planned) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23');
 
 
 DROP TABLE IF EXISTS comment;
@@ -56,14 +56,14 @@ CREATE TABLE comment (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   content varchar(100) NOT NULL,
   vote varchar(45) NOT NULL,
-  date_creation datetime NOT NULL,
+  date_creation DATETIME NOT NULL DEFAULT NOW(),
   user_id int,
   decision_id int,
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (decision_id) REFERENCES decision(id)
 );
 
-INSERT INTO comment (content, vote, date_creation) VALUES ('Je suis un commentaire', 'Pour', '13/12/2022');
+INSERT INTO comment (content, vote, date_creation) VALUES ('Je suis un commentaire', 'Pour', '2022-10-13 12:12:23');
 
 DROP TABLE IF EXISTS expert_decision;
 
