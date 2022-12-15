@@ -30,7 +30,6 @@ export default function Sidebar({ open, setOpen }) {
           d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-
       <div className="pt-36">
         <div className="flex flex-row items-center pr-4 pt-3">
           <div className="yellow-point mr-2"></div>
