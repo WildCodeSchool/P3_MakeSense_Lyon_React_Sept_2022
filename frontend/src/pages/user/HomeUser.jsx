@@ -23,7 +23,7 @@ export default function Home({ open }) {
           <img src={Logo} alt="logo make-sense"></img>
         </div>
       </div>
-      <div className="grid overflow-hidden grid-cols-4 grid-rows-7 gap-3">
+      <div className="grid overflow-hidden grid-cols-4 grid-rows-7 gap-3 mt-3">
         <div className="box col-start-1 col-end-4">
           <div className="flex align-center">
             <h2 className="text-3xl text-red-pink font-extrabold p-4">
@@ -71,7 +71,7 @@ export default function Home({ open }) {
             <DecisionCard />
           </div>
         </div>
-        <div className="box row-start-1 row-end-4 col-start-4 ">
+        <div className="box row-start-2 row-end-4 col-start-4 ">
           <TimeStepperHome />
         </div>
       </div>

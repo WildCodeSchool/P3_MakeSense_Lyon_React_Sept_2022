@@ -35,7 +35,7 @@ export default function CreateDecision() {
   };
 
   return (
-    <div className="">
+    <div className="w-screen">
       <header className="headerDecision pl-10 ">
         <h1>Créer une décision</h1>
         <img src={logo} alt="logo-MakeSense" />
