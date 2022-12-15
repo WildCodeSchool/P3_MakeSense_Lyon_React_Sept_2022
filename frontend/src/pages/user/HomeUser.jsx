@@ -13,14 +13,15 @@ export default function Home({ open }) {
   const navigate = useNavigate();
   return (
     <div className="w-screen">
-      <div className="flex flex-col">
-        <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
-        <p className="pl-10 pt-2 text-x font-extralight">
-          Nous sommes le : 13 septembre 2023
-        </p>
-
+      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+        <div className="flex flex-col">
+          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          <p className="pl-10 text-x font-extralight">
+            Nous sommes le : 13 septembre 2023
+          </p>
+        </div>
         <div className="logo-home">
-          <img src={Logo} alt="logo make-sense"></img>
+          <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
       <div className="grid overflow-hidden grid-cols-4 grid-rows-7 gap-3 mt-3">
