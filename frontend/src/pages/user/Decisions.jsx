@@ -9,8 +9,8 @@ import ChevronDown from "../../assets/icons/chevron-down.svg";
 export default function Decisions({ open }) {
   const navigate = useNavigate();
   return (
-    <div className="h-screen overflow-hidden">
-      <div className="w-auto h-16 ">
+    <div className="w-screen h-screen overflow-hidden">
+      <div className="w-auto">
         <h1 className="text-center mt-3 text-red-pink text-3xl">Décisions</h1>
         <img
           className="w-52 absolute right-24 top-4"
@@ -67,13 +67,13 @@ export default function Decisions({ open }) {
           Abandonnées
         </button>
       </div>
-      <div className="grid grid-cols-4 grid-rows-2 gap-14">
+      <div className="grid grid-cols-4 grid-rows-2 mt-3 gap-14">
         <div className="box col-start-1 col-end-4">
           <div
             className={
               open
-                ? "grid grid-cols-4 grid-rows-2 ml-10 mr-10 "
-                : "grid grid-cols-5 grid-rows-2 ml-10 mr-10 "
+                ? "grid grid-cols-4 grid-rows-2 gap-10 ml-10 mr-10 "
+                : "grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
             }
           >
             <DecisionCard />

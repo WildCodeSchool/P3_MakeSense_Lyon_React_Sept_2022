@@ -1,3 +1,7 @@
+.cardsize{
+  width: 160px;
+  height: 160px;
+}
 .statut {
   width: 60px;
   height: 15px;

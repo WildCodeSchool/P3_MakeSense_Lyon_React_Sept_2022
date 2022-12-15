@@ -20,7 +20,7 @@ function App() {
       {location.pathname === "/" ||
       location.pathname === "/legal-notice" ||
       location.pathname === "/help" ? null : (
-        <aside className="h-screen sticky top-0">
+        <aside className="h-screen sticky top-0 overflow-hidden">
           <Sidebar open={open} setOpen={setOpen} />
         </aside>
       )}

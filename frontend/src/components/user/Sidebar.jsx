@@ -8,7 +8,7 @@ export default function Sidebar({ open, setOpen }) {
   return (
     <div
       className={`${
-        open ? "w-72" : "w-20"
+        open ? "w-[290px]" : "w-[100px]"
       } bg-light-blue duration-300 h-screen flex flex-col text-white`}
     >
       <svg
