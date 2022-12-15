@@ -69,8 +69,8 @@ export default function Decisions({ open }) {
           type="button"
           className={
             open
-              ? " ml-[80px] w-44 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
-              : " ml-[200px] w-44 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+              ? " ml-[80px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+              : " ml-[200px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
           }
         >
           + Nouvelle décision

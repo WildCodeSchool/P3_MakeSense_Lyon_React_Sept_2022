@@ -27,7 +27,7 @@ export default function Home({ open }) {
       <div className="grid overflow-hidden grid-cols-4 grid-rows-7 gap-3 mt-3">
         <div className="box col-start-1 col-end-4">
           <div className="flex align-center">
-            <h2 className="text-3xl text-red-pink font-extrabold p-4">
+            <h2 className=" ml-5 text-3xl text-red-pink font-extrabold p-4">
               Mes décisions :{" "}
             </h2>
             <button
@@ -40,7 +40,7 @@ export default function Home({ open }) {
           </div>
         </div>
 
-        <div className="box col-start-1 col-end-4 ml-5">
+        <div className="box col-start-1 col-end-4 ml-10">
           <div
             className={
               open
@@ -60,11 +60,11 @@ export default function Home({ open }) {
         </div>
 
         <div className="box col-start-1 col-end-4">
-          <h2 className="text-3xl text-red-pink font-extrabold p-3">
+          <h2 className="text-3xl text-red-pink font-extrabold p-3 ml-5">
             Décisions en cours :{" "}
           </h2>
         </div>
-        <div className="box col-start-1 col-end-4 ml-5">
+        <div className="box col-start-1 col-end-4 ml-10">
           <div className="grid grid-cols-4">
             <DecisionCard />
             <DecisionCard />
