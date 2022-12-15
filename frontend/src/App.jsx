@@ -17,7 +17,9 @@ function App() {
   const [open, setOpen] = useState(true);
   return (
     <div className="flex">
-      {location.pathname === "/" ? null : (
+      {location.pathname === "/" ||
+      location.pathname === "/legal-notice" ||
+      location.pathname === "/help" ? null : (
         <aside className="h-screen sticky top-0">
           <Sidebar open={open} setOpen={setOpen} />
         </aside>
