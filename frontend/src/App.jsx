@@ -36,7 +36,7 @@ function App() {
         <Route path="/legal-notice" element={<LegalNotice />} />
         <Route path="/my-profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/decision" element={<Decisions />} />
+        <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>
     </div>
   );
