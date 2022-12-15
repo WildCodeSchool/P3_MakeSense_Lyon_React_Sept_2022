@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/order */
 import CreateDecision from "@pages/user/CreateDecision";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomeUser from "./pages/user/HomeUser";
 import Sidebar from "@components/user/Sidebar";
 import Authentification from "./pages/Authentification";
@@ -13,6 +13,7 @@ import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
 
 function App() {
+  const location = useLocation();
   const [open, setOpen] = useState(true);
   const sidebarStyle = (
     <aside className="h-screen sticky top-0 overflow-hidden">
@@ -22,6 +23,13 @@ function App() {
 
   return (
     <div className="flex">
+      {location.pathname === "/" ||
+      location.pathname === "/legal-notice" ||
+      location.pathname === "/help" ? null : (
+        <aside className="h-screen sticky top-0">
+          <Sidebar open={open} setOpen={setOpen} />
+        </aside>
+      )}
       <Routes>
         <Route path="/" element={<Authentification />} />
         <Route
