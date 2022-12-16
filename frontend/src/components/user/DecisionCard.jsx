@@ -5,12 +5,11 @@ import { NavLink } from "react-router-dom";
 
 export default function DecisionCard() {
   return (
-    <div className="border-2 w-40 h-40 rounded-xl drop-shadow-[0 35px 35px rgba(0,0,0,0.25)] m-4">
+    <div className="border-2 rounded-xl cardsize p-2">
       <NavLink to="/decision">
-        <div className="statut m-2" />
-        <p className="p-3 text-center">Déménager à Bali pour aller surfer.</p>
+        <div className="statut" />
+        <p className="p-2 text-center">Déménager à Bali pour aller surfer.</p>
         <p className="text-xs font-thin text-center">Date : 14/09/2023</p>
-        {/* <img src={user} alt="avatar" /> */}
       </NavLink>
     </div>
   );
