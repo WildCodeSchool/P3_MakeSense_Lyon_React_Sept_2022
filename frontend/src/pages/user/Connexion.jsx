@@ -16,8 +16,8 @@ function Connexion() {
         />
       </a>
       <div className="connexionBloc flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 shadow-1 mt-24 relative ">
-          <div className="connexion-YellowRectangle" />
+        <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 shadow-1 relative ">
+          {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-6 space-y-6 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               CONNEXION
@@ -102,19 +102,23 @@ function Connexion() {
           </div>
         </div>
       </div>
-      <section className="xxl-max:hidden">
-        <div className="auth-LeftPicture absolute top-60 -left-0">
+      {/* <section className="xxl-max:hidden"> */}
+      <section className="">
+        <div className="auth-LeftPicture absolute top-[240px] -left-0">
           <img src={peoplepicture} alt="PicturePrésentation" width={520} />
         </div>
-        <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[150deg] absolute w-52 h-24 right-12 bottom-64" />
-        <div className="auth-Ovale" />
-        <div className="auth-textOvale absolute right-44 bottom-32 text-red-pink text-xl ">
-          <p className="hover:underline">
-            <a href="help"> Besoin d'aides ?</a>
-          </p>
-          <NavLink to="/legal-notice">
-            <p className="mt-4 hover:underline">Mentions légales</p>
-          </NavLink>
+        <div>
+          <div className="auth-textOvale absolute right-[176px] bottom-[128px] text-red-pink text-xl ">
+            <p className="hover:underline">
+              <a href="help"> Besoin d'aides ?</a>
+            </p>
+            <NavLink to="/legal-notice">
+              <p className="mt-4 hover:underline">Mentions légales</p>
+            </NavLink>
+          </div>
+          <div className="auth-Ovale">
+            <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+          </div>
         </div>
       </section>
     </div>

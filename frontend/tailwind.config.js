@@ -9,7 +9,7 @@ module.exports = {
       lg: "1024px",
       xl: "1280px",
       xxl: "1600px",
-      "xxl-max": { max: "1600px" },
+      "xxl-max": { max: "1500px" },
       "xl-max": { max: "1279px" },
       "lg-max": { max: "1023px" },
       "md-max": { max: "767px" },
