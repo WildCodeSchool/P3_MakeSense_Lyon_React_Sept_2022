@@ -4,27 +4,37 @@ import { Modal, Button } from "flowbite-react";
 
 function NotificationModal({ setShowModal, open }) {
   return (
-    <div className="fixed top-0 left-0">
+    <div className="fixed top-0 left-0 ">
       <Modal
         className={`${
           open ? "ml-[235px] mt-[110px]" : "ml-[78px] mt-[110px]"
         } duration-300`}
         show
         position="left"
-        size="md"
+        size="2xl"
         onClose={() => setShowModal(false)}
       >
         <div className="shadow-lg">
-          <Modal.Header className="bg-dark-blue text-slate-50">
-            <div className="text-slate-50 ">Notifications:</div>
+          <Modal.Header className="pl-3 pr-3 pt-6 pb-6 bg-dark-blue text-slate-50 align-middle">
+            <div className="align-middle	 text-slate-50">Notifications:</div>
           </Modal.Header>
           <Modal.Body className="bg-light-grey">
-            <div className="grid grid-cols-1 divide-y text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              <div className="">Notification 1</div>
-              <div className="">Notification 2</div>
-              <div className="">Notification 3</div>
-              <div className="">Notification 4</div>
-              <div className="">Notification 5</div>
+            <div className="space-y-3 p-6 grid grid-cols-1 divide-y text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              <div className="">
+                Nouvel avis sur votre decision "partir à Bali"
+              </div>
+              <div className="">
+                Nouvel avis sur votre decision "partir à Bali"
+              </div>
+              <div className="">
+                Nouvel avis sur votre decision "partir à Bali"
+              </div>
+              <div className="">
+                Nouvel avis sur votre decision "partir à Bali"
+              </div>
+              <div className="">
+                Nouvel avis sur votre decision "partir à Bali"
+              </div>
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-light-grey">
