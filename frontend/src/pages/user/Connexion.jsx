@@ -7,17 +7,17 @@ import "../../assets/logo-makesense.png";
 function Connexion() {
   return (
     <div className="connexionPage">
-      <a href="accueil">
+      <NavLink to="/">
         <img
           className="p-6"
           src="/src/assets/logo-makesense.png"
           alt="logo"
           width={350}
         />
-      </a>
+      </NavLink>
       <div className="connexionBloc flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 shadow-1 mt-24 relative ">
-          <div className="connexion-YellowRectangle" />
+        <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 shadow-1 relative ">
+          {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-6 space-y-6 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               CONNEXION
@@ -83,38 +83,38 @@ function Connexion() {
                 </button>
               </div>
               <p className="text-center text-sm">
-                <div className="mb-1">
-                  <a
-                    href="http"
-                    className="text-white font-medium hover:underline hover:text-flash-yellow"
-                  >
+                <NavLink to="motdepasseoublie">
+                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
                     Mot de passe oublié?
-                  </a>
-                </div>
-                <a
-                  href="http"
-                  className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow"
-                >
-                  S'inscrire
-                </a>
+                  </p>
+                </NavLink>
+                <NavLink to="inscription">
+                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                    S'inscrire
+                  </p>
+                </NavLink>
               </p>
             </form>
           </div>
         </div>
       </div>
+      {/* <section className="xxl-max:hidden"> */}
       <section className="xxl-max:hidden">
-        <div className="auth-LeftPicture absolute top-60 -left-0">
+        <div className="auth-LeftPicture absolute top-[240px] left-0">
           <img src={peoplepicture} alt="PicturePrésentation" width={520} />
         </div>
-        <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[150deg] absolute w-52 h-24 right-12 bottom-64" />
-        <div className="auth-Ovale" />
-        <div className="auth-textOvale absolute right-44 bottom-32 text-red-pink text-xl ">
-          <p className="hover:underline">
-            <a href="help"> Besoin d'aides ?</a>
-          </p>
-          <NavLink to="/legal-notice">
-            <p className="mt-4 hover:underline">Mentions légales</p>
-          </NavLink>
+        <div className="auth-rightBottomBloc relative">
+          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
+            <NavLink className="hover:underline" to="/help">
+              <p href="help"> Besoin d'aides ?</p>
+            </NavLink>
+            <NavLink to="/legal-notice">
+              <p className="mt-4 hover:underline">Mentions légales</p>
+            </NavLink>
+          </div>
+          <div className="auth-Ovale">
+            <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+          </div>
         </div>
       </section>
     </div>
