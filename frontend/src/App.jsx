@@ -21,10 +21,11 @@ function App() {
       {location.pathname === "/" ||
       location.pathname === "/legal-notice" ||
       location.pathname === "/help" ? null : (
-        <aside className="h-screen sticky top-0">
+        <aside className="h-screen sticky top-0 overflow-hidden">
           <Sidebar open={open} setOpen={setOpen} />
         </aside>
       )}
+
       <Routes>
         <Route path="/" element={<Authentification />} />
         <Route
@@ -36,8 +37,8 @@ function App() {
         <Route path="/legal-notice" element={<LegalNotice />} />
         <Route path="/my-profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/decision" element={<Decisions />} />
         <Route path="/notification" element={<NotificationModal />} />
+        <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>
     </div>
   );
