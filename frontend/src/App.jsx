@@ -10,6 +10,7 @@ import "./App.css";
 // eslint-disable-next-line import/order
 import { useState } from "react";
 import LegalNotice from "@pages/user/LegalNotice";
+import MyProfile from "@pages/user/MyProfile";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
 import Inscription from "@pages/user/Inscription";
@@ -41,7 +42,8 @@ function App() {
         <Route path="/create-decision" element={<CreateDecision />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route path="/my-profile" element={<Profile />} />
+        <Route path="/my-profile" element={<MyProfile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
         <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>
