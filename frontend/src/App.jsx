@@ -11,6 +11,7 @@ import LegalNotice from "@pages/user/LegalNotice";
 import Profile from "@pages/user/Profile";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
+import DecisionDetails from "@pages/user/DecisionDetails";
 
 function App() {
   const location = useLocation();
@@ -35,7 +36,8 @@ function App() {
         <Route path="/legal-notice" element={<LegalNotice />} />
         <Route path="/my-profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/decision" element={<Decisions />} />
+        <Route path="/decisions" element={<Decisions />} />
+        <Route path="/decision" element={<DecisionDetails />} />
       </Routes>
     </div>
   );

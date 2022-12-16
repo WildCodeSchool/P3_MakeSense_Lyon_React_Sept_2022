@@ -1,0 +1,11 @@
+/* activate toggle */
+.accordion_item.active .button {
+  background-color: #105057;
+}
+.answer_wrapper {
+  height: 0;
+  overflow: hidden;
+}
+.answer_wrapper.open {
+  height: auto;
+}
