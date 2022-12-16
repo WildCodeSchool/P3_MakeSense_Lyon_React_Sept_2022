@@ -103,12 +103,12 @@ function Connexion() {
         </div>
       </div>
       {/* <section className="xxl-max:hidden"> */}
-      <section className="">
-        <div className="auth-LeftPicture absolute top-[240px] -left-0">
+      <section className="xxl-max:hidden">
+        <div className="auth-LeftPicture absolute top-[240px] left-0">
           <img src={peoplepicture} alt="PicturePrésentation" width={520} />
         </div>
-        <div>
-          <div className="auth-textOvale absolute right-[176px] bottom-[128px] text-red-pink text-xl ">
+        <div className="auth-rightBottomBloc relative">
+          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
             <p className="hover:underline">
               <a href="help"> Besoin d'aides ?</a>
             </p>
