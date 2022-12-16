@@ -51,7 +51,7 @@ export default function Sidebar({ open, setOpen }) {
           <p className={`${open ? "text-xl mt-1" : "hidden"}`}>Home</p>
         </NavLink>
 
-        <NavLink to="/decision" className="flex flex-row items-center">
+        <NavLink to="/decisions" className="flex flex-row items-center">
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ export default function Sidebar({ open, setOpen }) {
           </svg>
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mes décisions</p>
         </NavLink>
-        <NavLink to="/notification" className="flex flex-row items-center">
+        <NavLink to="/notifications" className="flex flex-row items-center">
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
