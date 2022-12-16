@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
@@ -111,9 +112,9 @@ function Connexion() {
           <p className="hover:underline">
             <a href="help"> Besoin d'aides ?</a>
           </p>
-          <p className="mt-4 hover:underline">
-            <a href="mentions"> Mentions légales</a>
-          </p>
+          <NavLink to="/legal-notice">
+            <p className="mt-4 hover:underline">Mentions légales</p>
+          </NavLink>
         </div>
       </section>
     </div>
