@@ -119,13 +119,13 @@ function Inscription() {
         </div>
       </div> */}
       <div className=" inscriptionBloc flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-dark-blue rounded-lg max-w-xl shadow-1 relative ">
+        <div className="w-full bg-dark-blue rounded-lg max-w-xl shadow-1 ">
           <div className="p-6 space-y-6 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               INSCRIPTION
             </h1>
             <p className="text-2xl text-center">Créez votre compte </p>
-            <form className=" index space-y-8" action="#">
+            <form className=" index space-y-8 " action="#">
               <div className="flex justify-center flex-row gap-5">
                 <div>
                   <label
