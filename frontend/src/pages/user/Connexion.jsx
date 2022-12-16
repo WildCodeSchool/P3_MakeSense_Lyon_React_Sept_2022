@@ -23,7 +23,7 @@ function Connexion() {
               CONNEXION
             </h1>
             <p className="text-2xl text-center">Accédez à votre compte </p>
-            <form className=" index space-y-8" action="#">
+            <form className="index space-y-8" action="#">
               <div>
                 <label
                   htmlFor="email"

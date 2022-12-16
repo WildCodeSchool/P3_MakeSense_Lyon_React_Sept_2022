@@ -5,17 +5,17 @@ class UserManager extends AbstractManager {
     super({ table: "user" });
   }
 
-  insert(item) {
+  insert(user) {
     return this.connection.query(
-      `insert into ${this.table} (title) values (?)`,
-      [item.title]
+      `insert into ${this.table} (firstname, lastname, email, password) values (?, ?, ?, ?)`,
+      [user.firstname, user.lastname, user.email, user.password]
     );
   }
 
-  update(item) {
-    return this.connection.query(
+  update(user) {
+    return user.connection.query(
       `update ${this.table} set title = ? where id = ?`,
-      [item.title, item.id]
+      [user.title, user.id]
     );
   }
 }

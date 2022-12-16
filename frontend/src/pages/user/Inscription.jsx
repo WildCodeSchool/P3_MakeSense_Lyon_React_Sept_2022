@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../../css/user/Inscription.css";
 import peoplepicture from "../../assets/peoplepicture.png";
@@ -6,6 +6,31 @@ import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function Inscription() {
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  function sendUser(e) {
+    e.preventDefault();
+
+    const raw = {
+      firstname: { firstname },
+      lastname: { lastname },
+      email: { email },
+      password: { password },
+    };
+
+    fetch("http://localhost:5005/user", {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+    })
+      .then((response) => response.text())
+      .then((result) => console.warn(result))
+      .catch((error) => console.warn("error", error));
+  }
+
   return (
     <div className="inscriptionPage bg-white relative h-screen w-screen overflow-hidden">
       <HeaderCountryChoice />
@@ -26,55 +51,57 @@ function Inscription() {
               INSCRIPTION
             </h1>
             <p className="text-2xl text-center">Créez votre compte </p>
-            <form className=" index space-y-8" action="#">
+            <form className=" index space-y-8" onSubmit={sendUser}>
               <div className="flex justify-center flex-row gap-5">
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="firstname"
                     className="text-white block mt-4 mb-2 text-lg font-medium"
                   >
-                    Prénom et Nom :
+                    Prénom
                   </label>
                   <input
                     type="text"
-                    name="text"
-                    id="text"
+                    name="firstname"
+                    id="firstname"
+                    value={firstname}
                     className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                    placeholder=""
+                    onChange={(e) => setFirstname(e.target.value)}
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="lastname"
                     className="text-white block mt-4 mb-2 text-lg font-medium"
                   >
-                    Adresse e-mail :
+                    Nom
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
+                    type="text"
+                    name="lastname"
+                    id="lastname"
+                    value={lastname}
                     className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                    placeholder="pseudo@exemple.com"
-                    required=""
+                    onChange={(e) => setLastname(e.target.value)}
                   />
                 </div>
               </div>
               <div className="flex justify-center flex-row gap-5">
                 <div>
                   <label
-                    htmlFor="password"
+                    htmlFor="email"
                     className="text-white block text-lg font-medium mb-2"
                   >
                     Mot de passe :
                   </label>
                   <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="*********"
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    placeholder="zelkfnioz@fpzoj.com"
                     className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                    required=""
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div>
@@ -89,14 +116,16 @@ function Inscription() {
                     name="password"
                     id="password"
                     placeholder="*********"
+                    value={password}
                     className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                    required=""
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>
               <div className="flex justify-center items-center">
                 <div className="text-center ">
                   <button
+                    value="post"
                     type="submit"
                     className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl mt-3 mb-3 mr-8 px-5 py-4 text-center border hover:scale-105 duration-300"
                   >

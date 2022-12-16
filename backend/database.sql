@@ -5,11 +5,11 @@ CREATE TABLE user (
   firstname varchar(100) NOT NULL,
   lastname varchar(100) NOT NULL,
   email varchar(200) NOT NULL,
-  city varchar(100) NOT NULL,
+  city varchar(100),
   phone varchar(20),
   avatar varchar(255),
   password varchar(100) NOT NULL,
-  is_admin tinyint NOT NULL,
+  is_admin tinyint DEFAULT 0,
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
