@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
-import React, { useState } from "react";
 import AccordionItem from "./AccordionItem";
 
 export default function AccordionDecisionDetails() {
@@ -27,29 +26,12 @@ export default function AccordionDecisionDetails() {
         "Blanditiis aliquid adipisci quisquam reiciendis voluptates itaque.",
     },
   ];
-  // State to enable the toggle for the accordion
-  const [active, setActive] = useState("0");
-
-  // Function to change the state on click in the accordion item
-  const handleToggle = (index) => {
-    /* The following condition allows us to close the open item of the accordion when clicking again on it */
-    if (active === index) {
-      return setActive("0");
-    }
-    /* The following code enables to open the accordion item the user click on */
-    setActive(index);
-  };
 
   return (
     <div>
       <ul className="accordion max-w-screen-md mt-10">
         {faqs.map((faq, index) => (
-          <AccordionItem
-            onToggle={() => handleToggle(index)}
-            active={active === index}
-            key={index}
-            faq={faq}
-          />
+          <AccordionItem key={index} faq={faq} />
         ))}
       </ul>
     </div>
