@@ -14,21 +14,26 @@ function Inscription() {
   function sendUser(e) {
     e.preventDefault();
 
-    const raw = {
-      firstname: { firstname },
-      lastname: { lastname },
-      email: { email },
-      password: { password },
-    };
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      firstname,
+      lastname,
+      email,
+      password,
+    });
 
     fetch("http://localhost:5005/user", {
       method: "POST",
       redirect: "follow",
       body: raw,
+      headers: myHeaders,
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
+    console.warn(raw);
   }
 
   return (

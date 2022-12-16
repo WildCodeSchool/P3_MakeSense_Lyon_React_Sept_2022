@@ -51,6 +51,7 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
+  console.warn(req.body);
   const user = req.body;
 
   // TODO validations (length, format...)
