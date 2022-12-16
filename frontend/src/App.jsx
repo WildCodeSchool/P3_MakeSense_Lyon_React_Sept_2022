@@ -8,7 +8,7 @@ import Authentification from "./pages/Authentification";
 import "./App.css";
 import { useState } from "react";
 import LegalNotice from "@pages/user/LegalNotice";
-import Profile from "@pages/user/Profile";
+import MyProfile from "@pages/user/MyProfile";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
 
@@ -34,7 +34,7 @@ function App() {
         <Route path="/create-decision" element={<CreateDecision />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route path="/my-profile" element={<Profile />} />
+        <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/help" element={<Help />} />
         <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>
