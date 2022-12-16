@@ -12,19 +12,17 @@ import { useState } from "react";
 import LegalNotice from "@pages/user/LegalNotice";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
+import Inscription from "@pages/user/Inscription";
+import ForgottenPassword from "@pages/user/ForgottenPassword";
 
 function App() {
   const location = useLocation();
   const [open, setOpen] = useState(true);
-  const sidebarStyle = (
-    <aside className="h-screen sticky top-0">
-      <Sidebar open={open} setOpen={setOpen} />
-    </aside>
-  );
-
   return (
     <div className="flex">
       {location.pathname === "/" ||
+      location.pathname === "/inscription" ||
+      location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
       location.pathname === "/help" ? null : (
         <aside className="h-screen sticky top-0 overflow-hidden">
@@ -34,42 +32,16 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Authentification />} />
+        <Route path="/inscription" element={<Inscription />} />
+        <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
         <Route
           path="/home"
-          element={
-            <>
-              {sidebarStyle}
-              <HomeUser open={open} setOpen={setOpen} />
-            </>
-          }
+          element={<HomeUser open={open} setOpen={setOpen} />}
         />
-        <Route
-          path="/create-decision"
-          element={
-            <>
-              {sidebarStyle} <CreateDecision />
-            </>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <>
-              {sidebarStyle}
-              <h1>404 Not Found</h1>
-            </>
-          }
-        />
+        <Route path="/create-decision" element={<CreateDecision />} />
+        <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route
-          path="/my-profile"
-          element={
-            <>
-              {sidebarStyle}
-              <Profile />
-            </>
-          }
-        />
+        <Route path="/my-profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
         <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>

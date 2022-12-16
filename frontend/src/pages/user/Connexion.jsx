@@ -7,14 +7,14 @@ import "../../assets/logo-makesense.png";
 function Connexion() {
   return (
     <div className="connexionPage">
-      <a href="accueil">
+      <NavLink to="/">
         <img
           className="p-6"
           src="/src/assets/logo-makesense.png"
           alt="logo"
           width={350}
         />
-      </a>
+      </NavLink>
       <div className="connexionBloc flex flex-col justify-center items-center text-white ">
         <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 shadow-1 relative ">
           {/* <div className="connexion-YellowRectangle" /> */}
@@ -83,20 +83,16 @@ function Connexion() {
                 </button>
               </div>
               <p className="text-center text-sm">
-                <div className="mb-1">
-                  <a
-                    href="http"
-                    className="text-white font-medium hover:underline hover:text-flash-yellow"
-                  >
+                <NavLink to="motdepasseoublie">
+                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
                     Mot de passe oublié?
-                  </a>
-                </div>
-                <a
-                  href="http"
-                  className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow"
-                >
-                  S'inscrire
-                </a>
+                  </p>
+                </NavLink>
+                <NavLink to="inscription">
+                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                    S'inscrire
+                  </p>
+                </NavLink>
               </p>
             </form>
           </div>
@@ -109,9 +105,9 @@ function Connexion() {
         </div>
         <div className="auth-rightBottomBloc relative">
           <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
-            <p className="hover:underline">
-              <a href="help"> Besoin d'aides ?</a>
-            </p>
+            <NavLink className="hover:underline" to="/help">
+              <p href="help"> Besoin d'aides ?</p>
+            </NavLink>
             <NavLink to="/legal-notice">
               <p className="mt-4 hover:underline">Mentions légales</p>
             </NavLink>
