@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
@@ -8,11 +8,27 @@ import ChevronDown from "../../assets/icons/chevron-down.svg";
 
 export default function Decisions({ open }) {
   const navigate = useNavigate();
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    fetch("http://localhost:5005/user")
+      .then((response) => response.json())
+      .then((result) => {
+        console.warn(result);
+        setUser(result);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div className="w-screen h-screen overflow-hidden">
       <div className="flex flex-row items-center justify-beetwen bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          {user ? (
+            <p className="pl-10 pt-3 text-xl">Bonjour {user[0].lastname}</p>
+          ) : (
+            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+          )}
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : 13 septembre 2023
           </p>
