@@ -3,10 +3,11 @@
 import React from "react";
 import "../../css/user/sidebar.css";
 import { NavLink } from "react-router-dom";
-import { Modal, Button } from "flowbite-react";
 
-export default function Sidebar({ open, setOpen }) {
-  const [showModal, setShowModal] = React.useState(false);
+export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
+  const handleNotificationModal = () => {
+    setShowModal(!showModal);
+  };
 
   return (
     <div
@@ -33,7 +34,6 @@ export default function Sidebar({ open, setOpen }) {
           d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-
       <div className="pt-[40px]">
         <NavLink to="/home" className="flex flex-row items-center pt-6">
           <div className="yellow-point mr-2"></div>
@@ -71,7 +71,11 @@ export default function Sidebar({ open, setOpen }) {
           </svg>
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mes décisions</p>
         </NavLink>
-        <NavLink to="/notification" className="flex flex-row items-center">
+        <button
+          type="button"
+          onClick={handleNotificationModal}
+          className="flex flex-row items-center"
+        >
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -90,8 +94,7 @@ export default function Sidebar({ open, setOpen }) {
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
             Mes notifications
           </p>
-        </NavLink>
-
+        </button>
         <NavLink to="/my-profile" className="flex flex-row items-center">
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
@@ -137,19 +140,6 @@ export default function Sidebar({ open, setOpen }) {
         </NavLink>
         <p className="text-sm font-extralight">Cookies</p>
       </div>
-      <Modal show={showModal} position="top-center">
-        <Modal.Header>Small modal</Modal.Header>
-        <Modal.Body>
-          <div className="space-y-6 p-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              test
-            </p>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowModal(false)}>OK</Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }
