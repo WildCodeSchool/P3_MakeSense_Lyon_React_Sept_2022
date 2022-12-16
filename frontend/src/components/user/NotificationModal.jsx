@@ -1,5 +1,3 @@
-import React from "react";
+/* This example requires Tailwind CSS v2.0+ */
 
-export default function NotificationModal() {
-  return <div>Notifications modal</div>;
-}
+export default function NotificationModal() {}

@@ -3,8 +3,11 @@
 import React from "react";
 import "../../css/user/sidebar.css";
 import { NavLink } from "react-router-dom";
+import { Modal, Button } from "flowbite-react";
 
 export default function Sidebar({ open, setOpen }) {
+  const [showModal, setShowModal] = React.useState(false);
+
   return (
     <div
       className={`${
@@ -142,6 +145,19 @@ export default function Sidebar({ open, setOpen }) {
         </NavLink>
         <p className="text-sm font-extralight">Cookies</p>
       </div>
+      <Modal show={showModal} position="top-center">
+        <Modal.Header>Small modal</Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6 p-6">
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              test
+            </p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowModal(false)}>OK</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

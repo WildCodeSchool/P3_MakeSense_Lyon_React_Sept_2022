@@ -11,6 +11,7 @@ import LegalNotice from "@pages/user/LegalNotice";
 import Profile from "@pages/user/Profile";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
+import NotificationModal from "@components/user/NotificationModal";
 
 function App() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/my-profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
         <Route path="/decision" element={<Decisions />} />
+        <Route path="/notification" element={<NotificationModal />} />
       </Routes>
     </div>
   );
