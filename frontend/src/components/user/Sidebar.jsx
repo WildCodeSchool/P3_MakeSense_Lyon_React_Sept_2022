@@ -4,7 +4,11 @@ import React from "react";
 import "../../css/user/sidebar.css";
 import { NavLink } from "react-router-dom";
 
-export default function Sidebar({ open, setOpen }) {
+export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
+  const handleNotificationModal = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <div
       className={`${
@@ -30,7 +34,6 @@ export default function Sidebar({ open, setOpen }) {
           d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-
       <div className="pt-[40px]">
         <NavLink to="/home" className="flex flex-row items-center pt-6">
           <div className="yellow-point mr-2"></div>
@@ -50,7 +53,6 @@ export default function Sidebar({ open, setOpen }) {
           </svg>
           <p className={`${open ? "text-xl mt-1" : "hidden"}`}>Home</p>
         </NavLink>
-
         <NavLink to="/decision" className="flex flex-row items-center">
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
@@ -69,7 +71,11 @@ export default function Sidebar({ open, setOpen }) {
           </svg>
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mes décisions</p>
         </NavLink>
-        <NavLink to="/notification" className="flex flex-row items-center">
+        <button
+          type="button"
+          onClick={handleNotificationModal}
+          className="flex flex-row items-center"
+        >
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +94,7 @@ export default function Sidebar({ open, setOpen }) {
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
             Mes notifications
           </p>
-        </NavLink>
-
+        </button>
         <NavLink to="/my-profile" className="flex flex-row items-center">
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
