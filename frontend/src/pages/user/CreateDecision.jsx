@@ -12,14 +12,13 @@ import "react-quill/dist/quill.bubble.css";
 export default function CreateDecision() {
   const [startDateConflictOfDecision, setStartDateConflictOfDecision] =
     useState(new Date());
-  const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState(
-    new Date()
-  );
+  const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState();
   const [startDateOfDecision, setStartDateOfDecision] = useState(new Date());
   const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
   const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
-  const [valueDecision, setValueDecision] = useState("");
-  const [valueRiskOfDecision, setValueRiskOfDecision] = useState("");
+  const [valueDecision, setValueDecision] = useState();
+  const [valueRiskOfDecision, setValueRiskOfDecision] = useState();
+  const [title, setTitle] = useState();
 
   // modules for react-quill text editor
   const modules = {
@@ -34,13 +33,38 @@ export default function CreateDecision() {
     ],
   };
 
+  const sendDecision = (e) => {
+    e.preventDefault();
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      title,
+      valueDecision,
+      startDateFinalOfDecision,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:5005/decision", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.warn(result))
+      .catch((error) => console.warn("error", error));
+  };
+
   return (
     <div className="w-screen">
       <header className="headerDecision pl-10 ">
         <h1>Créer une décision</h1>
         <img src={logo} alt="logo-MakeSense" />
       </header>
-      <main className="mainCreateDecision">
+      <form className="mainCreateDecision" onSubmit={sendDecision}>
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">
             <p className="mt-20 decision-resume">
@@ -62,6 +86,8 @@ export default function CreateDecision() {
               </label>
               <input
                 type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 id="title-input"
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
@@ -70,28 +96,28 @@ export default function CreateDecision() {
             <ReactQuill
               theme="snow"
               value={valueDecision}
-              onChange={setValueDecision}
+              onChange={(e) => setValueDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
             <ReactQuill
               theme="snow"
               value={valueImpactOfDecision}
-              onChange={setValueImpactOfDecision}
+              onChange={(e) => setValueImpactOfDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
             <ReactQuill
               theme="snow"
               value={valueBeneficeOfDecision}
-              onChange={setValueBeneficeOfDecision}
+              onChange={(e) => setValueBeneficeOfDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Risques potentiels :</h2>
             <ReactQuill
               theme="snow"
               value={valueRiskOfDecision}
-              onChange={setValueRiskOfDecision}
+              onChange={(e) => setValueRiskOfDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Deadline pour :</h2>
@@ -99,7 +125,8 @@ export default function CreateDecision() {
               <div className="containerDate">
                 <DatePicker
                   selected={startDateOfDecision}
-                  onChange={(date) => setStartDateOfDecision(date)}
+                  value={startDateOfDecision}
+                  onChange={(e) => setStartDateOfDecision(e.target.value)}
                   disabledKeyboardNavigation
                   placeholderText="Donner son avis"
                 />
@@ -115,6 +142,7 @@ export default function CreateDecision() {
               <div className="containerDate">
                 <DatePicker
                   selected={startDateFinalOfDecision}
+                  value={startDateFinalOfDecision}
                   onChange={(date) => setStartDateFinalOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Décision final"
@@ -149,14 +177,15 @@ export default function CreateDecision() {
             </div>
           </div>
         </div>
-      </main>
-      <button
-        type="button"
-        id="buttonEnvoyerDecision"
-        className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
-      >
-        Envoyer
-      </button>
+
+        <button
+          type="submit"
+          id="buttonEnvoyerDecision"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+        >
+          Envoyer
+        </button>
+      </form>
     </div>
   );
 }

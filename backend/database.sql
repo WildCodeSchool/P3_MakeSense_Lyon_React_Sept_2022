@@ -39,7 +39,7 @@ CREATE TABLE decision (
   risk text,
   date_decision_creation DATETIME NOT NULL DEFAULT NOW(),
   date_decision_conflict date,
-  date_decision_final_planned date NOT NULL,
+  date_decision_final_planned DATETIME NOT NULL,
   date_decision_close date,
   user_id int,
   status_decision_id int,
