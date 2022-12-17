@@ -7,7 +7,7 @@ import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function Inscription() {
   return (
-    <div className="inscriptionPage bg-white relative h-screen w-screen overflow-hidden">
+    <div className="inscriptionPage bg-white relative h-screen w-screen overflow-x-hidden">
       <HeaderCountryChoice />
       <NavLink to="/">
         <img
@@ -119,14 +119,13 @@ function Inscription() {
         </div>
       </div> */}
       <div className=" inscriptionBloc flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-dark-blue rounded-lg max-w-xl shadow-1 p-6 space-y-6 sm:p-8">
+        <div className="w-full bg-dark-blue rounded-lg max-w-xl shadow-1 p-6 sm-max:p-10 space-y-6 sm:p-8">
           <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
             INSCRIPTION
           </h1>
           <p className="text-2xl text-center">Créez votre compte </p>
           <form
-            className=" index grid grid-cols-2 grid-rows-3 gap-5 grid-flow-row
-            "
+            className=" index sm:grid grid-cols-2 grid-rows-3 gap-5 sm-max:flex sm-max:flex-col"
             action="#"
           >
             {/* Prénom */}
@@ -195,18 +194,18 @@ function Inscription() {
               />
             </div>
             {/* S'enregistrer */}
-            <div className="box ml-2">
+            <div className="text-center box">
               <button
                 type="submit"
-                className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl mt-3 mb-3 mr-8 px-5 py-4 text-center border hover:scale-105 duration-300"
+                className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl mt-3 mb-3 px-5 py-4 text-center border hover:scale-105 duration-300"
               >
                 S'ENREGISTRER{" "}
               </button>
             </div>
             {/* Déja membre */}
-            <div className="">
+            <div className="box flex justify-start ml-4 items-center sm-max:justify-center">
               <NavLink to="/">
-                <p className="text-center text-white font-medium text-primary-600 hover:underline hover:text-flash-yellow text-sm">
+                <p className="text-white text-lg font-medium text-primary-600 hover:underline hover:text-flash-yellow">
                   Déja membre ?
                 </p>
               </NavLink>
