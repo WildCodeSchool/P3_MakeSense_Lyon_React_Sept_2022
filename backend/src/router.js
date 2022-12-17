@@ -21,3 +21,13 @@ router.post("/user", userControllers.add);
 router.delete("/user/:id", userControllers.destroy);
 
 module.exports = router;
+
+const decisionControllers = require("./controllers/decisionController");
+
+router.get("/decision", decisionControllers.browse);
+router.get("/decision/:id", decisionControllers.read);
+router.put("/decision/:id", decisionControllers.edit);
+router.post("/decision", decisionControllers.add);
+router.delete("/decision/:id", decisionControllers.destroy);
+
+module.exports = router;
