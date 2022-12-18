@@ -7,7 +7,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import HomeUser from "./pages/user/HomeUser";
 import Sidebar from "@components/user/Sidebar";
 import Authentification from "./pages/Authentification";
-import Profile from "./pages/user/Profile";
+import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
 import LegalNotice from "@pages/user/LegalNotice";
 import MyProfile from "@pages/user/MyProfile";
@@ -56,7 +56,7 @@ function App() {
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/legal-notice" element={<LegalNotice />} />
         <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/help" element={<Help />} />
         <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>

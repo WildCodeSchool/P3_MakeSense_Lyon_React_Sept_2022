@@ -1,21 +1,23 @@
 import React from "react";
+import "../../css/user/Profile.css";
 import Randomuser from "../../assets/randomuser.jpg";
-import "../../css/user/UserProfile.css";
 import Logo from "../../assets/logo-makesense.png";
 
-function UserProfile() {
+export default function UserProfile() {
   return (
-    <div className="userProfile-Comp">
+    <div className="profilePage w-screen">
       <header className="userProfile-Header bg-light-grey">
-        <div className=" h-16 relative">
-          <h1 className="text-center text-red-pink text-3xl pt-4">
-            Profil de Lester
-          </h1>
-          <img
-            className="w-52 absolute right-24 top-4"
-            src={Logo}
-            alt="logo make-sense"
-          />
+        <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+          <div className="flex flex-col">
+            <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+            <p className="pl-10 text-x font-extralight">
+              Nous sommes le : 13 septembre 2023
+            </p>
+          </div>
+          <h1 className="text-2xl text-red-pink pl-40">Profil de Lester</h1>
+          <div className="logo-home">
+            <img src={Logo} alt="logo make-sense" />
+          </div>
         </div>
         {/* <ul className="flex items-center h-20">
           <h1 className="text-center mt-3 text-red-pink text-3xl">
@@ -48,5 +50,3 @@ function UserProfile() {
     </div>
   );
 }
-
-export default UserProfile;
