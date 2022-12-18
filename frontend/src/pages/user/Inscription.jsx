@@ -49,7 +49,7 @@ function Inscription() {
       </NavLink>
 
       <div className=" inscriptionBloc flex flex-col justify-center items-center text-white ">
-        <div className="w-full bg-dark-blue rounded-lg max-w-xl shadow-1 relative ">
+        <div className=" bg-dark-blue rounded-lg max-w-xl shadow-1 ">
           {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-6 space-y-6 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
@@ -57,20 +57,20 @@ function Inscription() {
             </h1>
             <p className="text-2xl text-center">Créez votre compte </p>
             <form className=" index space-y-8" onSubmit={sendUser}>
-              <div className="flex justify-center flex-row gap-5">
-                <div>
+              <div className="flex justify-center flex-row ">
+                <div className=" pr-10">
                   <label
                     htmlFor="firstname"
                     className="text-white block mt-4 mb-2 text-lg font-medium"
                   >
-                    Prénom
+                    Prénom :
                   </label>
                   <input
                     type="text"
                     name="firstname"
                     id="firstname"
                     value={firstname}
-                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block p-2.5"
                     onChange={(e) => setFirstname(e.target.value)}
                   />
                 </div>
@@ -79,25 +79,25 @@ function Inscription() {
                     htmlFor="lastname"
                     className="text-white block mt-4 mb-2 text-lg font-medium"
                   >
-                    Nom
+                    Nom :
                   </label>
                   <input
                     type="text"
                     name="lastname"
                     id="lastname"
                     value={lastname}
-                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block  p-2.5"
                     onChange={(e) => setLastname(e.target.value)}
                   />
                 </div>
               </div>
-              <div className="flex justify-center flex-row gap-5">
-                <div>
+              <div className="flex justify-center flex-row">
+                <div className="pr-10">
                   <label
                     htmlFor="email"
                     className="text-white block text-lg font-medium mb-2"
                   >
-                    Mot de passe :
+                    Email :
                   </label>
                   <input
                     type="email"
@@ -105,7 +105,7 @@ function Inscription() {
                     id="email"
                     value={email}
                     placeholder="zelkfnioz@fpzoj.com"
-                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block p-2.5"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -114,7 +114,7 @@ function Inscription() {
                     htmlFor="password"
                     className="text-white block text-lg font-medium mb-2"
                   >
-                    Confirmation Mot de passe :
+                    Mot de passe :
                   </label>
                   <input
                     type="password"
@@ -122,17 +122,17 @@ function Inscription() {
                     id="password"
                     placeholder="*********"
                     value={password}
-                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block p-2.5"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>
-              <div className="flex justify-center items-center">
+              <div className="flex flex-col justify-center pl-5">
                 <div className="text-center ">
                   <button
                     value="post"
                     type="submit"
-                    className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl mt-3 mb-3 mr-8 px-5 py-4 text-center border hover:scale-105 duration-300"
+                    className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl mt-1 mb-1 px-3 py-2 text-center border hover:scale-105 duration-300"
                   >
                     S'ENREGISTRER{" "}
                   </button>
@@ -152,9 +152,9 @@ function Inscription() {
           </div>
         </div>
       </div>
-      <section className="xxl-max:hidden">
+      <section className="xl-max:hidden">
         <div className="auth-LeftPicture absolute top-[240px] left-0">
-          <img src={peoplepicture} alt="PicturePrésentation" width={520} />
+          <img src={peoplepicture} alt="PicturePrésentation" width={420} />
         </div>
         <div className="auth-rightBottomBloc relative">
           <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
