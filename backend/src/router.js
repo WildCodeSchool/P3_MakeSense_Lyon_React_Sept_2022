@@ -13,11 +13,12 @@ router.delete("/items/:id", itemControllers.destroy);
 module.exports = router;
 
 const userControllers = require("./controllers/userControllers");
+const { hashPassword } = require("./middlewares/auth");
 
 router.get("/user", userControllers.browse);
 router.get("/user/:id", userControllers.read);
 router.put("/user/:id", userControllers.edit);
-router.post("/user", userControllers.add);
+router.post("/user", hashPassword, userControllers.add);
 router.delete("/user/:id", userControllers.destroy);
 
 module.exports = router;

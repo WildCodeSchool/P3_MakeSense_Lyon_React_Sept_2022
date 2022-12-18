@@ -1,5 +1,6 @@
 const models = require("../models");
 
+/* function that retrieves data with "get" in the models */
 const browse = (req, res) => {
   models.user
     .findAll()
@@ -12,6 +13,7 @@ const browse = (req, res) => {
     });
 };
 
+/* function that retrieves data with "get" by id */
 const read = (req, res) => {
   models.user
     .find(req.params.id)
@@ -28,6 +30,7 @@ const read = (req, res) => {
     });
 };
 
+/* function that retrieves data with "update" by id */
 const edit = (req, res) => {
   const user = req.body;
 
@@ -50,6 +53,7 @@ const edit = (req, res) => {
     });
 };
 
+/* function that retrieves data with "post" */
 const add = (req, res) => {
   console.warn(req.body);
   const user = req.body;
@@ -67,6 +71,7 @@ const add = (req, res) => {
     });
 };
 
+/* function that retrieves data with "delete" by id */
 const destroy = (req, res) => {
   models.user
     .delete(req.params.id)
