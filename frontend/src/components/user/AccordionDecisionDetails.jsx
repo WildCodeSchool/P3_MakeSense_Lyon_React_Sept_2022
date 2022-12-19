@@ -1,5 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
+import { useState } from "react";
+import ReactQuill from "react-quill";
 import AccordionItem from "./AccordionItem";
 
 export default function AccordionDecisionDetails() {
@@ -27,6 +29,20 @@ export default function AccordionDecisionDetails() {
     },
   ];
 
+  const [valueComment, setValueComment] = useState("");
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ["bold", "underline", "italic"],
+      [{ color: [] }, { background: [] }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
+    ],
+  };
+
   return (
     <div>
       <ul className="accordion max-w-screen-md mt-10">
@@ -34,6 +50,13 @@ export default function AccordionDecisionDetails() {
           <AccordionItem key={index} faq={faq} />
         ))}
       </ul>
+      <h2 className="mt-8 mb-3">Description de la décision :</h2>
+      <ReactQuill
+        theme="snow"
+        value={valueComment}
+        onChange={setValueComment}
+        modules={modules}
+      />
     </div>
   );
 }
