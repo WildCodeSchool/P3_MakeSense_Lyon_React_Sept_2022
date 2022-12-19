@@ -19,8 +19,9 @@ import ForgottenPassword from "@pages/user/ForgottenPassword";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const location = useLocation();
   const [open, setOpen] = useState(true);
+  const location = useLocation();
+
   return (
     <div className="flex">
       {location.pathname === "/" ||
@@ -44,6 +45,7 @@ function App() {
           setShowModal={setShowModal}
         />
       ) : null}
+
       <Routes>
         <Route path="/" element={<Authentification />} />
         <Route path="/inscription" element={<Inscription />} />

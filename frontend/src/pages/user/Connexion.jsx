@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
+import { userAuthConnexion } from "../../context/AuthContext";
 
 function Connexion() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const navigate = useNavigate();
 
   const sendConnexion = () => {
     const myHeaders = new Headers();
@@ -18,6 +21,7 @@ function Connexion() {
       password,
     });
 
+    /* function push user and token in the localstorage */
     fetch("http://localhost:5005/login", {
       method: "POST",
       redirect: "follow",
@@ -28,11 +32,16 @@ function Connexion() {
       .then((result) => {
         if (result.token) {
           localStorage.setItem("user", JSON.stringify(result));
+          navigate("/home");
         }
       })
       .catch((error) => console.warn("error", error));
     console.warn(raw);
   };
+
+  useEffect(() => {
+    sendConnexion();
+  }, []);
 
   return (
     <div className="connexionPage">
@@ -52,11 +61,7 @@ function Connexion() {
               CONNEXION
             </h1>
             <p className="text-2xl text-center">Accédez à votre compte </p>
-            <form
-              className="index space-y-8"
-              action="#"
-              onSubmit={sendConnexion}
-            >
+            <div className="index space-y-8" action="#">
               <div>
                 <label
                   htmlFor="email"
@@ -68,7 +73,6 @@ function Connexion() {
                   type="email"
                   name="email"
                   id="email"
-                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                   placeholder="pseudo@exemple.com"
@@ -87,7 +91,6 @@ function Connexion() {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-black border sm:text-sm rounded-lg block w-full p-2.5"
                   required=""
@@ -114,10 +117,12 @@ function Connexion() {
               <div className="text-center ">
                 <button
                   type="submit"
+                  onClick={sendConnexion}
                   className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER
                 </button>
+
                 <p className="text-center text-sm">
                   <NavLink to="motdepasseoublie">
                     <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
@@ -131,7 +136,7 @@ function Connexion() {
                   </NavLink>
                 </p>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         {/* <section className="xxl-max:hidden"> */}
