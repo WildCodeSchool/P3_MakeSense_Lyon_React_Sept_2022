@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
@@ -32,6 +33,8 @@ function Connexion() {
         if (result.token) {
           localStorage.setItem("user", JSON.stringify(result));
           navigate("/home");
+        } else {
+          alert("Veuillez entrer un identifiant ou password correct.");
         }
       })
       .catch((error) => console.warn("error", error));

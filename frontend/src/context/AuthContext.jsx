@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const CurrentConnexionContext = createContext();
 export default CurrentConnexionContext;
@@ -20,5 +20,3 @@ export function CurrentUserConnexionContextProvider({ children }) {
     </CurrentConnexionContext.Provider>
   );
 }
-
-export const userAuthConnexion = () => useContext(CurrentConnexionContext);
