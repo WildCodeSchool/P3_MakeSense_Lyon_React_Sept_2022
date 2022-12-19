@@ -1,21 +1,24 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "../../css/user/ForgottenPassword.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
+import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function ForgottenPassword() {
   return (
-    <div className="inscriptionPage ">
-      <a href="accueil">
+    <div className="inscriptionPage bg-white relative h-screen w-screen overflow-x-hidden">
+      <HeaderCountryChoice />
+      <NavLink to="/">
         <img
-          className=""
+          className="p-6"
           src="/src/assets/logo-makesense.png"
           alt="logo"
-          width={300}
+          width={350}
         />
-      </a>
+      </NavLink>
       <div className=" inscriptionBloc flex flex-col justify-center items-center text-white ">
-        <div className="bg-dark-blue  rounded-lg max-w-xl xl:p-0 shadow-1 mt-52 relative ">
+        <div className="bg-dark-blue  rounded-lg max-w-xl xl:p-0 shadow-1 mt-[144px] relative ">
           {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-6 space-y-6 sm:p-12">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
@@ -43,7 +46,7 @@ function ForgottenPassword() {
                   type="submit"
                   className=" text-white hover:bg-red-pink font-medium rounded-lg text-1xl px-5 py-3 text-center border hover:scale-105 duration-300"
                 >
-                  Envoyer la demande{" "}
+                  Envoyer la demande
                 </button>
               </div>
               <p className="text-center">
@@ -55,18 +58,21 @@ function ForgottenPassword() {
         </div>
       </div>
       <section className="xxl-max:hidden">
-        <div className="auth-LeftPicture absolute top-60 -left-0">
+        <div className="auth-LeftPicture absolute top-[240px] left-0">
           <img src={peoplepicture} alt="PicturePrésentation" width={520} />
         </div>
-        <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[150deg] absolute w-52 h-24 right-12 bottom-64" />
-        <div className="auth-Ovale" />
-        <div className="auth-textOvale absolute right-44 bottom-32 text-red-pink text-xl ">
-          <p className="hover:underline ">
-            <a href="help"> Besoin d'aides ?</a>
-          </p>
-          <p className="mt-4 hover:underline">
-            <a href="mentions"> Mentions légales</a>
-          </p>
+        <div className="auth-rightBottomBloc relative">
+          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
+            <NavLink className="hover:underline" to="/help">
+              <p href="help"> Besoin d'aides ?</p>
+            </NavLink>
+            <NavLink to="/legal-notice">
+              <p className="mt-4 hover:underline">Mentions légales</p>
+            </NavLink>
+          </div>
+          <div className="auth-Ovale">
+            <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+          </div>
         </div>
       </section>
     </div>
