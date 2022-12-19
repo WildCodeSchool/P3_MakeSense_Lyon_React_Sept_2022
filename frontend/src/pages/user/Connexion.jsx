@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 
 function Connexion() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const sendConnexion = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    /* It's an object that will be sent in the body of request */
+    const raw = JSON.stringify({
+      email,
+      password,
+    });
+
+    fetch("http://localhost:5005/login", {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.token) {
+          localStorage.setItem("user", JSON.stringify(result));
+        }
+      })
+      .catch((error) => console.warn("error", error));
+    console.warn(raw);
+  };
+
   return (
     <div className="connexionPage">
       <NavLink to="/">
@@ -23,7 +52,11 @@ function Connexion() {
               CONNEXION
             </h1>
             <p className="text-2xl text-center">Accédez à votre compte </p>
-            <form className="index space-y-8" action="#">
+            <form
+              className="index space-y-8"
+              action="#"
+              onSubmit={sendConnexion}
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -35,6 +68,8 @@ function Connexion() {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                   placeholder="pseudo@exemple.com"
                   required=""
@@ -52,6 +87,8 @@ function Connexion() {
                   name="password"
                   id="password"
                   placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="text-black border sm:text-sm rounded-lg block w-full p-2.5"
                   required=""
                 />
@@ -81,42 +118,42 @@ function Connexion() {
                 >
                   SE CONNECTER
                 </button>
+                <p className="text-center text-sm">
+                  <NavLink to="motdepasseoublie">
+                    <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
+                      Mot de passe oublié?
+                    </p>
+                  </NavLink>
+                  <NavLink to="inscription">
+                    <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                      S'inscrire
+                    </p>
+                  </NavLink>
+                </p>
               </div>
-              <p className="text-center text-sm">
-                <NavLink to="motdepasseoublie">
-                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
-                    Mot de passe oublié?
-                  </p>
-                </NavLink>
-                <NavLink to="inscription">
-                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
-                    S'inscrire
-                  </p>
-                </NavLink>
-              </p>
             </form>
           </div>
         </div>
+        {/* <section className="xxl-max:hidden"> */}
+        <section className="xxl-max:hidden">
+          <div className="auth-LeftPicture absolute top-[240px] left-0">
+            <img src={peoplepicture} alt="PicturePrésentation" width={520} />
+          </div>
+          <div className="auth-rightBottomBloc relative">
+            <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
+              <NavLink className="hover:underline" to="/help">
+                <p href="help"> Besoin d'aides ?</p>
+              </NavLink>
+              <NavLink to="/legal-notice">
+                <p className="mt-4 hover:underline">Mentions légales</p>
+              </NavLink>
+            </div>
+            <div className="auth-Ovale">
+              <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+            </div>
+          </div>
+        </section>
       </div>
-      {/* <section className="xxl-max:hidden"> */}
-      <section className="xxl-max:hidden">
-        <div className="auth-LeftPicture absolute top-[240px] left-0">
-          <img src={peoplepicture} alt="PicturePrésentation" width={520} />
-        </div>
-        <div className="auth-rightBottomBloc relative">
-          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
-            <NavLink className="hover:underline" to="/help">
-              <p href="help"> Besoin d'aides ?</p>
-            </NavLink>
-            <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
-            </NavLink>
-          </div>
-          <div className="auth-Ovale">
-            <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
