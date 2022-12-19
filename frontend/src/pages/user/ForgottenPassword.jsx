@@ -7,7 +7,7 @@ import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function ForgottenPassword() {
   return (
-    <div className="inscriptionPage bg-white relative h-screen w-screen overflow-hidden">
+    <div className="inscriptionPage bg-white relative h-screen w-screen overflow-x-hidden">
       <HeaderCountryChoice />
       <NavLink to="/">
         <img

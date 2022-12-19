@@ -56,7 +56,7 @@ function App() {
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/legal-notice" element={<LegalNotice />} />
         <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/user-profile" element={<UserProfile open={open} />} />
         <Route path="/help" element={<Help />} />
         <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>
