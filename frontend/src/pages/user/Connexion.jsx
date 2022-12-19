@@ -3,7 +3,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
-import { userAuthConnexion } from "../../context/AuthContext";
 
 function Connexion() {
   const [email, setEmail] = useState();
