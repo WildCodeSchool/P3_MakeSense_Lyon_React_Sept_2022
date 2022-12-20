@@ -7,7 +7,7 @@ import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function Inscription() {
   return (
-    <div className="inscriptionPage bg-white relative h-screen w-screen ">
+    <div className="inscriptionPage bg-white relative h-screen w-screen sm:overflow-x-hidden ">
       <HeaderCountryChoice />
       <NavLink to="/">
         <img
@@ -104,7 +104,7 @@ function Inscription() {
               </button>
             </div>
             {/* Déja membre */}
-            <div className="box flex justify-start ml-4 items-center sm-max:justify-center">
+            <div className="box flex justify-start ml-[16px] items-center sm-max:justify-center">
               <NavLink to="/">
                 <p className="text-white text-lg font-medium text-primary-600 hover:underline hover:text-flash-yellow">
                   Déja membre ?
@@ -129,7 +129,7 @@ function Inscription() {
               <p href="help"> Besoin d'aides ?</p>
             </NavLink>
             <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
             </NavLink>
           </div>
           <div className="auth-Ovale">
