@@ -10,7 +10,7 @@ export default function Decisions({ open }) {
   const navigate = useNavigate();
   return (
     <div className="w-screen h-screen overflow-hidden">
-      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+      <div className="flex flex-row items-center bg-light-grey">
         <div className="flex flex-col">
           <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
           <p className="pl-10 text-x font-extralight">
