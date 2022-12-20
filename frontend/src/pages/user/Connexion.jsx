@@ -84,7 +84,7 @@ function Connexion() {
               </div>
               <p className="text-center text-sm">
                 <NavLink to="motdepasseoublie">
-                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
+                  <p className="text-white mb-[4px] font-medium hover:underline hover:text-flash-yellow">
                     Mot de passe oublié?
                   </p>
                 </NavLink>
@@ -104,7 +104,7 @@ function Connexion() {
             <p href="help"> Besoin d'aides ?</p>
           </NavLink>
           <NavLink to="/legal-notice">
-            <p className="mt-4 hover:underline">Mentions légales</p>
+            <p className="mt-[16px] hover:underline">Mentions légales</p>
           </NavLink>
         </div>
       </div>
@@ -124,7 +124,7 @@ function Connexion() {
               <p href="help"> Besoin d'aides ?</p>
             </NavLink>
             <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
             </NavLink>
           </div>
           <div className="xl-max:hidden">
