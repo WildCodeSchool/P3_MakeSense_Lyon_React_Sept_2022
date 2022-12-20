@@ -6,14 +6,16 @@ import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
 import "../../css/user/Accordion.css";
 
-export default function AccordionDecisionDetails() {
+export default function AccordionDecisionDetails({
+  clickedAnswer4,
+  setClickedAnswer4,
+}) {
   // array to replace with dynamic data
 
   const [valueComment, setValueComment] = useState("");
   const [clickedAnswer1, setClickedAnswer1] = useState(false);
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
-  const [clickedAnswer4, setClickedAnswer4] = useState(false);
 
   const handleToggle1 = () => {
     setClickedAnswer1((prev) => !prev);

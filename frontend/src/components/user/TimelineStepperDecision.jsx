@@ -3,7 +3,7 @@ import React from "react";
 import "../../css/user/homeUser.css";
 import circle from "../../assets/icons/circle.svg";
 
-function TimelineStepperDecision() {
+function TimelineStepperDecision({ setClickedAnswer4 }) {
   const timelineData = [
     {
       title: "Title number 1",
@@ -62,6 +62,10 @@ function TimelineStepperDecision() {
       },
     },
   ];
+
+  const handleToggle4 = () => {
+    setClickedAnswer4((prev) => !prev);
+  };
 
   return (
     <div className="w-60 h-fit border border-red-pink p-4 rounded-xl flex justify-center flex-col">
@@ -141,11 +145,16 @@ function TimelineStepperDecision() {
           alt=""
         />
       </div>
-      <a href="comments" className="underline text-dark-blue">
-        Voir les avis
-      </a>
       <button
         type="button"
+        onClick={handleToggle4}
+        className="underline text-dark-blue"
+      >
+        Voir les avis
+      </button>
+      <button
+        type="button"
+        onClick={handleToggle4}
         className="pr-3 pl-3 mt-4 h-10 bg-red-pink rounded-3xl text-white"
       >
         Donner mon avis

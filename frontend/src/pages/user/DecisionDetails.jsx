@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AccordionDecisionDetails from "../../components/user/AccordionDecisionDetails";
 import user from "../../assets/icons/user.png";
 import logo from "../../assets/logo-makesense.png";
@@ -6,6 +6,8 @@ import TimelineStepperDecision from "../../components/user/TimelineStepperDecisi
 import "../../css/user/createDecision.css";
 
 export default function DecisionDetails() {
+  const [clickedAnswer4, setClickedAnswer4] = useState(false);
+
   return (
     <div className="flex flex-col w-screen">
       <div className="flex flex-row items-center justify-beetwen bg-light-grey">
@@ -29,10 +31,16 @@ export default function DecisionDetails() {
             <img src={user} alt="The belle gosse" className="w-10" />
           </div>
           <div className="flex justify-center">
-            <AccordionDecisionDetails />
+            <AccordionDecisionDetails
+              clickedAnswer4={clickedAnswer4}
+              setClickedAnswer4={setClickedAnswer4}
+            />
           </div>
         </div>
-        <TimelineStepperDecision />
+        <TimelineStepperDecision
+          clickedAnswer4={clickedAnswer4}
+          setClickedAnswer4={setClickedAnswer4}
+        />
       </div>
     </div>
   );
