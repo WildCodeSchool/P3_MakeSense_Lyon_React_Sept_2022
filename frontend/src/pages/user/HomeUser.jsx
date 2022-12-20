@@ -8,14 +8,17 @@ import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/homeUser.css";
 import TimeStepperHome from "@components/user/TimeStepperHome";
 import { useNavigate } from "react-router-dom";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Home({ open }) {
   const navigate = useNavigate();
+  const { user } = useCurrentUserContext();
+
   return (
     <div className="w-screen">
       <div className="flex flex-row items-center justify-beetwen bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : 13 septembre 2023
           </p>

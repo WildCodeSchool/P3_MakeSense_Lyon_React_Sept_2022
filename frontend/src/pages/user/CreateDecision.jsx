@@ -8,6 +8,7 @@ import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function CreateDecision() {
   const [startDateConflictOfDecision, setStartDateConflictOfDecision] =
@@ -19,7 +20,7 @@ export default function CreateDecision() {
   const [valueDecision, setValueDecision] = useState();
   const [valueRiskOfDecision, setValueRiskOfDecision] = useState();
   const [title, setTitle] = useState();
-
+  const { user } = useCurrentUserContext();
   // modules for react-quill text editor
   const modules = {
     toolbar: [
@@ -60,10 +61,18 @@ export default function CreateDecision() {
 
   return (
     <div className="w-screen">
-      <header className="headerDecision pl-10 ">
-        <h1>Créer une décision</h1>
-        <img src={logo} alt="logo-MakeSense" />
-      </header>
+      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+        <div className="flex flex-col">
+          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          <p className="pl-10 text-x font-extralight">
+            Nous sommes le : 13 septembre 2023
+          </p>
+        </div>
+        <h1 className="text-2xl text-red-pink pl-40">Créer ta décision</h1>
+        <div className="logo-home">
+          <img src={logo} alt="logo make-sense" />
+        </div>
+      </div>
       <form className="mainCreateDecision" onSubmit={sendDecision}>
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">

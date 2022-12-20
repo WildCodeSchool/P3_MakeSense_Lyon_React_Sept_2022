@@ -2,19 +2,19 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
-import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 function Connexion() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const { setUser } = useCurrentUserContext();
 
   const navigate = useNavigate();
 
   const sendConnexion = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
     /* It's an object that will be sent in the body of request */
     const raw = JSON.stringify({
       email,
@@ -31,7 +31,8 @@ function Connexion() {
       .then((response) => response.json())
       .then((result) => {
         if (result.token) {
-          localStorage.setItem("user", JSON.stringify(result));
+          setUser(result.user);
+          localStorage.setItem("token", JSON.stringify(result.token));
           navigate("/home");
         } else {
           alert("Veuillez entrer un identifiant ou password correct.");
@@ -138,18 +139,6 @@ function Connexion() {
                   </NavLink>
                 </p>
               </div>
-              <p className="text-center text-sm">
-                <NavLink to="motdepasseoublie">
-                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
-                    Mot de passe oublié?
-                  </p>
-                </NavLink>
-                <NavLink to="inscription">
-                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
-                    S'inscrire
-                  </p>
-                </NavLink>
-              </p>
             </div>
             <div className="auth-help-Mentions">
               {" "}
@@ -164,52 +153,7 @@ function Connexion() {
             </div>
           </div>
         </div>
-        {/* <section className="xxl-max:hidden"> */}
-        <section className="xxl-max:hidden">
-          <div className="auth-LeftPicture absolute top-[240px] left-0">
-            <img src={peoplepicture} alt="PicturePrésentation" width={520} />
-          </div>
-          <div className="auth-rightBottomBloc relative">
-            <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
-              <NavLink className="hover:underline" to="/help">
-                <p href="help"> Besoin d'aides ?</p>
-              </NavLink>
-              <NavLink to="/legal-notice">
-                <p className="mt-4 hover:underline">Mentions légales</p>
-              </NavLink>
-            </div>
-            <div className="auth-Ovale">
-              <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
-            </div>
-          </div>
-        </section>
       </div>
-      {/* <section className="xxl-max:hidden"> */}
-      <section className="">
-        <div className="auth-LeftPicture absolute top-[240px] left-0">
-          <img
-            src={peoplepicture}
-            alt="PicturePrésentation"
-            width={520}
-            className="1101-max:hidden xxl-max:w-2/6 w-3/7"
-          />
-        </div>
-        <div className="auth-rightBottomBloc relative">
-          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl-max:hidden">
-            <NavLink className="hover:underline" to="/help">
-              <p href="help"> Besoin d'aides ?</p>
-            </NavLink>
-            <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
-            </NavLink>
-          </div>
-          <div className="xl-max:hidden">
-            <div className="auth-Ovale">
-              <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -3,13 +3,16 @@ import React from "react";
 import Logo from "../../assets/logo-makesense.png";
 import Add from "../../assets/icons/x.svg";
 import "../../css/user/myprofile.css";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function MyProfile() {
+  const { user } = useCurrentUserContext();
+
   return (
     <div className="w-screen">
       <div className="flex flex-row items-center justify-beetwen bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : 13 septembre 2023
           </p>

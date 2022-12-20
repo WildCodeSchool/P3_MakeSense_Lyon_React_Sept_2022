@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
@@ -10,6 +10,7 @@ function Inscription() {
   const [lastname, setLastname] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
   /* This is a function for post a user in database for the form */
 
@@ -35,7 +36,9 @@ function Inscription() {
       headers: myHeaders,
     })
       .then((response) => response.json())
-      .then((result) => console.warn(result))
+      .then(() => {
+        navigate("/");
+      })
       .catch((error) => console.warn("error", error));
     console.warn(raw);
   }

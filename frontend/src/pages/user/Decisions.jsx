@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Decisions({ open }) {
   const navigate = useNavigate();
-  const [user, setUser] = useState();
+  const { user } = useCurrentUserContext();
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetch("http://localhost:5005/user")
       .then((response) => response.json())
       .then((result) => {
@@ -19,16 +20,12 @@ export default function Decisions({ open }) {
       })
       .catch((err) => console.error(err));
   }, []);
-
+ */
   return (
     <div className="w-screen h-screen overflow-hidden">
       <div className="flex flex-row items-center bg-light-grey">
         <div className="flex flex-col">
-          {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user[0].lastname}</p>
-          ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
-          )}
+          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : 13 septembre 2023
           </p>
