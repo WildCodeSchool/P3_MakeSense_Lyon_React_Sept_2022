@@ -8,9 +8,16 @@ import "../../css/user/createDecision.css";
 export default function DecisionDetails() {
   return (
     <div className="flex flex-col w-screen">
-      <div className="headerDecision">
-        <h1> Décision </h1>
-        <img src={logo} alt="logo make-sense" />
+      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+        <div className="flex flex-col">
+          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          <p className="pl-10 text-x font-extralight">
+            Nous sommes le : 13 septembre 2023
+          </p>
+        </div>
+        <div className="logo-home">
+          <img src={logo} alt="logo make-sense" />
+        </div>
       </div>
       <div className="flex flex-row justify-around mt-10">
         <div className="flex flex-col mr-10">

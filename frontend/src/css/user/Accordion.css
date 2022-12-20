@@ -1,10 +1,7 @@
 /* activate toggle */
 
 .answer_wrapper {
-  height: 0;
   overflow: hidden;
   transition: height ease 0.2s;
 }
-.answer_wrapper.open {
-  height: auto;
-}
+
