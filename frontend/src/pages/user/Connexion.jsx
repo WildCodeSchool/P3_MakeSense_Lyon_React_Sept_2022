@@ -6,7 +6,7 @@ import "../../assets/logo-makesense.png";
 
 function Connexion() {
   return (
-    <div className="connexionPage">
+    <div className="connexionPage ">
       <NavLink to="/">
         <img
           className="p-6"
