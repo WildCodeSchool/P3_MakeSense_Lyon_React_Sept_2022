@@ -95,18 +95,17 @@ function Connexion() {
                 </NavLink>
               </p>
             </form>
-            <div className="auth-help-Mentions">
-              {" "}
-              <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl:hidden">
-                <NavLink className="hover:underline" to="/help">
-                  <p href="help"> Besoin d'aides ?</p>
-                </NavLink>
-                <NavLink to="/legal-notice">
-                  <p className="mt-4 hover:underline">Mentions légales</p>
-                </NavLink>
-              </div>
-            </div>
+            <div className="auth-help-Mentions"> </div>
           </div>
+        </div>
+        <br />
+        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
+          <NavLink className="hover:underline" to="/help">
+            <p href="help"> Besoin d'aides ?</p>
+          </NavLink>
+          <NavLink to="/legal-notice">
+            <p className="mt-4 hover:underline">Mentions légales</p>
+          </NavLink>
         </div>
       </div>
       {/* <section className="xxl-max:hidden"> */}
