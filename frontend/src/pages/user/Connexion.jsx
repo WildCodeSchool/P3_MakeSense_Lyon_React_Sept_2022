@@ -89,7 +89,7 @@ function Connexion() {
                   </p>
                 </NavLink>
                 <NavLink to="inscription">
-                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-flash-yellow ">
                     S'inscrire
                   </p>
                 </NavLink>
