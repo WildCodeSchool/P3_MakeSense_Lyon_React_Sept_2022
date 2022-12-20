@@ -13,6 +13,7 @@ import LegalNotice from "@pages/user/LegalNotice";
 import MyProfile from "@pages/user/MyProfile";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
+import DecisionDetails from "@pages/user/DecisionDetails";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
@@ -58,9 +59,10 @@ function App() {
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/legal-notice" element={<LegalNotice />} />
         <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/user-profile" element={<UserProfile open={open} />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/decision" element={<Decisions open={open} />} />
+        <Route path="/decisions" element={<Decisions open={open} />} />
+        <Route path="/decision" element={<DecisionDetails />} />
       </Routes>
     </div>
   );

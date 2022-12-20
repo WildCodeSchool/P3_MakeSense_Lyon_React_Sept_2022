@@ -9,7 +9,11 @@ CREATE TABLE user (
   phone varchar(20),
   avatar varchar(255),
   hashedPassword varchar(100) NOT NULL,
+<<<<<<< HEAD
   is_admin tinyint DEFAULT 0,
+=======
+  is_admin tinyint NOT NULL,
+>>>>>>> dev
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 

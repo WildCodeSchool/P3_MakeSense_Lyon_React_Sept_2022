@@ -22,7 +22,7 @@ export default function Decisions({ open }) {
 
   return (
     <div className="w-screen h-screen overflow-hidden">
-      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+      <div className="flex flex-row items-center bg-light-grey">
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">Bonjour {user[0].lastname}</p>

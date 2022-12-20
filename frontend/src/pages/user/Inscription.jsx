@@ -41,7 +41,7 @@ function Inscription() {
   }
 
   return (
-    <div className="inscriptionPage bg-white relative h-screen w-screen overflow-x-hidden">
+    <div className="inscriptionPage bg-white relative h-screen w-screen ">
       <HeaderCountryChoice />
       <NavLink to="/">
         <img
