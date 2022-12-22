@@ -10,16 +10,14 @@ import { useCurrentUserContext } from "../../context/UserContext";
 export default function Decisions({ open }) {
   const navigate = useNavigate();
   const { user } = useCurrentUserContext();
+  /*   const [decision, setDecision] = useState();
 
-  /* useEffect(() => {
-    fetch("http://localhost:5005/user")
-      .then((response) => response.json())
-      .then((result) => {
-        console.warn(result);
-        setUser(result);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  fetch("http://localhost:5005/decision")
+    .then((response) => response.json())
+    .then((result) => {
+      setDecision(result);
+    })
+    .catch((err) => console.error(err));
  */
   return (
     <div className="w-screen h-screen overflow-hidden">

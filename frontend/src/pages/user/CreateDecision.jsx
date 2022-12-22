@@ -11,10 +11,7 @@ import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function CreateDecision() {
-  const [startDateConflictOfDecision, setStartDateConflictOfDecision] =
-    useState(new Date());
   const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState();
-  const [startDateOfDecision, setStartDateOfDecision] = useState(new Date());
   const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
   const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
   const [valueDecision, setValueDecision] = useState();
@@ -129,25 +126,8 @@ export default function CreateDecision() {
               onChange={(e) => setValueRiskOfDecision(e.target.value)}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">Deadline pour :</h2>
+            <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
-              <div className="containerDate">
-                <DatePicker
-                  selected={startDateOfDecision}
-                  value={startDateOfDecision}
-                  onChange={(e) => setStartDateOfDecision(e.target.value)}
-                  disabledKeyboardNavigation
-                  placeholderText="Donner son avis"
-                />
-              </div>
-              <div className="containerDate">
-                <DatePicker
-                  selected={startDateConflictOfDecision}
-                  onChange={(date) => setStartDateConflictOfDecision(date)}
-                  disabledKeyboardNavigation
-                  placeholderText="Rentrer en conflit"
-                />
-              </div>
               <div className="containerDate">
                 <DatePicker
                   selected={startDateFinalOfDecision}
