@@ -15,11 +15,12 @@ module.exports = router;
 const authControllers = require("./controllers/authController");
 const userControllers = require("./controllers/userControllers");
 const { hashPassword, verifyPassword } = require("./middlewares/auth");
+const { verifyEmail } = require("./middlewares/verifyEmail");
 
 router.get("/user", userControllers.browse);
 router.get("/user/:id", userControllers.read);
 router.put("/user/:id", userControllers.edit);
-router.post("/user", hashPassword, userControllers.add);
+router.post("/user", verifyEmail, hashPassword, userControllers.add);
 router.delete("/user/:id", userControllers.destroy);
 router.post(
   "/login",

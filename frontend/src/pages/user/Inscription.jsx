@@ -14,9 +14,7 @@ function Inscription() {
 
   /* This is a function for post a user in database for the form */
 
-  function sendUser(e) {
-    e.preventDefault();
-
+  function sendUser() {
     /* This is a header for the fetch */
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -39,7 +37,10 @@ function Inscription() {
       .then(() => {
         navigate("/");
       })
-      .catch((error) => console.warn("error", error));
+      .catch((error) => {
+        console.warn(error);
+        navigate("/inscription");
+      });
     console.warn(raw);
   }
 
@@ -157,11 +158,6 @@ function Inscription() {
                 </p>
               </NavLink>
             </div>
-            <p className="box row-span-0 col-span-2 text-center">
-              Votre enregistrement a bien été prise en compte, vous allez
-              recevoir un mail de confirmation afin de valider votre inscription
-              !
-            </p>
           </form>
         </div>
       </div>

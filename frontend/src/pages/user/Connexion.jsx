@@ -38,8 +38,7 @@ function Connexion() {
           alert("Veuillez entrer un identifiant ou password correct.");
         }
       })
-      .catch((error) => console.warn("error", error));
-    console.warn(raw);
+      .catch((error) => console.warn(error));
   };
 
   useEffect(() => {
@@ -121,14 +120,14 @@ function Connexion() {
                 <button
                   type="submit"
                   onClick={sendConnexion}
-                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
+                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-4 py-4 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER
                 </button>
 
-                <p className="text-center text-sm">
+                <p className="text-center mt-3 text-sm">
                   <NavLink to="motdepasseoublie">
-                    <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
+                    <p className="text-white mtmb-1 font-medium hover:underline hover:text-flash-yellow">
                       Mot de passe oublié?
                     </p>
                   </NavLink>
