@@ -10,12 +10,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 
 export default function CreateDecision() {
-  const [startDateConflictOfDecision, setStartDateConflictOfDecision] =
-    useState(new Date());
+  useState(new Date());
   const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState(
     new Date()
   );
-  const [startDateOfDecision, setStartDateOfDecision] = useState(new Date());
   const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
   const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
   const [valueDecision, setValueDecision] = useState("");
@@ -36,10 +34,18 @@ export default function CreateDecision() {
 
   return (
     <div className="w-screen">
-      <header className="headerDecision pl-10 ">
-        <h1>Créer une décision</h1>
-        <img src={logo} alt="logo-MakeSense" />
-      </header>
+      <div className="flex flex-row items-center bg-light-grey">
+        <div className="flex flex-col">
+          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          <p className="pl-10 text-x font-extralight">
+            Nous sommes le : 13 septembre 2023
+          </p>
+        </div>
+        <h1 className="text-2xl text-red-pink pl-40">Créer une décisions</h1>
+        <div className="logo-home">
+          <img src={logo} alt="logo make-sense" />
+        </div>
+      </div>
       <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">
@@ -48,8 +54,9 @@ export default function CreateDecision() {
               Décision
             </p>
             <p className="decision-explaination">
-              Lorem ipsum bla bla la Lorem ipsum bla bla la Lorem ipsum bla bla
-              la Lorem ipsum bla bla la Lorem ipsum bla bla la
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              totam natus assumenda placeat ex vel, omnis et corrupti eius! Ut
+              asperiores adipisci, vero
             </p>
           </div>
           <div className="col-span-2 ...">
@@ -87,31 +94,17 @@ export default function CreateDecision() {
               onChange={setValueBeneficeOfDecision}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">Risques potentiels :</h2>
+            <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
             <ReactQuill
               theme="snow"
               value={valueRiskOfDecision}
               onChange={setValueRiskOfDecision}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">Deadline pour :</h2>
+            <h2 className="mt-8 mb-3">
+              Deadline pour rentrer en conflit avec la décision :
+            </h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
-              <div className="containerDate">
-                <DatePicker
-                  selected={startDateOfDecision}
-                  onChange={(date) => setStartDateOfDecision(date)}
-                  disabledKeyboardNavigation
-                  placeholderText="Donner son avis"
-                />
-              </div>
-              <div className="containerDate">
-                <DatePicker
-                  selected={startDateConflictOfDecision}
-                  onChange={(date) => setStartDateConflictOfDecision(date)}
-                  disabledKeyboardNavigation
-                  placeholderText="Rentrer en conflit"
-                />
-              </div>
               <div className="containerDate">
                 <DatePicker
                   selected={startDateFinalOfDecision}
