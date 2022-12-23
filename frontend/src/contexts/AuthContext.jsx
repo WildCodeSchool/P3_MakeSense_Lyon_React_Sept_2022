@@ -5,16 +5,30 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export function AuthContextProvider({ children }) {
-  const [isLogin, setIsLogin] = useState(false);
-  const userAuth = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState("");
+
   useEffect(() => {
-    if (userAuth) {
-      setIsLogin(true);
+    if (localStorage.getItem("user")) {
+      setToken(JSON.parse(localStorage.getItem("user")).token || "");
+    } else {
+      setToken("");
     }
-  }, []);
+  }, [localStorage.getItem("user")]);
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")).user);
+    } else {
+      setUser({});
+    }
+  }, [localStorage.getItem("user")]);
+
   return (
-    <AuthContext.Provider value={{ isLogin }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser, token, setToken }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
-export const userAuthContext = () => useContext(AuthContext);
+export const useAuthContext = () => useContext(AuthContext);

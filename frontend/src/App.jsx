@@ -17,13 +17,13 @@ import DecisionDetails from "@pages/user/DecisionDetails";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
-import { userAuthContext } from "./contexts/AuthContext";
+import { useAuthContext } from "./contexts/AuthContext";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
   const [open, setOpen] = useState(true);
-  const { isLogin } = userAuthContext();
+  const { token } = useAuthContext();
 
   return (
     <div className="flex">
@@ -31,7 +31,7 @@ function App() {
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
-      isLogin === false ||
+      token === "" ||
       location.pathname === "/help" ? null : (
         <aside className="h-screen sticky top-0 overflow-hidden">
           <Sidebar
@@ -51,11 +51,11 @@ function App() {
       ) : null}
       <Routes>
         <Route path="/" element={<Authentification />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+        {token ? null : <Route path="*" element={<h1>404 Not Found</h1>} />}
       </Routes>
-      {isLogin ? (
+      {token ? (
         <Routes>
           <Route
             path="/home"
@@ -65,9 +65,10 @@ function App() {
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/user-profile" element={<UserProfile open={open} />} />
-          <Route path="/decision" element={<DecisionDetails />} />
           <Route path="/help" element={<Help />} />
           <Route path="/decision" element={<Decisions open={open} />} />
+          <Route path="/decision" element={<DecisionDetails />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       ) : null}
     </div>

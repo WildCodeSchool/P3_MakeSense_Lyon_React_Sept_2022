@@ -3,19 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
-import { userAuthContext } from "../../contexts/AuthContext";
 
 function Connexion() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const { isLogin } = userAuthContext();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLogin) {
-      navigate("/home");
-    }
-  }, [isLogin]);
 
   function loginUser() {
     const myHeaders = new Headers();
@@ -25,20 +17,26 @@ function Connexion() {
       email,
       password,
     });
-    fetch("http://localhost:5000/login", {
-      method: "POST",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.token) {
-          localStorage.setItem("user", JSON.stringify(result));
-          navigate("/home");
-        }
+    if (password.length > 5 && email.includes("@")) {
+      fetch("http://localhost:5000/login", {
+        method: "POST",
+        redirect: "follow",
+        body: raw,
+        headers: myHeaders,
       })
-      .catch((error) => console.warn(("Mauvais Email ou Password", error)));
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.token) {
+            localStorage.setItem("user", JSON.stringify(result));
+            setTimeout(() => {
+              navigate("/home");
+            }, 1000);
+          }
+        })
+        .catch((error) => console.warn(("Mauvais Email ou Password", error)));
+    } else {
+      console.warn("Veuillez entrer un email et un mot de passe valide");
+    }
   }
 
   useEffect(() => {
