@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable import/order */
 import { React, useState } from "react";
 import ReactQuill from "react-quill";
@@ -10,16 +11,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 
 export default function CreateDecision() {
-  const [startDateConflictOfDecision, setStartDateConflictOfDecision] =
-    useState(new Date());
-  const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState(
+  const [title, setTitleDecision] = useState("");
+  const [content, setValueDecision] = useState("");
+  const [impact, setValueImpactOfDecision] = useState("");
+  const [benefice, setValueBeneficeOfDecision] = useState("");
+  const [risk, setValueRiskOfDecision] = useState("");
+  const [date_decision_creation, setStartDateOfDecision] = useState(Date.now());
+  const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
-  const [startDateOfDecision, setStartDateOfDecision] = useState(new Date());
-  const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
-  const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
-  const [valueDecision, setValueDecision] = useState("");
-  const [valueRiskOfDecision, setValueRiskOfDecision] = useState("");
+  const [date_decision_close, setStartDateFinalOfDecision] = useState(
+    new Date()
+  );
+  // const [personImpactedDecision, setPersonImpactedDecision] = useState("");
+  // const [personExperteDecision, setPersonExperteDecision] = useState("");
 
   // modules for react-quill text editor
   const modules = {
@@ -33,6 +38,43 @@ export default function CreateDecision() {
       ["link", "image"],
     ],
   };
+
+  const dateConvertedToSqlFormat = (date) => {
+    const dateConverted = new Date(date);
+    const year = dateConverted.getFullYear();
+    const month = dateConverted.getMonth() + 1;
+    const day = dateConverted.getDate();
+    const hour = dateConverted.getHours();
+    const minutes = dateConverted.getMinutes();
+    const seconds = dateConverted.getSeconds();
+    return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
+  };
+
+  function sendDecision() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      title,
+      content,
+      impact,
+      risk,
+      date_decision_creation: dateConvertedToSqlFormat(date_decision_creation),
+      date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
+      date_decision_close: dateConvertedToSqlFormat(date_decision_close),
+    });
+
+    fetch("http://localhost:5000/decision", {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => response.json())
+      .then((result) => console.warn(result))
+      .catch((error) => console.warn("error", error));
+    console.warn(raw);
+  }
 
   return (
     <div className="w-screen">
@@ -61,6 +103,7 @@ export default function CreateDecision() {
                 Titre de la décision{" "}
               </label>
               <input
+                onChange={(e) => setTitleDecision(e.target.value)}
                 type="text"
                 id="title-input"
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -69,28 +112,28 @@ export default function CreateDecision() {
             <h2 className="mt-8 mb-3">Description de la décision :</h2>
             <ReactQuill
               theme="snow"
-              value={valueDecision}
+              value={content}
               onChange={setValueDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
             <ReactQuill
               theme="snow"
-              value={valueImpactOfDecision}
+              value={impact}
               onChange={setValueImpactOfDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
             <ReactQuill
               theme="snow"
-              value={valueBeneficeOfDecision}
+              value={benefice}
               onChange={setValueBeneficeOfDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Risques potentiels :</h2>
             <ReactQuill
               theme="snow"
-              value={valueRiskOfDecision}
+              value={risk}
               onChange={setValueRiskOfDecision}
               modules={modules}
             />
@@ -98,7 +141,7 @@ export default function CreateDecision() {
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker
-                  selected={startDateOfDecision}
+                  selected={date_decision_creation}
                   onChange={(date) => setStartDateOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Donner son avis"
@@ -106,7 +149,7 @@ export default function CreateDecision() {
               </div>
               <div className="containerDate">
                 <DatePicker
-                  selected={startDateConflictOfDecision}
+                  selected={date_decision_conflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Rentrer en conflit"
@@ -114,7 +157,7 @@ export default function CreateDecision() {
               </div>
               <div className="containerDate">
                 <DatePicker
-                  selected={startDateFinalOfDecision}
+                  selected={date_decision_close}
                   onChange={(date) => setStartDateFinalOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Décision final"
@@ -130,6 +173,7 @@ export default function CreateDecision() {
               </label>
               <input
                 type="text"
+                // onChange={(e) => setPersonImpactedDecision(e.target.value)}
                 id="pconcern-input"
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
@@ -143,6 +187,7 @@ export default function CreateDecision() {
               </label>
               <input
                 type="text"
+                // onChange={(e) => setPersonExperteDecision(e.target.value)}
                 id="pexpert-input"
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
@@ -152,6 +197,7 @@ export default function CreateDecision() {
       </main>
       <button
         type="button"
+        onClick={sendDecision}
         id="buttonEnvoyerDecision"
         className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
       >

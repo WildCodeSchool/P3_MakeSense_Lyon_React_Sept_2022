@@ -5,15 +5,15 @@ CREATE TABLE user (
   firstname varchar(100) NOT NULL,
   lastname varchar(100) NOT NULL,
   email varchar(200) NOT NULL,
-  city varchar(100),
-  phone varchar(20),
-  avatar varchar(255),
-  password varchar(100) NOT NULL,
+  city varchar(100) DEFAULT NULL,
+  phone varchar(20) DEFAULT NULL,
+  avatar varchar(255) DEFAULT NULL,
+  hashedPassword varchar(100) NOT NULL,
   is_admin tinyint DEFAULT 0,
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
-INSERT INTO user (firstname, lastname, email, city, phone, avatar, password, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('Madeline', 'Phara', 'madeline.phara@gmail.com', 'Lyon', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('John', 'Doe', 'john.doe@gmail.com', 'Katmandu', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('Davy', 'Mccree', 'davy.mccree@gmail.com', 'Oslo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23');
+INSERT INTO user (firstname, lastname, email, city, phone, avatar, hashedPasswords, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('Madeline', 'Phara', 'madeline.phara@gmail.com', 'Lyon', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('John', 'Doe', 'john.doe@gmail.com', 'Katmandu', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23'),('Davy', 'Mccree', 'davy.mccree@gmail.com', 'Oslo', '0606080907', 'monplusbelavatar', '12345', '1', '2022-10-13 12:12:23');
 
 DROP TABLE IF EXISTS status_decision;
 

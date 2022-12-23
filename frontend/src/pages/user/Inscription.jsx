@@ -24,7 +24,7 @@ function Inscription() {
       password,
     });
 
-    fetch("http://localhost:5005/user", {
+    fetch("http://localhost:5000/user", {
       method: "POST",
       redirect: "follow",
       body: raw,
@@ -79,7 +79,7 @@ function Inscription() {
                     htmlFor="lastname"
                     className="text-white block mt-4 mb-2 text-lg font-medium"
                   >
-                    Nom
+                    s Nom
                   </label>
                   <input
                     type="text"

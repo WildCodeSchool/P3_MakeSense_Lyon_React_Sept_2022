@@ -1,13 +1,53 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
+import { userAuthContext } from "../../contexts/AuthContext";
 
 function Connexion() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const { isLogin } = userAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/home");
+    }
+  }, [isLogin]);
+
+  function loginUser() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      email,
+      password,
+    });
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.token) {
+          localStorage.setItem("user", JSON.stringify(result));
+          navigate("/home");
+        }
+      })
+      .catch((error) => alert("Mauvais Email ou Password", error));
+  }
+
+  useEffect(() => {
+    loginUser();
+  }, []);
+
   return (
     <div className="connexionPage">
-      <NavLink to="/">
+      <NavLink to="/login">
         <img
           className="p-6"
           src="/src/assets/logo-makesense.png"
@@ -33,6 +73,7 @@ function Connexion() {
                 </label>
                 <input
                   type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   id="email"
                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
@@ -50,6 +91,7 @@ function Connexion() {
                 <input
                   type="password"
                   name="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   placeholder="••••••••"
                   className="text-black border sm:text-sm rounded-lg block w-full p-2.5"
@@ -76,7 +118,8 @@ function Connexion() {
               </div>
               <div className="text-center ">
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={loginUser}
                   className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER

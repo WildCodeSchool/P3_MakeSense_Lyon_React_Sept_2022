@@ -17,7 +17,20 @@ const userControllers = require("./controllers/userControllers");
 router.get("/user", userControllers.browse);
 router.get("/user/:id", userControllers.read);
 router.put("/user/:id", userControllers.edit);
-router.post("/user", userControllers.add);
+router.post("/user", userControllers.hashPassword, userControllers.add);
+router.post(
+  "/login",
+  userControllers.getUserByEmailWithPasswordAndPassToNext,
+  userControllers.verifyPassword,
+  userControllers.verifyToken
+);
 router.delete("/user/:id", userControllers.destroy);
 
+const decisionControllers = require("./controllers/decisionControllers");
+
+router.get("/decision", decisionControllers.browse);
+router.get("/decision/:id", decisionControllers.read);
+router.put("/decision/:id", decisionControllers.edit);
+router.post("/decision", decisionControllers.add);
+router.delete("/decision/:id", decisionControllers.destroy);
 module.exports = router;

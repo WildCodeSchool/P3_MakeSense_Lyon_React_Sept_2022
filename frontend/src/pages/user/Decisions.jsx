@@ -11,7 +11,7 @@ export default function Decisions({ open }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:5005/user")
+    fetch("http://localhost:5000/user")
       .then((response) => response.json())
       .then((result) => {
         console.warn(result);

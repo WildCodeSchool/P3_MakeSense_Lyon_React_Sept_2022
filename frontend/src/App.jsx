@@ -16,17 +16,21 @@ import Decisions from "@pages/user/Decisions";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
+import { userAuthContext } from "./contexts/AuthContext";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
   const [open, setOpen] = useState(true);
+  const { isLogin } = userAuthContext();
+
   return (
     <div className="flex">
       {location.pathname === "/" ||
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
+      isLogin === false ||
       location.pathname === "/help" ? null : (
         <aside className="h-screen sticky top-0 overflow-hidden">
           <Sidebar
@@ -46,20 +50,24 @@ function App() {
       ) : null}
       <Routes>
         <Route path="/" element={<Authentification />} />
+        <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
-        <Route
-          path="/home"
-          element={<HomeUser open={open} setOpen={setOpen} />}
-        />
-        <Route path="/create-decision" element={<CreateDecision />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-        <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/decision" element={<Decisions open={open} />} />
       </Routes>
+      {isLogin ? (
+        <Routes>
+          <Route
+            path="/home"
+            element={<HomeUser open={open} setOpen={setOpen} />}
+          />
+          <Route path="/create-decision" element={<CreateDecision />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/my-profile" element={<MyProfile />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/decision" element={<Decisions open={open} />} />
+        </Routes>
+      ) : null}
     </div>
   );
 }
