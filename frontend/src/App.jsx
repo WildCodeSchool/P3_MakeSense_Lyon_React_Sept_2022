@@ -7,12 +7,13 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import HomeUser from "./pages/user/HomeUser";
 import Sidebar from "@components/user/Sidebar";
 import Authentification from "./pages/Authentification";
-import Profile from "./pages/user/Profile";
+import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
 import LegalNotice from "@pages/user/LegalNotice";
 import MyProfile from "@pages/user/MyProfile";
 import Help from "@pages/user/Help";
 import Decisions from "@pages/user/Decisions";
+import DecisionDetails from "@pages/user/DecisionDetails";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
@@ -63,7 +64,8 @@ function App() {
           <Route path="/create-decision" element={<CreateDecision />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/user-profile" element={<UserProfile open={open} />} />
+          <Route path="/decision" element={<DecisionDetails />} />
           <Route path="/help" element={<Help />} />
           <Route path="/decision" element={<Decisions open={open} />} />
         </Routes>
