@@ -95,7 +95,7 @@ function Connexion() {
                 </NavLink>
               </p>
             </form>
-            <div className="auth-help-Mentions"> </div>
+            {/* <div className="auth-help-Mentions"> </div> */}
           </div>
         </div>
         <br />
