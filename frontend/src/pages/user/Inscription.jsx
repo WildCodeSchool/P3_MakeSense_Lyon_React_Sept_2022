@@ -7,7 +7,7 @@ import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function Inscription() {
   return (
-    <div className="inscriptionPage bg-white relative h-screen w-screen ">
+    <div className="inscriptionPage bg-white relative h-screen w-screen sm:overflow-x-hidden ">
       <HeaderCountryChoice />
       <NavLink to="/">
         <img
@@ -104,7 +104,7 @@ function Inscription() {
               </button>
             </div>
             {/* Déja membre */}
-            <div className="box flex justify-start ml-4 items-center sm-max:justify-center">
+            <div className="box flex justify-start ml-[16px] items-center sm-max:justify-center">
               <NavLink to="/">
                 <p className="text-white text-lg font-medium text-primary-600 hover:underline hover:text-flash-yellow">
                   Déja membre ?
@@ -118,22 +118,39 @@ function Inscription() {
             </p>
           </form>
         </div>
+        <br />
+        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
+          <NavLink className="hover:underline" to="/help">
+            <p href="help"> Besoin d'aides ?</p>
+          </NavLink>
+          <NavLink to="/legal-notice">
+            <p className="mt-[16px] hover:underline">Mentions légales</p>
+          </NavLink>
+        </div>
       </div>
-      <section className="xxl-max:hidden">
+      {/* <section className="xxl-max:hidden"> */}
+      <section className="">
         <div className="auth-LeftPicture absolute top-[240px] left-0">
-          <img src={peoplepicture} alt="PicturePrésentation" width={520} />
+          <img
+            src={peoplepicture}
+            alt="PicturePrésentation"
+            width={520}
+            className="xl-max:hidden 1590-max:w-2/6 w-3/7"
+          />
         </div>
         <div className="auth-rightBottomBloc relative">
-          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
+          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl-max:hidden ">
             <NavLink className="hover:underline" to="/help">
               <p href="help"> Besoin d'aides ?</p>
             </NavLink>
             <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
             </NavLink>
           </div>
-          <div className="auth-Ovale">
-            <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+          <div className="xxl-max:hidden">
+            <div className="auth-Ovale">
+              <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+            </div>
           </div>
         </div>
       </section>

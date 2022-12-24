@@ -6,7 +6,7 @@ import "../../assets/logo-makesense.png";
 
 function Connexion() {
   return (
-    <div className="connexionPage">
+    <div className="connexionPage ">
       <NavLink to="/">
         <img
           className="p-6"
@@ -84,29 +84,28 @@ function Connexion() {
               </div>
               <p className="text-center text-sm">
                 <NavLink to="motdepasseoublie">
-                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
+                  <p className="text-white mb-[4px] font-medium hover:underline hover:text-flash-yellow">
                     Mot de passe oublié?
                   </p>
                 </NavLink>
                 <NavLink to="inscription">
-                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-flash-yellow ">
                     S'inscrire
                   </p>
                 </NavLink>
               </p>
             </form>
-            <div className="auth-help-Mentions">
-              {" "}
-              <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl:hidden">
-                <NavLink className="hover:underline" to="/help">
-                  <p href="help"> Besoin d'aides ?</p>
-                </NavLink>
-                <NavLink to="/legal-notice">
-                  <p className="mt-4 hover:underline">Mentions légales</p>
-                </NavLink>
-              </div>
-            </div>
+            {/* <div className="auth-help-Mentions"> </div> */}
           </div>
+        </div>
+        <br />
+        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
+          <NavLink className="hover:underline" to="/help">
+            <p href="help"> Besoin d'aides ?</p>
+          </NavLink>
+          <NavLink to="/legal-notice">
+            <p className="mt-[16px] hover:underline">Mentions légales</p>
+          </NavLink>
         </div>
       </div>
       {/* <section className="xxl-max:hidden"> */}
@@ -125,7 +124,7 @@ function Connexion() {
               <p href="help"> Besoin d'aides ?</p>
             </NavLink>
             <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
             </NavLink>
           </div>
           <div className="xl-max:hidden">
