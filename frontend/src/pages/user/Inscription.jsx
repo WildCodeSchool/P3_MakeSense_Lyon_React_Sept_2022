@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
@@ -14,35 +15,39 @@ function Inscription() {
 
   /* This is a function for post a user in database for the form */
 
-  function sendUser() {
+  const sendUser = (e) => {
+    e.preventDefault();
     /* This is a header for the fetch */
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     /* It's an object that will be sent in the body of request */
-    const raw = JSON.stringify({
+    const bodyRaw = JSON.stringify({
       firstname,
       lastname,
       email,
       password,
     });
 
+    /* fetch to suscribe at makesense */
     fetch("http://localhost:5005/user", {
       method: "POST",
-      redirect: "follow",
-      body: raw,
       headers: myHeaders,
+      body: bodyRaw,
+      redirect: "follow",
     })
-      .then((response) => response.json())
-      .then(() => {
-        navigate("/");
+      .then((response) => {
+        if (response.ok) {
+          alert("Votre inscription à été prise en compte");
+          navigate("/");
+        }
       })
       .catch((error) => {
-        console.warn(error);
-        navigate("/inscription");
+        console.warn(error); /* 
+        alert("Vous êtes déjà inscrit");
+        navigate("/"); */
       });
-    console.warn(raw);
-  }
+  };
 
   return (
     <div className="inscriptionPage bg-white relative h-screen w-screen ">
@@ -66,7 +71,7 @@ function Inscription() {
           <form
             className=" index sm:grid grid-cols-2 grid-rows-3 gap-5 sm-max:flex sm-max:flex-col"
             action="#"
-            onSubmit={sendUser}
+            onSubmit={(e) => sendUser(e)}
           >
             {/* Prénom */}
             <div className="box">

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 const models = require("../models");
 
 const verifyEmail = (req, res, next) => {
@@ -12,7 +13,6 @@ const verifyEmail = (req, res, next) => {
         console.warn("cet email existe");
       } else {
         console.warn("cet email n'existe pas ");
-
         next();
       }
     })
