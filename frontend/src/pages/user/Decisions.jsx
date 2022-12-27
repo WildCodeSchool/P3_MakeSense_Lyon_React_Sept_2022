@@ -201,7 +201,7 @@ export default function Decisions({ open }) {
               }
               if (
                 isOpenFinished &&
-                valueDetailsDecision.status_decision === "Terminée"
+                valueDetailsDecision.status_decision === "Terminee"
               ) {
                 return (
                   <DecisionCard
