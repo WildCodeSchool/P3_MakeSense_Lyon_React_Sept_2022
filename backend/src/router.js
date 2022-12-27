@@ -33,10 +33,9 @@ router.delete("/user/:id", userControllers.destroy);
 
 const decisionControllers = require("./controllers/decisionControllers");
 
-router.use(verifyToken);
-router.get("/decision", decisionControllers.browse);
-router.get("/decision/:id", decisionControllers.read);
-router.put("/decision/:id", decisionControllers.edit);
-router.post("/decision", decisionControllers.add);
+router.get("/decision", verifyToken, decisionControllers.browse);
+router.get("/decision/:id", verifyToken, decisionControllers.read);
+router.put("/decision/:id", verifyToken, decisionControllers.editById);
+router.post("/decision", verifyToken, decisionControllers.add);
 router.delete("/decision/:id", decisionControllers.destroy);
 module.exports = router;

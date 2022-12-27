@@ -9,20 +9,21 @@ import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateDecision() {
+  const { user, token } = useAuthContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
   const [impact, setValueImpactOfDecision] = useState("");
-  const [benefice, setValueBeneficeOfDecision] = useState("");
+  const [benefits, setValueBenefitsOfDecision] = useState("");
   const [risk, setValueRiskOfDecision] = useState("");
-  const [date_decision_creation, setStartDateOfDecision] = useState(Date.now());
   const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
-  const [date_decision_close, setStartDateFinalOfDecision] = useState(
-    new Date()
-  );
+  const navigate = useNavigate();
+
   // const [personImpactedDecision, setPersonImpactedDecision] = useState("");
   // const [personExperteDecision, setPersonExperteDecision] = useState("");
 
@@ -52,6 +53,7 @@ export default function CreateDecision() {
 
   function sendDecision() {
     const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
@@ -59,9 +61,11 @@ export default function CreateDecision() {
       content,
       impact,
       risk,
-      date_decision_creation: dateConvertedToSqlFormat(date_decision_creation),
+      benefits,
+      date_decision_creation: dateConvertedToSqlFormat(Date.now()),
       date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
-      date_decision_close: dateConvertedToSqlFormat(date_decision_close),
+      status_decision: "En cours",
+      user_id: user.id,
     });
 
     fetch("http://localhost:5000/decision", {
@@ -70,10 +74,12 @@ export default function CreateDecision() {
       body: raw,
       headers: myHeaders,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        response.json();
+        navigate("/home");
+      })
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
-    console.warn(raw);
   }
 
   return (
@@ -126,8 +132,8 @@ export default function CreateDecision() {
             <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
             <ReactQuill
               theme="snow"
-              value={benefice}
-              onChange={setValueBeneficeOfDecision}
+              value={benefits}
+              onChange={setValueBenefitsOfDecision}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Risques potentiels :</h2>
@@ -141,26 +147,10 @@ export default function CreateDecision() {
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker
-                  selected={date_decision_creation}
-                  onChange={(date) => setStartDateOfDecision(date)}
-                  disabledKeyboardNavigation
-                  placeholderText="Donner son avis"
-                />
-              </div>
-              <div className="containerDate">
-                <DatePicker
                   selected={date_decision_conflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
                   disabledKeyboardNavigation
-                  placeholderText="Rentrer en conflit"
-                />
-              </div>
-              <div className="containerDate">
-                <DatePicker
-                  selected={date_decision_close}
-                  onChange={(date) => setStartDateFinalOfDecision(date)}
-                  disabledKeyboardNavigation
-                  placeholderText="Décision final"
+                  placeholderText="Donner son avis"
                 />
               </div>
             </div>

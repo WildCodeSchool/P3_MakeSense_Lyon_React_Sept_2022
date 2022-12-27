@@ -18,6 +18,7 @@ import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
 import { useAuthContext } from "./contexts/AuthContext";
+import EditDecision from "@pages/user/EditDecision";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -49,28 +50,34 @@ function App() {
           setShowModal={setShowModal}
         />
       ) : null}
-      <Routes>
-        <Route path="/" element={<Authentification />} />
-        <Route path="/inscription" element={<Inscription />} />
-        <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
-        {token ? null : <Route path="*" element={<h1>404 Not Found</h1>} />}
-      </Routes>
       {token ? (
         <Routes>
           <Route
             path="/home"
             element={<HomeUser open={open} setOpen={setOpen} />}
           />
+          <Route path="/" element={<Authentification />} />
           <Route path="/create-decision" element={<CreateDecision />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/user-profile" element={<UserProfile open={open} />} />
           <Route path="/help" element={<Help />} />
-          <Route path="/decision" element={<Decisions open={open} />} />
-          <Route path="/decision" element={<DecisionDetails />} />
+          <Route path="/decisions" element={<Decisions open={open} />} />
+          <Route path="/decision/:id" element={<DecisionDetails />} />
+          <Route
+            path="/edit-decision/:id"
+            element={<EditDecision valuesDetailsDecisions />}
+          />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
-      ) : null}
+      ) : (
+        <Routes>
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/" element={<Authentification />} />
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+        </Routes>
+      )}
     </div>
   );
 }

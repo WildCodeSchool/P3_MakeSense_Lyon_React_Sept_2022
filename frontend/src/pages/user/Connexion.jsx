@@ -30,7 +30,7 @@ function Connexion() {
             localStorage.setItem("user", JSON.stringify(result));
             setTimeout(() => {
               navigate("/home");
-            }, 1000);
+            }, 2000);
           }
         })
         .catch((error) => console.warn(("Mauvais Email ou Password", error)));

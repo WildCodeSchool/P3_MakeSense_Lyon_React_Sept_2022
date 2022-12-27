@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.decision
-    .findAll()
+    .findAllWithUserId()
     .then(([rows]) => {
       res.send(rows);
     })
@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.decision
-    .find(req.params.id)
+    .findAllByIdWithUserId(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -37,6 +37,28 @@ const edit = (req, res) => {
 
   models.decision
     .update(decision)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const editById = (req, res) => {
+  const decision = req.body;
+
+  // TODO validations (length, format...)
+
+  decision.id = parseInt(req.params.id, 10);
+
+  models.decision
+    .updateById(decision)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -89,4 +111,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  editById,
 };

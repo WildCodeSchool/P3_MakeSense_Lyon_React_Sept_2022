@@ -5,11 +5,11 @@ CREATE TABLE user (
   firstname varchar(100) NOT NULL,
   lastname varchar(100) NOT NULL,
   email varchar(200) NOT NULL,
-  city varchar(100) NOT NULL,
+  city varchar(100),
   phone varchar(20),
   avatar varchar(255),
   hashedPassword varchar(100) NOT NULL,
-  is_admin tinyint NOT NULL,
+  is_admin tinyint NOT NULL DEFAULT 0,
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
@@ -24,15 +24,16 @@ CREATE TABLE decision (
   content text, 
   impact text,
   risk text,
+  benefits text,
   date_decision_creation DATETIME NOT NULL DEFAULT NOW(),
   date_decision_conflict DATETIME,
   date_decision_close DATETIME,
-  status_decision varchar(45) NOT NULL,
+  status_decision varchar(45) NOT NULL DEFAULT 'En cours',
   user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-INSERT INTO decision (title, content, impact, risk, date_decision_creation, date_decision_conflict, date_decision_close, status_decision) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours'),('Surfer toute la vie', 'Acheter 250 plaches de surf', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours'),('Acheter un 4X4 pour poluer la planete', 'voici ma description', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours'),('Aller a tahiti', 'Pour plus de 100000euros', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23','En cours');
+INSERT INTO decision (title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict, date_decision_close, status_decision) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', 'benefits', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours'),('Surfer toute la vie', 'Acheter 250 plaches de surf', 'impact', 'risk', 'benefits', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours'),('Acheter un 4X4 pour poluer la planete', 'voici ma description', 'impact', 'risk', 'benefits', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours'),('Aller a tahiti', 'Pour plus de 100000euros', 'impact', 'risk', 'benefits', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23','En cours');
 
 
 DROP TABLE IF EXISTS comment;
