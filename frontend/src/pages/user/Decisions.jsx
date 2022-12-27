@@ -77,7 +77,7 @@ export default function Decisions({ open }) {
 
   return (
     <div className="w-screen h-screen overflow-hidden">
-      <div className="flex flex-row items-center bg-light-grey">
+      <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
@@ -88,12 +88,11 @@ export default function Decisions({ open }) {
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink pl-40">Décisions</h1>
+        <h1 className="text-2xl text-red-pink">Décisions</h1>
         <div className="logo-home">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-
       <div className="flex">
         <div className="flex">
           <button

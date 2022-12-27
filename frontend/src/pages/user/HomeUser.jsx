@@ -33,9 +33,13 @@ export default function Home({ open }) {
 
   return (
     <div className="w-screen">
-      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+      <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          {user ? (
+            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          ) : (
+            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+          )}
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>

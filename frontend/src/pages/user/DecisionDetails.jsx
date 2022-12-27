@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AccordionDecisionDetails from "../../components/user/AccordionDecisionDetails";
 import userimg from "../../assets/icons/user.png";
-import logo from "../../assets/logo-makesense.png";
+import Logo from "../../assets/logo-makesense.png";
 import editIcon from "../../assets/icons/edit.svg";
 import TimelineStepperDecision from "../../components/user/TimelineStepperDecision";
 import "../../css/user/createDecision.css";
@@ -31,15 +31,20 @@ export default function DecisionDetails() {
 
   return (
     <div className="flex flex-col w-screen">
-      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+      <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          {user ? (
+            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          ) : (
+            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+          )}
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
+        <h1 className="text-2xl text-red-pink">Détail de la décision</h1>
         <div className="logo-home">
-          <img src={logo} alt="logo make-sense" />
+          <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
       <div className="flex flex-row justify-around mt-10">

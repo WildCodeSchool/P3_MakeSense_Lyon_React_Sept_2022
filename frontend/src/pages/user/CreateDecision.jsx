@@ -3,7 +3,6 @@
 import { React, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import logo from "../../assets/logo-makesense.png";
 import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
@@ -11,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../assets/logo-makesense.png";
 
 export default function CreateDecision() {
   const { user, token } = useAuthContext();
@@ -84,10 +84,22 @@ export default function CreateDecision() {
 
   return (
     <div className="w-screen">
-      <header className="headerDecision pl-10 ">
-        <h1>Créer une décision</h1>
-        <img src={logo} alt="logo-MakeSense" />
-      </header>
+      <div className="flex flex-row items-center justify-between bg-light-grey">
+        <div className="flex flex-col">
+          {user ? (
+            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          ) : (
+            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+          )}
+          <p className="pl-10 text-x font-extralight">
+            Nous sommes le : {new Date().toLocaleDateString()}
+          </p>
+        </div>
+        <h1 className="text-2xl text-red-pink">Créer une décision</h1>
+        <div className="logo-home">
+          <img src={Logo} alt="logo make-sense" />
+        </div>
+      </div>
       <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">
