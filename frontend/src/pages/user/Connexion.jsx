@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import "../../assets/logo-makesense.png";
+import peoplepicture from "../../assets/peoplepicture.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 function Connexion() {
@@ -46,7 +47,7 @@ function Connexion() {
   }, []);
 
   return (
-    <div className="connexionPage">
+    <div className="connexionPage ">
       <NavLink to="/">
         <img
           className="p-6"
@@ -152,7 +153,42 @@ function Connexion() {
             </div>
           </div>
         </div>
+        <br />
+        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
+          <NavLink className="hover:underline" to="/help">
+            <p href="help"> Besoin d'aides ?</p>
+          </NavLink>
+          <NavLink to="/legal-notice">
+            <p className="mt-[16px] hover:underline">Mentions légales</p>
+          </NavLink>
+        </div>
       </div>
+      {/* <section className="xxl-max:hidden"> */}
+      <section className="">
+        <div className="auth-LeftPicture absolute top-[240px] left-0">
+          <img
+            src={peoplepicture}
+            alt="PicturePrésentation"
+            width={520}
+            className="1101-max:hidden xxl-max:w-2/6 w-3/7"
+          />
+        </div>
+        <div className="auth-rightBottomBloc relative">
+          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl-max:hidden">
+            <NavLink className="hover:underline" to="/help">
+              <p href="help"> Besoin d'aides ?</p>
+            </NavLink>
+            <NavLink to="/legal-notice">
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
+            </NavLink>
+          </div>
+          <div className="xl-max:hidden">
+            <div className="auth-Ovale">
+              <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

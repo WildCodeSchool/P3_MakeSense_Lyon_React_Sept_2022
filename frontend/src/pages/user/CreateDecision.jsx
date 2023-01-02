@@ -11,7 +11,10 @@ import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function CreateDecision() {
-  const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState();
+  useState(new Date());
+  const [startDateFinalOfDecision, setStartDateFinalOfDecision] = useState(
+    new Date()
+  );
   const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
   const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
   const [valueDecision, setValueDecision] = useState();
@@ -78,8 +81,9 @@ export default function CreateDecision() {
               Décision
             </p>
             <p className="decision-explaination">
-              Lorem ipsum bla bla la Lorem ipsum bla bla la Lorem ipsum bla bla
-              la Lorem ipsum bla bla la Lorem ipsum bla bla la
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              totam natus assumenda placeat ex vel, omnis et corrupti eius! Ut
+              asperiores adipisci, vero
             </p>
           </div>
           <div className="col-span-2 ...">
@@ -119,7 +123,7 @@ export default function CreateDecision() {
               onChange={(e) => setValueBeneficeOfDecision(e.target.value)}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">Risques potentiels :</h2>
+            <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
             <ReactQuill
               theme="snow"
               value={valueRiskOfDecision}
