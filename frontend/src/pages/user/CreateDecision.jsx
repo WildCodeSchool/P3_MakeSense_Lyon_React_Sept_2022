@@ -8,6 +8,7 @@ import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function CreateDecision() {
   useState(new Date());
@@ -16,9 +17,10 @@ export default function CreateDecision() {
   );
   const [valueBeneficeOfDecision, setValueBeneficeOfDecision] = useState("");
   const [valueImpactOfDecision, setValueImpactOfDecision] = useState("");
-  const [valueDecision, setValueDecision] = useState("");
-  const [valueRiskOfDecision, setValueRiskOfDecision] = useState("");
-
+  const [valueDecision, setValueDecision] = useState();
+  const [valueRiskOfDecision, setValueRiskOfDecision] = useState();
+  const [title, setTitle] = useState();
+  const { user } = useCurrentUserContext();
   // modules for react-quill text editor
   const modules = {
     toolbar: [
@@ -32,21 +34,46 @@ export default function CreateDecision() {
     ],
   };
 
+  const sendDecision = (e) => {
+    e.preventDefault();
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      title,
+      valueDecision,
+      startDateFinalOfDecision,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:5005/decision", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.warn(result))
+      .catch((error) => console.warn("error", error));
+  };
+
   return (
     <div className="w-screen">
-      <div className="flex flex-row items-center bg-light-grey">
+      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour Madeline</p>
+          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
           <p className="pl-10 text-x font-extralight">
             Nous sommes le : 13 septembre 2023
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink pl-40">Créer une décisions</h1>
+        <h1 className="text-2xl text-red-pink pl-40">Créer ta décision</h1>
         <div className="logo-home">
           <img src={logo} alt="logo make-sense" />
         </div>
       </div>
-      <main className="mainCreateDecision">
+      <form className="mainCreateDecision" onSubmit={sendDecision}>
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <div className="row-span-3 ...">
             <p className="mt-20 decision-resume">
@@ -69,6 +96,8 @@ export default function CreateDecision() {
               </label>
               <input
                 type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 id="title-input"
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
@@ -77,37 +106,36 @@ export default function CreateDecision() {
             <ReactQuill
               theme="snow"
               value={valueDecision}
-              onChange={setValueDecision}
+              onChange={(e) => setValueDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
             <ReactQuill
               theme="snow"
               value={valueImpactOfDecision}
-              onChange={setValueImpactOfDecision}
+              onChange={(e) => setValueImpactOfDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
             <ReactQuill
               theme="snow"
               value={valueBeneficeOfDecision}
-              onChange={setValueBeneficeOfDecision}
+              onChange={(e) => setValueBeneficeOfDecision(e.target.value)}
               modules={modules}
             />
             <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
             <ReactQuill
               theme="snow"
               value={valueRiskOfDecision}
-              onChange={setValueRiskOfDecision}
+              onChange={(e) => setValueRiskOfDecision(e.target.value)}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">
-              Deadline pour rentrer en conflit avec la décision :
-            </h2>
+            <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker
                   selected={startDateFinalOfDecision}
+                  value={startDateFinalOfDecision}
                   onChange={(date) => setStartDateFinalOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Décision final"
@@ -142,14 +170,15 @@ export default function CreateDecision() {
             </div>
           </div>
         </div>
-      </main>
-      <button
-        type="button"
-        id="buttonEnvoyerDecision"
-        className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
-      >
-        Envoyer
-      </button>
+
+        <button
+          type="submit"
+          id="buttonEnvoyerDecision"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+        >
+          Envoyer
+        </button>
+      </form>
     </div>
   );
 }

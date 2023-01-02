@@ -1,11 +1,54 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+/* eslint-disable no-alert */
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function Inscription() {
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+
+  /* This is a function for post a user in database for the form */
+
+  const sendUser = (e) => {
+    e.preventDefault();
+    /* This is a header for the fetch */
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    /* It's an object that will be sent in the body of request */
+    const bodyRaw = JSON.stringify({
+      firstname,
+      lastname,
+      email,
+      password,
+    });
+
+    /* fetch to suscribe at makesense */
+    fetch("http://localhost:5005/user", {
+      method: "POST",
+      headers: myHeaders,
+      body: bodyRaw,
+      redirect: "follow",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Votre inscription à été prise en compte");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.warn(error); /* 
+        alert("Vous êtes déjà inscrit");
+        navigate("/"); */
+      });
+  };
+
   return (
     <div className="inscriptionPage bg-white relative h-screen w-screen sm:overflow-x-hidden ">
       <HeaderCountryChoice />
@@ -28,6 +71,7 @@ function Inscription() {
           <form
             className=" index sm:grid grid-cols-2 grid-rows-3 gap-5 sm-max:flex sm-max:flex-col"
             action="#"
+            onSubmit={(e) => sendUser(e)}
           >
             {/* Prénom */}
             <div className="box">
@@ -39,8 +83,10 @@ function Inscription() {
               </label>
               <input
                 type="text"
-                name="text"
-                id="text"
+                name="firstname"
+                id="firstname"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 placeholder=""
               />
@@ -55,8 +101,10 @@ function Inscription() {
               </label>
               <input
                 type="text"
-                name="text"
-                id="text"
+                name="lastname"
+                id="lastname"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 placeholder=""
               />
@@ -73,6 +121,8 @@ function Inscription() {
                 type="email"
                 name="email"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="adresse@examplecom"
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 required=""
@@ -90,6 +140,8 @@ function Inscription() {
                 type="password"
                 name="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="*********"
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
               />
@@ -111,11 +163,6 @@ function Inscription() {
                 </p>
               </NavLink>
             </div>
-            <p className="box row-span-0 col-span-2 text-center">
-              Votre enregistrement a bien été prise en compte, vous allez
-              recevoir un mail de confirmation afin de valider votre inscription
-              !
-            </p>
           </form>
         </div>
         <br />

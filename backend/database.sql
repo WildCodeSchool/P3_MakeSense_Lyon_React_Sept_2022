@@ -5,11 +5,11 @@ CREATE TABLE user (
   firstname varchar(100) NOT NULL,
   lastname varchar(100) NOT NULL,
   email varchar(200) NOT NULL,
-  city varchar(100) NOT NULL,
+  city varchar(100),
   phone varchar(20),
   avatar varchar(255),
   hashedPassword varchar(100) NOT NULL,
-  is_admin tinyint NOT NULL,
+  is_admin int NOT NULL DEFAULT 1,
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
@@ -34,20 +34,19 @@ DROP TABLE IF EXISTS decision;
 CREATE TABLE decision (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
-  content text, 
+  content text NOT NULL, 
   impact text,
   risk text,
   date_decision_creation DATETIME NOT NULL DEFAULT NOW(),
-  date_decision_conflict datetime,
-  date_decision_final_planned datetime,
-  date_decision_close datetime,
+  date_decision_conflict date,
+  date_decision_final_planned DATETIME NOT NULL,
+  date_decision_close date,
   user_id int,
-  status_decision_id int,
-  FOREIGN KEY (user_id) REFERENCES user(id),
-  FOREIGN KEY (status_decision_id) REFERENCES status_decision(id)
+  status_decision varchar(30),
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-INSERT INTO decision (title, content, impact, risk, date_decision_creation,date_decision_conflict, date_decision_final_planned, date_decision_close) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23'),('Surfer toute la vie', 'Acheter 250 plaches de surf', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23'),('Acheter un 4X4 pour poluer la planete', 'voici ma description', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23'),('Aller a tahiti', 'Pour plus de 100000euros', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23');
+INSERT INTO decision (title, content, impact, risk, date_decision_creation,date_decision_conflict, date_decision_final_planned, date_decision_close, status_decision) VALUES ('Déménager à bali', 'Je veux demenager à bali pour surfer', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23','en cours'),('Surfer toute la vie', 'Acheter 250 plaches de surf', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23','en cours'),('Acheter un 4X4 pour poluer la planete', 'voici ma description', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23','en cours'),('Aller a tahiti', 'Pour plus de 100000euros', 'impact', 'risk', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23','en cours');
 
 
 DROP TABLE IF EXISTS comment;

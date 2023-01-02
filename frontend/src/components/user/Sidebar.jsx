@@ -1,12 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/self-closing-comp */
-import React from "react";
+import React, { useContext } from "react";
 import "../../css/user/sidebar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import CurrentConnexionContext from "../../context/AuthContext";
 
 export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
+  const navigate = useNavigate();
+  const { setIsLogin } = useContext(CurrentConnexionContext);
   const handleNotificationModal = () => {
     setShowModal(!showModal);
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    setIsLogin(false);
   };
 
   return (
@@ -113,6 +122,25 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
             />
           </svg>
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mon profil</p>
+        </NavLink>
+        <NavLink to="/" className="flex flex-row items-center" onClick={logOut}>
+          <div className="yellow-point mr-2 mt-3"></div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            className={`${open ? "w-6 h-6 mr-2 mt-3" : "w-7 h-7 ml-3 mt-3"}`}
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
+            Se déconnecter
+          </p>
         </NavLink>
       </div>
       <div className="flex flex-row items-center pt-4">

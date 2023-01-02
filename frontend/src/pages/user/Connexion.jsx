@@ -1,10 +1,51 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+/* eslint-disable no-alert */
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
-import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
+import peoplepicture from "../../assets/peoplepicture.png";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 function Connexion() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const { setUser } = useCurrentUserContext();
+
+  const navigate = useNavigate();
+
+  const sendConnexion = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    /* It's an object that will be sent in the body of request */
+    const raw = JSON.stringify({
+      email,
+      password,
+    });
+
+    /* function push user and token in the localstorage */
+    fetch("http://localhost:5005/login", {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.token) {
+          setUser(result.user);
+          localStorage.setItem("token", JSON.stringify(result.token));
+          navigate("/home");
+        } else {
+          alert("Veuillez entrer un identifiant ou password correct.");
+        }
+      })
+      .catch((error) => console.warn(error));
+  };
+
+  useEffect(() => {
+    sendConnexion();
+  }, []);
+
   return (
     <div className="connexionPage ">
       <NavLink to="/">
@@ -23,7 +64,7 @@ function Connexion() {
               CONNEXION
             </h1>
             <p className="text-2xl text-center">Accédez à votre compte </p>
-            <form className=" index space-y-8" action="#">
+            <div className="index space-y-8" action="#">
               <div>
                 <label
                   htmlFor="email"
@@ -35,6 +76,7 @@ function Connexion() {
                   type="email"
                   name="email"
                   id="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                   placeholder="pseudo@exemple.com"
                   required=""
@@ -52,6 +94,7 @@ function Connexion() {
                   name="password"
                   id="password"
                   placeholder="••••••••"
+                  onChange={(e) => setPassword(e.target.value)}
                   className="text-black border sm:text-sm rounded-lg block w-full p-2.5"
                   required=""
                 />
@@ -77,25 +120,37 @@ function Connexion() {
               <div className="text-center ">
                 <button
                   type="submit"
-                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
+                  onClick={sendConnexion}
+                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-4 py-4 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER
                 </button>
+
+                <p className="text-center mt-3 text-sm">
+                  <NavLink to="motdepasseoublie">
+                    <p className="text-white mtmb-1 font-medium hover:underline hover:text-flash-yellow">
+                      Mot de passe oublié?
+                    </p>
+                  </NavLink>
+                  <NavLink to="inscription">
+                    <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                      S'inscrire
+                    </p>
+                  </NavLink>
+                </p>
               </div>
-              <p className="text-center text-sm">
-                <NavLink to="motdepasseoublie">
-                  <p className="text-white mb-[4px] font-medium hover:underline hover:text-flash-yellow">
-                    Mot de passe oublié?
-                  </p>
+            </div>
+            <div className="auth-help-Mentions">
+              {" "}
+              <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl:hidden">
+                <NavLink className="hover:underline" to="/help">
+                  <p href="help"> Besoin d'aides ?</p>
                 </NavLink>
-                <NavLink to="inscription">
-                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-flash-yellow ">
-                    S'inscrire
-                  </p>
+                <NavLink to="/legal-notice">
+                  <p className="mt-4 hover:underline">Mentions légales</p>
                 </NavLink>
-              </p>
-            </form>
-            {/* <div className="auth-help-Mentions"> </div> */}
+              </div>
+            </div>
           </div>
         </div>
         <br />

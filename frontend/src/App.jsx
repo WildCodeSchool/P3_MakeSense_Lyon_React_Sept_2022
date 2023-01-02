@@ -17,11 +17,13 @@ import DecisionDetails from "@pages/user/DecisionDetails";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
+import { CurrentUserContextProvider } from "./context/UserContext";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const location = useLocation();
   const [open, setOpen] = useState(true);
+  const location = useLocation();
+
   return (
     <div className="flex">
       {location.pathname === "/" ||
@@ -45,23 +47,25 @@ function App() {
           setShowModal={setShowModal}
         />
       ) : null}
-      <Routes>
-        <Route path="/" element={<Authentification />} />
-        <Route path="/inscription" element={<Inscription />} />
-        <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
-        <Route
-          path="/home"
-          element={<HomeUser open={open} setOpen={setOpen} />}
-        />
-        <Route path="/create-decision" element={<CreateDecision />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-        <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/user-profile" element={<UserProfile open={open} />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/decisions" element={<Decisions open={open} />} />
-        <Route path="/decision" element={<DecisionDetails />} />
-      </Routes>
+      <CurrentUserContextProvider>
+        <Routes>
+          <Route path="/" element={<Authentification />} />
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+          <Route
+            path="/home"
+            element={<HomeUser open={open} setOpen={setOpen} />}
+          />
+          <Route path="/create-decision" element={<CreateDecision />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/my-profile" element={<MyProfile />} />
+          <Route path="/user-profile" element={<UserProfile open={open} />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/decisions" element={<Decisions open={open} />} />
+          <Route path="/decision" element={<DecisionDetails />} />
+        </Routes>
+      </CurrentUserContextProvider>
     </div>
   );
 }
