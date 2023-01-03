@@ -17,14 +17,14 @@ import DecisionDetails from "@pages/user/DecisionDetails";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
-import { useAuthContext } from "./contexts/AuthContext";
+import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const location = useLocation();
   const [open, setOpen] = useState(true);
-  const { token } = useAuthContext();
+  const { token } = useCurrentUserContext();
+  const location = useLocation();
 
   return (
     <div className="flex">
@@ -32,7 +32,7 @@ function App() {
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
-      token === "" ||
+      token === null ||
       location.pathname === "/help" ? null : (
         <aside className="h-screen sticky top-0 overflow-hidden">
           <Sidebar
@@ -72,10 +72,10 @@ function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/" element={<Authentification />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       )}
     </div>

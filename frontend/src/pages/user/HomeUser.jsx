@@ -8,13 +8,13 @@ import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/homeUser.css";
 import TimeStepperHome from "@components/user/TimeStepperHome";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Home({ open }) {
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const { user } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
-  const { token } = useAuthContext();
+  const { token } = useCurrentUserContext();
 
   // fetch all datas with LEFT JOIN on user_id of decisions from API
   useEffect(() => {

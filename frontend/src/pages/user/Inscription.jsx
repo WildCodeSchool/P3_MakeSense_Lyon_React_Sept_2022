@@ -1,44 +1,56 @@
-import React from "react";
-// import  { useState } from "react";
-import { NavLink } from "react-router-dom";
+/* eslint-disable no-alert */
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
 function Inscription() {
-  // const [firstname, setFirstname] = useState();
-  // const [lastname, setLastname] = useState();
-  // const [email, setEmail] = useState();
-  // const [password, setPassword] = useState();
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
-  // function sendUser(e) {
-  //   e.preventDefault();
+  /* This is a function for post a user in database for the form */
 
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
+  const sendUser = (e) => {
+    e.preventDefault();
+    /* This is a header for the fetch */
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-  //   const raw = JSON.stringify({
-  //     firstname,
-  //     lastname,
-  //     email,
-  //     password,
-  //   });
+    /* It's an object that will be sent in the body of request */
+    const bodyRaw = JSON.stringify({
+      firstname,
+      lastname,
+      email,
+      password,
+    });
 
-  //   fetch("http://localhost:5000/user", {
-  //     method: "POST",
-  //     redirect: "follow",
-  //     body: raw,
-  //     headers: myHeaders,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => console.warn(result))
-  //     .catch((error) => console.warn("error", error));
-  //   console.warn(raw);
-  // }
+    /* fetch to suscribe at makesense */
+    fetch("http://localhost:5000/user", {
+      method: "POST",
+      headers: myHeaders,
+      body: bodyRaw,
+      redirect: "follow",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Votre inscription à été prise en compte");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.warn(error); /* 
+        alert("Vous êtes déjà inscrit");
+        navigate("/"); */
+      });
+  };
 
   return (
-    <div className="inscriptionPage bg-white relative h-screen w-screen ">
+    <div className="inscriptionPage bg-white relative h-screen w-screen sm:overflow-x-hidden ">
       <HeaderCountryChoice />
       <NavLink to="/">
         <img
@@ -59,6 +71,7 @@ function Inscription() {
           <form
             className=" index sm:grid grid-cols-2 grid-rows-3 gap-5 sm-max:flex sm-max:flex-col"
             action="#"
+            onSubmit={(e) => sendUser(e)}
           >
             {/* Prénom */}
             <div className="box">
@@ -70,8 +83,10 @@ function Inscription() {
               </label>
               <input
                 type="text"
-                name="text"
-                id="text"
+                name="firstname"
+                id="firstname"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 placeholder=""
               />
@@ -86,8 +101,10 @@ function Inscription() {
               </label>
               <input
                 type="text"
-                name="text"
-                id="text"
+                name="lastname"
+                id="lastname"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 placeholder=""
               />
@@ -104,6 +121,8 @@ function Inscription() {
                 type="email"
                 name="email"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="adresse@examplecom"
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 required=""
@@ -121,6 +140,8 @@ function Inscription() {
                 type="password"
                 name="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="*********"
                 className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
               />
@@ -135,36 +156,48 @@ function Inscription() {
               </button>
             </div>
             {/* Déja membre */}
-            <div className="box flex justify-start ml-4 items-center sm-max:justify-center">
+            <div className="box flex justify-start ml-[16px] items-center sm-max:justify-center">
               <NavLink to="/">
                 <p className="text-white text-lg font-medium text-primary-600 hover:underline hover:text-flash-yellow">
                   Déja membre ?
                 </p>
               </NavLink>
             </div>
-            <p className="box row-span-0 col-span-2 text-center">
-              Votre enregistrement a bien été prise en compte, vous allez
-              recevoir un mail de confirmation afin de valider votre inscription
-              !
-            </p>
           </form>
         </div>
+        <br />
+        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
+          <NavLink className="hover:underline" to="/help">
+            <p href="help"> Besoin d'aides ?</p>
+          </NavLink>
+          <NavLink to="/legal-notice">
+            <p className="mt-[16px] hover:underline">Mentions légales</p>
+          </NavLink>
+        </div>
       </div>
-      <section className="xxl-max:hidden">
+      {/* <section className="xxl-max:hidden"> */}
+      <section className="">
         <div className="auth-LeftPicture absolute top-[240px] left-0">
-          <img src={peoplepicture} alt="PicturePrésentation" width={520} />
+          <img
+            src={peoplepicture}
+            alt="PicturePrésentation"
+            width={520}
+            className="xl-max:hidden 1590-max:w-2/6 w-3/7"
+          />
         </div>
         <div className="auth-rightBottomBloc relative">
-          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl ">
+          <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl-max:hidden ">
             <NavLink className="hover:underline" to="/help">
               <p href="help"> Besoin d'aides ?</p>
             </NavLink>
             <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
             </NavLink>
           </div>
-          <div className="auth-Ovale">
-            <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+          <div className="xxl-max:hidden">
+            <div className="auth-Ovale">
+              <div className="auth-OvaleRed bg-red-pink rounded-full rotate-[180deg] absolute w-[208px] h-[96px] right-[70px] bottom-[125px]" />
+            </div>
           </div>
         </div>
       </section>

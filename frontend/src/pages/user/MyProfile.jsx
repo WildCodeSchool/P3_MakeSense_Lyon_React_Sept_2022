@@ -3,10 +3,10 @@ import React from "react";
 import Logo from "../../assets/logo-makesense.png";
 import Add from "../../assets/icons/x.svg";
 import "../../css/user/myprofile.css";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function MyProfile() {
-  const { user } = useAuthContext();
+  const { user } = useCurrentUserContext();
 
   return (
     <div className="w-screen">

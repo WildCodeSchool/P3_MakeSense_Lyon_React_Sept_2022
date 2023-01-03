@@ -1,51 +1,54 @@
-import { React, useState, useEffect } from "react";
+/* eslint-disable no-alert */
+import { React, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
-import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
+import peoplepicture from "../../assets/peoplepicture.png";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 function Connexion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useCurrentUserContext({});
+
   const navigate = useNavigate();
 
-  function loginUser() {
+  const sendConnexion = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+    /* It's an object that will be sent in the body of request */
     const raw = JSON.stringify({
       email,
       password,
     });
-    if (password.length > 5 && email.includes("@")) {
-      fetch("http://localhost:5000/login", {
-        method: "POST",
-        redirect: "follow",
-        body: raw,
-        headers: myHeaders,
+
+    /* function push user and token in the localstorage */
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.token) {
+          setUser(result.user);
+          localStorage.setItem("token", result.token);
+          navigate("/home");
+        } else {
+          alert("Veuillez entrer un identifiant ou password correct.");
+        }
       })
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.token) {
-            localStorage.setItem("user", JSON.stringify(result));
-            setTimeout(() => {
-              navigate("/home");
-            }, 2000);
-          }
-        })
-        .catch((error) => console.warn(("Mauvais Email ou Password", error)));
-    } else {
-      console.warn("Veuillez entrer un email et un mot de passe valide");
-    }
-  }
+      .catch((error) => console.warn(error));
+  };
 
   useEffect(() => {
-    loginUser();
+    sendConnexion();
   }, []);
 
   return (
-    <div className="connexionPage">
-      <NavLink to="/login">
+    <div className="connexionPage ">
+      <NavLink to="/">
         <img
           className="p-6"
           src="/src/assets/logo-makesense.png"
@@ -61,7 +64,7 @@ function Connexion() {
               CONNEXION
             </h1>
             <p className="text-2xl text-center">Accédez à votre compte </p>
-            <form className="index space-y-8" action="#">
+            <div className="index space-y-8" action="#">
               <div>
                 <label
                   htmlFor="email"
@@ -89,9 +92,9 @@ function Connexion() {
                 <input
                   type="password"
                   name="password"
-                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   placeholder="••••••••"
+                  onChange={(e) => setPassword(e.target.value)}
                   className="text-black border sm:text-sm rounded-lg block w-full p-2.5"
                   required=""
                 />
@@ -116,26 +119,27 @@ function Connexion() {
               </div>
               <div className="text-center ">
                 <button
-                  type="button"
-                  onClick={loginUser}
-                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-5 py-5 text-center border hover:scale-105 duration-300"
+                  type="submit"
+                  onClick={sendConnexion}
+                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-4 py-4 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER
                 </button>
+
+                <p className="text-center mt-3 text-sm">
+                  <NavLink to="motdepasseoublie">
+                    <p className="text-white mtmb-1 font-medium hover:underline hover:text-flash-yellow">
+                      Mot de passe oublié?
+                    </p>
+                  </NavLink>
+                  <NavLink to="inscription">
+                    <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
+                      S'inscrire
+                    </p>
+                  </NavLink>
+                </p>
               </div>
-              <p className="text-center text-sm">
-                <NavLink to="motdepasseoublie">
-                  <p className="text-white mb-1 font-medium hover:underline hover:text-flash-yellow">
-                    Mot de passe oublié?
-                  </p>
-                </NavLink>
-                <NavLink to="inscription">
-                  <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
-                    S'inscrire
-                  </p>
-                </NavLink>
-              </p>
-            </form>
+            </div>
             <div className="auth-help-Mentions">
               {" "}
               <div className="auth-textOvale absolute right-[200px] bottom-[-15px] z-10 text-red-pink text-xl xl:hidden">
@@ -148,6 +152,15 @@ function Connexion() {
               </div>
             </div>
           </div>
+        </div>
+        <br />
+        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
+          <NavLink className="hover:underline" to="/help">
+            <p href="help"> Besoin d'aides ?</p>
+          </NavLink>
+          <NavLink to="/legal-notice">
+            <p className="mt-[16px] hover:underline">Mentions légales</p>
+          </NavLink>
         </div>
       </div>
       {/* <section className="xxl-max:hidden"> */}
@@ -166,7 +179,7 @@ function Connexion() {
               <p href="help"> Besoin d'aides ?</p>
             </NavLink>
             <NavLink to="/legal-notice">
-              <p className="mt-4 hover:underline">Mentions légales</p>
+              <p className="mt-[16px] hover:underline">Mentions légales</p>
             </NavLink>
           </div>
           <div className="xl-max:hidden">

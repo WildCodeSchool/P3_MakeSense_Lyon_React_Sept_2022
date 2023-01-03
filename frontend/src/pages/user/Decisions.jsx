@@ -5,11 +5,11 @@ import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Decisions({ open }) {
   const navigate = useNavigate();
-  const { user, token } = useAuthContext();
+  const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
 
   // to show or not the chevron-down icon with filter
@@ -19,7 +19,6 @@ export default function Decisions({ open }) {
   const [isOpenConflicts, setIsOpenConflicts] = useState(false);
   const [isOpenFinished, setIsOpenFinished] = useState(false);
   const [isOpenUnfinished, setIsOpenUnfinished] = useState(false);
-
   // fetch all datas with LEFT JOIN on user_id of decisions from API
   useEffect(() => {
     const myHeader = new Headers();
@@ -34,6 +33,8 @@ export default function Decisions({ open }) {
       .then((result) => setValuesDetailsDecisions(result))
       .catch((error) => console.warn("error", error));
   }, [token]);
+
+  console.warn("test", user.firstname);
 
   const handleChevrondownAllDecisions = () => {
     setIsOpenAllDecisions(!isOpenAllDecisions);

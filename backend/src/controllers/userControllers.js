@@ -1,6 +1,7 @@
 /* eslint-disable prefer-destructuring */
 const models = require("../models");
 
+/* function that retrieves data with "get" in the models */
 const browse = (req, res) => {
   models.user
     .findAll()
@@ -13,6 +14,7 @@ const browse = (req, res) => {
     });
 };
 
+/* function that retrieves data with "get" by id */
 const read = (req, res) => {
   models.user
     .find(req.params.id)
@@ -29,6 +31,7 @@ const read = (req, res) => {
     });
 };
 
+/* function that retrieves data with "update" by id */
 const edit = (req, res) => {
   const user = req.body;
 
@@ -51,6 +54,7 @@ const edit = (req, res) => {
     });
 };
 
+/* function that retrieves data with "post" */
 const add = (req, res) => {
   const user = req.body;
   console.warn(user);
@@ -60,7 +64,8 @@ const add = (req, res) => {
   models.user
     .insert(user)
     .then(([result]) => {
-      res.location(`/user/${result.insertId}`).sendStatus(201);
+      res.location(`/user/${result.insertId}`);
+      res.sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -68,6 +73,7 @@ const add = (req, res) => {
     });
 };
 
+/* function that retrieves data with "delete" by id */
 const destroy = (req, res) => {
   models.user
     .delete(req.params.id)
@@ -84,30 +90,10 @@ const destroy = (req, res) => {
     });
 };
 
-const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
-  const user = req.body;
-  models.user
-    .selectEmail(user)
-    .then(([users]) => {
-      if (users[0] != null) {
-        req.user = users[0];
-
-        next();
-      } else {
-        res.status(401);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving data from database");
-    });
-};
-
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
-  getUserByEmailWithPasswordAndPassToNext,
 };

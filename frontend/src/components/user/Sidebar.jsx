@@ -1,12 +1,22 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/self-closing-comp */
-import React from "react";
+import { React } from "react";
 import "../../css/user/sidebar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
+  const { setUser } = useCurrentUserContext();
+
+  const navigate = useNavigate();
   const handleNotificationModal = () => {
     setShowModal(!showModal);
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+    setUser({});
   };
 
   return (
@@ -53,7 +63,6 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
           </svg>
           <p className={`${open ? "text-xl mt-1" : "hidden"}`}>Home</p>
         </NavLink>
-
         <NavLink to="/decisions" className="flex flex-row items-center">
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
@@ -70,7 +79,7 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
               d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75"
             />
           </svg>
-          <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mes décisions</p>
+          <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Décisions</p>
         </NavLink>
         <button
           type="button"
@@ -113,6 +122,25 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
             />
           </svg>
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mon profil</p>
+        </NavLink>
+        <NavLink to="/" className="flex flex-row items-center" onClick={logOut}>
+          <div className="yellow-point mr-2 mt-3"></div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            className={`${open ? "w-6 h-6 mr-2 mt-3" : "w-7 h-7 ml-3 mt-3"}`}
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
+            Se déconnecter
+          </p>
         </NavLink>
       </div>
       <div className="flex flex-row items-center pt-4">

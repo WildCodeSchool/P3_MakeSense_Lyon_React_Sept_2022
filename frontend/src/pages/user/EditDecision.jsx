@@ -7,12 +7,12 @@ import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useCurrentUserContext } from "../../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
 
 export default function EditDecision() {
-  const { user, token } = useAuthContext();
+  const { user, token } = useCurrentUserContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
   const [impact, setValueImpactOfDecision] = useState("");

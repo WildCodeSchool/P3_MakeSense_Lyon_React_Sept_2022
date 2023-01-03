@@ -8,12 +8,12 @@ import "../../css/user/createDecision.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useCurrentUserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
 
 export default function CreateDecision() {
-  const { user, token } = useAuthContext();
+  const { user, token } = useCurrentUserContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
   const [impact, setValueImpactOfDecision] = useState("");
@@ -108,8 +108,9 @@ export default function CreateDecision() {
               Décision
             </p>
             <p className="decision-explaination">
-              Lorem ipsum bla bla la Lorem ipsum bla bla la Lorem ipsum bla bla
-              la Lorem ipsum bla bla la Lorem ipsum bla bla la
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              totam natus assumenda placeat ex vel, omnis et corrupti eius! Ut
+              asperiores adipisci, vero
             </p>
           </div>
           <div className="col-span-2 ...">
@@ -123,6 +124,7 @@ export default function CreateDecision() {
               <input
                 onChange={(e) => setTitleDecision(e.target.value)}
                 type="text"
+                value={title}
                 id="title-input"
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
@@ -148,14 +150,14 @@ export default function CreateDecision() {
               onChange={setValueBenefitsOfDecision}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">Risques potentiels :</h2>
+            <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
             <ReactQuill
               theme="snow"
               value={risk}
               onChange={setValueRiskOfDecision}
               modules={modules}
             />
-            <h2 className="mt-8 mb-3">Deadline pour :</h2>
+            <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker

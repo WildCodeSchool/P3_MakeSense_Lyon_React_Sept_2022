@@ -6,11 +6,11 @@ import Logo from "../../assets/logo-makesense.png";
 import editIcon from "../../assets/icons/edit.svg";
 import TimelineStepperDecision from "../../components/user/TimelineStepperDecision";
 import "../../css/user/createDecision.css";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function DecisionDetails() {
   const idParam = useParams();
-  const { user, token } = useAuthContext();
+  const { user, token } = useCurrentUserContext();
   const [clickedAnswer4, setClickedAnswer4] = useState(false);
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const navigate = useNavigate();

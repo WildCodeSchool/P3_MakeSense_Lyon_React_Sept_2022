@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS decision;
 CREATE TABLE decision (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
-  content text, 
+  content text NOT NULL, 
   impact text,
   risk text,
   benefits text,

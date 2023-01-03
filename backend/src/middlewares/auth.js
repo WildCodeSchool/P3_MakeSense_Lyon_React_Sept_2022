@@ -28,19 +28,20 @@ const hashPassword = (req, res, next) => {
 
 const verifyPassword = (req, res) => {
   argon2
-    .verify(req.user.hashedPassword, req.body.password)
+    .verify(req.user.hashedPassword, req.body.password, hashingOptions)
     .then((isVerified) => {
       if (isVerified) {
         const payload = { sub: req.user.id };
 
         const token = jwt.sign(payload, JWT_SECRET, {
+          algorithm: "HS512",
           expiresIn: "12h",
         });
 
         delete req.user.hashedPassword;
         res.send({ token, user: req.user });
       } else {
-        res.sendStatus(401);
+        res.status(401).send({ message: "Wrong password" });
       }
     })
     .catch((err) => {
@@ -50,6 +51,7 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
+  console.warn(req.get("Authorization"));
   try {
     const authorizationHeader = req.get("Authorization");
 
