@@ -2,7 +2,7 @@
 /* eslint-disable import/order */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable import/no-unresolved */
-import React from "react";
+import { React, useEffect, useState } from "react";
 import DecisionCard from "@components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/homeUser.css";
@@ -13,14 +13,35 @@ import { useCurrentUserContext } from "../../context/UserContext";
 export default function Home({ open }) {
   const navigate = useNavigate();
   const { user } = useCurrentUserContext();
+  const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
+  const { token } = useCurrentUserContext();
+
+  // fetch all datas with LEFT JOIN on user_id of decisions from API
+  useEffect(() => {
+    const myHeader = new Headers();
+    myHeader.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      headers: myHeader,
+    };
+
+    fetch("http://localhost:5000/decision", requestOptions)
+      .then((response) => response.json())
+      .then((result) => setValuesDetailsDecisions(result))
+      .catch((error) => console.warn("error", error));
+  }, [token]);
 
   return (
     <div className="w-screen">
-      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+      <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          {user ? (
+            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          ) : (
+            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+          )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : 13 septembre 2023
+            Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="logo-home">
@@ -51,14 +72,17 @@ export default function Home({ open }) {
                 : "grid grid-cols-5 grid-rows-2 gap-4"
             }
           >
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
+            {valuesDetailsDecisions.map((valueDetailsDecision) => {
+              if (valueDetailsDecision.user_id === user.id) {
+                return (
+                  <DecisionCard
+                    key={valueDetailsDecision.id}
+                    valueDetailsDecision={valueDetailsDecision}
+                  />
+                );
+              }
+              return null;
+            })}
           </div>
         </div>
 
@@ -69,10 +93,17 @@ export default function Home({ open }) {
         </div>
         <div className="box col-start-1 col-end-4 ml-10">
           <div className="grid grid-cols-4">
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
-            <DecisionCard />
+            {valuesDetailsDecisions.map((valueDetailsDecision) => {
+              if (valueDetailsDecision.status_decision === "En cours") {
+                return (
+                  <DecisionCard
+                    key={valueDetailsDecision.id}
+                    valueDetailsDecision={valueDetailsDecision}
+                  />
+                );
+              }
+              return null;
+            })}
           </div>
         </div>
         <div className="box row-start-2 row-end-4 col-start-4 ">

@@ -4,13 +4,13 @@ const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
 
   models.user
-    .findByEmailWithPassword(email)
+    .selectEmail(email)
     .then(([user]) => {
       if (user[0] != null) {
         [req.user] = user;
 
         next();
-      } else res.sendStatus(401);
+      } else res.status(401).send({ message: "User not found" });
     })
     .catch((err) => {
       console.warn(err);

@@ -2,34 +2,37 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.decision
-    .findAll()
+    .findAllWithUserId()
     .then(([rows]) => {
       res.send(rows);
     })
     .catch((err) => {
-      console.warn(err);
+      console.error(err);
       res.sendStatus(500);
     });
 };
 
 const read = (req, res) => {
   models.decision
-    .find(req.params.id)
+    .findAllByIdWithUserId(req.params.id)
     .then(([rows]) => {
-      if (rows[0] === null) {
+      if (rows[0] == null) {
         res.sendStatus(404);
       } else {
         res.send(rows[0]);
       }
     })
     .catch((err) => {
-      console.warn(err);
-      res.sendStatus(501);
+      console.error(err);
+      res.sendStatus(500);
     });
 };
 
 const edit = (req, res) => {
   const decision = req.body;
+
+  // TODO validations (length, format...)
+
   decision.id = parseInt(req.params.id, 10);
 
   models.decision
@@ -38,42 +41,67 @@ const edit = (req, res) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(201);
+        res.sendStatus(204);
       }
     })
     .catch((err) => {
-      console.warn(err);
-      res.sendStatus(501);
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const editById = (req, res) => {
+  const decision = req.body;
+
+  // TODO validations (length, format...)
+
+  decision.id = parseInt(req.params.id, 10);
+
+  models.decision
+    .updateById(decision)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
     });
 };
 
 const add = (req, res) => {
+  console.warn(req.body);
   const decision = req.body;
+
+  // TODO validations (length, format...)
 
   models.decision
     .insert(decision)
     .then(([result]) => {
-      res.location(`/user/${result.insertId}`).sendStatus(201);
+      res.location(`/decision/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
-      console.warn(err);
-      res.sendStatus(501);
+      console.error(err);
+      res.sendStatus(500);
     });
 };
 
 const destroy = (req, res) => {
-  models.decision
+  models.user
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(201);
+        res.sendStatus(204);
       }
     })
     .catch((err) => {
-      console.warn(err);
-      res.sendStatus(501);
+      console.error(err);
+      res.sendStatus(500);
     });
 };
 
@@ -83,4 +111,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  editById,
 };

@@ -4,7 +4,7 @@ const models = require("../models");
 const verifyEmail = (req, res, next) => {
   const { email } = req.body;
   models.user
-    .findByEmailWithPassword(email)
+    .selectEmail(email)
     .then(([result]) => {
       console.warn(email);
       console.warn(result);

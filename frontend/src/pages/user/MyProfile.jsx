@@ -10,19 +10,22 @@ export default function MyProfile() {
 
   return (
     <div className="w-screen">
-      <div className="flex flex-row items-center justify-beetwen bg-light-grey">
+      <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
-          <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          {user ? (
+            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+          ) : (
+            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+          )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : 13 septembre 2023
+            Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink pl-40">Mon profil</h1>
+        <h1 className="text-2xl text-red-pink">Mon profil</h1>
         <div className="logo-home">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-
       <div className="w-5/6 m-auto flex">
         <div className="circle_add mt-[80px]">
           <img className="add" src={Add} alt="icon +" />

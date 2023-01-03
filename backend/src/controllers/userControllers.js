@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const models = require("../models");
 
 /* function that retrieves data with "get" in the models */
@@ -55,8 +56,8 @@ const edit = (req, res) => {
 
 /* function that retrieves data with "post" */
 const add = (req, res) => {
-  console.warn(req.body);
   const user = req.body;
+  console.warn(user);
 
   // TODO validations (length, format...)
 

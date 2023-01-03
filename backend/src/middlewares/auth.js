@@ -3,7 +3,7 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = process.env;
-/* Option for the hash password */
+
 const hashingOptions = {
   type: argon2.argon2id,
   memoryCost: 2 ** 16,
@@ -11,18 +11,17 @@ const hashingOptions = {
   parallelism: 1,
 };
 
-/* Function that hashes the password */
 const hashPassword = (req, res, next) => {
   argon2
     .hash(req.body.password, hashingOptions)
     .then((hashedPassword) => {
       req.body.hashedPassword = hashedPassword;
-      console.warn(hashedPassword);
       delete req.body.password;
+
       next();
     })
     .catch((err) => {
-      console.warn(err);
+      console.error(err);
       res.sendStatus(500);
     });
 };
@@ -32,31 +31,42 @@ const verifyPassword = (req, res) => {
     .verify(req.user.hashedPassword, req.body.password, hashingOptions)
     .then((isVerified) => {
       if (isVerified) {
-        const token = jwt.sign({ sub: req.user.id }, JWT_SECRET, {
+        const payload = { sub: req.user.id };
+
+        const token = jwt.sign(payload, JWT_SECRET, {
           algorithm: "HS512",
-          expiresIn: "2h",
+          expiresIn: "12h",
         });
+
         delete req.user.hashedPassword;
         res.send({ token, user: req.user });
-      } else res.sendStatus(401);
+      } else {
+        res.status(401).send({ message: "Wrong password" });
+      }
     })
     .catch((err) => {
-      console.warn(err);
+      console.error(err);
       res.sendStatus(500);
     });
 };
 
 const verifyToken = (req, res, next) => {
+  console.warn(req.get("Authorization"));
   try {
-    const autorizationHeader = req.headers.authorization;
-    if (!autorizationHeader)
-      throw new Error("Autorization needed for this route");
+    const authorizationHeader = req.get("Authorization");
 
-    const [type, token] = autorizationHeader.split(" ");
-    if (type !== "Bearer") throw new Error("Only Bearer token allowed");
-    if (!token) throw new Error("Token needed");
+    if (authorizationHeader == null) {
+      throw new Error("Authorization header is missing");
+    }
 
-    req.payloads = jwt.verify(token, JWT_SECRET);
+    const [type, token] = authorizationHeader.split(" ");
+
+    if (type !== "Bearer") {
+      throw new Error("Authorization header has not the 'Bearer' type");
+    }
+
+    req.payload = jwt.verify(token, JWT_SECRET);
+
     next();
   } catch (err) {
     console.error(err);

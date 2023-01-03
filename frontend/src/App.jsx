@@ -17,11 +17,13 @@ import DecisionDetails from "@pages/user/DecisionDetails";
 import NotificationModal from "@components/user/NotificationModal";
 import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
-import { CurrentUserContextProvider } from "./context/UserContext";
+import { useCurrentUserContext } from "./context/UserContext";
+import EditDecision from "@pages/user/EditDecision";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = useState(true);
+  const { token } = useCurrentUserContext();
   const location = useLocation();
 
   return (
@@ -30,6 +32,7 @@ function App() {
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
+      token === null ||
       location.pathname === "/help" ? null : (
         <aside className="h-screen sticky top-0 overflow-hidden">
           <Sidebar
@@ -47,25 +50,34 @@ function App() {
           setShowModal={setShowModal}
         />
       ) : null}
-      <CurrentUserContextProvider>
+      {token ? (
         <Routes>
-          <Route path="/" element={<Authentification />} />
-          <Route path="/inscription" element={<Inscription />} />
-          <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
           <Route
             path="/home"
             element={<HomeUser open={open} setOpen={setOpen} />}
           />
+          <Route path="/" element={<Authentification />} />
           <Route path="/create-decision" element={<CreateDecision />} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/user-profile" element={<UserProfile open={open} />} />
           <Route path="/help" element={<Help />} />
           <Route path="/decisions" element={<Decisions open={open} />} />
-          <Route path="/decision" element={<DecisionDetails />} />
+          <Route path="/decision/:id" element={<DecisionDetails />} />
+          <Route
+            path="/edit-decision/:id"
+            element={<EditDecision valuesDetailsDecisions />}
+          />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
-      </CurrentUserContextProvider>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Authentification />} />
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React, { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import "../../assets/logo-makesense.png";
@@ -7,9 +7,9 @@ import peoplepicture from "../../assets/peoplepicture.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 function Connexion() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const { setUser } = useCurrentUserContext();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setUser } = useCurrentUserContext({});
 
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ function Connexion() {
     });
 
     /* function push user and token in the localstorage */
-    fetch("http://localhost:5005/login", {
+    fetch("http://localhost:5000/login", {
       method: "POST",
       redirect: "follow",
       body: raw,
@@ -33,7 +33,7 @@ function Connexion() {
       .then((result) => {
         if (result.token) {
           setUser(result.user);
-          localStorage.setItem("token", JSON.stringify(result.token));
+          localStorage.setItem("token", result.token);
           navigate("/home");
         } else {
           alert("Veuillez entrer un identifiant ou password correct.");
@@ -74,9 +74,9 @@ function Connexion() {
                 </label>
                 <input
                   type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   id="email"
-                  onChange={(e) => setEmail(e.target.value)}
                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                   placeholder="pseudo@exemple.com"
                   required=""
