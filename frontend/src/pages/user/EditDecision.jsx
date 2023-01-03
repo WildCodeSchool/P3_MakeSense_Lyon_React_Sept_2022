@@ -144,7 +144,7 @@ export default function EditDecision() {
       <main className="mainCreateDecision">
         <div className="col-span-2 ...">
           <div className="mt-14 mb-6">
-            <label htmlFor="title-input" className="block mb-2 dark:text-white">
+            <label htmlFor="title-input" className="block mb-2">
               Titre de la décision :
             </label>
             <input
@@ -152,7 +152,7 @@ export default function EditDecision() {
               type="text"
               value={title}
               id="title-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
             />
           </div>
           <h2 className="mt-8 mb-3">Description de la décision :</h2>
@@ -201,16 +201,13 @@ export default function EditDecision() {
           </div>
           <br />
           <div>
-            <label
-              htmlFor="status-input"
-              className="block mb-2 dark:text-white"
-            >
+            <label htmlFor="status-input" className="block mb-2">
               Statut de la décision (Actuel : {valueDefaultStatusOfDecision}) :
             </label>
             <select
               onChange={(e) => setStatusOfDecision(e.target.value)}
               id="status-input"
-              className="border border-gray-300 text-sm rounded-lg block w-80 p-2.5 dark:text-white bg-white"
+              className="border border-gray-300 text-sm rounded-lg block w-80 p-2.5  bg-white"
             >
               <option defaultValue="OptionStatus" disabled selected>
                 Cliquer pour changer de statut
@@ -222,10 +219,7 @@ export default function EditDecision() {
             </select>
           </div>
           <div className="mt-8">
-            <label
-              htmlFor="pconcern-input"
-              className="block mb-2 dark:text-white"
-            >
+            <label htmlFor="pconcern-input" className="block mb-2">
               Personnes impactées{" "}
             </label>
             <input
@@ -236,10 +230,7 @@ export default function EditDecision() {
             />
           </div>
           <div className="mt-8">
-            <label
-              htmlFor="pexpert-input"
-              className="block mb-2 dark:text-white"
-            >
+            <label htmlFor="pexpert-input" className="block mb-2 ">
               Personne expertes{" "}
             </label>
             <input

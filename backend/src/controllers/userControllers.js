@@ -14,6 +14,18 @@ const browse = (req, res) => {
     });
 };
 
+const browseByName = (req, res) => {
+  models.user
+    .getUserByName()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 /* function that retrieves data with "get" by id */
 const read = (req, res) => {
   models.user
@@ -92,6 +104,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseByName,
   read,
   edit,
   add,
