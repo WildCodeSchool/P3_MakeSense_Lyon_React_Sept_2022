@@ -7,7 +7,7 @@ class DecisionManager extends AbstractManager {
 
   insert(decision) {
     return this.connection.query(
-      `insert into ${this.table} (title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict, date_decision_close, status_decision, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict, date_decision_close, status_decision, user_id, person_expert_id, person_concern_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         decision.title,
         decision.content,
@@ -19,6 +19,8 @@ class DecisionManager extends AbstractManager {
         decision.date_decision_close,
         decision.status_decision,
         decision.user_id,
+        decision.person_expert,
+        decision.person_concern,
       ]
     );
   }
@@ -59,7 +61,7 @@ class DecisionManager extends AbstractManager {
   findAllByIdWithUserId(id) {
     return this.connection.query(
       `SELECT ${this.table}.id, title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict,
-    date_decision_close, status_decision, user_id,
+    date_decision_close, status_decision, user_id, 
     firstname, lastname, avatar
     FROM ${this.table}
     LEFT JOIN user on ${this.table}.user_id = user.id

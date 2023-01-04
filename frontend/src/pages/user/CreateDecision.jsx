@@ -11,6 +11,7 @@ import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 export default function CreateDecision() {
   const { user, token } = useCurrentUserContext();
@@ -22,10 +23,11 @@ export default function CreateDecision() {
   const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
+  const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
+  const [personExperteDecision, setPersonExperteDecision] = useState([]);
+  const [choosePersonExpert, setChoosePersonExpert] = useState();
+  const [choosePersonConcern, setChoosePersonConcern] = useState();
   const navigate = useNavigate();
-
-  // const [personImpactedDecision, setPersonImpactedDecision] = useState("");
-  // const [personExperteDecision, setPersonExperteDecision] = useState("");
 
   // modules for react-quill text editor
   const modules = {
@@ -66,6 +68,8 @@ export default function CreateDecision() {
       date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
       status_decision: "En cours",
       user_id: user.id,
+      person_expert: choosePersonExpert.id,
+      person_concern: choosePersonConcern.id,
     });
 
     fetch("http://localhost:5000/decision", {
@@ -81,6 +85,24 @@ export default function CreateDecision() {
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
+
+  const handleChange = () => {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(`http://localhost:5000/user/byname`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setPersonExperteDecision(result);
+        setPersonImpactedDecision(result);
+      })
+      .catch((error) => console.warn("error", error));
+  };
+
+  console.warn(choosePersonExpert);
+  console.warn(choosePersonConcern);
 
   return (
     <div className="w-screen">
@@ -115,10 +137,7 @@ export default function CreateDecision() {
           </div>
           <div className="col-span-2 ...">
             <div className="mt-14 mb-6">
-              <label
-                htmlFor="title-input"
-                className="block mb-2 dark:text-white"
-              >
+              <label htmlFor="title-input" className="block mb-2">
                 Titre de la décision{" "}
               </label>
               <input
@@ -126,7 +145,7 @@ export default function CreateDecision() {
                 type="text"
                 value={title}
                 id="title-input"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
               />
             </div>
             <h2 className="mt-8 mb-3">Description de la décision :</h2>
@@ -169,31 +188,26 @@ export default function CreateDecision() {
               </div>
             </div>
             <div className="mt-8">
-              <label
-                htmlFor="pconcern-input"
-                className="block mb-2 dark:text-white"
-              >
+              <label htmlFor="pconcern-input" className="block mb-2">
                 Personnes impactées{" "}
               </label>
-              <input
-                type="text"
-                // onChange={(e) => setPersonImpactedDecision(e.target.value)}
-                id="pconcern-input"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <ReactSearchAutocomplete
+                items={personImpactedDecision}
+                onFocus={handleChange}
+                onSelect={(val) => setChoosePersonConcern(val)}
+                styling={{ zIndex: 3 }}
+                maxResults={15}
               />
             </div>
             <div className="mt-8">
-              <label
-                htmlFor="pexpert-input"
-                className="block mb-2 dark:text-white"
-              >
+              <label htmlFor="pexpert-input" className="block mb-2">
                 Personne expertes{" "}
               </label>
-              <input
-                type="text"
-                // onChange={(e) => setPersonExperteDecision(e.target.value)}
-                id="pexpert-input"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <ReactSearchAutocomplete
+                items={personExperteDecision}
+                onFocus={handleChange}
+                onSelect={(val) => setChoosePersonExpert(val)}
+                maxResults={15}
               />
             </div>
           </div>

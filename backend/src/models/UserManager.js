@@ -25,6 +25,12 @@ class UserManager extends AbstractManager {
       [email]
     );
   }
+
+  getUserByName() {
+    return this.connection.query(
+      `SELECT id, CONCAT(firstname,' ',lastname) AS name FROM ${this.table}`
+    );
+  }
 }
 
 module.exports = UserManager;
