@@ -78,6 +78,7 @@ export default function DecisionDetails() {
         <TimelineStepperDecision
           clickedAnswer4={clickedAnswer4}
           setClickedAnswer4={setClickedAnswer4}
+          valuesDetailsDecision={valuesDetailsDecision}
         />
       </div>
     </div>

@@ -75,13 +75,22 @@ const editById = (req, res) => {
 const add = (req, res) => {
   console.warn(req.body);
   const decision = req.body;
+  const expert = req.body.person_expert;
 
   // TODO validations (length, format...)
 
   models.decision
     .insert(decision)
-    .then(([result]) => {
-      res.location(`/decision/${result.insertId}`).sendStatus(201);
+    .then(([decisionResult]) => {
+      models.person_expert
+        .insert(expert)
+        .then(() => {
+          res.location(`/decision/${decisionResult.insertId}`).sendStatus(201);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
