@@ -19,7 +19,6 @@ import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
-import Test from "@pages/user/test";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -58,7 +57,6 @@ function App() {
             element={<HomeUser open={open} setOpen={setOpen} />}
           />
           <Route path="/" element={<Authentification />} />
-          <Route path="/test" element={<Test />} />
           <Route path="/create-decision" element={<CreateDecision />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
