@@ -21,6 +21,7 @@ const {
 const { verifyEmail } = require("./middlewares/verifyEmail");
 
 router.get("/user", userControllers.browse);
+router.get("/user/byname", userControllers.browseByName);
 router.get("/user/:id", userControllers.read);
 router.put("/user/:id", userControllers.edit);
 router.post("/user", verifyEmail, hashPassword, userControllers.add);
