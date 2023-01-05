@@ -13,8 +13,9 @@ export default function UserProfile() {
 
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [valuesUser, setValuesUser] = useState({});
+  const [urlAvatarStatus, setAvatarStatus] = useState("");
 
-  // if we click on our avatar we are redirected directly to my profil
+  // if we click on our avatar we are redirected directly to /my-profil
   if (+user.id === +idParam.id) {
     navigate(`/my-profile`);
   }
@@ -49,6 +50,12 @@ export default function UserProfile() {
       .catch((error) => console.warn("error", error));
   }, []);
 
+  useEffect(() => {
+    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, [valuesDetailsDecision]);
+
   return (
     <div className="userProfilePage w-screen">
       <div className="flex flex-row items-center justify-between bg-light-grey">
@@ -75,8 +82,8 @@ export default function UserProfile() {
             <img
               className="max-w-xs rounded-full"
               src={
-                valuesUser.avatar
-                  ? `http://localhost:5000/avatar/${valuesUser.avatar}`
+                urlAvatarStatus.status === 200
+                  ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
                   : Randomuser
               }
               alt="Avatar"

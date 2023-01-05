@@ -57,7 +57,7 @@ const edit = (req, res) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(204);
+        res.status(202).send(user);
       }
     })
     .catch((err) => {
@@ -69,7 +69,6 @@ const edit = (req, res) => {
 /* function that retrieves data with "post" */
 const add = (req, res) => {
   const user = req.body;
-  console.warn(user);
 
   // TODO validations (length, format...)
 

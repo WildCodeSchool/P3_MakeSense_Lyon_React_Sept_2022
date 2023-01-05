@@ -1,14 +1,21 @@
 /* eslint-disable react/self-closing-comp */
 import { React, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function MyProfile() {
   const { user, setUser, token } = useCurrentUserContext();
+  const navigate = useNavigate();
 
   const avatarRef = useRef(null);
-  const [msg, setMsg] = useState("");
+  const [messagegUploadAvatarIsOk, setMessagegUploadAvatarIsOk] = useState("");
+  const [firstname, setFirstname] = useState(user.firstname);
+  const [lastname, setLastname] = useState(user.lastname);
+  const [city, setCity] = useState(user.city);
+  const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,18 +37,54 @@ export default function MyProfile() {
         .then((response) => response.json())
         .then((results) => {
           setUser({ ...user, avatar: results.avatar });
-          setMsg("Upload réussi !");
+          setMessagegUploadAvatarIsOk("Upload réussi !");
         })
         .catch((error) => {
           console.error(error);
-          setMsg("Upload échoué !");
+          setMessagegUploadAvatarIsOk("Upload échoué !");
         });
     } else {
-      setMsg(
+      setMessagegUploadAvatarIsOk(
         "Vous auriez pas oublié un truc ? Le fichier à uploader, par exemple ?"
       );
     }
   };
+
+  function sendUserInformations() {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      firstname,
+      lastname,
+      email,
+      city,
+      phone,
+      user_id: user.id,
+    });
+
+    fetch(`http://localhost:5000/user/${user.id}`, {
+      method: "PUT",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => response.json())
+      .then((results) => {
+        console.warn("results", results);
+        setUser({
+          ...user,
+          firstname: results.firstname,
+          lastname: results.lastname,
+          email: results.email,
+          city: results.city,
+          phone: results.phone,
+        });
+        navigate("/home");
+      })
+      .catch((error) => console.warn("error", error));
+  }
 
   return (
     <div className="w-screen">
@@ -75,7 +118,7 @@ export default function MyProfile() {
           <p className="mt-[125px] ml-5">
             Ajoute une photo de profil avec ton plus beau sourire !
           </p>
-          <p className="ml-5 mb-5">{msg}</p>
+          <p className="ml-5 mb-5">{messagegUploadAvatarIsOk}</p>
           <form
             className="flex flex-col items-start ml-5"
             encType="multipart/form-data"
@@ -100,7 +143,8 @@ export default function MyProfile() {
                 className="mt-3 w-[200px] border-2 rounded-lg h-10"
                 type="text"
                 name="name"
-                placeholder="John"
+                onChange={(e) => setFirstname(e.target.value)}
+                placeholder={user.firstname}
               />
             </label>
           </div>
@@ -111,7 +155,8 @@ export default function MyProfile() {
                 className="mt-3 w-[200px] border-2 rounded-lg h-10"
                 type="text"
                 name="name"
-                placeholder="Doe"
+                onChange={(e) => setLastname(e.target.value)}
+                placeholder={user.lastname}
               />
             </label>
           </div>
@@ -122,7 +167,8 @@ export default function MyProfile() {
                 className="mt-3 w-[200px] border-2 rounded-lg h-10"
                 type="text"
                 name="name"
-                placeholder="Ubud"
+                onChange={(e) => setCity(e.target.value)}
+                placeholder={user.city}
               />
             </label>
           </div>
@@ -133,7 +179,8 @@ export default function MyProfile() {
                 className="mt-3 w-[200px] border-2 rounded-lg h-10"
                 type="text"
                 name="name"
-                placeholder="john.doe@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={user.email}
               />
             </label>
           </div>
@@ -144,7 +191,8 @@ export default function MyProfile() {
                 className="mt-3 w-[200px] border-2 rounded-lg h-10"
                 type="text"
                 name="name"
-                placeholder="0633976835"
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder={user.phone}
               />
             </label>
           </div>
@@ -152,6 +200,7 @@ export default function MyProfile() {
             <div className="flex pl-[56px]">
               <button
                 type="button"
+                onClick={sendUserInformations}
                 id="buttonEnvoyerDecision"
                 className="flex bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
               >
