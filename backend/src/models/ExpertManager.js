@@ -5,10 +5,10 @@ class ExpertManager extends AbstractManager {
     super({ table: "person_expert" });
   }
 
-  insert(expert) {
+  insert(decisionId, experts) {
     return this.connection.query(
-      `insert into ${this.table} (user_id, decision_id) values (?, ?)`,
-      [expert.user_id, expert.decision_id]
+      `insert into ${this.table} (user_id, name, decision_id) values (?, ?, ?)`,
+      [experts[0].user_id, experts[0].name, decisionId]
     );
   }
 }

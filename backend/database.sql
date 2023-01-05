@@ -41,25 +41,22 @@ INSERT INTO decision (title, content, impact, risk, benefits, date_decision_crea
 DROP TABLE IF EXISTS person_expert;
 
 CREATE TABLE person_expert (
-  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   user_id int,
+  name varchar(100),
   decision_id int,
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (decision_id) REFERENCES decision(id)
 );
 
-
 DROP TABLE IF EXISTS person_concern;
 
 CREATE TABLE person_concern (
-  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   user_id int,
+  name varchar(100),
   decision_id int,
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (decision_id) REFERENCES decision(id)
-) ;
-
-
+);
 
 DROP TABLE IF EXISTS comment;
 

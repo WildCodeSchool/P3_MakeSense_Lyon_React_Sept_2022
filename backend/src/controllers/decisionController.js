@@ -75,22 +75,37 @@ const editById = (req, res) => {
 const add = (req, res) => {
   console.warn(req.body);
   const decision = req.body;
-  const expert = req.body.person_expert;
+  const experts = req.body.person_expert;
+  console.warn(experts);
 
   // TODO validations (length, format...)
 
   models.decision
     .insert(decision)
-    .then(([decisionResult]) => {
+    .then(([result]) => {
       models.person_expert
-        .insert(expert)
+        .insert(result.insertId, experts)
         .then(() => {
-          res.location(`/decision/${decisionResult.insertId}`).sendStatus(201);
+          res.location(`/decision/${result.insertId}`).sendStatus(201);
         })
         .catch((err) => {
           console.error(err);
           res.sendStatus(500);
         });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const addExpert = (req, res) => {
+  const decision = req.body;
+
+  models.person_expert
+    .insertIdDecision(decision)
+    .then(([decisionResult]) => {
+      res.location(`/decision/${decisionResult.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -121,4 +136,5 @@ module.exports = {
   add,
   destroy,
   editById,
+  addExpert,
 };
