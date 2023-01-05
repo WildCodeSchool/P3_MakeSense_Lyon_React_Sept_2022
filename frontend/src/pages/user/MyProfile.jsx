@@ -1,12 +1,47 @@
 /* eslint-disable react/self-closing-comp */
-import React from "react";
+import { React, useRef, useState } from "react";
 import Logo from "../../assets/logo-makesense.png";
-import Add from "../../assets/icons/x.svg";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function MyProfile() {
-  const { user } = useCurrentUserContext();
+  const { user, setUser, token } = useCurrentUserContext();
+
+  const avatarRef = useRef(null);
+  const [msg, setMsg] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (avatarRef.current.files[0]) {
+      // recupération des articles.
+      const myHeader = new Headers();
+      myHeader.append("Authorization", `Bearer ${token}`);
+
+      const formData = new FormData();
+      formData.append("avatar", avatarRef.current.files[0]);
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeader,
+        body: formData,
+      };
+
+      fetch("http://localhost:5000/avatar", requestOptions)
+        .then((response) => response.json())
+        .then((results) => {
+          setUser({ ...user, avatar: results.avatar });
+          setMsg("Upload réussi !");
+        })
+        .catch((error) => {
+          console.error(error);
+          setMsg("Upload échoué !");
+        });
+    } else {
+      setMsg(
+        "Vous auriez pas oublié un truc ? Le fichier à uploader, par exemple ?"
+      );
+    }
+  };
 
   return (
     <div className="w-screen">
@@ -26,13 +61,35 @@ export default function MyProfile() {
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="w-5/6 m-auto flex">
-        <div className="circle_add mt-[80px]">
-          <img className="add" src={Add} alt="icon +" />
+      <div className="w-5/6 m-auto flex flex-row items-end">
+        <div className="flex flex-wrap justify-center">
+          <div className="circle_add mt-[80px] ">
+            <img
+              className="max-w-full h-auto rounded-full hover:opacity-25 transition ease-in-out delay-50 "
+              src={`http://localhost:5000/avatar/${user.avatar}`}
+              alt={`avatar${user.firstname}-${user.id}`}
+            />
+          </div>
         </div>
-        <p className="mt-[125px] ml-5">
-          Ajoute une photo de profil <br></br> avec ton plus beau sourire !
-        </p>
+        <div className="flex flex-col">
+          <p className="mt-[125px] ml-5">
+            Ajoute une photo de profil avec ton plus beau sourire !
+          </p>
+          <p className="ml-5 mb-5">{msg}</p>
+          <form
+            className="flex flex-col items-start ml-5"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+            <input type="file" ref={avatarRef} />
+            <button
+              className=" bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full mt-2"
+              type="submit"
+            >
+              Envoyer
+            </button>
+          </form>
+        </div>
       </div>
       <form className="flex flex-col m-auto pt-8 items-center">
         <div className="grid w-2/3 overflow-hidden grid-cols-2 grid-rows-4 gap-3 pt-5">
@@ -91,7 +148,6 @@ export default function MyProfile() {
               />
             </label>
           </div>
-
           <div className="box pt-[32px] col-start-2 col-end-3">
             <div className="flex pl-[56px]">
               <button
