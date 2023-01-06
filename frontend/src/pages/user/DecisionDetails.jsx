@@ -36,7 +36,7 @@ export default function DecisionDetails() {
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);
 
-  console.warn(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`);
+  console.warn(valuesDetailsDecision);
 
   return (
     <div className="flex flex-col w-screen">
@@ -102,6 +102,7 @@ export default function DecisionDetails() {
         <TimelineStepperDecision
           clickedAnswer4={clickedAnswer4}
           setClickedAnswer4={setClickedAnswer4}
+          valuesDetailsDecision={valuesDetailsDecision}
         />
       </div>
     </div>

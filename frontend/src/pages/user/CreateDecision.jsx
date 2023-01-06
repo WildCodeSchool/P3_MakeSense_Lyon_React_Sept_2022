@@ -25,8 +25,8 @@ export default function CreateDecision() {
   );
   const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
   const [personExperteDecision, setPersonExperteDecision] = useState([]);
-  const [choosePersonExpert, setChoosePersonExpert] = useState();
-  const [choosePersonConcern, setChoosePersonConcern] = useState();
+  const [choosePersonExpert, setChoosePersonExpert] = useState([]);
+  const [choosePersonConcern, setChoosePersonConcern] = useState([]);
   const navigate = useNavigate();
 
   // modules for react-quill text editor
@@ -53,6 +53,7 @@ export default function CreateDecision() {
     return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
   };
 
+  // This is for Send Decision
   function sendDecision() {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -68,8 +69,8 @@ export default function CreateDecision() {
       date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
       status_decision: "En cours",
       user_id: user.id,
-      person_expert: choosePersonExpert.id,
-      person_concern: choosePersonConcern.id,
+      person_expert: choosePersonExpert,
+      person_concern: choosePersonConcern,
     });
 
     fetch("http://localhost:5000/decision", {
@@ -85,7 +86,7 @@ export default function CreateDecision() {
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
-
+  // This is for GET user by name for input autocomplete
   const handleChange = () => {
     const requestOptions = {
       method: "GET",
@@ -101,8 +102,7 @@ export default function CreateDecision() {
       .catch((error) => console.warn("error", error));
   };
 
-  console.warn(choosePersonExpert);
-  console.warn(choosePersonConcern);
+  console.warn(choosePersonConcern, choosePersonExpert);
 
   return (
     <div className="w-screen">
@@ -194,10 +194,20 @@ export default function CreateDecision() {
               <ReactSearchAutocomplete
                 items={personImpactedDecision}
                 onFocus={handleChange}
-                onSelect={(val) => setChoosePersonConcern(val)}
+                onSelect={(newChoosePersonConcern) =>
+                  setChoosePersonConcern((person) => [
+                    ...person,
+                    newChoosePersonConcern,
+                  ])
+                }
                 styling={{ zIndex: 3 }}
                 maxResults={15}
               />
+              <ul className="m-3">
+                {choosePersonConcern?.map((person) => (
+                  <li key={person.id}>{person.name}</li>
+                ))}
+              </ul>
             </div>
             <div className="mt-8">
               <label htmlFor="pexpert-input" className="block mb-2">
@@ -206,9 +216,19 @@ export default function CreateDecision() {
               <ReactSearchAutocomplete
                 items={personExperteDecision}
                 onFocus={handleChange}
-                onSelect={(val) => setChoosePersonExpert(val)}
+                onSelect={(newChoosePersonExpert) =>
+                  setChoosePersonExpert((person) => [
+                    ...person,
+                    newChoosePersonExpert,
+                  ])
+                }
                 maxResults={15}
               />
+              <ul className="m-3">
+                {choosePersonExpert?.map((person) => (
+                  <li key={person.id}>{person.name}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

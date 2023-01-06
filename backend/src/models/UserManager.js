@@ -35,7 +35,7 @@ class UserManager extends AbstractManager {
 
   getUserByName() {
     return this.connection.query(
-      `SELECT id, CONCAT(firstname,' ',lastname) AS name FROM ${this.table}`
+      `SELECT ${this.table}.id AS user_id, CONCAT(firstname,' ',lastname) AS name FROM ${this.table}`
     );
   }
 
@@ -46,5 +46,4 @@ class UserManager extends AbstractManager {
     );
   }
 }
-
 module.exports = UserManager;
