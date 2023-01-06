@@ -43,6 +43,24 @@ const read = (req, res) => {
     });
 };
 
+/* function that retrieves data with "get" by token */
+const findByToken = (req, res) => {
+  const id = req.payload.sub;
+  models.user
+    .find(id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 /* function that retrieves data with "update" by id */
 const edit = (req, res) => {
   const user = req.body;
@@ -125,4 +143,5 @@ module.exports = {
   add,
   destroy,
   updateAvatar,
+  findByToken,
 };

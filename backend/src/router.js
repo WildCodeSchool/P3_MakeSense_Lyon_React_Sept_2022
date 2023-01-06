@@ -25,8 +25,9 @@ const fileControllers = require("./controllers/fileController");
 const { verifyEmail } = require("./middlewares/verifyEmail");
 
 router.get("/user", userControllers.browse);
+router.get("/user/bytoken", verifyToken, userControllers.findByToken);
 router.get("/user/byname", userControllers.browseByName);
-router.get("/user/:id", userControllers.read);
+router.get("/user/:id", verifyToken, userControllers.read);
 router.put("/user/:id", verifyToken, userControllers.edit);
 router.post("/user", verifyEmail, hashPassword, userControllers.add);
 router.delete("/user/:id", userControllers.destroy);
