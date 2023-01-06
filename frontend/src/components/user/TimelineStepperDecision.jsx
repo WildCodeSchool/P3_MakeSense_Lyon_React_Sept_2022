@@ -2,100 +2,35 @@
 import React from "react";
 import "../../css/user/homeUser.css";
 
-function TimelineStepperDecision({ setClickedAnswer4 }) {
-  /* const { token } = useCurrentUserContext();
-  const [expertPerson, setExpertPerson] = useState();
-  const [concernPerson, setConcernPerson] = useState();
- */
+function TimelineStepperDecision({ setClickedAnswer4, valuesDetailsDecision }) {
+  console.warn(valuesDetailsDecision);
   const handleToggle4 = () => {
     setClickedAnswer4((prev) => !prev);
   };
-  /*
-  useEffect(() => {
-    const myHeader = new Headers();
-    myHeader.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
-      headers: myHeader,
-    };
-
-    fetch(`http://localhost:5000/user`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.warn(result);
-        setExpertPerson(result);
-      })
-      .catch((error) => console.warn("error", error));
-  }, []);
-
-  /*
-  useEffect(() => {
-    const myHeader = new Headers();
-    myHeader.append("Authorization", `Bearer ${token}`);
-
-    const requestOptions = {
-      headers: myHeader,
-    };
-
-    fetch(
-      `http://localhost:5000/user/${valuesDetailsDecision?.person_concern.id}`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.warn(result);
-        setConcernPerson(result);
-      })
-      .catch((error) => console.warn("error", error));
-  }, []);
- */
   return (
     <div className="w-60 h-fit border border-red-pink p-4 rounded-xl flex justify-center flex-col">
       <p className="mt-5">Personnes expertes</p>
       <div className="flex -space-x-2 overflow-hidden my-5">
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
-          alt=""
-        />
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
+        {valuesDetailsDecision.experts?.map((expert) => (
+          <img
+            key={expert.id}
+            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+            src={`${expert?.avatar}`}
+            alt="avatar"
+          />
+        ))}
       </div>
       <p>Personnes concernées</p>
       <div className="flex -space-x-2 overflow-hidden my-5">
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
-          alt=""
-        />
-        <img
-          className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
+        {valuesDetailsDecision.concerns?.map((concern) => (
+          <img
+            key={concern.id}
+            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+            src={`${concern?.avatar}`}
+            alt="avatar"
+          />
+        ))}
       </div>
       <button
         type="button"
