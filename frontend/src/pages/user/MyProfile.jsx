@@ -94,7 +94,7 @@ export default function MyProfile() {
     fetch(`http://localhost:5000/avatar/${user.avatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
-  }, [urlAvatarStatus]);
+  }, [user]);
 
   return (
     <div className="w-screen">
