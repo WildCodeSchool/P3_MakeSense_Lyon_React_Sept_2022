@@ -60,7 +60,10 @@ function App() {
           <Route path="/create-decision" element={<CreateDecision />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
-          <Route path="/user-profile" element={<UserProfile open={open} />} />
+          <Route
+            path="/user-profile/:id"
+            element={<UserProfile open={open} />}
+          />
           <Route path="/help" element={<Help />} />
           <Route path="/decisions" element={<Decisions open={open} />} />
           <Route path="/decision/:id" element={<DecisionDetails />} />

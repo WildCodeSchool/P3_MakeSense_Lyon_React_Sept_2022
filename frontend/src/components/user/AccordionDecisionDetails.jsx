@@ -42,8 +42,6 @@ export default function AccordionDecisionDetails({
     ],
   };
 
-  console.warn("test", valuesDetailsDecision);
-
   return (
     <div>
       <ul className="accordion max-w-screen-md mt-10 h-auto">

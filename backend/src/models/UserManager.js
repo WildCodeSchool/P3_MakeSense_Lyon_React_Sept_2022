@@ -14,8 +14,15 @@ class UserManager extends AbstractManager {
 
   update(user) {
     return this.connection.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [user.title, user.id]
+      `update ${this.table} set firstname = ?, lastname = ?, email = ?, city = ?, phone = ? where id = ?`,
+      [
+        user.firstname,
+        user.lastname,
+        user.email,
+        user.city,
+        user.phone,
+        user.id,
+      ]
     );
   }
 
@@ -29,6 +36,13 @@ class UserManager extends AbstractManager {
   getUserByName() {
     return this.connection.query(
       `SELECT ${this.table}.id AS user_id, CONCAT(firstname,' ',lastname) AS name FROM ${this.table}`
+    );
+  }
+
+  updateAvatar(id, avatar) {
+    return this.connection.query(
+      `update ${this.table} set avatar = ? where id = ?`,
+      [avatar, id]
     );
   }
 }

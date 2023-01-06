@@ -51,7 +51,6 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
-  console.warn(req.get("Authorization"));
   try {
     const authorizationHeader = req.get("Authorization");
 

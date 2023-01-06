@@ -127,20 +127,6 @@ const add = (req, res) => {
     });
 };
 
-const addExpert = (req, res) => {
-  const decision = req.body;
-
-  models.person_expert
-    .insertIdDecision(decision)
-    .then(([decisionResult]) => {
-      res.location(`/decision/${decisionResult.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 const destroy = (req, res) => {
   models.user
     .delete(req.params.id)
@@ -157,6 +143,22 @@ const destroy = (req, res) => {
     });
 };
 
+const readDecisionByUserId = (req, res) => {
+  models.decision
+    .findByUserId(req.params.id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -164,5 +166,5 @@ module.exports = {
   add,
   destroy,
   editById,
-  addExpert,
+  readDecisionByUserId,
 };

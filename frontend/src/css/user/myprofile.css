@@ -1,9 +1,8 @@
 .circle_add {
-  width: 150px;
-  height: 150px;
+  width: 146px;
+  height: 146px;
   border: 1px dashed #e36164;
   border-radius: 50%;
-  position: relative;
 }
 
 .add {

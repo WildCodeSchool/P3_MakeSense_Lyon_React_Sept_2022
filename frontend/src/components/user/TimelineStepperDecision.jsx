@@ -1,12 +1,21 @@
 /* eslint-disable react/no-array-index-key */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import userimg from "../../assets/icons/user.png";
 import "../../css/user/homeUser.css";
 
 function TimelineStepperDecision({ setClickedAnswer4, valuesDetailsDecision }) {
   console.warn(valuesDetailsDecision);
+  const [urlAvatarStatus, setAvatarStatus] = useState("");
+
   const handleToggle4 = () => {
     setClickedAnswer4((prev) => !prev);
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, [valuesDetailsDecision]);
 
   return (
     <div className="w-60 h-fit border border-red-pink p-4 rounded-xl flex justify-center flex-col">
@@ -16,7 +25,11 @@ function TimelineStepperDecision({ setClickedAnswer4, valuesDetailsDecision }) {
           <img
             key={expert.id}
             className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-            src={`${expert?.avatar}`}
+            src={
+              urlAvatarStatus?.status === 200
+                ? `http://localhost:5000/avatar/${expert?.avatar}`
+                : userimg
+            }
             alt="avatar"
           />
         ))}
@@ -27,7 +40,11 @@ function TimelineStepperDecision({ setClickedAnswer4, valuesDetailsDecision }) {
           <img
             key={concern.id}
             className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-            src={`${concern?.avatar}`}
+            src={
+              urlAvatarStatus?.status === 200
+                ? `http://localhost:5000/avatar/${concern?.avatar}`
+                : userimg
+            }
             alt="avatar"
           />
         ))}
