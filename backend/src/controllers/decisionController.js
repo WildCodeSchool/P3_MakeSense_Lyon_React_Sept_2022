@@ -14,13 +14,33 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.decision
-    .findAllByIdWithUserId(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
+    .find(req.params.id)
+    .then(([result]) => {
+      if (!result[0]) {
         res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
+        return;
       }
+      const decision = result[0];
+      // verifier si 404
+      models.person_expert
+        .getExpertUser(req.params.id)
+        .then(([decisionExpert]) => {
+          decision.experts = decisionExpert;
+          models.person_concern
+            .getConcernUser(req.params.id)
+            .then(([decisionConcern]) => {
+              decision.concerns = decisionConcern;
+              res.send(decision);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
@@ -75,13 +95,31 @@ const editById = (req, res) => {
 const add = (req, res) => {
   console.warn(req.body);
   const decision = req.body;
+  const experts = req.body.person_expert;
+  const concerns = req.body.person_concern;
+  console.warn(experts);
 
   // TODO validations (length, format...)
-
   models.decision
     .insert(decision)
     .then(([result]) => {
-      res.location(`/decision/${result.insertId}`).sendStatus(201);
+      models.person_expert
+        .insert(result.insertId, experts)
+        .then(() => {
+          models.person_concern
+            .insert(result.insertId, concerns)
+            .then(() => {
+              res.location(`/decision/${result.insertId}`).sendStatus(201);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
