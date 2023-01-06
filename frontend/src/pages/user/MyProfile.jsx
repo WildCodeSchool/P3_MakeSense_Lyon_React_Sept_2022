@@ -1,5 +1,5 @@
 /* eslint-disable react/self-closing-comp */
-import { React, useRef, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/myprofile.css";
@@ -16,7 +16,9 @@ export default function MyProfile() {
   const [city, setCity] = useState(user.city);
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
+  const [urlAvatarStatus, setAvatarStatus] = useState("");
 
+  // fetch to submit my avatr
   const handleSubmit = (e) => {
     e.preventDefault();
     if (avatarRef.current.files[0]) {
@@ -50,6 +52,7 @@ export default function MyProfile() {
     }
   };
 
+  // fetch to edit my profile informations
   function sendUserInformations() {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -86,6 +89,13 @@ export default function MyProfile() {
       .catch((error) => console.warn("error", error));
   }
 
+  // fetch for the status of fetch of the avatar
+  useEffect(() => {
+    fetch(`http://localhost:5000/avatar/${user.avatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, []);
+
   return (
     <div className="w-screen">
       <div className="flex flex-row items-center justify-between bg-light-grey">
@@ -105,13 +115,15 @@ export default function MyProfile() {
         </div>
       </div>
       <div className="w-5/6 m-auto flex flex-row items-end">
-        <div className="flex flex-wrap justify-center">
-          <div className="circle_add mt-[80px] ">
-            <img
-              className="max-w-full h-auto rounded-full hover:opacity-25 transition ease-in-out delay-50 "
-              src={`http://localhost:5000/avatar/${user.avatar}`}
-              alt={`avatar${user.firstname}-${user.id}`}
-            />
+        <div className="flex flex-wrap justify-center items-center justify-items-center content-center">
+          <div className="circle_add mt-[80px]">
+            {urlAvatarStatus.status === 200 ? (
+              <img
+                className="shadow rounded-full w-40 h-36 align-middle border-none hover:opacity-25 transition ease-in-out delay-50 "
+                src={`http://localhost:5000/avatar/${user.avatar}`}
+                alt={`avatar${user.firstname}-${user.id}`}
+              />
+            ) : null}
           </div>
         </div>
         <div className="flex flex-col">

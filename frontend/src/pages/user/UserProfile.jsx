@@ -50,6 +50,7 @@ export default function UserProfile() {
       .catch((error) => console.warn("error", error));
   }, []);
 
+  // fetch for the status of fetch of the avatar
   useEffect(() => {
     fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
       .then((response) => setAvatarStatus(response))

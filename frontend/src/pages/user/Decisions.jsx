@@ -34,7 +34,7 @@ export default function Decisions({ open }) {
       .catch((error) => console.warn("error", error));
   }, [token]);
 
-  console.warn("test", user.firstname);
+  console.warn("test", valuesDetailsDecisions);
 
   const handleChevrondownAllDecisions = () => {
     setIsOpenAllDecisions(!isOpenAllDecisions);
@@ -190,7 +190,7 @@ export default function Decisions({ open }) {
               }
               if (
                 isOpenConflicts &&
-                valueDetailsDecision.status_decision === "En conflits"
+                valueDetailsDecision.status_decision === "En conflit"
               ) {
                 return (
                   <DecisionCard
