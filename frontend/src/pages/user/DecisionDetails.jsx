@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import AccordionDecisionDetails from "../../components/user/AccordionDecisionDetails";
 import userimg from "../../assets/icons/user.png";
 import Logo from "../../assets/logo-makesense.png";
-import editIcon from "../../assets/icons/edit.svg";
 import TimelineStepperDecision from "../../components/user/TimelineStepperDecision";
 import "../../css/user/createDecision.css";
 import { useCurrentUserContext } from "../../context/UserContext";
@@ -68,7 +67,6 @@ export default function DecisionDetails() {
               </button>
             </div>
           ) : null}
-          {/* <img src={editIcon} alt="edit" /> */}
           <div>
             <p>Proposé par {valuesDetailsDecision.firstname} :</p>
             <button
