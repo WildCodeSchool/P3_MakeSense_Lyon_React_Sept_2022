@@ -13,6 +13,7 @@ export default function UserProfile() {
 
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [valuesUser, setValuesUser] = useState({});
+  const [urlAvatar, setUrlAvatar] = useState("");
   const [urlAvatarStatus, setAvatarStatus] = useState("");
 
   // if we click on our avatar we are redirected directly to /my-profil
@@ -31,9 +32,22 @@ export default function UserProfile() {
 
     fetch(`http://localhost:5000/user/${idParam.id}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => setValuesUser(result))
+      .then((result) => {
+        setValuesUser(result);
+        setUrlAvatar(result.avatar);
+        console.warn("result", result.avatar);
+      })
       .catch((error) => console.warn("error", error));
   }, []);
+
+  // fetch for the status of fetch of the avatar
+  useEffect(() => {
+    fetch(`http://localhost:5000/avatar/${urlAvatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, [valuesDetailsDecision]);
+
+  // console.log("url", urlAvatarStatus);
 
   // fetch decisions infos by user id
   useEffect(() => {
@@ -49,13 +63,6 @@ export default function UserProfile() {
       .then((result) => setValuesDetailsDecision(result))
       .catch((error) => console.warn("error", error));
   }, []);
-
-  // fetch for the status of fetch of the avatar
-  useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
-      .then((response) => setAvatarStatus(response))
-      .catch((error) => console.warn(error));
-  }, [valuesDetailsDecision]);
 
   return (
     <div className="userProfilePage w-screen">
@@ -81,14 +88,14 @@ export default function UserProfile() {
         <div className="userProfile-Description mt-14 text-xl flex flex-wrap ml-24 gap-12 gap-x-32">
           <div className="">
             <img
-              className="max-w-xs rounded-full"
+              className="rounded-full"
               src={
                 urlAvatarStatus.status === 200
-                  ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
+                  ? `http://localhost:5000/avatar/${urlAvatar}`
                   : Randomuser
               }
               alt="Avatar"
-              width={300}
+              width={250}
             />
           </div>
           <div className="flex flex-col gap-y-20 justify-center">
