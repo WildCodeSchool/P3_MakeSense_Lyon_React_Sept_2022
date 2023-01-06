@@ -24,9 +24,18 @@ const read = (req, res) => {
       // verifier si 404
       models.person_expert
         .getExpertUser(req.params.id)
-        .then(([rows]) => {
-          decision.experts = rows;
-          res.send(decision);
+        .then(([decisionExpert]) => {
+          decision.experts = decisionExpert;
+          models.person_concern
+            .getConcernUser(req.params.id)
+            .then(([decisionConcern]) => {
+              decision.concerns = decisionConcern;
+              res.send(decision);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
         })
         .catch((err) => {
           console.error(err);
@@ -87,6 +96,7 @@ const add = (req, res) => {
   console.warn(req.body);
   const decision = req.body;
   const experts = req.body.person_expert;
+  const concerns = req.body.person_concern;
   console.warn(experts);
 
   // TODO validations (length, format...)
@@ -96,7 +106,15 @@ const add = (req, res) => {
       models.person_expert
         .insert(result.insertId, experts)
         .then(() => {
-          res.location(`/decision/${result.insertId}`).sendStatus(201);
+          models.person_concern
+            .insert(result.insertId, concerns)
+            .then(() => {
+              res.location(`/decision/${result.insertId}`).sendStatus(201);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
         })
         .catch((err) => {
           console.error(err);
