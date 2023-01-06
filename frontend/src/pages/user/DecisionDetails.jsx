@@ -13,6 +13,7 @@ export default function DecisionDetails() {
   const { user, token } = useCurrentUserContext();
   const [clickedAnswer4, setClickedAnswer4] = useState(false);
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
+  const [urlAvatarStatus, setAvatarStatus] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +29,14 @@ export default function DecisionDetails() {
       .then((result) => setValuesDetailsDecision(result))
       .catch((error) => console.warn("error", error));
   }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, [valuesDetailsDecision]);
+
+  console.warn(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`);
 
   return (
     <div className="flex flex-col w-screen">
@@ -65,7 +74,22 @@ export default function DecisionDetails() {
           <imt src={editIcon} alt="edit" />
           <div>
             <p>Proposé par {valuesDetailsDecision.firstname} :</p>
-            <img src={userimg} alt="The belle gosse" className="w-10" />
+            <button
+              type="button"
+              onClick={() =>
+                navigate(`/user-profile/${valuesDetailsDecision.user_id}`)
+              }
+            >
+              <img
+                className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 "
+                src={
+                  urlAvatarStatus.status === 200
+                    ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
+                    : userimg
+                }
+                alt={`avatar${user.firstname}-${user.id}`}
+              />
+            </button>
           </div>
           <div className="flex justify-center">
             <AccordionDecisionDetails

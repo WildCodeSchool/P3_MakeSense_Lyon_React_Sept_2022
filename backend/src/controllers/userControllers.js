@@ -43,6 +43,24 @@ const read = (req, res) => {
     });
 };
 
+/* function that retrieves data with "get" by token */
+const findByToken = (req, res) => {
+  const id = req.payload.sub;
+  models.user
+    .find(id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 /* function that retrieves data with "update" by id */
 const edit = (req, res) => {
   const user = req.body;
@@ -57,7 +75,7 @@ const edit = (req, res) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(204);
+        res.status(202).send(user);
       }
     })
     .catch((err) => {
@@ -69,7 +87,6 @@ const edit = (req, res) => {
 /* function that retrieves data with "post" */
 const add = (req, res) => {
   const user = req.body;
-  console.warn(user);
 
   // TODO validations (length, format...)
 
@@ -102,6 +119,22 @@ const destroy = (req, res) => {
     });
 };
 
+const updateAvatar = (req, res) => {
+  const id = req.payload.sub;
+  const { avatar } = req;
+
+  models.user
+    .updateAvatar(id, avatar)
+    .then(([result]) => {
+      if (result.affectedRows === 0) res.sendStatus(404);
+      else res.status(202).send({ avatar });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   browseByName,
@@ -109,4 +142,6 @@ module.exports = {
   edit,
   add,
   destroy,
+  updateAvatar,
+  findByToken,
 };

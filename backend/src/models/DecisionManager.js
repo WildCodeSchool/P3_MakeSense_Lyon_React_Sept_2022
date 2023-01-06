@@ -69,6 +69,16 @@ class DecisionManager extends AbstractManager {
       [id]
     );
   }
+
+  findByUserId(id) {
+    return this.connection.query(
+      `SELECT ${this.table}.id, title, date_decision_creation, status_decision, user_id 
+    FROM ${this.table}
+    LEFT JOIN user on ${this.table}.user_id = user.id
+    WHERE user_id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = DecisionManager;
