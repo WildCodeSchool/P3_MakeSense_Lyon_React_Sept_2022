@@ -42,7 +42,6 @@ DROP TABLE IF EXISTS person_expert;
 
 CREATE TABLE person_expert (
   user_id int,
-  name varchar(100),
   decision_id int,
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (decision_id) REFERENCES decision(id)
@@ -52,7 +51,6 @@ DROP TABLE IF EXISTS person_concern;
 
 CREATE TABLE person_concern (
   user_id int,
-  name varchar(100),
   decision_id int,
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (decision_id) REFERENCES decision(id)

@@ -58,9 +58,18 @@ class DecisionManager extends AbstractManager {
   findAllByIdWithUserId(id) {
     return this.connection.query(
       `SELECT ${this.table}.id, title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict,
-    date_decision_close, status_decision, ${this.table}.user_id, firstname, lastname, avatar
+    date_decision_close, status_decision, ${this.table}.user_id
     FROM ${this.table} 
-    LEFT JOIN user on ${this.table}.user_id = user.id
+    WHERE ${this.table}.id = ?`,
+      [id]
+    );
+  }
+
+  find(id) {
+    return this.connection.query(
+      `SELECT ${this.table}.id, title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict,
+    date_decision_close, status_decision, ${this.table}.user_id
+    FROM ${this.table} 
     WHERE ${this.table}.id = ?`,
       [id]
     );

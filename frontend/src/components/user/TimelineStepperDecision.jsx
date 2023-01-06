@@ -3,11 +3,15 @@ import React from "react";
 import "../../css/user/homeUser.css";
 
 function TimelineStepperDecision({ setClickedAnswer4 }) {
+  /* const { token } = useCurrentUserContext();
+  const [expertPerson, setExpertPerson] = useState();
+  const [concernPerson, setConcernPerson] = useState();
+ */
   const handleToggle4 = () => {
     setClickedAnswer4((prev) => !prev);
   };
-
-  /*   useEffect(() => {
+  /*
+  useEffect(() => {
     const myHeader = new Headers();
     myHeader.append("Authorization", `Bearer ${token}`);
 
@@ -15,10 +19,7 @@ function TimelineStepperDecision({ setClickedAnswer4 }) {
       headers: myHeader,
     };
 
-    fetch(
-      `http://localhost:5000/user/${valuesDetailsDecision?.person_expert_id}`,
-      requestOptions
-    )
+    fetch(`http://localhost:5000/user`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.warn(result);
@@ -27,6 +28,7 @@ function TimelineStepperDecision({ setClickedAnswer4 }) {
       .catch((error) => console.warn("error", error));
   }, []);
 
+  /*
   useEffect(() => {
     const myHeader = new Headers();
     myHeader.append("Authorization", `Bearer ${token}`);
@@ -36,7 +38,7 @@ function TimelineStepperDecision({ setClickedAnswer4 }) {
     };
 
     fetch(
-      `http://localhost:5000/user/${valuesDetailsDecision?.person_concern_id}`,
+      `http://localhost:5000/user/${valuesDetailsDecision?.person_concern.id}`,
       requestOptions
     )
       .then((response) => response.json())

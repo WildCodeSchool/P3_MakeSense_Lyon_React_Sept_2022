@@ -5,10 +5,21 @@ class ConcernManager extends AbstractManager {
     super({ table: "person_concern" });
   }
 
-  insert(concern) {
+  getConcernUser(id) {
     return this.connection.query(
-      `insert into ${this.table} (user_id, decision_id) values (?, ?)`,
-      [concern.user_id, concern.decision_id]
+      `SELECT user_id, firstname, lastname , avatar
+      FROM ${this.table}
+      JOIN user ON ${this.table}.user_id = user.id
+      WHERE decision_id = ?`,
+      [id]
+    );
+  }
+
+  insert(decisionId, concerns) {
+    const values = concerns.map((concern) => [concern.user_id, decisionId]);
+    return this.connection.query(
+      `insert into ${this.table} (user_id, decision_id) values ?`,
+      [values]
     );
   }
 }

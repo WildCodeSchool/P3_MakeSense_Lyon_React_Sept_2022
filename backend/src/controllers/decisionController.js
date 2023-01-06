@@ -14,13 +14,24 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.decision
-    .findAllByIdWithUserId(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
+    .find(req.params.id)
+    .then(([result]) => {
+      if (!result[0]) {
         res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
+        return;
       }
+      const decision = result[0];
+      // verifier si 404
+      models.person_expert
+        .getExpertUser(req.params.id)
+        .then(([rows]) => {
+          decision.experts = rows;
+          res.send(decision);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
@@ -79,7 +90,6 @@ const add = (req, res) => {
   console.warn(experts);
 
   // TODO validations (length, format...)
-
   models.decision
     .insert(decision)
     .then(([result]) => {
