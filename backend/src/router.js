@@ -37,8 +37,8 @@ router.post(
   verifyPassword
 );
 
-router.get("/decision", verifyToken, decisionControllers.browse);
-router.get("/decision/:id", verifyToken, decisionControllers.read);
+router.get("/decision", decisionControllers.browse);
+router.get("/decision/:id", decisionControllers.read);
 router.get(
   "/decision-byuser/:id",
   verifyToken,
@@ -56,5 +56,11 @@ router.post(
   userControllers.updateAvatar
 );
 router.get("/avatar/:fileName", fileControllers.sendAvatar);
+
+const commentControllers = require("./controllers/commentController");
+
+router.put("/decision/:id/comments/:id", commentControllers.edit);
+router.post("/decision/:id/comments", commentControllers.add);
+router.delete("/decision/:id/comments/:id", commentControllers.destroy);
 
 module.exports = router;
