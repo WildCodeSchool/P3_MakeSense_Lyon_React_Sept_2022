@@ -203,6 +203,7 @@ export default function CreateDecision() {
                 styling={{ zIndex: 3 }}
                 maxResults={15}
               />
+              {/* this is for display expert person */}
               <ul className="m-3">
                 {choosePersonConcern?.map((person) => (
                   <li key={person.id}>{person.name}</li>

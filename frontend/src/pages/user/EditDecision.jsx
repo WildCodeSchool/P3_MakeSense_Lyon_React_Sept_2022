@@ -10,6 +10,7 @@ import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 export default function EditDecision() {
   const { user, token } = useCurrentUserContext();
@@ -28,12 +29,14 @@ export default function EditDecision() {
     new Date()
   );
 
+  const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
+  const [personExperteDecision, setPersonExperteDecision] = useState([]);
+  const [choosePersonExpert, setChoosePersonExpert] = useState([]);
+  const [choosePersonConcern, setChoosePersonConcern] = useState([]);
+
   const [status_decision, setStatusOfDecision] = useState(new Date());
   const navigate = useNavigate();
   const idParam = useParams();
-
-  // const [personImpactedDecision, setPersonImpactedDecision] = useState("");
-  // const [personExperteDecision, setPersonExperteDecision] = useState("");
 
   // modules for react-quill text editor
   const modules = {
@@ -107,6 +110,8 @@ export default function EditDecision() {
       status_decision,
       date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
       user_id: user.id,
+      person_expert: choosePersonExpert,
+      person_concern: choosePersonConcern,
     });
 
     fetch(`http://localhost:5000/decision/${idParam.id}`, {
@@ -122,6 +127,22 @@ export default function EditDecision() {
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
+
+  // This is for GET user by name for input autocomplete
+  const handleChange = () => {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(`http://localhost:5000/user/byname`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setPersonExperteDecision(result);
+        setPersonImpactedDecision(result);
+      })
+      .catch((error) => console.warn("error", error));
+  };
 
   return (
     <div className="w-screen">
@@ -222,23 +243,45 @@ export default function EditDecision() {
             <label htmlFor="pconcern-input" className="block mb-2">
               Personnes impactées{" "}
             </label>
-            <input
-              type="text"
-              // onChange={(e) => setPersonImpactedDecision(e.target.value)}
-              id="pconcern-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            <ReactSearchAutocomplete
+              items={personImpactedDecision}
+              onFocus={handleChange}
+              onSelect={(newChoosePersonConcern) =>
+                setChoosePersonConcern((person) => [
+                  ...person,
+                  newChoosePersonConcern,
+                ])
+              }
+              styling={{ zIndex: 3 }}
+              maxResults={15}
             />
+            {/* this is for display expert person */}
+            <ul className="m-3">
+              {choosePersonConcern?.map((person) => (
+                <li key={person.id}>{person.name}</li>
+              ))}
+            </ul>
           </div>
           <div className="mt-8">
             <label htmlFor="pexpert-input" className="block mb-2 ">
               Personne expertes{" "}
             </label>
-            <input
-              type="text"
-              // onChange={(e) => setPersonExperteDecision(e.target.value)}
-              id="pexpert-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            <ReactSearchAutocomplete
+              items={personExperteDecision}
+              onFocus={handleChange}
+              onSelect={(newChoosePersonExpert) =>
+                setChoosePersonExpert((person) => [
+                  ...person,
+                  newChoosePersonExpert,
+                ])
+              }
+              maxResults={15}
             />
+            <ul className="m-3">
+              {choosePersonExpert?.map((person) => (
+                <li key={person.id}>{person.name}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </main>

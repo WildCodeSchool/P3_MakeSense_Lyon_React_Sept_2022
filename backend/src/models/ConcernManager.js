@@ -22,6 +22,13 @@ class ConcernManager extends AbstractManager {
       [values]
     );
   }
+
+  deleteExpert(decisionId) {
+    return this.connection.query(
+      `DELETE FROM ${this.table} where decision_id = ?`,
+      [decisionId]
+    );
+  }
 }
 
 module.exports = ConcernManager;
