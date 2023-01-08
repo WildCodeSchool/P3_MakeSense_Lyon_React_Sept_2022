@@ -23,7 +23,7 @@ class ConcernManager extends AbstractManager {
     );
   }
 
-  deleteExpert(decisionId) {
+  deleteConcern(decisionId) {
     return this.connection.query(
       `DELETE FROM ${this.table} where decision_id = ?`,
       [decisionId]
