@@ -5,6 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
+import Close from "../../assets/icons/x.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
@@ -102,7 +103,16 @@ export default function CreateDecision() {
       .catch((error) => console.warn("error", error));
   };
 
-  console.warn(choosePersonConcern, choosePersonExpert);
+  const handleDeleteExpert = (index) => {
+    const newList = choosePersonExpert.filter((_, i) => i !== index);
+
+    setChoosePersonExpert(newList);
+  };
+
+  const handleDeleteConcern = (index) => {
+    const newList = choosePersonConcern.filter((_, i) => i !== index);
+    setChoosePersonConcern(newList);
+  };
 
   return (
     <div className="w-screen">
@@ -203,9 +213,18 @@ export default function CreateDecision() {
                 styling={{ zIndex: 3 }}
                 maxResults={15}
               />
+              {/* this is for display expert person */}
               <ul className="m-3">
-                {choosePersonConcern?.map((person) => (
-                  <li key={person.id}>{person.name}</li>
+                {choosePersonConcern?.map((person, index) => (
+                  <li key={person.id} className="flex flex-row">
+                    {person.name}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteConcern(index)}
+                    >
+                      <img src={Close} alt="supprimer" className="w-4 ml-2" />
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -225,8 +244,16 @@ export default function CreateDecision() {
                 maxResults={15}
               />
               <ul className="m-3">
-                {choosePersonExpert?.map((person) => (
-                  <li key={person.id}>{person.name}</li>
+                {choosePersonExpert?.map((person, index) => (
+                  <li key={person.id} className="flex flex-row">
+                    {person.name}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteExpert(index)}
+                    >
+                      <img src={Close} alt="supprimer" className="w-4 ml-2" />
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>

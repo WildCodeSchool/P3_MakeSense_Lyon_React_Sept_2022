@@ -30,6 +30,7 @@ const read = (req, res) => {
             .getConcernUser(req.params.id)
             .then(([decisionConcern]) => {
               decision.concerns = decisionConcern;
+              console.warn(decision);
               res.send(decision);
             })
             .catch((err) => {
@@ -72,7 +73,8 @@ const edit = (req, res) => {
 
 const editById = (req, res) => {
   const decision = req.body;
-
+  const expert = req.body.person_expert;
+  const concern = req.body.person_concern;
   // TODO validations (length, format...)
 
   decision.id = parseInt(req.params.id, 10);
@@ -80,16 +82,41 @@ const editById = (req, res) => {
   models.decision
     .updateById(decision)
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
+      // delete person_expert before insert new person
+      models.person_expert
+        .deleteExpert(decision.id)
+        .then(() => {
+          models.person_concern.deleteConcern(decision.id).then(() => {
+            if (result.affectedRows === 0) {
+              res.sendStatus(404);
+            } else {
+              models.person_expert.insert(decision.id, expert).then(() => {
+                models.person_concern
+                  .insert(decision.id, concern)
+                  .then(() => {
+                    res
+                      .location(`/decision/${decision.insertId}`)
+                      .sendStatus(201);
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                    res.sendStatus(500);
+                  });
+              });
+            }
+          });
+        })
+
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
+  console.warn(decision);
 };
 
 const add = (req, res) => {
