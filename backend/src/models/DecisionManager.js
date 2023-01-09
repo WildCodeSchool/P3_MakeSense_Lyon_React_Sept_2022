@@ -85,6 +85,13 @@ class DecisionManager extends AbstractManager {
       [id]
     );
   }
+
+  findLastdecision() {
+    return this.connection.query(
+      `SELECT date_decision_creation, title FROM ${this.table}
+      ORDER BY date_decision_creation DESC LIMIT 0,5;`
+    );
+  }
 }
 
 module.exports = DecisionManager;

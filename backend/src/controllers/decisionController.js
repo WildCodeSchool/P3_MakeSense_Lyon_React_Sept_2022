@@ -49,6 +49,18 @@ const read = (req, res) => {
     });
 };
 
+const readByLast = (req, res) => {
+  models.decision
+    .findLastdecision()
+    .then(([result]) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const edit = (req, res) => {
   const decision = req.body;
 
@@ -194,4 +206,5 @@ module.exports = {
   destroy,
   editById,
   readDecisionByUserId,
+  readByLast,
 };

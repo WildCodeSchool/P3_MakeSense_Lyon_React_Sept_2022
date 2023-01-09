@@ -162,8 +162,8 @@ export default function Decisions({ open }) {
           <div
             className={
               open
-                ? "grid grid-cols-4 grid-rows-2 gap-10 ml-10 mr-10 "
-                : "grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
+                ? "grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
+                : "grid grid-cols-6 grid-rows-2 gap-10 ml-10 mr-10 "
             }
           >
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
