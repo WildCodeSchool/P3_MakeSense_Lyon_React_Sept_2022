@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from "react";
 import "../../css/user/homeUser.css";
@@ -10,6 +11,7 @@ export default function TimeStepperHome() {
   const dateFormat = (date) => {
     return date.slice(2, 10);
   };
+
   useEffect(() => {
     const myHeader = new Headers();
     myHeader.append("Authorization", `Bearer ${token}`);
@@ -27,12 +29,15 @@ export default function TimeStepperHome() {
 
   console.warn(decisions);
   return (
-    <div className="timeStepper flex items-center justify-center">
+    <div className="timeStepper flex flex-col items-center justify-center">
+      <h6 className="text-center mb-5">
+        Prochaines décisions <br></br>en conflit
+      </h6>
       <ul className="flex flex-col w-60">
-        {decisions.slice(0, 5).map((data, index) => (
+        {decisions?.map((data, index) => (
           <li key={index} className="grid grid-cols-6">
             <div className="text-sm text-gray-500 text-right col-span-2">
-              {dateFormat(data.date_decision_creation)}
+              {dateFormat(data.date_decision_conflict)}
             </div>
 
             <div className="mx-2 flex flex-col items-center col-span-1">
