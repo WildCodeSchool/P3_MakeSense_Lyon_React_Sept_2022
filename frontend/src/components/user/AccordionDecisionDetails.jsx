@@ -182,6 +182,13 @@ export default function AccordionDecisionDetails({
               onChange={setValueComment}
               modules={modules}
             />
+            <button
+              type="button"
+              id="buttonEnvoyerDecision"
+              className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
+            >
+              Envoyer
+            </button>
           </div>
         </li>
       </ul>
