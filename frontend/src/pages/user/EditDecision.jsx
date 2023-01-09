@@ -87,10 +87,11 @@ export default function EditDecision() {
       headers: myHeader,
     };
 
+    console.warn("result", date_decision_conflict);
+
     fetch(`http://localhost:5000/decision/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.warn("result", result);
         setTitleDecision(result.title);
         setValueDecision(result.content);
         setValueImpactOfDecision(result.impact);
