@@ -10,6 +10,7 @@ import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function EditDecision() {
   const { user, token } = useCurrentUserContext();
@@ -28,7 +29,7 @@ export default function EditDecision() {
     new Date()
   );
 
-  const [status_decision, setStatusOfDecision] = useState(new Date());
+  const [status_decision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
 
@@ -47,6 +48,12 @@ export default function EditDecision() {
       ["link", "image"],
     ],
   };
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
@@ -79,6 +86,7 @@ export default function EditDecision() {
     fetch(`http://localhost:5000/decision/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.warn("result", result);
         setTitleDecision(result.title);
         setValueDecision(result.content);
         setValueImpactOfDecision(result.impact);
@@ -87,9 +95,8 @@ export default function EditDecision() {
         setValueDefaultDateOfConflict(result.date_decision_conflict);
         setStartDateConflictOfDecision(new Date(result.date_decision_conflict));
         setValueDefaultStatusOfDecision(result.status_decision);
-        setStatusOfDecision(result.decision);
+        setStatusOfDecision(result.status_decision);
       })
-
       .catch((error) => console.warn("error", error));
   }, []);
 
@@ -108,16 +115,30 @@ export default function EditDecision() {
       date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
       user_id: user.id,
     });
-
-    fetch(`http://localhost:5000/decision/${idParam.id}`, {
-      method: "PUT",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
+    toast
+      .promise(
+        fetch(`http://localhost:5000/decision/${idParam.id}`, {
+          method: "PUT",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "Décision envoyée",
+          error:
+            "Une erreur sur le serveur est survenue lors de l'envoi de la décision",
+        }
+      )
       .then((response) => {
         response.json();
-        navigate("/home");
+        if (response.status === 204) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
+        } else {
+          notify();
+        }
       })
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
@@ -125,6 +146,7 @@ export default function EditDecision() {
 
   return (
     <div className="w-screen">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
