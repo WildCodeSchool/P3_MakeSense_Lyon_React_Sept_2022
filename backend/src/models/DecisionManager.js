@@ -85,6 +85,15 @@ class DecisionManager extends AbstractManager {
       [id]
     );
   }
+
+  findLastdecision() {
+    return this.connection.query(
+      `SELECT date_decision_conflict, title, status_decision FROM ${this.table}
+      WHERE status_decision = "En cours" 
+      OR status_decision = "En conflit"
+      ORDER BY date_decision_conflict DESC LIMIT 0,5;`
+    );
+  }
 }
 
 module.exports = DecisionManager;
