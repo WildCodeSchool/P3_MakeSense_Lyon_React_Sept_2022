@@ -90,7 +90,6 @@ export default function EditDecision() {
     fetch(`http://localhost:5000/decision/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.warn("result", result);
         setTitleDecision(result.title);
         setValueDecision(result.content);
         setValueImpactOfDecision(result.impact);
@@ -100,6 +99,22 @@ export default function EditDecision() {
         setStartDateConflictOfDecision(new Date(result.date_decision_conflict));
         setValueDefaultStatusOfDecision(result.status_decision);
         setStatusOfDecision(result.status_decision);
+        setChoosePersonExpert(
+          result.concerns.map((concern) => {
+            return {
+              user_id: concern.user_id,
+              name: `${concern.firstname} ${concern.lastname}`,
+            };
+          })
+        );
+        setChoosePersonConcern(
+          result.experts.map((expert) => {
+            return {
+              user_id: `${expert.user_id}`,
+              name: `${expert.firstname} ${expert.lastname}`,
+            };
+          })
+        );
       })
       .catch((error) => console.warn("error", error));
   }, []);
@@ -131,14 +146,15 @@ export default function EditDecision() {
         }),
         {
           loading: "Envoi en cours",
-          success: "Décision envoyée",
-          error:
-            "Une erreur sur le serveur est survenue lors de l'envoi de la décision",
+          success: "La décision a bien été modifiée",
+          error: "Une erreur sur le serveur est survenue lors de l'envoi",
         }
       )
       .then((response) => {
         response.json();
-        if (response.status === 204) {
+        console.warn("response", response);
+
+        if (response.status === 201) {
           setTimeout(() => {
             navigate("/home");
           }, 2000);

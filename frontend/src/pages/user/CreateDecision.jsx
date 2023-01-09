@@ -97,6 +97,7 @@ export default function CreateDecision() {
       )
       .then((response) => {
         response.json();
+        console.warn(response.status);
         if (response.status === 201) {
           setTimeout(() => {
             navigate("/home");

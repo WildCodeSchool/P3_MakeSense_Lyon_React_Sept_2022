@@ -80,7 +80,7 @@ export default function MyProfile() {
         }),
         {
           loading: "Envoi en cours",
-          success: "Profil modifié bien envoyée",
+          success: "Votre profil modifié a bien été envoyé",
           error: "Une erreur sur le serveur est survenue lors de l'envoi",
         }
       )
