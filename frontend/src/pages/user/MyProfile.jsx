@@ -1,6 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 import { React, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
@@ -10,13 +11,18 @@ export default function MyProfile() {
   const navigate = useNavigate();
 
   const avatarRef = useRef(null);
-  const [messagegUploadAvatarIsOk, setMessagegUploadAvatarIsOk] = useState("");
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const [city, setCity] = useState(user.city);
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
+  const notifySuccesAvatar = () =>
+    toast.success("Votre photo a bien été envoyée !");
+  const notifyErrorAvatar = () =>
+    toast.error("Une erreur est survenue, veuillez recommencer");
+  const notifyErrorProfile = () =>
+    toast.error("Une erreur est survenue, veuillez vérifier vos informations");
 
   // fetch to submit my avatr
   const handleSubmit = (e) => {
@@ -39,16 +45,14 @@ export default function MyProfile() {
         .then((response) => response.json())
         .then((results) => {
           setUser({ ...user, avatar: results.avatar });
-          setMessagegUploadAvatarIsOk("Upload réussi !");
+          notifySuccesAvatar();
         })
         .catch((error) => {
+          notifyErrorAvatar();
           console.error(error);
-          setMessagegUploadAvatarIsOk("Upload échoué !");
         });
     } else {
-      setMessagegUploadAvatarIsOk(
-        "Vous auriez pas oublié un truc ? Le fichier à uploader, par exemple ?"
-      );
+      notifyErrorAvatar();
     }
   };
 
@@ -66,16 +70,31 @@ export default function MyProfile() {
       phone,
       user_id: user.id,
     });
-
-    fetch(`http://localhost:5000/user/${user.id}`, {
-      method: "PUT",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
-      .then((response) => response.json())
+    toast
+      .promise(
+        fetch(`http://localhost:5000/user/${user.id}`, {
+          method: "PUT",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "Votre profil modifié a bien été envoyé",
+          error: "Une erreur sur le serveur est survenue lors de l'envoi",
+        }
+      )
+      .then((response) => {
+        response.json();
+        if (response.status === 202) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
+        } else {
+          notifyErrorProfile();
+        }
+      })
       .then((results) => {
-        console.warn("results", results);
         setUser({
           ...user,
           firstname: results.firstname,
@@ -84,9 +103,13 @@ export default function MyProfile() {
           city: results.city,
           phone: results.phone,
         });
-        navigate("/home");
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
       })
-      .catch((error) => console.warn("error", error));
+      .catch((error) => {
+        console.warn("error", error);
+      });
   }
 
   // fetch for the status of fetch of the avatar
@@ -98,6 +121,7 @@ export default function MyProfile() {
 
   return (
     <div className="w-screen">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -130,7 +154,6 @@ export default function MyProfile() {
           <p className="mt-[125px] ml-5">
             Ajoute une photo de profil avec ton plus beau sourire !
           </p>
-          <p className="ml-5 mb-5">{messagegUploadAvatarIsOk}</p>
           <form
             className="flex flex-col items-start ml-5"
             encType="multipart/form-data"

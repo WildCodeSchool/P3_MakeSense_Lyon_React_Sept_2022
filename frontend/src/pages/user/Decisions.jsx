@@ -34,8 +34,6 @@ export default function Decisions({ open }) {
       .catch((error) => console.warn("error", error));
   }, [token]);
 
-  console.warn("test", valuesDetailsDecisions);
-
   const handleChevrondownAllDecisions = () => {
     setIsOpenAllDecisions(!isOpenAllDecisions);
     setIsOpenInProgress(false);

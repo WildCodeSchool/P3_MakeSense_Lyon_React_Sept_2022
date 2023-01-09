@@ -13,6 +13,7 @@ import { useCurrentUserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CreateDecision() {
   const { user, token } = useCurrentUserContext();
@@ -42,6 +43,12 @@ export default function CreateDecision() {
       ["link", "image"],
     ],
   };
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
@@ -73,20 +80,36 @@ export default function CreateDecision() {
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
     });
-
-    fetch("http://localhost:5000/decision", {
-      method: "POST",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
+    toast
+      .promise(
+        fetch("http://localhost:5000/decision", {
+          method: "POST",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "Décision envoyée",
+          error:
+            "Une erreur sur le serveur est survenue lors de l'envoi de la décision",
+        }
+      )
       .then((response) => {
         response.json();
-        navigate("/home");
+        console.warn(response.status);
+        if (response.status === 201) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
+        } else {
+          notify();
+        }
       })
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
+
   // This is for GET user by name for input autocomplete
   const handleChange = () => {
     const requestOptions = {
@@ -116,6 +139,7 @@ export default function CreateDecision() {
 
   return (
     <div className="w-screen">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (

@@ -11,6 +11,7 @@ import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
+import toast, { Toaster } from "react-hot-toast";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 export default function EditDecision() {
@@ -35,7 +36,7 @@ export default function EditDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
 
-  const [status_decision, setStatusOfDecision] = useState(new Date());
+  const [status_decision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
 
@@ -51,6 +52,12 @@ export default function EditDecision() {
       ["link", "image"],
     ],
   };
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
@@ -91,9 +98,24 @@ export default function EditDecision() {
         setValueDefaultDateOfConflict(result.date_decision_conflict);
         setStartDateConflictOfDecision(new Date(result.date_decision_conflict));
         setValueDefaultStatusOfDecision(result.status_decision);
-        setStatusOfDecision(result.decision);
+        setStatusOfDecision(result.status_decision);
+        setChoosePersonExpert(
+          result.concerns.map((concern) => {
+            return {
+              user_id: concern.user_id,
+              name: `${concern.firstname} ${concern.lastname}`,
+            };
+          })
+        );
+        setChoosePersonConcern(
+          result.experts.map((expert) => {
+            return {
+              user_id: `${expert.user_id}`,
+              name: `${expert.firstname} ${expert.lastname}`,
+            };
+          })
+        );
       })
-
       .catch((error) => console.warn("error", error));
   }, []);
 
@@ -114,16 +136,31 @@ export default function EditDecision() {
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
     });
-
-    fetch(`http://localhost:5000/decision/${idParam.id}`, {
-      method: "PUT",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
+    toast
+      .promise(
+        fetch(`http://localhost:5000/decision/${idParam.id}`, {
+          method: "PUT",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "La décision a bien été modifiée",
+          error: "Une erreur sur le serveur est survenue lors de l'envoi",
+        }
+      )
       .then((response) => {
         response.json();
-        navigate("/home");
+        console.warn("response", response);
+
+        if (response.status === 201) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
+        } else {
+          notify();
+        }
       })
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
@@ -158,6 +195,7 @@ export default function EditDecision() {
 
   return (
     <div className="w-screen">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
