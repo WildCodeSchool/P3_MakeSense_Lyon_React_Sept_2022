@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -136,6 +137,7 @@ const add = (req, res) => {
   const decision = req.body;
   const experts = req.body.person_expert;
   const concerns = req.body.person_concern;
+  const notif = req.body.notif;
   console.warn(experts);
 
   // TODO validations (length, format...)
@@ -148,7 +150,15 @@ const add = (req, res) => {
           models.person_concern
             .insert(result.insertId, concerns)
             .then(() => {
-              res.location(`/decision/${result.insertId}`).sendStatus(201);
+              models.notification
+                .insert(result.insertId, notif)
+                .then(() => {
+                  res.location(`/decision/${result.insertId}`).sendStatus(201);
+                })
+                .catch((err) => {
+                  console.error(err);
+                  res.sendStatus(500);
+                });
             })
             .catch((err) => {
               console.error(err);

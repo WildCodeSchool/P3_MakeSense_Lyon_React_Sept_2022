@@ -58,4 +58,8 @@ router.post(
 );
 router.get("/avatar/:fileName", fileControllers.sendAvatar);
 
+const notificationControllers = require("./controllers/notificationController");
+
+router.get("/notification/:id", notificationControllers.browse);
+
 module.exports = router;

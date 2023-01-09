@@ -79,6 +79,7 @@ export default function CreateDecision() {
       user_id: user.id,
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
+      notif: choosePersonConcern,
     });
     toast
       .promise(
