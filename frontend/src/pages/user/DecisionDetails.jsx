@@ -94,6 +94,7 @@ export default function DecisionDetails() {
               setClickedAnswer4={setClickedAnswer4}
               valuesDetailsDecision={valuesDetailsDecision}
               setValuesDetailsDecision={setValuesDetailsDecision}
+              urlAvatarStatus={urlAvatarStatus}
             />
           </div>
         </div>

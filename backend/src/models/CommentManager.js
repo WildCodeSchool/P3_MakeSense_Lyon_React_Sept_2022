@@ -38,18 +38,18 @@ class DecisionManager extends AbstractManager {
   }
 
   // functinnal but not deployed on front end yet
-  deleteComment(comment) {
-    return this.connection.query(
-      `INSERT into ${this.table} (content, vote, date_creation, user_id, decision_id) values ( ?, ?, ?, ?, ?)`,
-      [
-        comment.content,
-        comment.vote,
-        comment.date_creation,
-        comment.user_id,
-        comment.decision_id,
-      ]
-    );
-  }
+  // deleteComment(comment) {
+  //   return this.connection.query(
+  //     `INSERT into ${this.table} (content, vote, date_creation, user_id, decision_id) values ( ?, ?, ?, ?, ?)`,
+  //     [
+  //       comment.content,
+  //       comment.vote,
+  //       comment.date_creation,
+  //       comment.user_id,
+  //       comment.decision_id,
+  //     ]
+  //   );
+  // }
 }
 
 module.exports = DecisionManager;

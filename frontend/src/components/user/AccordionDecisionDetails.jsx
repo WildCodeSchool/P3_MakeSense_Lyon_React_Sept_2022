@@ -1,10 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 import ReactQuill from "react-quill";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
+import userimg from "../../assets/icons/user.png";
 import "../../css/user/Accordion.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
@@ -13,12 +14,12 @@ export default function AccordionDecisionDetails({
   setClickedAnswer4,
   valuesDetailsDecision,
   setValuesDetailsDecision,
+  urlAvatarStatus,
 }) {
   const [clickedAnswer1, setClickedAnswer1] = useState(false);
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
   const [valueComment, setValueComment] = useState("");
-
   const { user, token } = useCurrentUserContext();
   const idParam = useParams();
 
@@ -56,6 +57,14 @@ export default function AccordionDecisionDetails({
     const minutes = dateConverted.getMinutes();
     const seconds = dateConverted.getSeconds();
     return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
+  };
+
+  // Define the date format for comments :
+  const dateComment = (date) => {
+    return date.slice(2, 10);
+  };
+  const hourComment = (date) => {
+    return date.slice(11, 16);
   };
 
   // This addComment function is used to add comments to the database in the comment table when a user send a new comment on a decision.
@@ -233,18 +242,63 @@ export default function AccordionDecisionDetails({
               modules={modules}
             />
             {/* when this button is clicked it enables the addComment function */}
-            <button
-              type="button"
-              onClick={addComment}
-              id="buttonEnvoyerDecision"
-              className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
-            >
-              Envoyer
-            </button>
-            <div>
+            <div className="flex flex-row justify-between">
+              <div> </div>
+              <button
+                type="button"
+                onClick={addComment}
+                className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
+              >
+                Envoyer
+              </button>
+            </div>
+
+            <div className="my-6">
               <ul>
                 {valuesDetailsDecision.comments?.map((comment) => {
-                  return <li key={comment.id}> {comment.content} </li>;
+                  return (
+                    <li key={comment.id}>
+                      <div className="flex flex-row">
+                        <button
+                          className="mx-4"
+                          type="button"
+                          onClick={() =>
+                            Navigate(
+                              `/user-profile/${valuesDetailsDecision.user_id}`
+                            )
+                          }
+                        >
+                          <img
+                            className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 "
+                            src={
+                              urlAvatarStatus.status === 200
+                                ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
+                                : userimg
+                            }
+                            alt={`avatar${user.firstname}-${user.id}`}
+                          />
+                        </button>
+                        <div className="flex flex-col">
+                          <p className="mx-4 text-l font-bold ">
+                            {valuesDetailsDecision.firstname}{" "}
+                            {valuesDetailsDecision.lastname}
+                          </p>
+                          <p className="text-sm text-slate-500 mx-4">
+                            {dateComment(comment.date_creation)} &nbsp;
+                            {hourComment(comment.date_creation)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <ReactQuill
+                        theme="bubble"
+                        value={comment.content}
+                        readOnly
+                        className="text-xxl"
+                      />
+                      <hr className="mt-4 mb-8" />
+                    </li>
+                  );
                 })}
               </ul>
             </div>

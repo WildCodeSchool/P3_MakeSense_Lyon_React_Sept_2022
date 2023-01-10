@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS comment;
 
 CREATE TABLE comment (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  content varchar(100) NOT NULL,
+  content varchar(500) NOT NULL,
   vote varchar(45) NOT NULL,
   date_creation DATETIME NOT NULL DEFAULT NOW(),
   user_id int,
