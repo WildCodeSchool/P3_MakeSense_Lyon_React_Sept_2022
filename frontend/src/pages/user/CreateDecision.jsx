@@ -129,7 +129,6 @@ export default function CreateDecision() {
 
   const handleDeleteExpert = (index) => {
     const newList = choosePersonExpert.filter((_, i) => i !== index);
-
     setChoosePersonExpert(newList);
   };
 

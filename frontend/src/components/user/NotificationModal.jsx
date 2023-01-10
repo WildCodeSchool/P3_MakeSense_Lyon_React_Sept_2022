@@ -4,8 +4,7 @@ import { Modal, Button } from "flowbite-react";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 function NotificationModal({ setShowModal, open }) {
-  const { token } = useCurrentUserContext();
-  const { user } = useCurrentUserContext();
+  const { user, token } = useCurrentUserContext();
   const [notifs, setNotifs] = useState();
 
   useEffect(() => {
@@ -15,7 +14,6 @@ function NotificationModal({ setShowModal, open }) {
     const requestOptions = {
       headers: myHeader,
     };
-
     fetch(`http://localhost:5000/notification/${user.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -23,8 +21,6 @@ function NotificationModal({ setShowModal, open }) {
       })
       .catch((error) => console.warn("error", error));
   }, [token]);
-
-  console.warn(notifs);
 
   return (
     <div className="fixed top-0 left-0 ">
