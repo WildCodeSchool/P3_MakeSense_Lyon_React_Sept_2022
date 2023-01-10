@@ -13,12 +13,21 @@ export default function Decisions({ open }) {
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
 
   // to show or not the chevron-down icon with filter
-
   const [isOpenAllDecisions, setIsOpenAllDecisions] = useState(true);
   const [isOpenInProgress, setIsOpenInProgress] = useState(false);
   const [isOpenConflicts, setIsOpenConflicts] = useState(false);
   const [isOpenFinished, setIsOpenFinished] = useState(false);
   const [isOpenUnfinished, setIsOpenUnfinished] = useState(false);
+
+  // function to update the array of decisions after delete one decision
+  const updateArrayDecisionsAfterDelete = (id) => {
+    const indexOfValueDecision = valuesDetailsDecisions.findIndex(
+      (obj) => obj.id === id
+    );
+    valuesDetailsDecisions.splice(indexOfValueDecision, 1);
+    setValuesDetailsDecisions([...valuesDetailsDecisions]);
+  };
+
   // fetch all datas with LEFT JOIN on user_id of decisions from API
   useEffect(() => {
     const myHeader = new Headers();
@@ -172,6 +181,9 @@ export default function Decisions({ open }) {
                   <DecisionCard
                     key={valueDetailsDecision.id}
                     valueDetailsDecision={valueDetailsDecision}
+                    updateArrayDecisionsAfterDelete={
+                      updateArrayDecisionsAfterDelete
+                    }
                   />
                 );
               }
@@ -183,6 +195,9 @@ export default function Decisions({ open }) {
                   <DecisionCard
                     key={valueDetailsDecision.id}
                     valueDetailsDecision={valueDetailsDecision}
+                    updateArrayDecisionsAfterDelete={
+                      updateArrayDecisionsAfterDelete
+                    }
                   />
                 );
               }
@@ -194,6 +209,9 @@ export default function Decisions({ open }) {
                   <DecisionCard
                     key={valueDetailsDecision.id}
                     valueDetailsDecision={valueDetailsDecision}
+                    updateArrayDecisionsAfterDelete={
+                      updateArrayDecisionsAfterDelete
+                    }
                   />
                 );
               }
@@ -205,6 +223,9 @@ export default function Decisions({ open }) {
                   <DecisionCard
                     key={valueDetailsDecision.id}
                     valueDetailsDecision={valueDetailsDecision}
+                    updateArrayDecisionsAfterDelete={
+                      updateArrayDecisionsAfterDelete
+                    }
                   />
                 );
               }
@@ -216,6 +237,9 @@ export default function Decisions({ open }) {
                   <DecisionCard
                     key={valueDetailsDecision.id}
                     valueDetailsDecision={valueDetailsDecision}
+                    updateArrayDecisionsAfterDelete={
+                      updateArrayDecisionsAfterDelete
+                    }
                   />
                 );
               }
