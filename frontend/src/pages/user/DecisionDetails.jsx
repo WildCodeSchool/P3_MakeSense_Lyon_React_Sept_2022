@@ -35,6 +35,8 @@ export default function DecisionDetails() {
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);
 
+  console.warn(valuesDetailsDecision);
+
   return (
     <div className="flex flex-col w-screen">
       <div className="flex flex-row items-center justify-between bg-light-grey">
@@ -91,6 +93,7 @@ export default function DecisionDetails() {
               clickedAnswer4={clickedAnswer4}
               setClickedAnswer4={setClickedAnswer4}
               valuesDetailsDecision={valuesDetailsDecision}
+              setValuesDetailsDecision={setValuesDetailsDecision}
             />
           </div>
         </div>

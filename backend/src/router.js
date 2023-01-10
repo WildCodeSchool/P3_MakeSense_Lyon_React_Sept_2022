@@ -38,6 +38,7 @@ router.post(
 );
 
 router.get("/decision", decisionControllers.browse);
+// the following route gets the decision values including expert persons, concerned persons and comments
 router.get("/decision/:id", decisionControllers.read);
 router.get(
   "/decision-byuser/:id",
@@ -57,6 +58,7 @@ router.post(
 );
 router.get("/avatar/:fileName", fileControllers.sendAvatar);
 
+// the following routes are used to add/update/delete comment from a chosen decision
 const commentControllers = require("./controllers/commentController");
 
 router.put("/decision/:id/comments/:id", commentControllers.edit);

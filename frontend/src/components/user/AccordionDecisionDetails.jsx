@@ -1,21 +1,26 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
-import { useState } from "react";
 import ReactQuill from "react-quill";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
 import "../../css/user/Accordion.css";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function AccordionDecisionDetails({
   clickedAnswer4,
   setClickedAnswer4,
   valuesDetailsDecision,
+  setValuesDetailsDecision,
 }) {
-  // array to replace with dynamic data
   const [clickedAnswer1, setClickedAnswer1] = useState(false);
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
   const [valueComment, setValueComment] = useState("");
+
+  const { user, token } = useCurrentUserContext();
+  const idParam = useParams();
 
   const handleToggle1 = () => {
     setClickedAnswer1((prev) => !prev);
@@ -41,6 +46,51 @@ export default function AccordionDecisionDetails({
       ["link", "image"],
     ],
   };
+
+  const dateConvertedToSqlFormat = (date) => {
+    const dateConverted = new Date(date);
+    const year = dateConverted.getFullYear();
+    const month = dateConverted.getMonth() + 1;
+    const day = dateConverted.getDate();
+    const hour = dateConverted.getHours();
+    const minutes = dateConverted.getMinutes();
+    const seconds = dateConverted.getSeconds();
+    return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
+  };
+
+  // This addComment function is used to add comments to the database in the comment table when a user send a new comment on a decision.
+  // It also sends the new comment to th front so it is automatically displayed
+  function addComment() {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      content: valueComment,
+      vote: "Pour",
+      user_id: user.id,
+      date_creation: dateConvertedToSqlFormat(Date.now()),
+      decision_id: valuesDetailsDecision.id,
+    });
+
+    fetch(`http://localhost:5000/decision/${idParam.id}/comments`, {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((comment) => {
+        console.warn("test ", comment);
+        setValuesDetailsDecision({
+          ...valuesDetailsDecision,
+          comments: [...valuesDetailsDecision.comments, comment],
+        });
+      })
+      .catch((error) => console.warn("error", error));
+  }
 
   return (
     <div>
@@ -182,13 +232,22 @@ export default function AccordionDecisionDetails({
               onChange={setValueComment}
               modules={modules}
             />
+            {/* when this button is clicked it enables the addComment function */}
             <button
               type="button"
+              onClick={addComment}
               id="buttonEnvoyerDecision"
               className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
             >
               Envoyer
             </button>
+            <div>
+              <ul>
+                {valuesDetailsDecision.comments?.map((comment) => {
+                  return <li key={comment.id}> {comment.content} </li>;
+                })}
+              </ul>
+            </div>
           </div>
         </li>
       </ul>
