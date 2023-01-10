@@ -5,6 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
+import Close from "../../assets/icons/x.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
@@ -12,6 +13,7 @@ import { useCurrentUserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CreateDecision() {
   const { user, token } = useCurrentUserContext();
@@ -41,6 +43,12 @@ export default function CreateDecision() {
       ["link", "image"],
     ],
   };
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
@@ -72,20 +80,36 @@ export default function CreateDecision() {
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
     });
-
-    fetch("http://localhost:5000/decision", {
-      method: "POST",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
+    toast
+      .promise(
+        fetch("http://localhost:5000/decision", {
+          method: "POST",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "Décision envoyée",
+          error:
+            "Une erreur sur le serveur est survenue lors de l'envoi de la décision",
+        }
+      )
       .then((response) => {
         response.json();
-        navigate("/home");
+        console.warn(response.status);
+        if (response.status === 201) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
+        } else {
+          notify();
+        }
       })
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
+
   // This is for GET user by name for input autocomplete
   const handleChange = () => {
     const requestOptions = {
@@ -102,10 +126,20 @@ export default function CreateDecision() {
       .catch((error) => console.warn("error", error));
   };
 
-  console.warn(choosePersonConcern, choosePersonExpert);
+  const handleDeleteExpert = (index) => {
+    const newList = choosePersonExpert.filter((_, i) => i !== index);
+
+    setChoosePersonExpert(newList);
+  };
+
+  const handleDeleteConcern = (index) => {
+    const newList = choosePersonConcern.filter((_, i) => i !== index);
+    setChoosePersonConcern(newList);
+  };
 
   return (
     <div className="w-screen">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -203,9 +237,18 @@ export default function CreateDecision() {
                 styling={{ zIndex: 3 }}
                 maxResults={15}
               />
+              {/* this is for display expert person */}
               <ul className="m-3">
-                {choosePersonConcern?.map((person) => (
-                  <li key={person.id}>{person.name}</li>
+                {choosePersonConcern?.map((person, index) => (
+                  <li key={person.id} className="flex flex-row">
+                    {person.name}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteConcern(index)}
+                    >
+                      <img src={Close} alt="supprimer" className="w-4 ml-2" />
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -225,8 +268,16 @@ export default function CreateDecision() {
                 maxResults={15}
               />
               <ul className="m-3">
-                {choosePersonExpert?.map((person) => (
-                  <li key={person.id}>{person.name}</li>
+                {choosePersonExpert?.map((person, index) => (
+                  <li key={person.id} className="flex flex-row">
+                    {person.name}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteExpert(index)}
+                    >
+                      <img src={Close} alt="supprimer" className="w-4 ml-2" />
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>

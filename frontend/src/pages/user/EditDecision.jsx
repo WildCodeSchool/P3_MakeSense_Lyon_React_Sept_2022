@@ -4,12 +4,15 @@ import { React, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../css/user/createDecision.css";
+import Close from "../../assets/icons/x.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
+import toast, { Toaster } from "react-hot-toast";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 export default function EditDecision() {
   const { user, token } = useCurrentUserContext();
@@ -28,12 +31,14 @@ export default function EditDecision() {
     new Date()
   );
 
-  const [status_decision, setStatusOfDecision] = useState(new Date());
+  const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
+  const [personExperteDecision, setPersonExperteDecision] = useState([]);
+  const [choosePersonExpert, setChoosePersonExpert] = useState([]);
+  const [choosePersonConcern, setChoosePersonConcern] = useState([]);
+
+  const [status_decision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
-
-  // const [personImpactedDecision, setPersonImpactedDecision] = useState("");
-  // const [personExperteDecision, setPersonExperteDecision] = useState("");
 
   // modules for react-quill text editor
   const modules = {
@@ -47,6 +52,12 @@ export default function EditDecision() {
       ["link", "image"],
     ],
   };
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
@@ -87,9 +98,24 @@ export default function EditDecision() {
         setValueDefaultDateOfConflict(result.date_decision_conflict);
         setStartDateConflictOfDecision(new Date(result.date_decision_conflict));
         setValueDefaultStatusOfDecision(result.status_decision);
-        setStatusOfDecision(result.decision);
+        setStatusOfDecision(result.status_decision);
+        setChoosePersonExpert(
+          result.concerns.map((concern) => {
+            return {
+              user_id: concern.user_id,
+              name: `${concern.firstname} ${concern.lastname}`,
+            };
+          })
+        );
+        setChoosePersonConcern(
+          result.experts.map((expert) => {
+            return {
+              user_id: `${expert.user_id}`,
+              name: `${expert.firstname} ${expert.lastname}`,
+            };
+          })
+        );
       })
-
       .catch((error) => console.warn("error", error));
   }, []);
 
@@ -107,24 +133,69 @@ export default function EditDecision() {
       status_decision,
       date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
       user_id: user.id,
+      person_expert: choosePersonExpert,
+      person_concern: choosePersonConcern,
     });
-
-    fetch(`http://localhost:5000/decision/${idParam.id}`, {
-      method: "PUT",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
+    toast
+      .promise(
+        fetch(`http://localhost:5000/decision/${idParam.id}`, {
+          method: "PUT",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "La décision a bien été modifiée",
+          error: "Une erreur sur le serveur est survenue lors de l'envoi",
+        }
+      )
       .then((response) => {
         response.json();
-        navigate("/home");
+        console.warn("response", response);
+
+        if (response.status === 201) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
+        } else {
+          notify();
+        }
       })
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
 
+  // This is for GET user by name for input autocomplete
+  const handleChange = () => {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(`http://localhost:5000/user/byname`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setPersonExperteDecision(result);
+        setPersonImpactedDecision(result);
+      })
+      .catch((error) => console.warn("error", error));
+  };
+
+  const handleDeleteExpert = (index) => {
+    const newList = choosePersonExpert.filter((_, i) => i !== index);
+
+    setChoosePersonExpert(newList);
+  };
+
+  const handleDeleteConcern = (index) => {
+    const newList = choosePersonConcern.filter((_, i) => i !== index);
+    setChoosePersonConcern(newList);
+  };
+
   return (
     <div className="w-screen">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -222,23 +293,61 @@ export default function EditDecision() {
             <label htmlFor="pconcern-input" className="block mb-2">
               Personnes impactées{" "}
             </label>
-            <input
-              type="text"
-              // onChange={(e) => setPersonImpactedDecision(e.target.value)}
-              id="pconcern-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            <ReactSearchAutocomplete
+              items={personImpactedDecision}
+              onFocus={handleChange}
+              onSelect={(newChoosePersonConcern) =>
+                setChoosePersonConcern((person) => [
+                  ...person,
+                  newChoosePersonConcern,
+                ])
+              }
+              styling={{ zIndex: 3 }}
+              maxResults={15}
             />
+            {/* this is for display expert person */}
+            <ul className="m-3">
+              {choosePersonConcern?.map((person, index) => (
+                <li key={person.id} className="flex flex-row">
+                  {person.name}
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteConcern(index)}
+                  >
+                    <img src={Close} alt="supprimer" className="w-4 ml-2" />
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="mt-8">
             <label htmlFor="pexpert-input" className="block mb-2 ">
               Personne expertes{" "}
             </label>
-            <input
-              type="text"
-              // onChange={(e) => setPersonExperteDecision(e.target.value)}
-              id="pexpert-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            <ReactSearchAutocomplete
+              items={personExperteDecision}
+              onFocus={handleChange}
+              onSelect={(newChoosePersonExpert) =>
+                setChoosePersonExpert((person) => [
+                  ...person,
+                  newChoosePersonExpert,
+                ])
+              }
+              maxResults={15}
             />
+            <ul className="m-3">
+              {choosePersonExpert?.map((person, index) => (
+                <li key={person.id} className="flex flex-row">
+                  {person.name}
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteExpert(index)}
+                  >
+                    <img src={Close} alt="supprimer" className="w-4 ml-2" />
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </main>

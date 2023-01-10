@@ -1,23 +1,35 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/self-closing-comp */
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import "../../css/user/sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useCurrentUserContext } from "../../context/UserContext";
+import AlertDeconnexion from "./AlertDeconnexion";
 
 export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
   const { setUser } = useCurrentUserContext();
+  const [logoutIsConfirm, setLogoutIsConfirm] = useState(false);
+  const [openModalAlertDeconnexion, setOpenModalAlertDeconnexion] =
+    useState(false);
 
   const navigate = useNavigate();
   const handleNotificationModal = () => {
     setShowModal(!showModal);
   };
 
-  const logOut = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-    setUser({});
+  const handleLogOut = () => {
+    setOpenModalAlertDeconnexion(true);
   };
+
+  useEffect(() => {
+    if (logoutIsConfirm === true) {
+      localStorage.removeItem("token");
+      navigate("/");
+      setUser({});
+    } else {
+      setLogoutIsConfirm(false);
+    }
+  }, [logoutIsConfirm]);
 
   return (
     <div
@@ -25,6 +37,11 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
         open ? "w-[290px]" : "w-[100px]"
       } bg-light-blue duration-300 h-screen flex flex-col text-white`}
     >
+      <AlertDeconnexion
+        openModalAlertDeconnexion={openModalAlertDeconnexion}
+        setOpenModalAlertDeconnexion={setOpenModalAlertDeconnexion}
+        setLogoutIsConfirm={setLogoutIsConfirm}
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -123,7 +140,11 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
           </svg>
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>Mon profil</p>
         </NavLink>
-        <NavLink to="/" className="flex flex-row items-center" onClick={logOut}>
+        <button
+          type="button"
+          className="flex flex-row items-center"
+          onClick={() => handleLogOut()}
+        >
           <div className="yellow-point mr-2 mt-3"></div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +162,7 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
           <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
             Se déconnecter
           </p>
-        </NavLink>
+        </button>
       </div>
       <div className="flex flex-row items-center pt-4">
         <div className={`${open ? "yellow-point mr-4" : "hidden"}`}></div>

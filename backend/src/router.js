@@ -38,6 +38,7 @@ router.post(
 );
 
 router.get("/decision", decisionControllers.browse);
+router.get("/decision/last", verifyToken, decisionControllers.readByLast);
 // the following route gets the decision values including expert persons, concerned persons and comments
 router.get("/decision/:id", decisionControllers.read);
 router.get(

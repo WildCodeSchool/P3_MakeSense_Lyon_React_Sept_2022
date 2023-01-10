@@ -1,8 +1,9 @@
 /* eslint-disable no-alert */
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import "../../assets/logo-makesense.png";
+import toast, { Toaster } from "react-hot-toast";
 import peoplepicture from "../../assets/peoplepicture.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
@@ -10,6 +11,10 @@ function Connexion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useCurrentUserContext({});
+  const notify = () =>
+    toast.error(
+      "Vous n'êtes pas inscrit ou vous avez mal renseigné vos identifiants"
+    );
 
   const navigate = useNavigate();
 
@@ -36,18 +41,15 @@ function Connexion() {
           localStorage.setItem("token", result.token);
           navigate("/home");
         } else {
-          alert("Veuillez entrer un identifiant ou password correct.");
+          notify();
         }
       })
       .catch((error) => console.warn(error));
   };
 
-  useEffect(() => {
-    sendConnexion();
-  }, []);
-
   return (
     <div className="connexionPage ">
+      <Toaster position="top-center" reverseOrder={false} />
       <NavLink to="/">
         <img
           className="p-6"
