@@ -64,10 +64,6 @@ const commentControllers = require("./controllers/commentController");
 
 router.put("/decision/:id/comments/:id", verifyToken, commentControllers.edit);
 router.post("/decision/:id/comments", verifyToken, commentControllers.add);
-router.delete(
-  "/decision/:id/comments/:id",
-  verifyToken,
-  commentControllers.destroy
-);
+router.delete("/decision/:id/comments/:id", commentControllers.destroy);
 
 module.exports = router;

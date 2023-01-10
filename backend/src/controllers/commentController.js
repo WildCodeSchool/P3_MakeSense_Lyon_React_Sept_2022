@@ -28,7 +28,7 @@ const add = (req, res) => {
     .insertComment(comment)
     .then(([result]) => {
       // send comments to front when a new one is added by a user
-      models.comment.find(result.insertId).then(([comm]) => {
+      models.comment.findCommentWithUserInfo(result.insertId).then(([comm]) => {
         if (result.affectedRows === 0) {
           res.sendStatus(404);
         } else {
@@ -38,6 +38,7 @@ const add = (req, res) => {
             )
             .send(comm[0])
             .status(201);
+          console.warn(comm[0]);
         }
       });
     })

@@ -20,6 +20,10 @@ export default function AccordionDecisionDetails({
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
   const [valueComment, setValueComment] = useState("");
+  const [valueStatus, setValueStatus] = useState("");
+  const [chosenStatusNeutral, setChosenStatusNeutral] = useState(false);
+  const [chosenStatusFor, setChosenStatusFor] = useState(false);
+  const [chosenStatusAgainst, setChosenStatusAgainst] = useState(false);
   const { user, token } = useCurrentUserContext();
   const idParam = useParams();
 
@@ -38,12 +42,7 @@ export default function AccordionDecisionDetails({
 
   const modules = {
     toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ font: [] }],
-      [{ align: [] }],
       ["bold", "underline", "italic"],
-      [{ color: [] }, { background: [] }],
-      [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
     ],
   };
@@ -76,7 +75,7 @@ export default function AccordionDecisionDetails({
 
     const raw = JSON.stringify({
       content: valueComment,
-      vote: "Pour",
+      vote: valueStatus,
       user_id: user.id,
       date_creation: dateConvertedToSqlFormat(Date.now()),
       decision_id: valuesDetailsDecision.id,
@@ -100,6 +99,21 @@ export default function AccordionDecisionDetails({
       })
       .catch((error) => console.warn("error", error));
   }
+
+  const handleStatusNeutral = () => {
+    setValueStatus("Neutre");
+    setChosenStatusNeutral(!chosenStatusNeutral);
+  };
+
+  const handleStatusFor = () => {
+    setValueStatus("Pour");
+    setChosenStatusFor(!chosenStatusFor);
+  };
+
+  const handleStatusAgainst = () => {
+    setValueStatus("Contre");
+    setChosenStatusAgainst(!chosenStatusAgainst);
+  };
 
   return (
     <div>
@@ -234,7 +248,48 @@ export default function AccordionDecisionDetails({
             className="answer_wrapper "
             style={clickedAnswer4 ? { height: "auto" } : { height: "0px" }}
           >
-            <h2 className="mt-8 mb-3">Commentaire :</h2>
+            <div className="flex flex-row mx-6">
+              <h2 className="mt-8 mb-3">Commentaire :</h2>
+              <button
+                type="button"
+                onClick={handleStatusNeutral}
+                className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+                  chosenStatusAgainst === false &&
+                  chosenStatusFor === false &&
+                  chosenStatusNeutral === true
+                    ? "bg-light-blue text-white "
+                    : "border-2 border-light-blue text-light-blue"
+                }`}
+              >
+                Neutre
+              </button>
+              <button
+                type="button"
+                onClick={handleStatusFor}
+                className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+                  chosenStatusNeutral === false &&
+                  chosenStatusAgainst === false &&
+                  chosenStatusFor === true
+                    ? "bg-light-green text-white "
+                    : "border-2 border-light-green text-light-green"
+                }`}
+              >
+                Pour
+              </button>
+              <button
+                type="button"
+                onClick={handleStatusAgainst}
+                className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+                  chosenStatusNeutral === false &&
+                  chosenStatusFor === false &&
+                  chosenStatusAgainst === true
+                    ? "bg-red-pink text-white "
+                    : "border-2 border-red-pink text-red-pink"
+                }`}
+              >
+                Contre
+              </button>
+            </div>
             <ReactQuill
               theme="snow"
               value={valueComment}
@@ -252,7 +307,7 @@ export default function AccordionDecisionDetails({
                 Envoyer
               </button>
             </div>
-
+            {/* display comments */}
             <div className="my-6">
               <ul>
                 {valuesDetailsDecision.comments?.map((comment) => {
@@ -271,21 +326,32 @@ export default function AccordionDecisionDetails({
                           <img
                             className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 "
                             src={
-                              urlAvatarStatus.status === 200
-                                ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
+                              urlAvatarStatus?.status === 200
+                                ? `http://localhost:5000/avatar/${comment?.avatar}`
                                 : userimg
                             }
-                            alt={`avatar${user.firstname}-${user.id}`}
+                            alt={`avatar${comment.firstname}`}
                           />
                         </button>
                         <div className="flex flex-col">
                           <p className="mx-4 text-l font-bold ">
-                            {valuesDetailsDecision.firstname}{" "}
-                            {valuesDetailsDecision.lastname}
+                            {comment.firstname} {comment.lastname}
                           </p>
-                          <p className="text-sm text-slate-500 mx-4">
+
+                          <p className="text-sm text-slate-500 mx-4 flex flex-row">
                             {dateComment(comment.date_creation)} &nbsp;
-                            {hourComment(comment.date_creation)}
+                            {hourComment(comment.date_creation)}&nbsp;
+                            <p
+                              className={`mx-4 font-semibold ${
+                                comment.vote === "Pour"
+                                  ? "text-light-green"
+                                  : comment.vote === "Contre"
+                                  ? "text-red-pink"
+                                  : "text-light-blue"
+                              } `}
+                            >
+                              - {comment.vote}
+                            </p>
                           </p>
                         </div>
                       </div>
