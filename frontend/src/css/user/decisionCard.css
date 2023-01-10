@@ -34,3 +34,11 @@
   border-radius: 25px;
   background-color: #e36164;
 }
+
+.wrapForHide .spanhidden {
+  visibility: hidden;
+}
+
+.wrapForHide:hover .spanhidden {
+  visibility: visible;
+}

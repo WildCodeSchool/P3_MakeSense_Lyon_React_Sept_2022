@@ -47,7 +47,7 @@ router.get(
 );
 router.put("/decision/:id", verifyToken, decisionControllers.editById);
 router.post("/decision", verifyToken, decisionControllers.add);
-router.delete("/decision/:id", decisionControllers.destroy);
+router.delete("/decision/:id", verifyToken, decisionControllers.destroy);
 
 router.post(
   "/avatar",
