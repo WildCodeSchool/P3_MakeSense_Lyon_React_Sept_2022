@@ -58,4 +58,14 @@ router.post(
 );
 router.get("/avatar/:fileName", fileControllers.sendAvatar);
 
+/** ****************** Gestion commentaire ************************* */
+
+const commentControllers = require("./controllers/commentController");
+
+router.get("/decision/comments", verifyToken, commentControllers.browse);
+router.get("/decision/:id/comments/", verifyToken, decisionControllers.read);
+router.post("/decision/:id/comments", verifyToken, commentControllers.add);
+router.put("/decision/:id/comments", verifyToken, commentControllers.edit);
+router.delete("/decision/:id/comments", commentControllers.destroy);
+
 module.exports = router;

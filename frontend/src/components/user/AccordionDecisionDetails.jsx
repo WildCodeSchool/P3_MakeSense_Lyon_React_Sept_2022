@@ -1,10 +1,9 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable consistent-return */
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
 import "../../css/user/Accordion.css";
+import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function AccordionDecisionDetails({
   clickedAnswer4,
@@ -16,6 +15,7 @@ export default function AccordionDecisionDetails({
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
   const [valueComment, setValueComment] = useState("");
+  const { token } = useCurrentUserContext();
 
   const handleToggle1 = () => {
     setClickedAnswer1((prev) => !prev);
@@ -40,6 +40,31 @@ export default function AccordionDecisionDetails({
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
     ],
+  };
+
+  const commentSubmit = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      comment: valueComment,
+    });
+
+    fetch(
+      `http://localhost:5000/decision/${valuesDetailsDecision.id}/comments`,
+      {
+        method: "POST",
+        redirect: "follow",
+        body: raw,
+        headers: myHeaders,
+      }
+    )
+      .then((response) => {
+        response.json();
+      })
+      .then((result) => console.warn(result))
+      .catch((error) => console.warn("error", error));
   };
 
   return (
@@ -182,6 +207,16 @@ export default function AccordionDecisionDetails({
               onChange={setValueComment}
               modules={modules}
             />
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={commentSubmit}
+                id="buttonSendComment"
+                className="flex mt-5 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full "
+              >
+                Envoyer
+              </button>
+            </div>
           </div>
         </li>
       </ul>
