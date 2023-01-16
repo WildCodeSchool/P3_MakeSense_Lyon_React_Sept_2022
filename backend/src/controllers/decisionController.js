@@ -171,19 +171,35 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.user
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  const decisionId = parseInt(req.params.id, 10);
+  console.warn("decisionid", decisionId);
+  models.person_concern.deleteConcern(decisionId).then(() => {
+    models.person_expert
+      .deleteExpert(decisionId)
+      .then(() => {
+        models.comment
+          .deleteCommentByDecisionId(decisionId)
+          .then(() => {
+            models.decision
+              .delete(decisionId)
+              .then(() => {
+                res.sendStatus(204);
+              })
+              .catch((err) => {
+                console.error(err);
+                res.sendStatus(500);
+              });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  });
 };
 
 const readDecisionByUserId = (req, res) => {

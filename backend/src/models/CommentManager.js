@@ -46,6 +46,13 @@ class CommentManager extends AbstractManager {
       [id]
     );
   }
+
+  deleteCommentByDecisionId(decisionId) {
+    return this.connection.query(
+      `DELETE FROM ${this.table} where decision_id = ?`,
+      [decisionId]
+    );
+  }
 }
 
 module.exports = CommentManager;
