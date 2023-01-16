@@ -23,3 +23,7 @@
   background-color: #e36164;
   rotate: -45deg;
 }
+
+.yellow-point:hover{
+  background-color: #ffffff;
+}

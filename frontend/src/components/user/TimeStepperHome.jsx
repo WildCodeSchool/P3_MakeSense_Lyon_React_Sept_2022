@@ -29,14 +29,14 @@ export default function TimeStepperHome() {
 
   console.warn(decisions);
   return (
-    <div className="timeStepper flex flex-col items-center justify-center">
+    <div className="flex flex-col border-2 border-red-pink rounded-xl mr-3 pb-5 pt-5 shadow-sm">
       <h6 className="text-center mb-5">
         Prochaines décisions <br></br>en conflit
       </h6>
-      <ul className="flex flex-col w-60">
+      <ul className="flex flex-col ">
         {decisions?.map((data, index) => (
-          <li key={index} className="grid grid-cols-6">
-            <div className="text-sm text-gray-500 text-right col-span-2">
+          <li key={index} className="grid grid-cols-7">
+            <div className="text-sm text-gray-500 text-right col-span-3">
               {dateFormat(data.date_decision_conflict)}
             </div>
 

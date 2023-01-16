@@ -103,8 +103,8 @@ export default function Home({ open }) {
             Décisions en cours :{" "}
           </h2>
         </div>
-        <div className="box col-start-1 col-end-4 ml-10">
-          <div className="grid grid-cols-5">
+        <div className="box col-start-1 col-end-4 ml-10 ">
+          <div className="grid grid-cols-5 gap-4">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
               if (valueDetailsDecision.status_decision === "En cours") {
                 return (
