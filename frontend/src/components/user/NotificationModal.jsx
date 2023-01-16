@@ -7,7 +7,9 @@ function NotificationModal({ setShowModal, open }) {
     <div className="fixed top-0 left-0 ">
       <Modal
         className={`${
-          open ? "ml-[235px] mt-[110px]" : "ml-[78px] mt-[110px]"
+          open
+            ? "ml-[235px] mt-[110px] rounded-xl"
+            : "ml-[78px] mt-[110px] rounded-xl"
         } duration-300`}
         show
         position="left"
@@ -15,7 +17,7 @@ function NotificationModal({ setShowModal, open }) {
         onClose={() => setShowModal(false)}
       >
         <div className="shadow-lg">
-          <Modal.Header className="pl-3 pr-3 pt-6 pb-6 bg-dark-blue text-slate-50 align-middle">
+          <Modal.Header className="pl-3 pr-3 pt-6 pb-6 bg-light-blue text-slate-50 align-middle rounded-lg">
             <div className="align-middle	 text-slate-50">Notifications:</div>
           </Modal.Header>
           <Modal.Body className="bg-light-grey">
