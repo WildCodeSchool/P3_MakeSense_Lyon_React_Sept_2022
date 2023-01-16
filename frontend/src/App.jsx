@@ -23,8 +23,8 @@ import EditDecision from "@pages/user/EditDecision";
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = useState(true);
-  const { token } = useCurrentUserContext();
   const location = useLocation();
+  const { token } = useCurrentUserContext();
 
   return (
     <div className="flex">

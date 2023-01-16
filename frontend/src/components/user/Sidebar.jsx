@@ -30,7 +30,6 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
       setLogoutIsConfirm(false);
     }
   }, [logoutIsConfirm]);
-
   return (
     <div
       className={`${
