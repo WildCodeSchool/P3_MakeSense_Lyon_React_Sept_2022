@@ -79,8 +79,8 @@ export default function Sidebar({ open, setOpen, showModal, setShowModal }) {
           </svg>
           <p className={`${open ? "text-xl mt-1" : "hidden"}`}>Home</p>
         </NavLink>
-        <NavLink to="/decisions" className="flex flex-row items-center">
-          <div className="yellow-point mr-2 mt-3"></div>
+        <NavLink to="/decisions" className="flex flex-row items-center ">
+          <div className="yellow-point mr-2 mt-3 "></div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
