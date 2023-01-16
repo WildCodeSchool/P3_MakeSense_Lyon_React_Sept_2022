@@ -79,6 +79,7 @@ export default function CreateDecision() {
       user_id: user.id,
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
+      notif: choosePersonConcern,
     });
     toast
       .promise(
@@ -128,7 +129,6 @@ export default function CreateDecision() {
 
   const handleDeleteExpert = (index) => {
     const newList = choosePersonExpert.filter((_, i) => i !== index);
-
     setChoosePersonExpert(newList);
   };
 
