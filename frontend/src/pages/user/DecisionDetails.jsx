@@ -55,9 +55,9 @@ export default function DecisionDetails() {
       </div>
       <div className="flex flex-row justify-around mt-10">
         <div className="flex flex-col mr-10">
-          {valuesDetailsDecision.user_id === user.id ? (
-            <div className="flex flex-row items-center">
-              <h2 className="text-2xl mr-3">{valuesDetailsDecision.title}</h2>
+          <div className="flex flex-row items-center">
+            <h2 className="text-2xl mr-3">{valuesDetailsDecision.title}</h2>
+            {valuesDetailsDecision.user_id === user.id ? (
               <button
                 type="button"
                 onClick={() => navigate(`/edit-decision/${idParam.id}`)}
@@ -65,8 +65,8 @@ export default function DecisionDetails() {
               >
                 Modifier ma décision
               </button>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
           <div>
             <p>Proposé par {valuesDetailsDecision.firstname} :</p>
             <button
