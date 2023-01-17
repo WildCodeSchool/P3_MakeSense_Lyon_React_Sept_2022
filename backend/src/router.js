@@ -21,6 +21,8 @@ const {
 } = require("./middlewares/auth");
 const decisionControllers = require("./controllers/decisionController");
 const fileControllers = require("./controllers/fileController");
+const forgottenPassword = require("./controllers/forgottenPassword");
+const mailController = require("./controllers/mailController");
 
 const { verifyEmail } = require("./middlewares/verifyEmail");
 
@@ -35,6 +37,15 @@ router.post(
   "/login",
   authControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
+);
+
+// Forget Password
+
+router.post(
+  "/forgottenpassword",
+  forgottenPassword.verifyEmail,
+  forgottenPassword.createToken,
+  mailController.sendForgottenPassword
 );
 
 router.get("/decision", verifyToken, decisionControllers.browse);

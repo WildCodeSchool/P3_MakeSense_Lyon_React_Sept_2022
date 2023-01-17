@@ -10,6 +10,7 @@ CREATE TABLE user (
   avatar varchar(255),
   hashedPassword varchar(100) NOT NULL,
   is_admin tinyint NOT NULL DEFAULT 0,
+  passwordToken varchar(100), 
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 

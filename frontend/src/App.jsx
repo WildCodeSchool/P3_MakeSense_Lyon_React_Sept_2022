@@ -19,9 +19,11 @@ import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
+import Password from "@pages/user/Password";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState();
   const [open, setOpen] = useState(true);
   const location = useLocation();
   const { token } = useCurrentUserContext();
@@ -75,9 +77,16 @@ function App() {
         </Routes>
       ) : (
         <Routes>
+          <Route
+            path="/nouveau-mdp"
+            element={<Password email={email} setEmail={setEmail} />}
+          />
           <Route path="/" element={<Authentification />} />
           <Route path="/inscription" element={<Inscription />} />
-          <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+          <Route
+            path="/motdepasseoublie"
+            element={<ForgottenPassword email={email} setEmail={setEmail} />}
+          />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       )}
