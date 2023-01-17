@@ -200,13 +200,16 @@ export default function AccordionDecisionDetails({
             className="answer_wrapper "
             style={clickedAnswer4 ? { height: "auto" } : { height: "0px" }}
           >
-            <h2 className="mt-8 mb-3">Commentaire :</h2>
+            <h2 className="mt-8 mb-3 ">Commentaire :</h2>
             <ReactQuill
               theme="snow"
               value={valueComment}
               onChange={setValueComment}
               modules={modules}
             />
+            <div className="commentairesDecision mt-10 text-center">
+              - exemple commentaire
+            </div>
             <div className="flex justify-end">
               <button
                 type="button"

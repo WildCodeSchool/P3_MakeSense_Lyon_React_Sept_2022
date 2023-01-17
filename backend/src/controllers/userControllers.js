@@ -107,6 +107,7 @@ const destroy = (req, res) => {
   models.user
     .delete(req.params.id)
     .then(([result]) => {
+      console.warn("Pas delete ?");
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
