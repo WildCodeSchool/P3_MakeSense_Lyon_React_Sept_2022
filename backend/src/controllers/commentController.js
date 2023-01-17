@@ -50,7 +50,6 @@ const add = (req, res) => {
 
 // functionnal but not deployed on front end yet
 const destroy = (req, res) => {
-  console.warn(req.params.id);
   models.comment
     .delete(req.params.id)
     .then(([result]) => {

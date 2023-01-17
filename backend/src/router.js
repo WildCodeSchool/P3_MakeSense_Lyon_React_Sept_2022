@@ -37,10 +37,10 @@ router.post(
   verifyPassword
 );
 
-router.get("/decision", verifyToken, decisionControllers.browse);
+router.get("/decision", decisionControllers.browse);
 router.get("/decision/last", verifyToken, decisionControllers.readByLast);
 // the following route gets the decision values including expert persons, concerned persons and comments
-router.get("/decision/:id", verifyToken, decisionControllers.read);
+router.get("/decision/:id", decisionControllers.read);
 router.get(
   "/decision-byuser/:id",
   verifyToken,
@@ -62,8 +62,12 @@ router.get("/avatar/:fileName", fileControllers.sendAvatar);
 // the following routes are used to add/update/delete comment from a chosen decision
 const commentControllers = require("./controllers/commentController");
 
-router.put("/decision/:id/comments/:id", verifyToken, commentControllers.edit);
+router.put("/decision/:id/comments/:id", commentControllers.edit);
 router.post("/decision/:id/comments", verifyToken, commentControllers.add);
-router.delete("/decision/:id/comments/:id", commentControllers.destroy);
+// router.delete(
+//   "/decision/:id/comments/:id",
+//   verifyToken,
+//   commentControllers.destroy
+// );
 
 module.exports = router;

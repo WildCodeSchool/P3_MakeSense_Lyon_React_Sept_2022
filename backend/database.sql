@@ -70,3 +70,33 @@ CREATE TABLE comment (
 );
 
 INSERT INTO comment (content, vote, date_creation) VALUES ('Je suis un commentaire', 'Pour', '2022-10-13 12:12:23'),('Je suis un deuxieme commentaire', 'Pour', '2022-10-13 12:12:23'),('Je suis un troisieme commentaire', 'Pour', '2022-10-13 12:12:23'), ('Je suis un quatrieme commentaire', 'Pour', '2022-10-13 12:12:23');
+
+DROP TRIGGER IF EXISTS onCommentUpdate;
+
+CREATE TRIGGER onCommentUpdate
+AFTER UPDATE ON comment
+FOR EACH ROW
+BEGIN
+  IF NEW.vote = 'contre' THEN
+    UPDATE decision
+    SET status_decision = 'En conflit'
+    WHERE id = NEW.decision_id;
+  END IF;
+  IF NEW.vote = 'Pour' AND (SELECT COUNT(*) FROM comment WHERE decision_id = NEW.decision_id AND vote = 'Contre') = 0 THEN
+    UPDATE decision
+    SET status_decision = 'En cours'
+    WHERE id = NEW.decision_id;
+  END IF;
+END ;
+
+DROP TRIGGER IF EXISTS OnCommentInsert;
+CREATE TRIGGER OnCommentInsert
+AFTER INSERT ON comment
+FOR EACH ROW
+BEGIN
+  IF NEW.vote = 'contre' THEN
+    UPDATE decision
+    SET status_decision = 'En conflit'
+    WHERE id = NEW.decision_id;
+  END IF;
+END ;
