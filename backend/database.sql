@@ -71,6 +71,18 @@ CREATE TABLE comment (
 
 INSERT INTO comment (content, vote, date_creation) VALUES ('Je suis un commentaire', 'Pour', '2022-10-13 12:12:23'),('Je suis un deuxieme commentaire', 'Pour', '2022-10-13 12:12:23'),('Je suis un troisieme commentaire', 'Pour', '2022-10-13 12:12:23'), ('Je suis un quatrieme commentaire', 'Pour', '2022-10-13 12:12:23');
 
+DROP TABLE IF EXISTS notification;
+
+CREATE TABLE notification (
+  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  user_id int,
+  decision_id int, 
+  comment_id int,
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  FOREIGN KEY (decision_id) REFERENCES decision(id),
+  FOREIGN KEY (comment_id) REFERENCES comment(id)
+);
+
 DROP TRIGGER IF EXISTS onCommentUpdate;
 
 CREATE TRIGGER onCommentUpdate

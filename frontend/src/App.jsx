@@ -23,8 +23,8 @@ import EditDecision from "@pages/user/EditDecision";
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = useState(true);
-  const { token } = useCurrentUserContext();
   const location = useLocation();
+  const { token } = useCurrentUserContext();
 
   return (
     <div className="flex">
@@ -58,13 +58,11 @@ function App() {
           />
           <Route path="/" element={<Authentification />} />
           <Route path="/create-decision" element={<CreateDecision />} />
-          <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route
             path="/user-profile/:id"
             element={<UserProfile open={open} />}
           />
-          <Route path="/help" element={<Help />} />
           <Route path="/decisions" element={<Decisions open={open} />} />
           <Route path="/decision/:id" element={<DecisionDetails />} />
           <Route
@@ -80,6 +78,8 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<Authentification />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
