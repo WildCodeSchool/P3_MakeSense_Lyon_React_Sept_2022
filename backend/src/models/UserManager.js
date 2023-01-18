@@ -26,6 +26,8 @@ class UserManager extends AbstractManager {
     );
   }
 
+  /** ************* Récupération de toute les informations de l'utilisateur*********** */
+
   selectEmail(email) {
     return this.connection.query(
       `select * from ${this.table} where email = ?`,
