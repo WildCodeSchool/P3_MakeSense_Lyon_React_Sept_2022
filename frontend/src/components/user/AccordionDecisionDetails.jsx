@@ -222,21 +222,20 @@ export default function AccordionDecisionDetails({
               onChange={setValueComment}
               modules={modules}
             />
-            {valuesDetailsDecision.comments.map((comment) => (
+            {valuesDetailsDecision?.comments?.map((comment) => (
               <div
                 key={comment.id}
-                className="commentairesDecision mt-10 text-center"
+                className="commentairesDecision mt-10 text-center border-4"
               >
                 {console.warn(comment)}
-                <p className="font-bold">
-                  {valuesDetailsDecision.firstname} a dit :
-                </p>
+                <p className="font-bold">{comment.firstname} a dit :</p>
                 {comment.content}
                 <div className="text-blue-500">
                   my user_id is {comment.user_id} and my decision_id is{" "}
                   {comment.decision_id}
                 </div>
-                <div className="text-green-500">{comment.date_creation}</div>
+                En date du :
+                <span className="text-green-500"> {comment.date_creation}</span>
               </div>
             ))}
             <div className="flex justify-end">

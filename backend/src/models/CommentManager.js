@@ -21,7 +21,7 @@ class CommentManager extends AbstractManager {
 
   getCommentsByDecisionByUser(decisionId) {
     return this.connection.query(
-      `SELECT comment.user_id, comment.decision_id, comment.vote, comment.content, comment.date_creation 
+      `SELECT comment.user_id, comment.decision_id, comment.vote, comment.content, comment.date_creation, user.firstname, user.lastname 
       FROM ${this.table}
       JOIN user ON ${this.table}.user_id=user.id
       WHERE decision_id = ?`,
