@@ -1,21 +1,16 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from "react";
+
 import userimg from "../../assets/icons/user.png";
 import "../../css/user/homeUser.css";
 
-function TimelineStepperDecision({ setClickedAnswer4, valuesDetailsDecision }) {
-  console.warn(valuesDetailsDecision);
-  const [urlAvatarStatus, setAvatarStatus] = useState("");
-
+function TimelineStepperDecision({
+  setClickedAnswer4,
+  urlAvatarStatus,
+  valuesDetailsDecision,
+}) {
   const handleToggle4 = () => {
     setClickedAnswer4((prev) => !prev);
   };
-
-  useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
-      .then((response) => setAvatarStatus(response))
-      .catch((error) => console.warn(error));
-  }, [valuesDetailsDecision]);
 
   return (
     <div className="w-60 h-fit border border-red-pink p-4 rounded-xl flex justify-center flex-col">

@@ -61,7 +61,7 @@ DROP TABLE IF EXISTS comment;
 
 CREATE TABLE comment (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  content varchar(100) NOT NULL,
+  content varchar(500) NOT NULL,
   vote varchar(45) NOT NULL,
   date_creation DATETIME NOT NULL DEFAULT NOW(),
   user_id int,
@@ -83,3 +83,33 @@ CREATE TABLE notification (
   FOREIGN KEY (decision_id) REFERENCES decision(id),
   FOREIGN KEY (comment_id) REFERENCES comment(id)
 );
+
+DROP TRIGGER IF EXISTS onCommentUpdate;
+
+CREATE TRIGGER onCommentUpdate
+AFTER UPDATE ON comment
+FOR EACH ROW
+BEGIN
+  IF NEW.vote = 'contre' THEN
+    UPDATE decision
+    SET status_decision = 'En conflit'
+    WHERE id = NEW.decision_id;
+  END IF;
+  IF NEW.vote = 'Pour' AND (SELECT COUNT(*) FROM comment WHERE decision_id = NEW.decision_id AND vote = 'Contre') = 0 THEN
+    UPDATE decision
+    SET status_decision = 'En cours'
+    WHERE id = NEW.decision_id;
+  END IF;
+END ;
+
+DROP TRIGGER IF EXISTS OnCommentInsert;
+CREATE TRIGGER OnCommentInsert
+AFTER INSERT ON comment
+FOR EACH ROW
+BEGIN
+  IF NEW.vote = 'contre' THEN
+    UPDATE decision
+    SET status_decision = 'En conflit'
+    WHERE id = NEW.decision_id;
+  END IF;
+END ;

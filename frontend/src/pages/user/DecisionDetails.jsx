@@ -13,7 +13,10 @@ export default function DecisionDetails() {
   const [clickedAnswer4, setClickedAnswer4] = useState(false);
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
+  const [updateDecision, setUpdateDecision] = useState(false);
   const navigate = useNavigate();
+
+  const toggleUpdateDecision = () => setUpdateDecision(!updateDecision);
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -27,7 +30,7 @@ export default function DecisionDetails() {
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecision(result))
       .catch((error) => console.warn("error", error));
-  }, []);
+  }, [updateDecision]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
@@ -35,6 +38,14 @@ export default function DecisionDetails() {
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);
 
+  const statusForClassname = () => {
+    if (valuesDetailsDecision.status_decision) {
+      return valuesDetailsDecision.status_decision
+        .replace(" ", "")
+        .toLowerCase();
+    }
+    return "encours";
+  };
   return (
     <div className="flex flex-col w-screen">
       <div className="flex flex-row items-center justify-between bg-light-grey">
@@ -56,7 +67,30 @@ export default function DecisionDetails() {
       <div className="flex flex-row justify-around mt-10">
         <div className="flex flex-col mr-10">
           <div className="flex flex-row items-center">
-            <h2 className="text-2xl mr-3">{valuesDetailsDecision.title}</h2>
+            <div className={statusForClassname()} />
+            <div className="flex flex-row items-end">
+              <h2 className="text-2xl mr-3">
+                {" "}
+                &nbsp; {valuesDetailsDecision.title}
+              </h2>
+              {/* Here the status color changes according to the decision status */}
+              <p
+                className={`${
+                  valuesDetailsDecision.status_decision === "En cours"
+                    ? "text-light-blue"
+                    : valuesDetailsDecision.status_decision === "En conflit"
+                    ? "text-light-orange"
+                    : valuesDetailsDecision.status_decision === "Non aboutie"
+                    ? "text-red-pink"
+                    : valuesDetailsDecision.status_decision === "Terminee"
+                    ? "text-light-green"
+                    : " "
+                }`}
+              >
+                -&nbsp; {valuesDetailsDecision.status_decision}
+              </p>
+            </div>
+
             {valuesDetailsDecision.user_id === user.id ? (
               <button
                 type="button"
@@ -91,6 +125,9 @@ export default function DecisionDetails() {
               clickedAnswer4={clickedAnswer4}
               setClickedAnswer4={setClickedAnswer4}
               valuesDetailsDecision={valuesDetailsDecision}
+              setValuesDetailsDecision={setValuesDetailsDecision}
+              urlAvatarStatus={urlAvatarStatus}
+              toggleUpdateDecision={toggleUpdateDecision}
             />
           </div>
         </div>
@@ -98,6 +135,7 @@ export default function DecisionDetails() {
           clickedAnswer4={clickedAnswer4}
           setClickedAnswer4={setClickedAnswer4}
           valuesDetailsDecision={valuesDetailsDecision}
+          urlAvatarStatus={urlAvatarStatus}
         />
       </div>
     </div>

@@ -26,7 +26,7 @@ const mailController = require("./controllers/mailController");
 
 const { verifyEmail } = require("./middlewares/verifyEmail");
 
-router.get("/user", userControllers.browse);
+router.get("/user", verifyToken, userControllers.browse);
 router.get("/user/bytoken", verifyToken, userControllers.findByToken);
 router.get("/user/byname", userControllers.browseByName);
 router.get("/user/:id", verifyToken, userControllers.read);
@@ -74,10 +74,21 @@ router.post(
   fileControllers.renameAvatar,
   userControllers.updateAvatar
 );
-router.get("/avatar/:fileName", fileControllers.sendAvatar);
+router.get("/avatar/:fileName", verifyToken, fileControllers.sendAvatar);
+
+// the following routes are used to add/update/delete comment from a chosen decision
+const commentControllers = require("./controllers/commentController");
+
+router.put("/decision/:id/comments/:id", verifyToken, commentControllers.edit);
+router.post("/decision/:id/comments", verifyToken, commentControllers.add);
+// router.delete(
+//   "/decision/:id/comments/:id",
+//   verifyToken,
+//   commentControllers.destroy
+// );
 
 const notificationControllers = require("./controllers/notificationController");
 
-router.get("/notification/:id", notificationControllers.browse);
+router.get("/notification/:id", verifyToken, notificationControllers.browse);
 
 module.exports = router;
