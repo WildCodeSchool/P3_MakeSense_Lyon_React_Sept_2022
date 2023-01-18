@@ -66,6 +66,10 @@ function App() {
           <Route path="/decisions" element={<Decisions open={open} />} />
           <Route path="/decision/:id" element={<DecisionDetails />} />
           <Route
+            path="/decision/:id/comments/:id"
+            element={<DecisionDetails />}
+          />
+          <Route
             path="/edit-decision/:id"
             element={<EditDecision valuesDetailsDecisions />}
           />
