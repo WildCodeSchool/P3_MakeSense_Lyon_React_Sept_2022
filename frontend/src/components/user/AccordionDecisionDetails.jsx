@@ -225,11 +225,11 @@ export default function AccordionDecisionDetails({
             {valuesDetailsDecision?.comments?.map((comment) => (
               <div
                 key={comment.id}
-                className="commentairesDecision mt-10 text-center border-4"
+                className="commentairesDecision mt-10 text-center border-2 border-black bg-gray-200"
               >
                 {console.warn(comment)}
                 <p className="font-bold">{comment.firstname} a dit :</p>
-                {comment.content}
+                <ReactQuill theme="bubble" value={comment.content} readOnly />
                 <div className="text-blue-500">
                   my user_id is {comment.user_id} and my decision_id is{" "}
                   {comment.decision_id}
