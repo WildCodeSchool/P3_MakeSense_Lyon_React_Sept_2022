@@ -21,7 +21,7 @@ function Comments({
   valueStatus,
 }) {
   const [modifyComment, setModifyComment] = useState(false);
-  const { user } = useCurrentUserContext();
+  const { user, token } = useCurrentUserContext();
   const decisionIdParam = useParams();
 
   // Define the date format for comments :
@@ -45,6 +45,7 @@ function Comments({
 
   const updateComment = () => {
     const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({

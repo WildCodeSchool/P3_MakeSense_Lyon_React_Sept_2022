@@ -61,7 +61,7 @@ router.get("/avatar/:fileName", verifyToken, fileControllers.sendAvatar);
 // the following routes are used to add/update/delete comment from a chosen decision
 const commentControllers = require("./controllers/commentController");
 
-router.put("/decision/:id/comments/:id", commentControllers.edit);
+router.put("/decision/:id/comments/:id", verifyToken, commentControllers.edit);
 router.post("/decision/:id/comments", verifyToken, commentControllers.add);
 // router.delete(
 //   "/decision/:id/comments/:id",
