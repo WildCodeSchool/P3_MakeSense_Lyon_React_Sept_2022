@@ -1,5 +1,7 @@
 const models = require("../models");
 
+/** ************** Vérifie qu'un user existe avec ce mail ***************** */
+
 const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
 
@@ -8,6 +10,7 @@ const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
     .then(([user]) => {
       if (user[0] != null) {
         [req.user] = user;
+        // Pareil que req.user = user[0] sans la destructuration
 
         next();
       } else res.status(401).send({ message: "User not found" });

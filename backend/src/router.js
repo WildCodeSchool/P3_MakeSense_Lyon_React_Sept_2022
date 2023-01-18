@@ -4,13 +4,7 @@ const multer = require("multer");
 const router = express.Router();
 const upload = multer({ dest: process.env.UPLOAD_DIR });
 
-const itemControllers = require("./controllers/itemControllers");
-
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+/** ******************* Déclarations Provenances Requêtes ***************** */
 
 const authControllers = require("./controllers/authController");
 const userControllers = require("./controllers/userControllers");
@@ -24,18 +18,25 @@ const fileControllers = require("./controllers/fileController");
 
 const { verifyEmail } = require("./middlewares/verifyEmail");
 
+/** **************************** Gestion USERS ********************** */
+
 router.get("/user", userControllers.browse);
 router.get("/user/bytoken", verifyToken, userControllers.findByToken);
 router.get("/user/byname", userControllers.browseByName);
 router.get("/user/:id", verifyToken, userControllers.read);
 router.put("/user/:id", verifyToken, userControllers.edit);
-router.post("/user", verifyEmail, hashPassword, userControllers.add);
 router.delete("/user/:id", userControllers.destroy);
+
+/** ************ Gestion AUTHENTIFICATION, Register et Login ********** */
+
+router.post("/user", verifyEmail, hashPassword, userControllers.add);
 router.post(
   "/login",
   authControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
+
+/** **************************** Gestion DECISIONS ********************** */
 
 router.get("/decision", verifyToken, decisionControllers.browse);
 router.get("/decision/last", verifyToken, decisionControllers.readByLast);
@@ -48,6 +49,8 @@ router.get(
 router.put("/decision/:id", verifyToken, decisionControllers.editById);
 router.post("/decision", verifyToken, decisionControllers.add);
 router.delete("/decision/:id", verifyToken, decisionControllers.destroy);
+
+/** ****************** Gestion Upload Fichiers ************************* */
 
 router.post(
   "/avatar",
