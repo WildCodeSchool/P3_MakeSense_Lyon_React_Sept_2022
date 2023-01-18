@@ -7,6 +7,7 @@ import { useCurrentUserContext } from "../../context/UserContext";
 export default function HomeAdmin({ open }) {
   const { user, token } = useCurrentUserContext();
   const [users, setUsers] = useState([]);
+  const [stats, setStats] = useState([]);
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -19,6 +20,13 @@ export default function HomeAdmin({ open }) {
       .then((res) => res.json())
       .then((result) => {
         setUsers(result);
+      })
+      .catch((err) => console.error(err));
+
+    fetch("http://localhost:5000/admin/countstats", requestOptions)
+      .then((res) => res.json())
+      .then((result) => {
+        setStats(result);
       })
       .catch((err) => console.error(err));
   }, [token]);
@@ -46,11 +54,22 @@ export default function HomeAdmin({ open }) {
         <div className="w-[300px] h-[350px] border-2 rounded-xl m-10 flex flex-col shadow-lg">
           <h3 className="text-center text-2xl mt-5">Statistiques :</h3>
           <ul>
-            <li className="font-extralight pt-5 m-5">Utilisateurs : </li>
-            <li className="font-extralight m-5">Décisions : </li>
-            <li className="font-extralight m-5">Accepté : </li>
-            <li className="font-extralight m-5">Conflit : </li>
-            <li className="font-extralight m-5">Rejeté : </li>
+            <li className="font-extralight pt-5 m-5">
+              Utilisateurs : {stats.users}
+            </li>
+            <li className="font-extralight m-5">
+              Décisions : {stats.decision}
+            </li>
+            <li className="font-extralight m-5">Accepté : {stats.finished}</li>
+            <li className="font-extralight m-5">
+              En cours : {stats.inprogress}
+            </li>
+            <li className="font-extralight m-5">
+              En conflit : {stats.conflict}
+            </li>
+            <li className="font-extralight m-5">
+              Non abouti : {stats.unresolved}
+            </li>
           </ul>
         </div>
         <div
