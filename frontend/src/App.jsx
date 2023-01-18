@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/order
 import { React, useState } from "react";
 import CreateDecision from "@pages/user/CreateDecision";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import HomeUser from "./pages/user/HomeUser";
 import Sidebar from "@components/user/Sidebar";
 import Authentification from "./pages/Authentification";
@@ -20,6 +20,7 @@ import ForgottenPassword from "@pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
 import Password from "@pages/user/Password";
+import HomeAdmin from "@pages/administrator/HomeAdmin";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +28,17 @@ function App() {
   const [open, setOpen] = useState(true);
   const location = useLocation();
   const { token } = useCurrentUserContext();
+  const navigate = useNavigate();
+
+  const [checked, setChecked] = useState(true);
+  const handleChecked = () => {
+    setChecked(!checked);
+    if (!checked) {
+      navigate("/home");
+    } else {
+      navigate("/homeadmin");
+    }
+  };
 
   return (
     <div className="flex">
@@ -42,6 +54,9 @@ function App() {
             setShowModal={setShowModal}
             open={open}
             setOpen={setOpen}
+            checked={checked}
+            setChecked={setChecked}
+            handleChecked={handleChecked}
           />
         </aside>
       )}
@@ -76,6 +91,20 @@ function App() {
             element={<EditDecision valuesDetailsDecisions />}
           />
           <Route path="*" element={<h1>404 Not Found</h1>} />
+          {/*  route admin */}
+          <Route
+            path="/homeadmin"
+            element={
+              <HomeAdmin
+                open={open}
+                setOpen={setOpen}
+                checked={checked}
+                setChecked={setChecked}
+                handleChecked={handleChecked}
+              />
+            }
+          />
+          {/* <Route path="messages" element={<Messages />} /> */}
         </Routes>
       ) : (
         <Routes>
