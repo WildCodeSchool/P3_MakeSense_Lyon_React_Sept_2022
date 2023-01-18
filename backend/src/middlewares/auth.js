@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = process.env;
 
+// algorithme de compression
 const hashingOptions = {
   type: argon2.argon2id,
   memoryCost: 2 ** 16,
@@ -35,7 +36,7 @@ const verifyPassword = (req, res) => {
 
         const token = jwt.sign(payload, JWT_SECRET, {
           algorithm: "HS512",
-          expiresIn: "12h",
+          expiresIn: "12h", // JWT_TIMING
         });
 
         delete req.user.hashedPassword;
