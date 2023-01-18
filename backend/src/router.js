@@ -74,7 +74,7 @@ router.post(
   fileControllers.renameAvatar,
   userControllers.updateAvatar
 );
-router.get("/avatar/:fileName", verifyToken, fileControllers.sendAvatar);
+router.get("/avatar/:fileName", fileControllers.sendAvatar);
 
 // the following routes are used to add/update/delete comment from a chosen decision
 const commentControllers = require("./controllers/commentController");
