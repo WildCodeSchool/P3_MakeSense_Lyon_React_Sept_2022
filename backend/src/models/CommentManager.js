@@ -12,8 +12,6 @@ class CommentManager extends AbstractManager {
     );
   }
 
-  // getComments(comment) {}
-
   deleteCommentByDecisionId(decisionId) {
     return this.connection.query(
       `DELETE FROM ${this.table} where decision_id = ?`,
@@ -23,7 +21,7 @@ class CommentManager extends AbstractManager {
 
   getCommentsByDecisionByUser(decisionId) {
     return this.connection.query(
-      `SELECT user_id, decision_id, vote, content, date_creation 
+      `SELECT comment.user_id, comment.decision_id, comment.vote, comment.content, comment.date_creation 
       FROM ${this.table}
       JOIN user ON ${this.table}.user_id=user.id
       WHERE decision_id = ?`,

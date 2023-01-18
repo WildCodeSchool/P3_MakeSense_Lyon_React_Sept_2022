@@ -30,11 +30,12 @@ const read = (req, res) => {
             .getConcernUser(req.params.id)
             .then(([decisionConcern]) => {
               decision.concerns = decisionConcern;
-              console.warn(decision);
-              // models.comment
-              //   .getCommentsByDecisionByUser(req.params.id)
-              //   .then(())
-              res.send(decision);
+              models.comment
+                .getCommentsByDecisionByUser(req.params.id)
+                .then(([commentResults]) => {
+                  decision.comments = commentResults;
+                  res.send(decision);
+                });
             })
             .catch((err) => {
               console.error(err);
