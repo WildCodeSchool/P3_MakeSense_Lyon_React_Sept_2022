@@ -1,42 +1,39 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import "../../css/user/ForgottenPassword.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
-function Password({ email }) {
+function Password() {
   const navigate = useNavigate();
-  /*   const { email } = useParams(); */
   const [password, setPassword] = useState();
+  const { passwordToken } = useParams();
+
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  console.warn(email);
   const raw = JSON.stringify({
     password,
+    passwordToken,
   });
 
   const requestOptions = {
-    method: "PATCH",
+    method: "POST",
     headers: myHeaders,
     body: raw,
     redirect: "follow",
   };
 
-  const sendPassword = () => {
-    fetch(`http://localhost:5000/user/newpassword/${email}`, requestOptions)
-      .then((res) => res.json())
-      .then((result) => {
-        console.warn(result);
-        if (result.status === 202) {
-          navigate("/");
-        }
+  const sendPassword = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5000/resetpassword`, requestOptions)
+      .then(() => {
+        navigate("/");
       })
       .catch((err) => console.warn(err));
   };
 
-  console.warn(email);
   return (
     <div className="inscriptionPage bg-white relative h-screen w-screen overflow-x-hidden">
       <HeaderCountryChoice />

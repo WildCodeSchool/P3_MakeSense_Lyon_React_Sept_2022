@@ -33,6 +33,13 @@ class UserManager extends AbstractManager {
     );
   }
 
+  selectToken(passwordToken) {
+    return this.connection.query(
+      `select * from ${this.table} where passwordToken = ?`,
+      [passwordToken]
+    );
+  }
+
   getUserByName() {
     return this.connection.query(
       `SELECT ${this.table}.id AS user_id, CONCAT(firstname,' ',lastname) AS name FROM ${this.table}`
@@ -53,10 +60,10 @@ class UserManager extends AbstractManager {
     );
   }
 
-  updatePassword(email, hashedPassword) {
+  updatePasswordAfterReset(user) {
     return this.connection.query(
-      `update ${this.table} set hashedPassword = ? where email = ?`,
-      [hashedPassword, email]
+      `update ${this.table} set hashedPassword = ?, passwordToken = NULL  where id = ?`,
+      [user.hashedPassword, user.id]
     );
   }
 }

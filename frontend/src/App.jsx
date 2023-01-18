@@ -78,7 +78,7 @@ function App() {
       ) : (
         <Routes>
           <Route
-            path="/nouveau-mdp"
+            path="/reviewpassword/:passwordToken"
             element={<Password email={email} setEmail={setEmail} />}
           />
           <Route path="/" element={<Authentification />} />

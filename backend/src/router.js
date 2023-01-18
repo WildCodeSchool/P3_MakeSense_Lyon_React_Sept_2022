@@ -48,6 +48,13 @@ router.post(
   mailController.sendForgottenPassword
 );
 
+router.post(
+  "/resetpassword",
+  forgottenPassword.verifyTokenPassword,
+  hashPassword,
+  forgottenPassword.resetPassword
+);
+
 router.get("/decision", verifyToken, decisionControllers.browse);
 router.get("/decision/last", verifyToken, decisionControllers.readByLast);
 router.get("/decision/:id", verifyToken, decisionControllers.read);
