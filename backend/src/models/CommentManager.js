@@ -20,6 +20,16 @@ class CommentManager extends AbstractManager {
       [decisionId]
     );
   }
+
+  getCommentsByDecisionByUser(decisionId) {
+    return this.connection.query(
+      `SELECT user_id, decision_id, vote, content, date_creation 
+      FROM ${this.table}
+      JOIN user ON ${this.table}.user_id=user.id
+      WHERE decision_id = ?`,
+      [decisionId]
+    );
+  }
 }
 
 module.exports = CommentManager;

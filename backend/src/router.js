@@ -62,10 +62,10 @@ router.get("/avatar/:fileName", fileControllers.sendAvatar);
 
 const commentControllers = require("./controllers/commentController");
 
-router.get("/decision/comments", commentControllers.browse);
-router.get("/decision/:id/comments/", verifyToken, decisionControllers.read);
+router.get("/comments", commentControllers.browse);
+router.get("/decision/:id", decisionControllers.read);
 router.post("/decision/:id/comments", verifyToken, commentControllers.add);
-router.put("/decision/:id/comments", verifyToken, commentControllers.edit);
+router.put("/decision/:id/comments/:id", verifyToken, commentControllers.edit);
 router.delete("/decision/:id/comments", commentControllers.destroy);
 
 module.exports = router;

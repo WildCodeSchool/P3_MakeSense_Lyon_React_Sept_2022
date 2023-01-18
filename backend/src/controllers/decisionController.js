@@ -31,6 +31,9 @@ const read = (req, res) => {
             .then(([decisionConcern]) => {
               decision.concerns = decisionConcern;
               console.warn(decision);
+              // models.comment
+              //   .getCommentsByDecisionByUser(req.params.id)
+              //   .then(())
               res.send(decision);
             })
             .catch((err) => {
