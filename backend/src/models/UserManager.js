@@ -66,5 +66,11 @@ class UserManager extends AbstractManager {
       [user.hashedPassword, user.id]
     );
   }
+
+  getNumberOfUser() {
+    return this.connection.query(
+      `SELECT COUNT(email) AS users FROM ${this.table}`
+    );
+  }
 }
 module.exports = UserManager;

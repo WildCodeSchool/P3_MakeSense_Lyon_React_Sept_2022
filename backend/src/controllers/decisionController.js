@@ -182,36 +182,34 @@ const add = (req, res) => {
 const destroy = (req, res) => {
   const decisionId = parseInt(req.params.id, 10);
   models.person_concern.deleteConcern(decisionId).then(() => {
-    models.person_expert
-      .deleteExpert(decisionId)
-      .then(() => {
-        models.comment
-          .deleteCommentByDecisionId(decisionId)
-          .then(() => {
-            // models.notification
-            //   .deleteNotificationByDecisionId(decisionId)
-            //   .then(() => {
-            models.decision
-              .delete(decisionId)
-              .then(() => {
-                res.sendStatus(204);
-              })
-              .catch((err) => {
-                console.error(err);
-                res.sendStatus(500);
-              });
-          })
-          .catch((err) => {
-            console.error(err);
-            res.sendStatus(500);
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
+    models.person_expert.deleteExpert(decisionId).then(() => {
+      models.comment
+        .deleteCommentByDecisionId(decisionId)
+        .then(() => {
+          models.notification
+            .deleteNotificationByDecisionId(decisionId)
+            .then(() => {
+              models.decision
+                .delete(decisionId)
+                .then(() => {
+                  res.sendStatus(204);
+                })
+                .catch((err) => {
+                  console.error(err);
+                  res.sendStatus(500);
+                });
+            })
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+    });
   });
-  // });
 };
 
 const readDecisionByUserId = (req, res) => {
