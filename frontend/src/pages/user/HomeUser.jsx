@@ -106,7 +106,10 @@ export default function Home({ open }) {
         <div className="box col-start-1 col-end-4 ml-10">
           <div className="grid grid-cols-5">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
-              if (valueDetailsDecision.status_decision === "En cours") {
+              if (
+                valueDetailsDecision.status_decision === "En cours" ||
+                valueDetailsDecision.status_decision === "En conflit"
+              ) {
                 return (
                   <DecisionCard
                     key={valueDetailsDecision.id}

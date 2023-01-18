@@ -94,6 +94,72 @@ class DecisionManager extends AbstractManager {
       ORDER BY date_decision_conflict DESC LIMIT 0,5;`
     );
   }
+
+  findIdByVoteAndDateDecisionPour() {
+    return this.connection.query(
+      `SELECT comment.decision_id,
+      SUM(case when comment.vote = 'Pour' then 1 else 0 end) AS nbVotePour,
+      SUM(case when comment.vote = 'Contre' then 1 else 0 end) AS nbVoteContre
+      FROM comment
+      JOIN decision ON decision.id = comment.decision_id
+      WHERE comment.date_creation = (SELECT MAX(date_creation))
+      AND comment.date_creation <= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+      GROUP BY decision_id
+      HAVING nbVoteContre = 0;`
+    );
+  }
+
+  updateStatusTerminee(ids) {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Terminee'
+      WHERE decision.id IN (?)
+      AND status_decision = 'En cours'`,
+      [ids]
+    );
+  }
+
+  findIdByVoteAndDateDecisionContre() {
+    return this.connection.query(
+      `SELECT comment.decision_id,
+      SUM(case when comment.vote = 'Pour' then 1 else 0 end) AS nbVotePour,
+      SUM(case when comment.vote = 'Contre' then 1 else 0 end) AS nbVoteContre
+      FROM comment
+      JOIN decision ON decision.id = comment.decision_id
+      WHERE comment.date_creation = (SELECT MAX(date_creation))
+      AND comment.date_creation <= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+      GROUP BY decision_id
+      HAVING nbVoteContre > 0;`
+    );
+  }
+
+  updateStatusNonAboutie(ids) {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Non aboutie'
+      WHERE decision.id IN (?)
+      AND status_decision = 'En cours'`,
+      [ids]
+    );
+  }
+
+  updateStatusTermineeByDateConflict() {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Terminee'
+      WHERE date_decision_conflict <= NOW()
+      AND status_decision = 'En cours'`
+    );
+  }
+
+  updateStatusNonAboutieByDateConflict() {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Non aboutie'
+      WHERE date_decision_conflict <= NOW()
+      AND status_decision = 'En conflit'`
+    );
+  }
 }
 
 module.exports = DecisionManager;

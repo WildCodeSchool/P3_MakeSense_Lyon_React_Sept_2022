@@ -168,7 +168,6 @@ const add = (req, res) => {
 
 const destroy = (req, res) => {
   const decisionId = parseInt(req.params.id, 10);
-  console.warn("decisionid", decisionId);
   models.person_concern.deleteConcern(decisionId).then(() => {
     models.person_expert
       .deleteExpert(decisionId)
@@ -214,6 +213,100 @@ const readDecisionByUserId = (req, res) => {
     });
 };
 
+// Put every decision_id from result in an array to pass to manager
+const idsDecisionsOnlyPour = (result) => {
+  const ids = [];
+  for (const element of result) {
+    ids.push(element.decision_id);
+  }
+  return ids;
+};
+// update status decision to "terminee depending on date and vote"
+const autoUpdateStatusTDecisionTermineeByDateAndVote = (req, res) => {
+  models.decision.findIdByVoteAndDateDecisionPour().then(([result]) => {
+    models.decision
+      .updateStatusTerminee(idsDecisionsOnlyPour(result))
+      .then(() => {
+        res.sendStatus(204);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  });
+};
+// execute function every day
+setInterval(
+  autoUpdateStatusTDecisionTermineeByDateAndVote,
+  1000 * 60 * 60 * 24
+);
+
+// Put every decision_id from result in an array to pass to manager
+const idsDecisionsContre = (result) => {
+  const ids = [];
+  for (const element of result) {
+    ids.push(element.decision_id);
+  }
+  return ids;
+};
+// update status decision to "terminee depending on date and vote"
+const autoUpdateStatusTDecisionNonAboutieByDateAndVote = (req, res) => {
+  models.decision.findIdByVoteAndDateDecisionContre().then(([result]) => {
+    models.decision
+      .updateStatusNonAboutie(idsDecisionsContre(result))
+      .then(() => {
+        res.sendStatus(204);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  });
+};
+// execute function every day
+setInterval(
+  autoUpdateStatusTDecisionNonAboutieByDateAndVote,
+  1000 * 60 * 60 * 24
+);
+
+// update status decision to "terminee" depending on date_conflict (end of decision)
+const autoUpdateStatusTermineeWithDateConflict = (req, res) => {
+  models.decision
+    .updateStatusTermineeByDateConflict()
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+// execute function every day
+setInterval(autoUpdateStatusTermineeWithDateConflict, 1000 * 60 * 60 * 24);
+
+// update status decision to "terminee" depending on date_conflict (end of decision)
+const autoUpdateStatusNonAboutieWithDateConflict = (req, res) => {
+  models.decision
+    .updateStatusNonAboutieByDateConflictnpm()
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+// execute function every day
+setInterval(autoUpdateStatusNonAboutieWithDateConflict, 1000 * 60 * 60 * 24);
+
 module.exports = {
   browse,
   read,
@@ -223,4 +316,8 @@ module.exports = {
   editById,
   readDecisionByUserId,
   readByLast,
+  autoUpdateStatusTDecisionTermineeByDateAndVote,
+  autoUpdateStatusTDecisionNonAboutieByDateAndVote,
+  autoUpdateStatusTermineeWithDateConflict,
+  autoUpdateStatusNonAboutieWithDateConflict,
 };
