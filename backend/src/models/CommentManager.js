@@ -24,6 +24,7 @@ class CommentManager extends AbstractManager {
       `SELECT comment.user_id, comment.decision_id, comment.vote, comment.content, comment.date_creation, user.firstname, user.lastname 
       FROM ${this.table}
       JOIN user ON ${this.table}.user_id=user.id
+        JOIN decision
       WHERE decision_id = ?`,
       [decisionId]
     );
