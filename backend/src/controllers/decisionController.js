@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -30,8 +31,12 @@ const read = (req, res) => {
             .getConcernUser(req.params.id)
             .then(([decisionConcern]) => {
               decision.concerns = decisionConcern;
-              console.warn(decision);
-              res.send(decision);
+              models.comment
+                .getComments(req.params.id)
+                .then(([decisionComments]) => {
+                  decision.comments = decisionComments;
+                  res.send(decision);
+                });
             })
             .catch((err) => {
               console.error(err);
@@ -128,7 +133,6 @@ const editById = (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-  console.warn(decision);
 };
 
 const add = (req, res) => {
@@ -136,6 +140,7 @@ const add = (req, res) => {
   const decision = req.body;
   const experts = req.body.person_expert;
   const concerns = req.body.person_concern;
+  const notif = req.body.notif;
   console.warn(experts);
 
   // TODO validations (length, format...)
@@ -148,7 +153,15 @@ const add = (req, res) => {
           models.person_concern
             .insert(result.insertId, concerns)
             .then(() => {
-              res.location(`/decision/${result.insertId}`).sendStatus(201);
+              models.notification
+                .insert(result.insertId, notif)
+                .then(() => {
+                  res.location(`/decision/${result.insertId}`).sendStatus(201);
+                })
+                .catch((err) => {
+                  console.error(err);
+                  res.sendStatus(500);
+                });
             })
             .catch((err) => {
               console.error(err);
@@ -175,6 +188,9 @@ const destroy = (req, res) => {
         models.comment
           .deleteCommentByDecisionId(decisionId)
           .then(() => {
+            // models.notification
+            //   .deleteNotificationByDecisionId(decisionId)
+            //   .then(() => {
             models.decision
               .delete(decisionId)
               .then(() => {
@@ -195,6 +211,7 @@ const destroy = (req, res) => {
         res.sendStatus(500);
       });
   });
+  // });
 };
 
 const readDecisionByUserId = (req, res) => {

@@ -1,21 +1,22 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
-import { useState } from "react";
 import ReactQuill from "react-quill";
+import { useState } from "react";
 import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
 import "../../css/user/Accordion.css";
+import AccordionCommentsPart from "./AccordionCommentsPart";
 
 export default function AccordionDecisionDetails({
   clickedAnswer4,
   setClickedAnswer4,
   valuesDetailsDecision,
+  urlAvatarStatus,
+  toggleUpdateDecision,
 }) {
-  // array to replace with dynamic data
   const [clickedAnswer1, setClickedAnswer1] = useState(false);
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
-  const [valueComment, setValueComment] = useState("");
 
   const handleToggle1 = () => {
     setClickedAnswer1((prev) => !prev);
@@ -28,18 +29,6 @@ export default function AccordionDecisionDetails({
   };
   const handleToggle4 = () => {
     setClickedAnswer4((prev) => !prev);
-  };
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ font: [] }],
-      [{ align: [] }],
-      ["bold", "underline", "italic"],
-      [{ color: [] }, { background: [] }],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
-    ],
   };
 
   return (
@@ -175,12 +164,10 @@ export default function AccordionDecisionDetails({
             className="answer_wrapper "
             style={clickedAnswer4 ? { height: "auto" } : { height: "0px" }}
           >
-            <h2 className="mt-8 mb-3">Commentaire :</h2>
-            <ReactQuill
-              theme="snow"
-              value={valueComment}
-              onChange={setValueComment}
-              modules={modules}
+            <AccordionCommentsPart
+              urlAvatarStatus={urlAvatarStatus}
+              toggleUpdateDecision={toggleUpdateDecision}
+              valuesDetailsDecision={valuesDetailsDecision}
             />
           </div>
         </li>

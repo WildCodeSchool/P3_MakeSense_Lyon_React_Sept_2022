@@ -1,16 +1,21 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import "../../css/user/ForgottenPassword.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
-function ForgottenPassword({ email, setEmail }) {
+function Password() {
+  const navigate = useNavigate();
+  const [password, setPassword] = useState();
+  const { passwordToken } = useParams();
+
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
-    email,
+    password,
+    passwordToken,
   });
 
   const requestOptions = {
@@ -20,10 +25,11 @@ function ForgottenPassword({ email, setEmail }) {
     redirect: "follow",
   };
 
-  const sendEmail = () => {
-    fetch(`http://localhost:5000/forgottenpassword`, requestOptions)
-      .then((result) => {
-        console.warn(result);
+  const sendPassword = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5000/resetpassword`, requestOptions)
+      .then(() => {
+        navigate("/");
       })
       .catch((err) => console.warn(err));
   };
@@ -44,7 +50,7 @@ function ForgottenPassword({ email, setEmail }) {
           {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-6 space-y-6 sm:p-12">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
-              MOT DE PASSE OUBLIE ?
+              Ajoutez votre nouveau mot de passe.
             </h1>
             <form className=" index space-y-8" action="#">
               <div>
@@ -52,43 +58,30 @@ function ForgottenPassword({ email, setEmail }) {
                   htmlFor="email"
                   className="text-white block mt-8 mb-4 text-lg font-medium"
                 >
-                  Votre adresse e-mail :
+                  Nouveau mot de passe :
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                  placeholder="pseudo@exemple.com"
                   required=""
                 />
               </div>
               <div className="text-center ">
                 <button
-                  onClick={sendEmail}
                   type="submit"
-                  className=" text-white mt-5 hover:bg-red-pink font-medium rounded-lg text-1xl px-5 py-3 text-center border hover:scale-105 duration-300"
+                  onClick={sendPassword}
+                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-1xl px-5 py-3 text-center border hover:scale-105 duration-300"
                 >
                   Envoyer la demande
                 </button>
               </div>
-              <p className="text-center">
-                Un e-mail vous a été envoyé ! Suivez les instructions dans cet
-                e-mail pour modifier votre mot de passe.
-              </p>
             </form>
           </div>
         </div>
         <br />
-        <div className="auth-textOvale z-10 text-red-pink text-xl xl:hidden">
-          <NavLink className="hover:underline" to="/help">
-            <p href="help"> Besoin d'aides ?</p>
-          </NavLink>
-          <NavLink to="/legal-notice">
-            <p className="mt-[16px] hover:underline">Mentions légales</p>
-          </NavLink>
-        </div>
       </div>
       {/* <section className="xxl-max:hidden"> */}
       <section className="">
@@ -120,4 +113,4 @@ function ForgottenPassword({ email, setEmail }) {
   );
 }
 
-export default ForgottenPassword;
+export default Password;

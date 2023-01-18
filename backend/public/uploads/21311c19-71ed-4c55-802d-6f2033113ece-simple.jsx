@@ -1,10 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Example() {
@@ -33,8 +33,8 @@ export default function Example() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Account settings
@@ -46,8 +46,8 @@ export default function Example() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Support
@@ -59,8 +59,8 @@ export default function Example() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   License
@@ -73,8 +73,8 @@ export default function Example() {
                   <button
                     type="submit"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block w-full text-left px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full text-left px-4 py-2 text-sm"
                     )}
                   >
                     Sign out
@@ -86,5 +86,5 @@ export default function Example() {
         </Menu.Items>
       </Transition>
     </Menu>
-  )
+  );
 }

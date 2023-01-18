@@ -10,6 +10,7 @@ CREATE TABLE user (
   avatar varchar(255),
   hashedPassword varchar(100) NOT NULL,
   is_admin tinyint NOT NULL DEFAULT 0,
+  passwordToken varchar(100), 
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
@@ -60,7 +61,7 @@ DROP TABLE IF EXISTS comment;
 
 CREATE TABLE comment (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  content varchar(100) NOT NULL,
+  content varchar(500) NOT NULL,
   vote varchar(45) NOT NULL,
   date_creation DATETIME NOT NULL DEFAULT NOW(),
   user_id int,
@@ -70,3 +71,45 @@ CREATE TABLE comment (
 );
 
 INSERT INTO comment (content, vote, date_creation, decision_id) VALUES ('Je suis un commentaire', 'Pour', '2022-09-13 12:12:23', '1'),('Je suis un deuxieme commentaire', 'Pour', '2022-11-13 12:12:23', '2'),('Je suis un troisieme commentaire', 'Pour', '2023-02-13 12:12:23','3' ), ('Je suis un quatrieme commentaire', 'Pour', '2022-10-13 12:12:23','4');
+
+DROP TABLE IF EXISTS notification;
+
+CREATE TABLE notification (
+  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  user_id int,
+  decision_id int, 
+  comment_id int,
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  FOREIGN KEY (decision_id) REFERENCES decision(id),
+  FOREIGN KEY (comment_id) REFERENCES comment(id)
+);
+
+DROP TRIGGER IF EXISTS onCommentUpdate;
+
+CREATE TRIGGER onCommentUpdate
+AFTER UPDATE ON comment
+FOR EACH ROW
+BEGIN
+  IF NEW.vote = 'contre' THEN
+    UPDATE decision
+    SET status_decision = 'En conflit'
+    WHERE id = NEW.decision_id;
+  END IF;
+  IF NEW.vote = 'Pour' AND (SELECT COUNT(*) FROM comment WHERE decision_id = NEW.decision_id AND vote = 'Contre') = 0 THEN
+    UPDATE decision
+    SET status_decision = 'En cours'
+    WHERE id = NEW.decision_id;
+  END IF;
+END ;
+
+DROP TRIGGER IF EXISTS OnCommentInsert;
+CREATE TRIGGER OnCommentInsert
+AFTER INSERT ON comment
+FOR EACH ROW
+BEGIN
+  IF NEW.vote = 'contre' THEN
+    UPDATE decision
+    SET status_decision = 'En conflit'
+    WHERE id = NEW.decision_id;
+  END IF;
+END ;

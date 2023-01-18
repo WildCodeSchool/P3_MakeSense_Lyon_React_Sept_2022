@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable prefer-destructuring */
 const models = require("../models");
 
@@ -53,6 +54,39 @@ const findByToken = (req, res) => {
         res.sendStatus(404);
       } else {
         res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const editPassword = (req, res) => {
+  const email = req.params.email;
+  const pass = req.body;
+
+  models.user
+    .updatePassword(email, pass)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        /*   mailer.sendMail(
+          {
+            from: "succi.iris@gmail.com",
+            to: email,
+            subject: "Réinitialisation de votre mot de passe.",
+            text: "Vous souhaitez réinitialiser votre mot de passe ? http://localhost:3000/nouveau-mdp",
+            html: "<a href='http://localhost:3000/nouveau-mdp'>Cliquez ici</a>",
+          },
+          (err, info) => {
+            if (err) console.error(err);
+            else console.warn(info);
+          }
+        ); */
+
+        res.status(202).send(pass);
       }
     })
     .catch((err) => {
@@ -144,4 +178,5 @@ module.exports = {
   destroy,
   updateAvatar,
   findByToken,
+  editPassword,
 };

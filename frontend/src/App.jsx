@@ -19,12 +19,14 @@ import Inscription from "@pages/user/Inscription";
 import ForgottenPassword from "@pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
+import Password from "@pages/user/Password";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState();
   const [open, setOpen] = useState(true);
-  const { token } = useCurrentUserContext();
   const location = useLocation();
+  const { token } = useCurrentUserContext();
 
   return (
     <div className="flex">
@@ -58,15 +60,17 @@ function App() {
           />
           <Route path="/" element={<Authentification />} />
           <Route path="/create-decision" element={<CreateDecision />} />
-          <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route
             path="/user-profile/:id"
             element={<UserProfile open={open} />}
           />
-          <Route path="/help" element={<Help />} />
           <Route path="/decisions" element={<Decisions open={open} />} />
           <Route path="/decision/:id" element={<DecisionDetails />} />
+          <Route
+            path="/decision/:id/comments/:id"
+            element={<DecisionDetails />}
+          />
           <Route
             path="/edit-decision/:id"
             element={<EditDecision valuesDetailsDecisions />}
@@ -75,9 +79,18 @@ function App() {
         </Routes>
       ) : (
         <Routes>
+          <Route
+            path="/reviewpassword/:passwordToken"
+            element={<Password email={email} setEmail={setEmail} />}
+          />
           <Route path="/" element={<Authentification />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/inscription" element={<Inscription />} />
-          <Route path="/motdepasseoublie" element={<ForgottenPassword />} />
+          <Route
+            path="/motdepasseoublie"
+            element={<ForgottenPassword email={email} setEmail={setEmail} />}
+          />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       )}
