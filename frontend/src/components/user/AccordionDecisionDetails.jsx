@@ -4,6 +4,7 @@ import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
 import "../../css/user/Accordion.css";
 import { useCurrentUserContext } from "../../context/UserContext";
+// import UserProfile from "@pages/user/UserProfile";
 
 export default function AccordionDecisionDetails({
   clickedAnswer4,
@@ -15,6 +16,7 @@ export default function AccordionDecisionDetails({
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
   const [valueComment, setValueComment] = useState("");
+  // const [displayComment, setDisplayComment] = useState("");
   const { token } = useCurrentUserContext();
 
   const handleToggle1 = () => {
@@ -67,6 +69,19 @@ export default function AccordionDecisionDetails({
       .catch((error) => console.warn("error", error));
   };
 
+  // useEffect(() => {
+  //   const myHeader = new Headers();
+  //   myHeader.append("Authorization", `Bearer ${token}`);
+
+  //   const requestOptions = {
+  //     headers: myHeader,
+  //   };
+  //   fetch("http://localhost:5000/decision/:id", requestOptions)
+  //     .then((response) => response.json())
+  //     .then((result) => console.warn(result))
+  //     .catch((error) => console.warn("error", error));
+  // }, [token]);
+
   return (
     <div>
       <ul className="accordion max-w-screen-md mt-10 h-auto">
@@ -96,7 +111,7 @@ export default function AccordionDecisionDetails({
             <div className="answer my-6">
               <ReactQuill
                 theme="bubble"
-                value={valuesDetailsDecision.content}
+                value={valuesDetailsDecision.comments}
                 readOnly
               />
             </div>
@@ -207,9 +222,17 @@ export default function AccordionDecisionDetails({
               onChange={setValueComment}
               modules={modules}
             />
-            <div className="commentairesDecision mt-10 text-center">
-              - exemple commentaire
-            </div>
+            {valuesDetailsDecision.comments.map((comment) => (
+              <div
+                key={comment.id}
+                className="commentairesDecision mt-10 text-center"
+              >
+                {console.warn(comment)}
+                {valuesDetailsDecision.firstname} a dit : {comment.content}
+                {/* my user_id is {comment.user_id}
+                  and my decision_id is {comment.decision_id} */}
+              </div>
+            ))}
             <div className="flex justify-end">
               <button
                 type="button"
