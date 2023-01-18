@@ -94,6 +94,36 @@ class DecisionManager extends AbstractManager {
       ORDER BY date_decision_conflict DESC LIMIT 0,5;`
     );
   }
+
+  getNumberOfDecision() {
+    return this.connection.query(
+      `SELECT COUNT(id) as decisions FROM ${this.table}`
+    );
+  }
+
+  getNumberOfDecisionAccepted() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsAccepted FROM ${this.table} where status_decision = 'Terminee'`
+    );
+  }
+
+  getNumberOfDecisionInProgress() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsInProgress FROM ${this.table} where status_decision = 'En cours'`
+    );
+  }
+
+  getNumberOfDecisionConflict() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsconflict FROM ${this.table} where status_decision = 'En conflit'`
+    );
+  }
+
+  getNumberOfDecisionUnresolved() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsunresolved FROM ${this.table} where status_decision = 'Non aboutie'`
+    );
+  }
 }
 
 module.exports = DecisionManager;
