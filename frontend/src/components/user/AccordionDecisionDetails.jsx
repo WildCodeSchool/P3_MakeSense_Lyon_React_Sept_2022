@@ -228,9 +228,15 @@ export default function AccordionDecisionDetails({
                 className="commentairesDecision mt-10 text-center"
               >
                 {console.warn(comment)}
-                {valuesDetailsDecision.firstname} a dit : {comment.content}
-                {/* my user_id is {comment.user_id}
-                  and my decision_id is {comment.decision_id} */}
+                <p className="font-bold">
+                  {valuesDetailsDecision.firstname} a dit :
+                </p>
+                {comment.content}
+                <div className="text-blue-500">
+                  my user_id is {comment.user_id} and my decision_id is{" "}
+                  {comment.decision_id}
+                </div>
+                <div className="text-green-500">{comment.date_creation}</div>
               </div>
             ))}
             <div className="flex justify-end">
