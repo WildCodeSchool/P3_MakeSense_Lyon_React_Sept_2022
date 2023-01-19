@@ -20,6 +20,7 @@ import ForgottenPassword from "@pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
 import Password from "@pages/user/Password";
+import SidebarMobile from "@components/user/SidebarMobile";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -29,21 +30,31 @@ function App() {
   const { token } = useCurrentUserContext();
 
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row md:h-full w-full">
       {location.pathname === "/" ||
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
       token === null ||
       location.pathname === "/help" ? null : (
-        <aside className="h-screen sticky top-0 overflow-hidden">
-          <Sidebar
-            showModal={showModal}
-            setShowModal={setShowModal}
-            open={open}
-            setOpen={setOpen}
-          />
-        </aside>
+        <div>
+          <aside className="h-screen sticky top-0 overflow-hidden hidden md:block">
+            <Sidebar
+              showModal={showModal}
+              setShowModal={setShowModal}
+              open={open}
+              setOpen={setOpen}
+            />
+          </aside>
+          <div className="w-screen md:hidden">
+            <SidebarMobile
+              showModal={showModal}
+              setShowModal={setShowModal}
+              open={open}
+              setOpen={setOpen}
+            />
+          </div>
+        </div>
       )}
       {showModal ? (
         <NotificationModal
