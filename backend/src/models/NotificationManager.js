@@ -22,6 +22,13 @@ class NotificationManager extends AbstractManager {
       [values]
     );
   }
+
+  deleteNotificationByDecisionId(decisionId) {
+    return this.connection.query(
+      `DELETE FROM ${this.table} where decision_id = ?`,
+      [decisionId]
+    );
+  }
 }
 
 module.exports = NotificationManager;

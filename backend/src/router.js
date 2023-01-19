@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 
-const router = express.Router();
 const upload = multer({ dest: process.env.UPLOAD_DIR });
+const router = express.Router();
 
 // call middleware ******************************************
 const {

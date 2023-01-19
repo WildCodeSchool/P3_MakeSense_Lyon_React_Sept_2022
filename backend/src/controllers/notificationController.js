@@ -4,9 +4,6 @@ const browse = (req, res) => {
   models.notification
     .findNotificationByUserId(req.params.id)
     .then(([result]) => {
-      if (!result[0]) {
-        res.sendStatus(404);
-      }
       models.user
         .getUserByName()
         .then(() => {
