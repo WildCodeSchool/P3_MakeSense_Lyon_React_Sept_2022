@@ -27,20 +27,10 @@ const add = (req, res) => {
   models.comment
     .insertComment(comment)
     .then(([result]) => {
-      // send comments to front when a new one is added by a user
-      models.comment.findCommentWithUserInfo(result.insertId).then(([comm]) => {
-        if (result.affectedRows === 0) {
-          res.sendStatus(404);
-        } else {
-          res
-            .location(
-              `/decision/${result.decision_id}/comments/${result.insertId}`
-            )
-            .send(comm[0])
-            .status(201);
-          console.warn(comm[0]);
-        }
-      });
+      res
+        .location(`/decision/${result.decision_id}/comments`)
+        .send(result)
+        .status(201);
     })
     .catch((err) => {
       console.error(err);

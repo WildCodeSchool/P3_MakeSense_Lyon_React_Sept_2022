@@ -47,14 +47,14 @@ function TimelineStepperDecision({
       <button
         type="button"
         onClick={handleToggle4}
-        className="underline text-dark-blue"
+        className="underline text-dark-blue hidden md:block"
       >
         Voir les avis
       </button>
       <button
         type="button"
         onClick={handleToggle4}
-        className="pr-3 pl-3 mt-4 h-10 bg-red-pink rounded-3xl text-white"
+        className="pr-3 pl-3 mt-4 h-10 bg-red-pink rounded-3xl text-white hidden md:block"
       >
         Donner mon avis
       </button>

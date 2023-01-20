@@ -37,7 +37,7 @@ function App() {
       location.pathname === "/legal-notice" ||
       token === null ||
       location.pathname === "/help" ? null : (
-        <div>
+        <div className="relative">
           <aside className="h-screen sticky top-0 overflow-hidden hidden md:block">
             <Sidebar
               showModal={showModal}
@@ -46,7 +46,7 @@ function App() {
               setOpen={setOpen}
             />
           </aside>
-          <div className="w-screen md:hidden">
+          <div className="w-screen md:hidden fixed bottom-0 left-0 right-0">
             <SidebarMobile
               showModal={showModal}
               setShowModal={setShowModal}
