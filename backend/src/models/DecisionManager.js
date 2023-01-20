@@ -94,6 +94,102 @@ class DecisionManager extends AbstractManager {
       ORDER BY date_decision_conflict DESC LIMIT 0,5;`
     );
   }
+
+  findIdByVoteAndDateDecisionPour() {
+    return this.connection.query(
+      `SELECT comment.decision_id,
+      SUM(case when comment.vote = 'Pour' then 1 else 0 end) AS nbVotePour,
+      SUM(case when comment.vote = 'Contre' then 1 else 0 end) AS nbVoteContre
+      FROM comment
+      JOIN decision ON decision.id = comment.decision_id
+      WHERE comment.date_creation = (SELECT MAX(date_creation))
+      AND comment.date_creation <= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+      GROUP BY decision_id
+      HAVING nbVoteContre = 0;`
+    );
+  }
+
+  updateStatusTerminee(ids) {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Terminee'
+      WHERE decision.id IN (?)
+      AND status_decision = 'En cours'`,
+      [ids]
+    );
+  }
+
+  findIdByVoteAndDateDecisionContre() {
+    return this.connection.query(
+      `SELECT comment.decision_id,
+      SUM(case when comment.vote = 'Pour' then 1 else 0 end) AS nbVotePour,
+      SUM(case when comment.vote = 'Contre' then 1 else 0 end) AS nbVoteContre
+      FROM comment
+      JOIN decision ON decision.id = comment.decision_id
+      WHERE comment.date_creation = (SELECT MAX(date_creation))
+      AND comment.date_creation <= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+      GROUP BY decision_id
+      HAVING nbVoteContre > 0;`
+    );
+  }
+
+  updateStatusNonAboutie(ids) {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Non aboutie'
+      WHERE decision.id IN (?)
+      AND status_decision = 'En cours'`,
+      [ids]
+    );
+  }
+
+  updateStatusTermineeByDateConflict() {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Terminee'
+      WHERE date_decision_conflict <= NOW()
+      AND status_decision = 'En cours'`
+    );
+  }
+
+  updateStatusNonAboutieByDateConflict() {
+    return this.connection.query(
+      `UPDATE ${this.table}
+      SET status_decision = 'Non aboutie'
+      WHERE date_decision_conflict <= NOW()
+      AND status_decision = 'En conflit'`
+    );
+  }
+
+  getNumberOfDecision() {
+    return this.connection.query(
+      `SELECT COUNT(id) as decisions FROM ${this.table}`
+    );
+  }
+
+  getNumberOfDecisionAccepted() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsAccepted FROM ${this.table} where status_decision = 'Terminee'`
+    );
+  }
+
+  getNumberOfDecisionInProgress() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsInProgress FROM ${this.table} where status_decision = 'En cours'`
+    );
+  }
+
+  getNumberOfDecisionConflict() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsconflict FROM ${this.table} where status_decision = 'En conflit'`
+    );
+  }
+
+  getNumberOfDecisionUnresolved() {
+    return this.connection.query(
+      `SELECT COUNT(status_decision) as decisionsunresolved FROM ${this.table} where status_decision = 'Non aboutie'`
+    );
+  }
 }
 
 module.exports = DecisionManager;

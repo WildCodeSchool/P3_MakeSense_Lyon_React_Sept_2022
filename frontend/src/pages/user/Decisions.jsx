@@ -1,13 +1,19 @@
 /* eslint-disable react/prop-types */
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
+
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Decisions({ open }) {
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
   const navigate = useNavigate();
   const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
@@ -84,7 +90,7 @@ export default function Decisions({ open }) {
   };
 
   return (
-    <div className="w-screen h-screen overflow-hidden">
+    <div className="w-screen md:h-screen overflow-hidden">
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -101,8 +107,8 @@ export default function Decisions({ open }) {
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="flex">
-        <div className="flex">
+      <div className="md:flex hidden">
+        <div className="md:flex">
           <button
             type="button"
             onClick={handleChevrondownAllDecisions}
@@ -159,20 +165,126 @@ export default function Decisions({ open }) {
           type="button"
           className={
             open
-              ? " ml-[80px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
-              : " ml-[200px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+              ? "ml-[80px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+              : "ml-[200px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
           }
         >
           + Nouvelle décision
         </button>
       </div>
-      <div className="grid grid-cols-4 grid-rows-2 mt-3 gap-14">
-        <div className="box col-start-1 col-end-4">
+
+      <Menu as="div" className="relative inline-block text-left mt-3 md:hidden">
+        <div className="">
+          <button
+            type="button"
+            onClick={() => navigate("/create-decision")}
+            className="inline-flex w-[100px] ml-10 mr-9 justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+          >
+            {" "}
+            + décision
+          </button>
+          <Menu.Button className="inline-flex w-[100px] justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+            Filtrer
+            <ChevronDownIcon
+              className="-mr-1 ml-2 h-5 w-5"
+              aria-hidden="true"
+            />
+          </Menu.Button>
+        </div>
+
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1">
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="button"
+                    onClick={handleChevrondownAllDecisions}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Toutes les décisions
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="button"
+                    onClick={handleChevrondownInProgress}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    En cours
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="button"
+                    onClick={handleChevrondownConflicts}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Conflits
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="button"
+                    onClick={handleChevrondownFinished}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Terminées
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="button"
+                    onClick={handleChevrondownUnfinished}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Non abouties
+                  </button>
+                )}
+              </Menu.Item>
+            </div>
+          </Menu.Items>
+        </Transition>
+      </Menu>
+
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:grid-rows-2 mt-3 gap-14">
+        <div className="md:box col-start-1 col-end-4">
           <div
             className={
               open
-                ? "grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
-                : "grid grid-cols-6 grid-rows-2 gap-10 ml-10 mr-10 "
+                ? "md:grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
+                : "md:grid grid-cols-6 grid-rows-2 gap-10 ml-10 mr-10 "
             }
           >
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
@@ -247,7 +359,7 @@ export default function Decisions({ open }) {
             })}
           </div>
         </div>
-        <div className="box">
+        <div className="hidden md:block">
           <TimeStepperHome />
         </div>
       </div>
