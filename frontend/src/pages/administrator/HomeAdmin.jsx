@@ -32,7 +32,7 @@ export default function HomeAdmin({ open }) {
   }, [token]);
 
   return (
-    <div className="w-screen">
+    <div className="w-screen ">
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -46,37 +46,39 @@ export default function HomeAdmin({ open }) {
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <div className="logo-home">
+        <div className="logo-home mr-3 md:mr-3">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="flex flex-row">
-        <div className="w-[300px] h-[350px] border-2 rounded-xl m-10 flex flex-col shadow-lg">
-          <h3 className="text-center text-2xl mt-5">Statistiques :</h3>
-          <ul>
-            <li className="font-extralight pt-5 m-5">
-              Utilisateurs : {stats.users}
-            </li>
-            <li className="font-extralight m-5">
-              Décisions : {stats.decision}
-            </li>
-            <li className="font-extralight m-5">Accepté : {stats.finished}</li>
-            <li className="font-extralight m-5">
-              En cours : {stats.inprogress}
-            </li>
-            <li className="font-extralight m-5">
-              En conflit : {stats.conflict}
-            </li>
-            <li className="font-extralight m-5">
-              Non abouti : {stats.unresolved}
-            </li>
-          </ul>
+      <div className="flex md:flex-row flex-col">
+        <div className="md:w-[300px] h-[350px] border-2 rounded-xl m-10 md:flex md:flex-col shadow-lg grid grid-cols-4 grid-rows-4">
+          <h3 className="text-center text-2xl md:mt-3  col-start-1 col-end-5">
+            Statistiques :
+          </h3>
+          <li className="font-extralight list-none text-center md:pt-3 md:m-3 row-start-2 row-end-3 col-start-1 col-end-3">
+            Utilisateurs : {stats.users}
+          </li>
+          <li className="font-extralight list-none text-center md:m-3 row-start-3 row-end-4 col-start-1 col-end-3">
+            Décisions : {stats.decision}
+          </li>
+          <li className="font-extralight list-none text-center md:m-3 row-start-4 row-end-5 col-start-1 col-end-3">
+            Accepté : {stats.finished}
+          </li>
+          <li className="font-extralight list-none text-center md:m-3 row-start-2 row-end-3 col-start-3 col-end-5">
+            En cours : {stats.inprogress}
+          </li>
+          <li className="font-extralight list-none text-center md:m-3 row-start-3 row-end-4 col-start-3 col-end-5">
+            En conflit : {stats.conflict}
+          </li>
+          <li className="font-extralight list-none text-center md:m-3 row-start-4 row-end-5 col-start-3 col-end-5">
+            Non abouti : {stats.unresolved}
+          </li>
         </div>
         <div
           className={
             open
-              ? "w-[750px] h-auto  border-2 rounded-xl m-10"
-              : "w-[900px] h-auto  border-2 rounded-xl m-10"
+              ? "md:w-[750px] h-auto  border-2 rounded-xl md:m-10 m-2"
+              : "md:w-[900px] h-auto  border-2 rounded-xl md:m-10 m-2"
           }
         >
           <h3 className="text-center text-2xl mt-5">Utilisateurs :</h3>
