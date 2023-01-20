@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Paginate from "../../components/user/Paginate";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
@@ -11,6 +12,9 @@ export default function Decisions({ open }) {
   const navigate = useNavigate();
   const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalDecisions, setTotalDecisions] = useState();
+  const decisionPerPage = 8;
 
   // to show or not the chevron-down icon with filter
   const [isOpenAllDecisions, setIsOpenAllDecisions] = useState(true);
@@ -18,6 +22,23 @@ export default function Decisions({ open }) {
   const [isOpenConflicts, setIsOpenConflicts] = useState(false);
   const [isOpenFinished, setIsOpenFinished] = useState(false);
   const [isOpenUnfinished, setIsOpenUnfinished] = useState(false);
+
+  // Get current page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(totalDecisions / decisionPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   // function to update the array of decisions after delete one decision
   const updateArrayDecisionsAfterDelete = (id) => {
@@ -37,11 +58,14 @@ export default function Decisions({ open }) {
       headers: myHeader,
     };
 
-    fetch("http://localhost:5000/decision", requestOptions)
+    fetch(`http://localhost:5000/decision/page/${currentPage}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => setValuesDetailsDecisions(result))
+      .then((result) => {
+        setValuesDetailsDecisions(result.rows);
+        setTotalDecisions(result.nbDecision[0].nbDecision);
+      })
       .catch((error) => console.warn("error", error));
-  }, [token]);
+  }, [token, currentPage]);
 
   const handleChevrondownAllDecisions = () => {
     setIsOpenAllDecisions(!isOpenAllDecisions);
@@ -82,6 +106,8 @@ export default function Decisions({ open }) {
     setIsOpenConflicts(false);
     setIsOpenFinished(false);
   };
+
+  console.warn("curentpage", currentPage);
 
   return (
     <div className="w-screen h-screen overflow-hidden">
@@ -245,6 +271,16 @@ export default function Decisions({ open }) {
               }
               return null;
             })}
+          </div>
+          <div className="mt-10 ml-6">
+            <Paginate
+              decisionPerPage={decisionPerPage}
+              totalDecisions={totalDecisions}
+              currentPage={currentPage}
+              paginate={paginate}
+              previousPage={previousPage}
+              nextPage={nextPage}
+            />
           </div>
         </div>
         <div className="box">
