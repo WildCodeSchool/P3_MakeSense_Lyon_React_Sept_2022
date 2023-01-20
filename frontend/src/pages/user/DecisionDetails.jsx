@@ -64,7 +64,13 @@ export default function DecisionDetails() {
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="flex flex-row justify-around mt-10">
+      <div className="flex flex-col md:flex-row-reverse justify-around mt-10">
+        <TimelineStepperDecision
+          clickedAnswer4={clickedAnswer4}
+          setClickedAnswer4={setClickedAnswer4}
+          valuesDetailsDecision={valuesDetailsDecision}
+          urlAvatarStatus={urlAvatarStatus}
+        />
         <div className="flex flex-col mr-10">
           <div className="flex flex-row items-center">
             <div className={statusForClassname()} />
@@ -131,12 +137,6 @@ export default function DecisionDetails() {
             />
           </div>
         </div>
-        <TimelineStepperDecision
-          clickedAnswer4={clickedAnswer4}
-          setClickedAnswer4={setClickedAnswer4}
-          valuesDetailsDecision={valuesDetailsDecision}
-          urlAvatarStatus={urlAvatarStatus}
-        />
       </div>
     </div>
   );

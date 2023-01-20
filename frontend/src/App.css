@@ -8,3 +8,10 @@
   padding: 0;
   scroll-behavior: smooth;
 }
+
+html,
+body,
+#root {
+  height: auto;
+  width: 100vw;
+}
