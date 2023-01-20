@@ -82,7 +82,7 @@ export default function DecisionCard({
   }, [deleteIsConfirm]);
 
   return (
-    <div className="border-2 rounded-xl cardsize p-2 shadow-md hover:scale-110 duration-200	">
+    <div className="border-2 rounded-xl w-[250px] md:w-[160px] h-[160px] cardsize p-2 shadow-md hover:scale-110 duration-200	mb-3">
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
