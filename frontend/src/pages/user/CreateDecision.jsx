@@ -44,6 +44,13 @@ export default function CreateDecision() {
     ],
   };
 
+  const modulesmobile = {
+    toolbar: [
+      ["bold", "underline", "italic"],
+      ["link", "image"],
+    ],
+  };
+
   // for alert notification error edit decision after submit
   const notify = () =>
     toast.error(
@@ -158,7 +165,7 @@ export default function CreateDecision() {
       </div>
       <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
-          <div className="row-span-3 ...">
+          <div className="hidden md:block row-span-3 ...">
             <p className="mt-20 decision-resume">
               <img src={target} alt="targeticon" />
               Décision
@@ -182,34 +189,86 @@ export default function CreateDecision() {
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
               />
             </div>
-            <h2 className="mt-8 mb-3">Description de la décision :</h2>
-            <ReactQuill
-              theme="snow"
-              value={content}
-              onChange={setValueDecision}
-              modules={modules}
-            />
-            <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
-            <ReactQuill
-              theme="snow"
-              value={impact}
-              onChange={setValueImpactOfDecision}
-              modules={modules}
-            />
-            <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
-            <ReactQuill
-              theme="snow"
-              value={benefits}
-              onChange={setValueBenefitsOfDecision}
-              modules={modules}
-            />
-            <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
-            <ReactQuill
-              theme="snow"
-              value={risk}
-              onChange={setValueRiskOfDecision}
-              modules={modules}
-            />
+            <div className="hidden md:block">
+              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={content}
+                onChange={setValueDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="hidden md:block">
+              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <ReactQuill
+                theme="snow"
+                value={impact}
+                onChange={setValueImpactOfDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="hidden md:block">
+              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={benefits}
+                onChange={setValueBenefitsOfDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="hidden md:hidden">
+              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={risk}
+                onChange={setValueRiskOfDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={content}
+                onChange={setValueDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <ReactQuill
+                theme="snow"
+                value={impact}
+                onChange={setValueImpactOfDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={benefits}
+                onChange={setValueBenefitsOfDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={risk}
+                onChange={setValueRiskOfDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
             <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
