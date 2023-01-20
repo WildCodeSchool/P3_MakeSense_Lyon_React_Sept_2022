@@ -101,8 +101,8 @@ export default function Decisions({ open }) {
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="flex">
-        <div className="flex">
+      <div className="md:flex hidden">
+        <div className="md:flex">
           <button
             type="button"
             onClick={handleChevrondownAllDecisions}
@@ -159,20 +159,20 @@ export default function Decisions({ open }) {
           type="button"
           className={
             open
-              ? " ml-[80px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
-              : " ml-[200px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+              ? "ml-[80px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+              : "ml-[200px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
           }
         >
           + Nouvelle décision
         </button>
       </div>
-      <div className="grid grid-cols-4 grid-rows-2 mt-3 gap-14">
-        <div className="box col-start-1 col-end-4">
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:grid-rows-2 mt-3 gap-14">
+        <div className="md:box col-start-1 col-end-4">
           <div
             className={
               open
-                ? "grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
-                : "grid grid-cols-6 grid-rows-2 gap-10 ml-10 mr-10 "
+                ? "md:grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
+                : "md:grid grid-cols-6 grid-rows-2 gap-10 ml-10 mr-10 "
             }
           >
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
@@ -247,7 +247,7 @@ export default function Decisions({ open }) {
             })}
           </div>
         </div>
-        <div className="box">
+        <div className="hidden md:block">
           <TimeStepperHome />
         </div>
       </div>
