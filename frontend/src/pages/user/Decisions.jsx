@@ -35,6 +35,10 @@ export default function Decisions({ open }) {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(() => {
+    paginate(currentPage);
+  }, [filterByStatus]);
+
   // Get previous page depending of paginate component
   const previousPage = () => {
     if (currentPage !== 1) {
@@ -106,6 +110,7 @@ export default function Decisions({ open }) {
     setIsOpenConflicts(false);
     setIsOpenFinished(false);
     setIsOpenUnfinished(false);
+    setCurrentPage(1);
   };
 
   const handleChevrondownInProgress = () => {
@@ -114,6 +119,7 @@ export default function Decisions({ open }) {
     setIsOpenConflicts(false);
     setIsOpenFinished(false);
     setIsOpenUnfinished(false);
+    setCurrentPage(1);
   };
 
   const handleChevrondownConflicts = () => {
@@ -122,6 +128,7 @@ export default function Decisions({ open }) {
     setIsOpenAllDecisions(false);
     setIsOpenFinished(false);
     setIsOpenUnfinished(false);
+    setCurrentPage(1);
   };
 
   const handleChevrondownFinished = () => {
@@ -130,6 +137,7 @@ export default function Decisions({ open }) {
     setIsOpenInProgress(false);
     setIsOpenConflicts(false);
     setIsOpenUnfinished(false);
+    setCurrentPage(1);
   };
 
   const handleChevrondownUnfinished = () => {
@@ -138,6 +146,7 @@ export default function Decisions({ open }) {
     setIsOpenInProgress(false);
     setIsOpenConflicts(false);
     setIsOpenFinished(false);
+    setCurrentPage(1);
   };
 
   return (
