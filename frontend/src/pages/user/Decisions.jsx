@@ -8,6 +8,7 @@ import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
+
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Decisions({ open }) {

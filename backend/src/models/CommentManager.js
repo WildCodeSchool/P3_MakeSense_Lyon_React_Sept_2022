@@ -38,14 +38,14 @@ class CommentManager extends AbstractManager {
     );
   }
 
-  findCommentWithUserInfo(id) {
-    return this.connection.query(
-      `select content, vote, comment.date_creation, user_id, firstname, lastname, avatar from  ${this.table} 
-      JOIN user on ${this.table}.user_id = user.id 
-      where comment.id = ?`,
-      [id]
-    );
-  }
+  // findCommentWithUserInfo(id) {
+  //   return this.connection.query(
+  //     `select content, vote, comment.date_creation, user_id, firstname, lastname, avatar from  ${this.table}
+  //     JOIN user on ${this.table}.user_id = user.id
+  //     where comment.id = ?`,
+  //     [id]
+  //   );
+  // }
 
   deleteCommentByDecisionId(decisionId) {
     return this.connection.query(
