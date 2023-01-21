@@ -144,7 +144,7 @@ export default function DecisionCard({
             <p className="p-2 text-center">{valueDetailsDecision.title}</p>
           </div>
           <div className="border-t">
-            <p className="text-xs font-thin text-left">
+            <p className="text-xs font-thin text-left m-1">
               Crée le:{" "}
               {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
             </p>
