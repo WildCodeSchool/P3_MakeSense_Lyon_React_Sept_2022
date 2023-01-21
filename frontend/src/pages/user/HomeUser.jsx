@@ -123,7 +123,7 @@ export default function Home({ open }) {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className="border-2 rounded-xl w-[250px] md:w-[160px] h-[160px] cardsize p-2 shadow-md hover:scale-110 duration-200	mb-3">
+              <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
                 ... Voir plus
               </div>
             </button>
