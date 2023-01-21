@@ -108,7 +108,12 @@ export default function DecisionCard({
         <NavLink to={`/decision/${valueDetailsDecision.id}`}>
           <p className="p-2 text-center">{valueDetailsDecision.title}</p>
           <p className="text-xs font-thin text-center">
+            Crée le:{" "}
             {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
+          </p>
+          <p className="text-xs font-thin text-center">
+            Fin de conflit le:{" "}
+            {convertDateFromApi(valueDetailsDecision.date_decision_conflict)}
           </p>
         </NavLink>
       ) : null}

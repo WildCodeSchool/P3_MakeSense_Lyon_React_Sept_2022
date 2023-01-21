@@ -190,6 +190,25 @@ class DecisionManager extends AbstractManager {
       `SELECT COUNT(status_decision) as decisionsunresolved FROM ${this.table} where status_decision = 'Non aboutie'`
     );
   }
+
+  findNbOfDecisions(status) {
+    return this.connection.query(
+      `SELECT count(${this.table}.id) as nbDecision
+      FROM ${this.table}
+      WHERE (status_decision = '${status}' or '${status}' = 'all')`
+    );
+  }
+
+  findByPageAndStatus(limit, offset, status) {
+    return this.connection.query(
+      `SELECT ${this.table}.id, title, date_decision_creation, date_decision_conflict, status_decision, user_id, firstname, lastname, avatar
+      FROM ${this.table}
+      JOIN user on ${this.table}.user_id = user.id
+      WHERE (status_decision = '${status}' or '${status}' = 'all')
+      ORDER BY date_decision_conflict DESC
+      LIMIT ${limit} OFFSET ${offset}`
+    );
+  }
 }
 
 module.exports = DecisionManager;

@@ -136,12 +136,10 @@ const editById = (req, res) => {
 };
 
 const add = (req, res) => {
-  console.warn(req.body);
   const decision = req.body;
   const experts = req.body.person_expert;
   const concerns = req.body.person_concern;
   const notif = req.body.notif;
-  console.warn(experts);
 
   // TODO validations (length, format...)
   models.decision
@@ -322,6 +320,42 @@ const autoUpdateStatusNonAboutieWithDateConflict = (req, res) => {
 // execute function every day
 setInterval(autoUpdateStatusNonAboutieWithDateConflict, 1000 * 60 * 60 * 24);
 
+// search decision by page (in front)
+const browseByPageAndStatus = (req, res) => {
+  const page = parseInt(req.query.currentPage, 10);
+  const limit = parseInt(req.query.decisionPerPage, 10);
+  const offset = (page - 1) * limit;
+  const status = req.query.status;
+  console.warn("test", page, limit, offset, status);
+
+  models.decision
+    .findNbOfDecisions(status)
+    .then(([nbDecision]) => {
+      if (nbDecision[0].nbDecision === 0) {
+        res.send({ rows: [], nbDecision: nbDecision[0] });
+      } else {
+        models.decision
+          .findByPageAndStatus(limit, offset, status)
+          .then(([rows]) => {
+            if (rows[0] == null) {
+              res.sendStatus(404);
+            } else {
+              res.send({ rows, nbDecision: nbDecision[0] });
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -335,4 +369,5 @@ module.exports = {
   autoUpdateStatusTDecisionNonAboutieByDateAndVote,
   autoUpdateStatusTermineeWithDateConflict,
   autoUpdateStatusNonAboutieWithDateConflict,
+  browseByPageAndStatus,
 };

@@ -122,6 +122,11 @@ export default function Home({ open }) {
               }
               return null;
             })}
+            <button type="button" onClick={() => navigate("/decisions")}>
+              <div className="border-2 rounded-xl w-[250px] md:w-[160px] h-[160px] cardsize p-2 shadow-md hover:scale-110 duration-200	mb-3">
+                ... Voir plus
+              </div>
+            </button>
           </div>
         </div>
         <div className="box row-start-2 row-end-4 col-start-4 ">

@@ -27,23 +27,47 @@ export default function Decisions({ open }) {
   const [isOpenConflicts, setIsOpenConflicts] = useState(false);
   const [isOpenFinished, setIsOpenFinished] = useState(false);
   const [isOpenUnfinished, setIsOpenUnfinished] = useState(false);
+  const [filterByStatus, setFilterByStatus] = useState("all");
 
-  // Get current page
+  // Get current page depending of paginate component
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
+  // Get previous page depending of paginate component
   const previousPage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
+  // Get next page depending of paginate component
   const nextPage = () => {
     if (currentPage !== Math.ceil(totalDecisions / decisionPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  // function to set the filter by status
+  useEffect(() => {
+    if (isOpenAllDecisions) {
+      setFilterByStatus("all");
+    } else if (isOpenInProgress) {
+      setFilterByStatus("En cours");
+    } else if (isOpenConflicts) {
+      setFilterByStatus("En conflit");
+    } else if (isOpenFinished) {
+      setFilterByStatus("Terminee");
+    } else if (isOpenUnfinished) {
+      setFilterByStatus("Non aboutie");
+    }
+  }, [
+    isOpenAllDecisions,
+    isOpenInProgress,
+    isOpenConflicts,
+    isOpenFinished,
+    isOpenUnfinished,
+  ]);
 
   // function to update the array of decisions after delete one decision
   const updateArrayDecisionsAfterDelete = (id) => {
@@ -63,14 +87,17 @@ export default function Decisions({ open }) {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/decision/page/${currentPage}`, requestOptions)
+    fetch(
+      `http://localhost:5000/decision/page?status=${filterByStatus}&decisionPerPage=${decisionPerPage}&currentPage=${currentPage}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((result) => {
         setValuesDetailsDecisions(result.rows);
-        setTotalDecisions(result.nbDecision[0].nbDecision);
+        setTotalDecisions(result.nbDecision.nbDecision);
       })
       .catch((error) => console.warn("error", error));
-  }, [token, currentPage]);
+  }, [token, currentPage, filterByStatus, decisionPerPage]);
 
   const handleChevrondownAllDecisions = () => {
     setIsOpenAllDecisions(!isOpenAllDecisions);
@@ -111,8 +138,6 @@ export default function Decisions({ open }) {
     setIsOpenConflicts(false);
     setIsOpenFinished(false);
   };
-
-  console.warn("curentpage", currentPage);
 
   return (
     <div className="w-screen md:h-screen overflow-hidden">
@@ -302,7 +327,6 @@ export default function Decisions({ open }) {
           </Menu.Items>
         </Transition>
       </Menu>
-
       <div className="flex flex-col items-center md:grid md:grid-cols-4 md:grid-rows-2 mt-3 gap-14">
         <div className="md:box col-start-1 col-end-4">
           <div
@@ -313,77 +337,18 @@ export default function Decisions({ open }) {
             }
           >
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
-              if (isOpenAllDecisions) {
-                return (
-                  <DecisionCard
-                    key={valueDetailsDecision.id}
-                    valueDetailsDecision={valueDetailsDecision}
-                    updateArrayDecisionsAfterDelete={
-                      updateArrayDecisionsAfterDelete
-                    }
-                  />
-                );
-              }
-              if (
-                isOpenInProgress &&
-                valueDetailsDecision.status_decision === "En cours"
-              ) {
-                return (
-                  <DecisionCard
-                    key={valueDetailsDecision.id}
-                    valueDetailsDecision={valueDetailsDecision}
-                    updateArrayDecisionsAfterDelete={
-                      updateArrayDecisionsAfterDelete
-                    }
-                  />
-                );
-              }
-              if (
-                isOpenConflicts &&
-                valueDetailsDecision.status_decision === "En conflit"
-              ) {
-                return (
-                  <DecisionCard
-                    key={valueDetailsDecision.id}
-                    valueDetailsDecision={valueDetailsDecision}
-                    updateArrayDecisionsAfterDelete={
-                      updateArrayDecisionsAfterDelete
-                    }
-                  />
-                );
-              }
-              if (
-                isOpenFinished &&
-                valueDetailsDecision.status_decision === "Terminee"
-              ) {
-                return (
-                  <DecisionCard
-                    key={valueDetailsDecision.id}
-                    valueDetailsDecision={valueDetailsDecision}
-                    updateArrayDecisionsAfterDelete={
-                      updateArrayDecisionsAfterDelete
-                    }
-                  />
-                );
-              }
-              if (
-                isOpenUnfinished &&
-                valueDetailsDecision.status_decision === "Non aboutie"
-              ) {
-                return (
-                  <DecisionCard
-                    key={valueDetailsDecision.id}
-                    valueDetailsDecision={valueDetailsDecision}
-                    updateArrayDecisionsAfterDelete={
-                      updateArrayDecisionsAfterDelete
-                    }
-                  />
-                );
-              }
-              return null;
+              return (
+                <DecisionCard
+                  key={valueDetailsDecision.id}
+                  valueDetailsDecision={valueDetailsDecision}
+                  updateArrayDecisionsAfterDelete={
+                    updateArrayDecisionsAfterDelete
+                  }
+                />
+              );
             })}
           </div>
-          <div className="mt-10 ml-6">
+          <div className={open ? "mt-10 md:ml-6 ml-10" : "mt-10 md:ml-6 ml-0"}>
             <Paginate
               decisionPerPage={decisionPerPage}
               totalDecisions={totalDecisions}
@@ -391,6 +356,7 @@ export default function Decisions({ open }) {
               paginate={paginate}
               previousPage={previousPage}
               nextPage={nextPage}
+              open={open}
             />
           </div>
         </div>
