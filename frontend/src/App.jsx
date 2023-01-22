@@ -21,6 +21,8 @@ import { useCurrentUserContext } from "./context/UserContext";
 import EditDecision from "@pages/user/EditDecision";
 import Password from "@pages/user/Password";
 import HomeAdmin from "@pages/administrator/HomeAdmin";
+import UsersList from "@pages/administrator/UsersList";
+import DecisionsList from "@pages/administrator/DecisionsList";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -104,7 +106,10 @@ function App() {
               />
             }
           />
-          {/* <Route path="messages" element={<Messages />} /> */}
+          <Route path="/userslist" element={<UsersList />} />
+          <Route path="/decisionslist" element={<DecisionsList />} />
+          {/* <Route path="mailbox" element={<Messages />} /> */}
+          {/* <Route path="bin" element={<Bin />} /> */}
         </Routes>
       ) : (
         <Routes>
