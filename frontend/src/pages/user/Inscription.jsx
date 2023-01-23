@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";

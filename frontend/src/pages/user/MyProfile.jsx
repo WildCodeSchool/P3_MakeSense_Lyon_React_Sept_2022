@@ -1,4 +1,3 @@
-/* eslint-disable react/self-closing-comp */
 import { React, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";

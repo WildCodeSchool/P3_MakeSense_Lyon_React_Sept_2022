@@ -1,18 +1,16 @@
-/* eslint-disable camelcase */
-/* eslint-disable import/order */
 import { React, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../css/user/createDecision.css";
-import Close from "../../assets/icons/x.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
-import { useCurrentUserContext } from "../../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
-import Logo from "../../assets/logo-makesense.png";
 import toast, { Toaster } from "react-hot-toast";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import { useCurrentUserContext } from "../../context/UserContext";
+import Close from "../../assets/icons/x.svg";
+import Logo from "../../assets/logo-makesense.png";
 
 export default function EditDecision() {
   const { user, token } = useCurrentUserContext();
@@ -27,7 +25,7 @@ export default function EditDecision() {
   // const to keep the origin value of the decision
   const [valueDefaultStatusOfDecision, setValueDefaultStatusOfDecision] =
     useState("");
-  const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
+  const [dateDecisionConflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
   const backEnd = import.meta.env.VITE_BACKEND_URL;
@@ -36,7 +34,7 @@ export default function EditDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
 
-  const [status_decision, setStatusOfDecision] = useState("");
+  const [statusDecision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
 
@@ -130,8 +128,8 @@ export default function EditDecision() {
       impact,
       risk,
       benefits,
-      status_decision,
-      date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
+      statusDecision,
+      date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
       user_id: user.id,
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
@@ -263,7 +261,7 @@ export default function EditDecision() {
           <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
             <div className="containerDate">
               <DatePicker
-                selected={date_decision_conflict}
+                selected={dateDecisionConflict}
                 onChange={(date) => setStartDateConflictOfDecision(date)}
                 disabledKeyboardNavigation
                 placeholderText="Cliquer pour changer de date"

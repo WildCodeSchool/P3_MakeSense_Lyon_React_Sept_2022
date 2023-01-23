@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { useCurrentUserContext } from "../../context/UserContext";

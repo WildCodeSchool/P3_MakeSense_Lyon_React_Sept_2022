@@ -1,5 +1,3 @@
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from "react";
 import "../../css/user/homeUser.css";
 import circle from "../../assets/icons/circle.svg";
@@ -32,7 +30,8 @@ export default function TimeStepperHome() {
   return (
     <div className="flex flex-col border-2 border-red-pink rounded-xl mr-3 pb-5 pt-5 shadow-sm">
       <h6 className="text-center mb-5">
-        Prochaines décisions <br></br>en conflit
+        Prochaines décisions <br />
+        en conflit
       </h6>
       <ul className="flex flex-col ">
         {decisions?.map((data, index) => (

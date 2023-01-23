@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-
 import userimg from "../../assets/icons/user.png";
 import "../../css/user/homeUser.css";
 
