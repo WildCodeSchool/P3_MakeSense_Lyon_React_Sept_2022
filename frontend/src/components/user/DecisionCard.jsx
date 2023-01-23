@@ -93,7 +93,7 @@ export default function DecisionCard({
   }, [valueDetailsDecision]);
 
   return (
-    <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
+    <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
@@ -141,9 +141,9 @@ export default function DecisionCard({
       {valueDetailsDecision ? (
         <NavLink to={`/decision/${valueDetailsDecision.id}`}>
           <div>
-            <p className="p-2 text-center">{valueDetailsDecision.title}</p>
+            <p className="text-center mt-3">{valueDetailsDecision.title}</p>
           </div>
-          <div className="border-t">
+          <div className="border-t mt-3">
             <p className="text-xs font-thin text-left m-1">
               Crée le:{" "}
               {convertDateFromApi(valueDetailsDecision.date_decision_creation)}

@@ -321,12 +321,11 @@ const autoUpdateStatusNonAboutieWithDateConflict = (req, res) => {
 setInterval(autoUpdateStatusNonAboutieWithDateConflict, 1000 * 60 * 60 * 24);
 
 // search decision by page (in front)
-const browseByPageAndStatus = (req, res) => {
+const browseByPageAndFilter = (req, res) => {
   const page = parseInt(req.query.currentPage, 10);
   const limit = parseInt(req.query.decisionPerPage, 10);
   const offset = (page - 1) * limit;
   const status = req.query.status;
-  console.warn("test", page, limit, offset, status);
 
   models.decision
     .findNbOfDecisions(status)
@@ -335,7 +334,7 @@ const browseByPageAndStatus = (req, res) => {
         res.send({ rows: [], nbDecision: nbDecision[0] });
       } else {
         models.decision
-          .findByPageAndStatus(limit, offset, status)
+          .findByPageAndFilter(limit, offset, status)
           .then(([rows]) => {
             if (rows[0] == null) {
               res.sendStatus(404);
@@ -369,5 +368,5 @@ module.exports = {
   autoUpdateStatusTDecisionNonAboutieByDateAndVote,
   autoUpdateStatusTermineeWithDateConflict,
   autoUpdateStatusNonAboutieWithDateConflict,
-  browseByPageAndStatus,
+  browseByPageAndFilter,
 };

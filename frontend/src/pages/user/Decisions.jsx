@@ -232,7 +232,6 @@ export default function Decisions({ open }) {
           + Nouvelle décision
         </button>
       </div>
-
       <Menu as="div" className="relative inline-block text-left mt-3 md:hidden">
         <div className="">
           <button

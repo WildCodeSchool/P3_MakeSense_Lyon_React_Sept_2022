@@ -59,7 +59,7 @@ router.get("/decision", verifyToken, decisionControllers.browse);
 router.get(
   "/decision/page",
   verifyToken,
-  decisionControllers.browseByPageAndStatus
+  decisionControllers.browseByPageAndFilter
 );
 router.get("/decision/last", verifyToken, decisionControllers.readByLast);
 router.get("/decision/:id", verifyToken, decisionControllers.read);
