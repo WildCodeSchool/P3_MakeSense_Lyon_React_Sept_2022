@@ -5,13 +5,14 @@ import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 function Inscription() {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   /* This is a function for post a user in database for the form */
 

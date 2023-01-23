@@ -6,6 +6,8 @@ import Logo from "../../assets/logo-makesense.png";
 import DecisionCard from "../../components/user/DecisionCard";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function UserProfile() {
   const { user, token } = useCurrentUserContext();
   const idParam = useParams();
@@ -16,7 +18,6 @@ export default function UserProfile() {
   const [urlAvatar, setUrlAvatar] = useState("");
   const [urlAvatarStatus, setAvatarStatus] = useState("");
 
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // if we click on our avatar we are redirected directly to /my-profil
   if (+user.id === +idParam.id) {
     navigate(`/my-profile`);

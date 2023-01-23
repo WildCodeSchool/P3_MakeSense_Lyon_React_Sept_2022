@@ -7,6 +7,8 @@ import TimelineStepperDecision from "../../components/user/TimelineStepperDecisi
 import "../../css/user/createDecision.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function DecisionDetails() {
   const idParam = useParams();
   const { user, token } = useCurrentUserContext();
@@ -14,7 +16,6 @@ export default function DecisionDetails() {
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
   const [updateDecision, setUpdateDecision] = useState(false);
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const toggleUpdateDecision = () => setUpdateDecision(!updateDecision);

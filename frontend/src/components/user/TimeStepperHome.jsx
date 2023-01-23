@@ -3,10 +3,11 @@ import "../../css/user/homeUser.css";
 import circle from "../../assets/icons/circle.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function TimeStepperHome() {
   const { token } = useCurrentUserContext();
   const [decisions, setDecisions] = useState([]);
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const dateFormat = (date) => {
     return date.slice(2, 10);
   };
