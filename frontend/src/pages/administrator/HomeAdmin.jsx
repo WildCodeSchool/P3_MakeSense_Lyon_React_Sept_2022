@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useEffect, useState } from "react";
 import UsersCard from "../../components/administrator/UsersCard";
 import Logo from "../../assets/logo-makesense.png";
@@ -82,8 +81,8 @@ export default function HomeAdmin({ open }) {
           }
         >
           <h3 className="text-center text-2xl mt-5">Utilisateurs :</h3>
-          {users.map((user) => (
-            <UsersCard key={user.id} user={user} />
+          {users.map((appUser) => (
+            <UsersCard key={appUser.id} user={appUser} />
           ))}
         </div>
       </div>

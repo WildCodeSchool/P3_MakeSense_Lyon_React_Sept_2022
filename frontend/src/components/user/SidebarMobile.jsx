@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/self-closing-comp */
 import { React, useEffect, useState } from "react";
 import "../../css/user/sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -49,7 +47,7 @@ export default function SidebarMobile({
               className="flex flex-row items-center"
               onClick={() => setOpen(!open)}
             >
-              <div className="yellow-point mr-2"></div>
+              <div className="yellow-point mr-2" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -71,7 +69,7 @@ export default function SidebarMobile({
               className="flex flex-row items-center mt-6"
               onClick={() => setOpen(!open)}
             >
-              <div className="yellow-point mr-2 mt-3 "></div>
+              <div className="yellow-point mr-2 mt-3 " />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -95,7 +93,7 @@ export default function SidebarMobile({
               onClick={handleNotificationModal}
               className="flex flex-row items-center mt-6"
             >
-              <div className="yellow-point mr-2 mt-3"></div>
+              <div className="yellow-point mr-2 mt-3" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -121,7 +119,7 @@ export default function SidebarMobile({
               className="flex flex-row items-center mt-6"
               onClick={() => setOpen(!open)}
             >
-              <div className="yellow-point mr-2 mt-3"></div>
+              <div className="yellow-point mr-2 mt-3" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -147,7 +145,7 @@ export default function SidebarMobile({
               className="flex flex-row items-center mt-6"
               onClick={() => handleLogOut()}
             >
-              <div className="yellow-point mr-2 mt-3"></div>
+              <div className="yellow-point mr-2 mt-3" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -159,16 +157,16 @@ export default function SidebarMobile({
                   open ? "w-6 h-6 mr-2 mt-3" : "w-7 h-7 ml-3 mt-3"
                 }`}
               >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
               <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
                 Se déconnecter
               </p>
             </button>
             <div className="flex flex-row items-center mt-8">
-              <div className={`${open ? "yellow-point mr-4" : "hidden"}`}></div>
+              <div className={`${open ? "yellow-point mr-4" : "hidden"}`} />
               <p className={`${open ? "text-xl" : "hidden"}`}>
                 Changer de pays
               </p>
