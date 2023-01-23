@@ -102,7 +102,7 @@ export default function Home({ open }) {
         </div>
         <div className="box col-start-1 col-end-4 ml-10 ">
           <div className="grid grid-cols-5 gap-4">
-            {valuesDetailsDecisions.map((valueDetailsDecision) => {
+            {valuesDetailsDecisions.slice(0, 8).map((valueDetailsDecision) => {
               if (
                 valueDetailsDecision.status_decision === "En cours" ||
                 valueDetailsDecision.status_decision === "En conflit"
@@ -119,6 +119,11 @@ export default function Home({ open }) {
               }
               return null;
             })}
+            <button type="button" onClick={() => navigate("/decisions")}>
+              <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
+                ... Voir plus
+              </div>
+            </button>
           </div>
         </div>
         <div className="box row-start-2 row-end-4 col-start-4 ">

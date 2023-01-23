@@ -27,7 +27,6 @@ export default function TimeStepperHome() {
       .catch((error) => console.warn("error", error));
   }, [token]);
 
-  console.warn(decisions);
   return (
     <div className="flex flex-col border-2 border-red-pink rounded-xl mr-3 pb-5 pt-5 shadow-sm">
       <h6 className="text-center mb-5">

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../../css/user/decisionCard.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import iconTrash from "../../assets/icons/trash-orange.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
+import userimg from "../../assets/icons/user.png";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -23,6 +24,9 @@ export default function DecisionCard({
   };
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
   const [deleteIsConfirm, setdeleteIsConfirm] = useState(false);
+  const [urlAvatarStatus, setAvatarStatus] = useState("");
+
+  const navigate = useNavigate();
 
   // for alert notification error delete decision after submit
   const notify = () =>
@@ -80,8 +84,15 @@ export default function DecisionCard({
     }
   }, [deleteIsConfirm]);
 
+  // fetch avatar status
+  useEffect(() => {
+    fetch(`http://localhost:5000/avatar/${valueDetailsDecision.avatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, [valueDetailsDecision]);
+
   return (
-    <div className="border-2 rounded-xl w-[250px] md:w-[160px] h-[160px] cardsize p-2 shadow-md hover:scale-110 duration-200	mb-3">
+    <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
@@ -101,14 +112,46 @@ export default function DecisionCard({
           </button>
         </div>
       ) : (
-        <div className={statusForClassname()} />
+        <div className="flex justify-between items-center">
+          <div className={statusForClassname()} />
+          <button
+            type="button"
+            onClick={() =>
+              navigate(`/user-profile/${valueDetailsDecision.user_id}`)
+            }
+          >
+            <div className="wrapForHide flex justify-center flex-row items-center group-hover:opacity-50">
+              <span className="spanhidden text-xs text-right text-slate-400">
+                Voir le profil de {valueDetailsDecision.firstname}
+              </span>
+              <img
+                className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50"
+                src={
+                  urlAvatarStatus.status === 200
+                    ? `http://localhost:5000/avatar/${valueDetailsDecision.avatar}`
+                    : userimg
+                }
+                alt="avatar-decision"
+              />
+            </div>
+          </button>
+        </div>
       )}
       {valueDetailsDecision ? (
         <NavLink to={`/decision/${valueDetailsDecision.id}`}>
-          <p className="p-2 text-center">{valueDetailsDecision.title}</p>
-          <p className="text-xs font-thin text-center">
-            {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
-          </p>
+          <div>
+            <p className="text-center mt-3">{valueDetailsDecision.title}</p>
+          </div>
+          <div className="border-t mt-3">
+            <p className="text-xs font-thin text-left m-1">
+              Crée le:{" "}
+              {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
+            </p>
+            <p className="text-xs font-thin text-left">
+              Fin de conflit le:{" "}
+              {convertDateFromApi(valueDetailsDecision.date_decision_conflict)}
+            </p>
+          </div>
         </NavLink>
       ) : null}
     </div>

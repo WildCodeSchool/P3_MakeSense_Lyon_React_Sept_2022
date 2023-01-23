@@ -37,7 +37,7 @@ export default function UserProfile() {
       .then((result) => {
         setValuesUser(result);
         setUrlAvatar(result.avatar);
-        console.warn("result", result.avatar);
+        console.warn("result", result);
       })
       .catch((error) => console.warn("error", error));
   }, []);
@@ -97,7 +97,7 @@ export default function UserProfile() {
                   : Randomuser
               }
               alt="Avatar"
-              width={250}
+              width={200}
             />
           </div>
           <div className="flex flex-col gap-y-20 justify-center">
