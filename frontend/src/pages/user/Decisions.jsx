@@ -20,6 +20,8 @@ export default function Decisions({ open }) {
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalDecisions, setTotalDecisions] = useState();
+
+  // decision per page fix for now
   const decisionPerPage = 8;
 
   // to show or not the chevron-down icon with filter
