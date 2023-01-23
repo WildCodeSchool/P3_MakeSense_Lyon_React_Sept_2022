@@ -1,13 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable import/order */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable import/no-unresolved */
 import { React, useEffect, useState } from "react";
-import DecisionCard from "@components/user/DecisionCard";
-import Logo from "../../assets/logo-makesense.png";
-import "../../css/user/homeUser.css";
-import TimeStepperHome from "@components/user/TimeStepperHome";
 import { useNavigate } from "react-router-dom";
+import DecisionCard from "../../components/user/DecisionCard";
+import "../../css/user/homeUser.css";
+import TimeStepperHome from "../../components/user/TimeStepperHome";
+import Logo from "../../assets/logo-makesense.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 export default function Home({ open }) {

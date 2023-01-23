@@ -1,27 +1,24 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/order */
-// eslint-disable-next-line import/order
 import { React, useState } from "react";
-import CreateDecision from "@pages/user/CreateDecision";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import CreateDecision from "./pages/user/CreateDecision";
 import HomeUser from "./pages/user/HomeUser";
-import Sidebar from "@components/user/Sidebar";
+import Sidebar from "./components/user/Sidebar";
 import Authentification from "./pages/Authentification";
 import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
-import LegalNotice from "@pages/user/LegalNotice";
-import MyProfile from "@pages/user/MyProfile";
-import Help from "@pages/user/Help";
-import Decisions from "@pages/user/Decisions";
-import DecisionDetails from "@pages/user/DecisionDetails";
-import NotificationModal from "@components/user/NotificationModal";
-import Inscription from "@pages/user/Inscription";
-import ForgottenPassword from "@pages/user/ForgottenPassword";
+import LegalNotice from "./pages/user/LegalNotice";
+import MyProfile from "./pages/user/MyProfile";
+import Help from "./pages/user/Help";
+import Decisions from "./pages/user/Decisions";
+import DecisionDetails from "./pages/user/DecisionDetails";
+import NotificationModal from "./components/user/NotificationModal";
+import Inscription from "./pages/user/Inscription";
+import ForgottenPassword from "./pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
-import EditDecision from "@pages/user/EditDecision";
-import Password from "@pages/user/Password";
-import SidebarMobile from "@components/user/SidebarMobile";
-import HomeAdmin from "@pages/administrator/HomeAdmin";
+import EditDecision from "./pages/user/EditDecision";
+import Password from "./pages/user/Password";
+import SidebarMobile from "./components/user/SidebarMobile";
+import HomeAdmin from "./pages/administrator/HomeAdmin";
 
 function App() {
   const [showModal, setShowModal] = useState(false);

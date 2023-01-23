@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from "react";
 import "../../css/user/decisionCard.css";
 import { NavLink } from "react-router-dom";
@@ -6,8 +5,6 @@ import toast, { Toaster } from "react-hot-toast";
 import iconTrash from "../../assets/icons/trash-orange.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
-
-// import user from "../../assets/icons/user.png";
 
 export default function DecisionCard({
   valueDetailsDecision,
