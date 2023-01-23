@@ -11,7 +11,7 @@ export default function Home({ open }) {
   const { user } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const { token } = useCurrentUserContext();
-
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // function to update the array of decisions after delete one decision
   const updateArrayDecisionsAfterDelete = (id) => {
     const indexOfValueDecision = valuesDetailsDecisions.findIndex(
@@ -30,7 +30,7 @@ export default function Home({ open }) {
       headers: myHeader,
     };
 
-    fetch("http://localhost:5000/decision", requestOptions)
+    fetch(`${backEnd}/decision`, requestOptions)
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecisions(result))
       .catch((error) => console.warn("error", error));

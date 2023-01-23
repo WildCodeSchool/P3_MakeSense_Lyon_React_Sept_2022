@@ -16,7 +16,7 @@ export default function Decisions({ open }) {
   const navigate = useNavigate();
   const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
-
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // to show or not the chevron-down icon with filter
   const [isOpenAllDecisions, setIsOpenAllDecisions] = useState(true);
   const [isOpenInProgress, setIsOpenInProgress] = useState(false);
@@ -42,7 +42,7 @@ export default function Decisions({ open }) {
       headers: myHeader,
     };
 
-    fetch("http://localhost:5000/decision", requestOptions)
+    fetch(`${backEnd}/decision`, requestOptions)
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecisions(result))
       .catch((error) => console.warn("error", error));

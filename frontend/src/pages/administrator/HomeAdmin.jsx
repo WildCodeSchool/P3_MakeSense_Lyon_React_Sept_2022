@@ -7,6 +7,7 @@ export default function HomeAdmin({ open }) {
   const { user, token } = useCurrentUserContext();
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState([]);
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -15,14 +16,14 @@ export default function HomeAdmin({ open }) {
     const requestOptions = {
       headers: myHeader,
     };
-    fetch("http://localhost:5000/user", requestOptions)
+    fetch(`${backEnd}/user`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
         setUsers(result);
       })
       .catch((err) => console.error(err));
 
-    fetch("http://localhost:5000/admin/countstats", requestOptions)
+    fetch(`${backEnd}/admin/countstats`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
         setStats(result);
