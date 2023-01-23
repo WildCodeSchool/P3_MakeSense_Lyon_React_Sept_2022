@@ -30,6 +30,7 @@ export default function CreateDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
   const navigate = useNavigate();
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   // modules for react-quill text editor
   const modules = {
@@ -90,7 +91,7 @@ export default function CreateDecision() {
     });
     toast
       .promise(
-        fetch("http://localhost:5000/decision", {
+        fetch(`${backEnd}/decision`, {
           method: "POST",
           redirect: "follow",
           body: raw,
@@ -125,7 +126,7 @@ export default function CreateDecision() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:5000/user/byname`, requestOptions)
+    fetch(`${backEnd}/user/byname`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setPersonExperteDecision(result);

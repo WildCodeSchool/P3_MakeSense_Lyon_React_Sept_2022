@@ -6,6 +6,7 @@ import { useCurrentUserContext } from "../../context/UserContext";
 function NotificationModal({ setShowModal, open }) {
   const { user, token } = useCurrentUserContext();
   const [notifs, setNotifs] = useState();
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -14,7 +15,7 @@ function NotificationModal({ setShowModal, open }) {
     const requestOptions = {
       headers: myHeader,
     };
-    fetch(`http://localhost:5000/notification/${user.id}`, requestOptions)
+    fetch(`${backEnd}/notification/${user.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setNotifs(result);

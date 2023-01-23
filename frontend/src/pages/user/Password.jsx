@@ -9,6 +9,7 @@ function Password() {
   const navigate = useNavigate();
   const [password, setPassword] = useState();
   const { passwordToken } = useParams();
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -27,7 +28,7 @@ function Password() {
 
   const sendPassword = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/resetpassword`, requestOptions)
+    fetch(`${backEnd}/resetpassword`, requestOptions)
       .then(() => {
         navigate("/");
       })

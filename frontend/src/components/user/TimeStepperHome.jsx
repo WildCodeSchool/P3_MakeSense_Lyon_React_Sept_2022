@@ -8,6 +8,7 @@ import { useCurrentUserContext } from "../../context/UserContext";
 export default function TimeStepperHome() {
   const { token } = useCurrentUserContext();
   const [decisions, setDecisions] = useState([]);
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const dateFormat = (date) => {
     return date.slice(2, 10);
   };
@@ -21,7 +22,7 @@ export default function TimeStepperHome() {
       headers: myHeader,
     };
 
-    fetch("http://localhost:5000/decision/last", requestOptions)
+    fetch(`${backEnd}/decision/last`, requestOptions)
       .then((response) => response.json())
       .then((result) => setDecisions(result))
       .catch((error) => console.warn("error", error));

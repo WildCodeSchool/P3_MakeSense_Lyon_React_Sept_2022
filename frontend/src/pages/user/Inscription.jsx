@@ -12,6 +12,7 @@ function Inscription() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   /* This is a function for post a user in database for the form */
 
@@ -30,7 +31,7 @@ function Inscription() {
     });
 
     /* fetch to suscribe at makesense */
-    fetch("http://localhost:5000/user", {
+    fetch(`${backEnd}/user`, {
       method: "POST",
       headers: myHeaders,
       body: bodyRaw,

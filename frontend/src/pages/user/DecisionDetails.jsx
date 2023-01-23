@@ -14,6 +14,7 @@ export default function DecisionDetails() {
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
   const [updateDecision, setUpdateDecision] = useState(false);
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const toggleUpdateDecision = () => setUpdateDecision(!updateDecision);
@@ -26,14 +27,14 @@ export default function DecisionDetails() {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/decision/${idParam.id}`, requestOptions)
+    fetch(`${backEnd}/decision/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecision(result))
       .catch((error) => console.warn("error", error));
   }, [updateDecision]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
+    fetch(`${backEnd}/avatar/${valuesDetailsDecision.avatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);

@@ -8,7 +8,7 @@ import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 function ForgottenPassword({ email, setEmail }) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const raw = JSON.stringify({
     email,
   });
@@ -21,7 +21,7 @@ function ForgottenPassword({ email, setEmail }) {
   };
 
   const sendEmail = () => {
-    fetch(`http://localhost:5000/forgottenpassword`, requestOptions)
+    fetch(`${backEnd}/forgottenpassword`, requestOptions)
       .then((result) => {
         console.warn(result);
       })

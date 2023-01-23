@@ -30,7 +30,7 @@ export default function EditDecision() {
   const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
-
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
   const [personExperteDecision, setPersonExperteDecision] = useState([]);
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
@@ -87,7 +87,7 @@ export default function EditDecision() {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/decision/${idParam.id}`, requestOptions)
+    fetch(`${backEnd}/decision/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setTitleDecision(result.title);
@@ -138,7 +138,7 @@ export default function EditDecision() {
     });
     toast
       .promise(
-        fetch(`http://localhost:5000/decision/${idParam.id}`, {
+        fetch(`${backEnd}/decision/${idParam.id}`, {
           method: "PUT",
           redirect: "follow",
           body: raw,
@@ -173,7 +173,7 @@ export default function EditDecision() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:5000/user/byname`, requestOptions)
+    fetch(`${backEnd}/user/byname`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setPersonExperteDecision(result);

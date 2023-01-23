@@ -56,6 +56,7 @@ export default function MyProfile() {
     }
   };
 
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // fetch to edit my profile informations
   function sendUserInformations() {
     const myHeaders = new Headers();
@@ -72,7 +73,7 @@ export default function MyProfile() {
     });
     toast
       .promise(
-        fetch(`http://localhost:5000/user/${user.id}`, {
+        fetch(`${backEnd}/user/${user.id}`, {
           method: "PUT",
           redirect: "follow",
           body: raw,
@@ -114,7 +115,7 @@ export default function MyProfile() {
 
   // fetch for the status of fetch of the avatar
   useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${user.avatar}`)
+    fetch(`${backEnd}/avatar/${user.avatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [user]);

@@ -16,6 +16,7 @@ export default function UserProfile() {
   const [urlAvatar, setUrlAvatar] = useState("");
   const [urlAvatarStatus, setAvatarStatus] = useState("");
 
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // if we click on our avatar we are redirected directly to /my-profil
   if (+user.id === +idParam.id) {
     navigate(`/my-profile`);
@@ -30,7 +31,7 @@ export default function UserProfile() {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/user/${idParam.id}`, requestOptions)
+    fetch(`${backEnd}/user/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setValuesUser(result);
