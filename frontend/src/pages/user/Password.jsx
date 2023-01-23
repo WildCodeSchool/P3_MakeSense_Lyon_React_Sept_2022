@@ -5,11 +5,12 @@ import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 function Password() {
   const navigate = useNavigate();
   const [password, setPassword] = useState();
   const { passwordToken } = useParams();
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");

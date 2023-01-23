@@ -6,6 +6,8 @@ import iconTrash from "../../assets/icons/trash-orange.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function DecisionCard({
   valueDetailsDecision,
   updateArrayDecisionsAfterDelete,
@@ -44,7 +46,7 @@ export default function DecisionCard({
 
     toast
       .promise(
-        fetch(`http://localhost:5000/decision/${valueDetailsDecision.id}`, {
+        fetch(`${backEnd}/decision/${valueDetailsDecision.id}`, {
           method: "delete",
           redirect: "follow",
           headers: myHeaders,

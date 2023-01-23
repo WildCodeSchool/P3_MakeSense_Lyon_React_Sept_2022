@@ -12,6 +12,8 @@ import { useCurrentUserContext } from "../../context/UserContext";
 import Close from "../../assets/icons/x.svg";
 import Logo from "../../assets/logo-makesense.png";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function EditDecision() {
   const { user, token } = useCurrentUserContext();
   const [title, setTitleDecision] = useState("");
@@ -28,7 +30,6 @@ export default function EditDecision() {
   const [dateDecisionConflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
   const [personExperteDecision, setPersonExperteDecision] = useState([]);
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);

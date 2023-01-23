@@ -3,11 +3,12 @@ import UsersCard from "../../components/administrator/UsersCard";
 import Logo from "../../assets/logo-makesense.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function HomeAdmin({ open }) {
   const { user, token } = useCurrentUserContext();
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState([]);
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const myHeader = new Headers();

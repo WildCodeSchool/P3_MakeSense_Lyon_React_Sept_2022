@@ -9,6 +9,8 @@ import ChevronDown from "../../assets/icons/chevron-down.svg";
 
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function Decisions({ open }) {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -16,7 +18,6 @@ export default function Decisions({ open }) {
   const navigate = useNavigate();
   const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // to show or not the chevron-down icon with filter
   const [isOpenAllDecisions, setIsOpenAllDecisions] = useState(true);
   const [isOpenInProgress, setIsOpenInProgress] = useState(false);

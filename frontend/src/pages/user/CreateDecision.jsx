@@ -11,8 +11,9 @@ import Close from "../../assets/icons/x.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
-
 import Logo from "../../assets/logo-makesense.png";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function CreateDecision() {
   const { user, token } = useCurrentUserContext();
@@ -29,7 +30,6 @@ export default function CreateDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
   const navigate = useNavigate();
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   // modules for react-quill text editor
   const modules = {

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 function NotificationModal({ setShowModal, open }) {
   const { user, token } = useCurrentUserContext();
   const [notifs, setNotifs] = useState();
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const myHeader = new Headers();

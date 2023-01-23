@@ -6,12 +6,13 @@ import TimeStepperHome from "../../components/user/TimeStepperHome";
 import Logo from "../../assets/logo-makesense.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function Home({ open }) {
   const navigate = useNavigate();
   const { user } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const { token } = useCurrentUserContext();
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // function to update the array of decisions after delete one decision
   const updateArrayDecisionsAfterDelete = (id) => {
     const indexOfValueDecision = valuesDetailsDecisions.findIndex(

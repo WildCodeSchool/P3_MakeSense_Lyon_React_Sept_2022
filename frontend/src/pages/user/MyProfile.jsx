@@ -5,6 +5,8 @@ import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function MyProfile() {
   const { user, setUser, token } = useCurrentUserContext();
   const navigate = useNavigate();
@@ -55,7 +57,6 @@ export default function MyProfile() {
     }
   };
 
-  const backEnd = import.meta.env.VITE_BACKEND_URL;
   // fetch to edit my profile informations
   function sendUserInformations() {
     const myHeaders = new Headers();
