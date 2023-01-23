@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { React, useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -10,6 +9,8 @@ import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
 
 import { useCurrentUserContext } from "../../context/UserContext";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function Decisions({ open }) {
   function classNames(...classes) {
@@ -95,7 +96,7 @@ export default function Decisions({ open }) {
     };
 
     fetch(
-      `http://localhost:5000/decision/page?status=${filterByStatus}&decisionPerPage=${decisionPerPage}&currentPage=${currentPage}`,
+      `${backEnd}/decision/page?status=${filterByStatus}&decisionPerPage=${decisionPerPage}&currentPage=${currentPage}`,
       requestOptions
     )
       .then((response) => response.json())

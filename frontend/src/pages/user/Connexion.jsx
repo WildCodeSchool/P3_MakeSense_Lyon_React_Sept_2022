@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { React, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
@@ -6,6 +5,8 @@ import "../../assets/logo-makesense.png";
 import toast, { Toaster } from "react-hot-toast";
 import peoplepicture from "../../assets/peoplepicture.png";
 import { useCurrentUserContext } from "../../context/UserContext";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function Connexion() {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ function Connexion() {
     });
 
     /* function push user and token in the localstorage */
-    fetch("http://localhost:5000/login", {
+    fetch(`${backEnd}/login`, {
       method: "POST",
       redirect: "follow",
       body: raw,
@@ -46,7 +47,6 @@ function Connexion() {
       })
       .catch((error) => console.warn(error));
   };
-
   return (
     <div className="connexionPage ">
       <Toaster position="top-center" reverseOrder={false} />

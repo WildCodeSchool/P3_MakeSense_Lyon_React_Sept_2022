@@ -7,6 +7,8 @@ import TimelineStepperDecision from "../../components/user/TimelineStepperDecisi
 import "../../css/user/createDecision.css";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function DecisionDetails() {
   const idParam = useParams();
   const { user, token } = useCurrentUserContext();
@@ -26,14 +28,14 @@ export default function DecisionDetails() {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/decision/${idParam.id}`, requestOptions)
+    fetch(`${backEnd}/decision/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecision(result))
       .catch((error) => console.warn("error", error));
   }, [updateDecision]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`)
+    fetch(`${backEnd}/avatar/${valuesDetailsDecision.avatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);

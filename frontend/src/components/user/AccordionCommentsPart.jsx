@@ -16,6 +16,7 @@ function AccordionCommentsPart({
   const [chosenStatusAgainst, setChosenStatusAgainst] = useState(false);
   const { user, token } = useCurrentUserContext();
   const idParam = useParams();
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
 
   const modules = {
     toolbar: [
@@ -50,7 +51,7 @@ function AccordionCommentsPart({
       decision_id: valuesDetailsDecision.id,
     });
 
-    fetch(`http://localhost:5000/decision/${idParam.id}/comments`, {
+    fetch(`${backEnd}/decision/${idParam.id}/comments`, {
       method: "POST",
       redirect: "follow",
       body: raw,

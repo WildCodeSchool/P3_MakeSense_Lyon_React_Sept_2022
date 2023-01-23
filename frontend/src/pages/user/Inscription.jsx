@@ -1,10 +1,11 @@
-/* eslint-disable no-alert */
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function Inscription() {
   const [firstname, setFirstname] = useState();
@@ -30,7 +31,7 @@ function Inscription() {
     });
 
     /* fetch to suscribe at makesense */
-    fetch("http://localhost:5000/user", {
+    fetch(`${backEnd}/user`, {
       method: "POST",
       headers: myHeaders,
       body: bodyRaw,

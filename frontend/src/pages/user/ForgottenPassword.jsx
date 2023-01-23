@@ -5,10 +5,11 @@ import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 function ForgottenPassword({ email, setEmail }) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
   const raw = JSON.stringify({
     email,
   });
@@ -21,7 +22,7 @@ function ForgottenPassword({ email, setEmail }) {
   };
 
   const sendEmail = () => {
-    fetch(`http://localhost:5000/forgottenpassword`, requestOptions)
+    fetch(`${backEnd}/forgottenpassword`, requestOptions)
       .then((result) => {
         console.warn(result);
       })

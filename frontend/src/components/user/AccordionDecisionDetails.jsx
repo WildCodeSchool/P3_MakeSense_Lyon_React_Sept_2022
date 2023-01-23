@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable consistent-return */
 import ReactQuill from "react-quill";
 import { useState } from "react";
 import chevronup from "../../assets/icons/chevron-up.svg";

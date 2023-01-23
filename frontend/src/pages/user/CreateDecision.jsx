@@ -1,19 +1,19 @@
-/* eslint-disable camelcase */
-/* eslint-disable import/order */
 import { React, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import DatePicker from "react-datepicker";
+import { useNavigate } from "react-router-dom";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import toast, { Toaster } from "react-hot-toast";
 import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
 import Close from "../../assets/icons/x.svg";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import toast, { Toaster } from "react-hot-toast";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function CreateDecision() {
   const { user, token } = useCurrentUserContext();
@@ -22,7 +22,7 @@ export default function CreateDecision() {
   const [impact, setValueImpactOfDecision] = useState("");
   const [benefits, setValueBenefitsOfDecision] = useState("");
   const [risk, setValueRiskOfDecision] = useState("");
-  const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
+  const [dateDecisionConflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
   const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
@@ -81,7 +81,7 @@ export default function CreateDecision() {
       risk,
       benefits,
       date_decision_creation: dateConvertedToSqlFormat(Date.now()),
-      date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
+      date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
       status_decision: "En cours",
       user_id: user.id,
       person_expert: choosePersonExpert,
@@ -90,7 +90,7 @@ export default function CreateDecision() {
     });
     toast
       .promise(
-        fetch("http://localhost:5000/decision", {
+        fetch(`${backEnd}/decision`, {
           method: "POST",
           redirect: "follow",
           body: raw,
@@ -124,7 +124,7 @@ export default function CreateDecision() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:5000/user/byname`, requestOptions)
+    fetch(`${backEnd}/user/byname`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setPersonExperteDecision(result);
@@ -272,7 +272,7 @@ export default function CreateDecision() {
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker
-                  selected={date_decision_conflict}
+                  selected={dateDecisionConflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Donner son avis"

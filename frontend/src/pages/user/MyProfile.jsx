@@ -1,10 +1,11 @@
-/* eslint-disable react/self-closing-comp */
 import { React, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyProfile() {
   const { user, setUser, token } = useCurrentUserContext();
@@ -72,7 +73,7 @@ export default function MyProfile() {
     });
     toast
       .promise(
-        fetch(`http://localhost:5000/user/${user.id}`, {
+        fetch(`${backEnd}/user/${user.id}`, {
           method: "PUT",
           redirect: "follow",
           body: raw,
@@ -114,7 +115,7 @@ export default function MyProfile() {
 
   // fetch for the status of fetch of the avatar
   useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${user.avatar}`)
+    fetch(`${backEnd}/avatar/${user.avatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [user]);

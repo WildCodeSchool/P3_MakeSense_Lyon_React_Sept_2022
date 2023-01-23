@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from "react";
 import "../../css/user/decisionCard.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
 import userimg from "../../assets/icons/user.png";
 
-// import user from "../../assets/icons/user.png";
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function DecisionCard({
   valueDetailsDecision,
@@ -51,7 +50,7 @@ export default function DecisionCard({
 
     toast
       .promise(
-        fetch(`http://localhost:5000/decision/${valueDetailsDecision.id}`, {
+        fetch(`${backEnd}/decision/${valueDetailsDecision.id}`, {
           method: "delete",
           redirect: "follow",
           headers: myHeaders,
