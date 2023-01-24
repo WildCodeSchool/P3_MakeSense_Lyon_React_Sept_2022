@@ -54,6 +54,7 @@ export default function DecisionsList() {
           key={decision.id}
           className="grid grid grid-cols-8 text-center mt-2"
         >
+          {console.warn(valuesDetailsDecisions)}
           <button type="button" className="decisionsListBoard1 pt-1 pl-12">
             <BsTrash />
           </button>
