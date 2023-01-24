@@ -19,6 +19,7 @@
   "rules": {
     "react/prop-types": 0,
     "no-console": "off",
+    "camelcase": "off",
     "react/no-array-index-key": 0,
     "react/jsx-no-constructed-context-values": 0,
     "no-restricted-syntax": [
