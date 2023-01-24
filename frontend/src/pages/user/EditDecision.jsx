@@ -35,7 +35,7 @@ export default function EditDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
 
-  const [statusDecision, setStatusOfDecision] = useState("");
+  const [status_decision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
 
@@ -129,7 +129,7 @@ export default function EditDecision() {
       impact,
       risk,
       benefits,
-      statusDecision,
+      status_decision,
       date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
       user_id: user.id,
       person_expert: choosePersonExpert,
@@ -164,6 +164,8 @@ export default function EditDecision() {
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
+
+  console.warn("status", status_decision);
 
   // This is for GET user by name for input autocomplete
   const handleChange = () => {
