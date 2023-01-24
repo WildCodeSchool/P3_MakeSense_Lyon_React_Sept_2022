@@ -87,7 +87,7 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
+              <div className=" z-0 max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
                 ... Voir plus
               </div>
             </button>
@@ -119,7 +119,7 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
+              <div className=" z-0 max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
                 ... Voir plus
               </div>
             </button>
