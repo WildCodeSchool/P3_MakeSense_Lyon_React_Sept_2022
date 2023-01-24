@@ -18,6 +18,7 @@ export default function Sidebar({
   const [openModalAlertDeconnexion, setOpenModalAlertDeconnexion] =
     useState(false);
   const navigate = useNavigate();
+
   const handleNotificationModal = () => {
     setShowModal(!showModal);
   };
@@ -123,7 +124,7 @@ export default function Sidebar({
             <button
               type="button"
               onClick={handleNotificationModal}
-              className="flex flex-row items-center"
+              className="flex flex-row items-center "
             >
               <div className="yellow-point mr-2 mt-3" />
               <svg

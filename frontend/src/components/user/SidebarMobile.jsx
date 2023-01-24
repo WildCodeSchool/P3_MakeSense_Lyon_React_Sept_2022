@@ -37,7 +37,7 @@ export default function SidebarMobile({
     <div
       className={`${
         !openMobile ? "h-[50px]" : "h-[500px]"
-      }  bg-light-blue duration-300 w-screen flex flex-col justify-between text-white z-50`}
+      }  bg-light-blue duration-300 md:w-screen flex flex-col justify-between text-white z-50`}
     >
       {openMobile ? (
         <div className="h-[500px] flex flex-col items-center z-50">
@@ -209,8 +209,8 @@ export default function SidebarMobile({
             stroke="currentColor"
             className={`${
               openMobile
-                ? "w-6 h-6 stroke-white  rotate-180  "
-                : "w-6 h-6 stroke-white "
+                ? "w-6 h-6 stroke-white   "
+                : "w-6 h-6 stroke-white rotate-180 "
             }`}
             onClick={() => setOpenMobile(!openMobile)}
           >
