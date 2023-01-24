@@ -354,7 +354,7 @@ export default function Decisions({ open }) {
             })}
           </div>
 
-          <div className={open ? " md:ml-6 ml-10" : " md:ml-6 ml-0"}>
+          <div className="md:ml-6 mb-16 mt-7">
             <Paginate
               decisionPerPage={decisionPerPage}
               totalDecisions={totalDecisions}

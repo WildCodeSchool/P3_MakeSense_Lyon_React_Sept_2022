@@ -114,7 +114,7 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
+              <div className=" z-0 w-[250px] mb-20 md:mb-6 md:w-[200px] h-[180px] hover:scale-110 duration-200 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
                 ... Voir plus
               </div>
             </button>
