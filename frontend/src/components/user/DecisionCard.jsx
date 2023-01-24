@@ -92,7 +92,7 @@ export default function DecisionCard({
   }, [valueDetailsDecision]);
 
   return (
-    <div className=" relative w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
+    <div className=" relative min-w-[250px] max-w-60 md:min-w-[200px] md:max-w-52 h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}

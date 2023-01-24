@@ -42,7 +42,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-full md:w-screen">
+    <div className="flex flex-col md:flex-row h-full ">
       {location.pathname === "/" ||
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
@@ -50,7 +50,7 @@ function App() {
       token === null ||
       location.pathname === "/help" ? null : (
         <div className="relative">
-          <aside className="h-screen sticky top-0 overflow-hidden hidden md:block">
+          <aside className="h-screen sticky top-0 overflow-hidden hidden lg:block">
             <Sidebar
               showModal={showModal}
               setShowModal={setShowModal}
@@ -61,7 +61,7 @@ function App() {
               handleChecked={handleChecked}
             />
           </aside>
-          <div className="w-screen md:hidden fixed bottom-0 left-0 right-0 z-50">
+          <div className="w-screen lg:hidden fixed bottom-0 left-0 right-0 z-50">
             <SidebarMobile
               showModal={showModal}
               setShowModal={setShowModal}
