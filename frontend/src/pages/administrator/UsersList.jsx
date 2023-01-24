@@ -9,7 +9,6 @@ import Avatar1 from "../../assets/icons/user.png";
 export default function UsersList() {
   const { user, token } = useCurrentUserContext();
   const [users, setUsers] = useState([]);
-  // const [destroy, setDestroy] = useState([]);
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -66,7 +65,7 @@ export default function UsersList() {
           </p>
         </div>
       </div>
-      <div className="usersListBoard grid grid-cols-8 text-center border-2 border-gray-200 border-solid">
+      <div className="usersListBoard grid grid-cols-8 text-center border-2 border-gray-200 border-solid border-2 border-gray-600">
         <div className="usersListBoardCol">
           <input type="checkbox" />
         </div>
