@@ -93,7 +93,6 @@ const editById = (req, res) => {
   const expert = req.body.person_expert;
   const concern = req.body.person_concern;
   // TODO validations (length, format...)
-
   decision.id = parseInt(req.params.id, 10);
 
   models.decision
