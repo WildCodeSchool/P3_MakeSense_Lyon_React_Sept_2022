@@ -79,28 +79,27 @@ export default function UserProfile() {
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">
+        <h1 className="hidden md:flex text-2xl text-red-pink">
           Profil de {`${valuesUser.firstname} ${valuesUser.lastname}`}
         </h1>
-        <div className="logo-home">
+        <div className="logo-home hidden md:flex ">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
       <main>
-        <div className="userProfile-Description mt-14 text-xl flex flex-wrap ml-24 gap-12 gap-x-32">
+        <div className="userProfile-Description flex-col md:flex-row mt-14 text-xl flex flex-wrap ml-4 md:ml-24 md:gap-12 md:gap-x-32">
           <div className="">
             <img
-              className="rounded-full"
+              className="rounded-full w-32 md:w-[200px]"
               src={
                 urlAvatarStatus.status === 200
                   ? `http://localhost:5000/avatar/${urlAvatar}`
                   : Randomuser
               }
               alt="Avatar"
-              width={200}
             />
           </div>
-          <div className="flex flex-col gap-y-20 justify-center">
+          <div className="flex flex-col mt-10 gap-y-5 md:gap-y-20 justify-center">
             <h3>
               <span className="text-gray-400"> Prénom :</span>{" "}
               {valuesUser.firstname}
@@ -111,16 +110,17 @@ export default function UserProfile() {
             </h3>
             <h3>
               <span className="text-gray-400"> Localisation :</span>{" "}
-              {valuesUser.city}
+              {valuesUser.city ? valuesUser.city : "Non renseigné"}
             </h3>
           </div>
-          <div className="flex flex-col gap-y-20 mt-6">
-            <h3>
+          <div className="flex flex-col gap-y-5 md:gap-y-20 md:mt-6">
+            <h3 className="mt-5">
               <span className="text-gray-400"> Téléphone :</span>{" "}
-              {valuesUser.phone}
+              {valuesUser.phone ? valuesUser.phone : "Non renseigné"}
             </h3>
             <h3>
-              <span className="text-gray-400"> Email :</span> {valuesUser.email}
+              <span className="text-gray-400"> Email :</span>{" "}
+              {valuesUser.email ? valuesUser.email : "Non renseigné"}
             </h3>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default function UserProfile() {
           Les décisions de {valuesUser.firstname} :
         </h2>
         <div className="box col-start-1 col-end-4 ml-10">
-          <div className="grid grid-cols-4">
+          <div className="grid mb-16 grid-cols-4">
             {valuesDetailsDecision.map((valueDetailsDecision) => {
               return (
                 <DecisionCard
