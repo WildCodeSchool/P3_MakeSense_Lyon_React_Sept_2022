@@ -28,7 +28,7 @@ export default function TimeStepperHome() {
   }, [token]);
 
   return (
-    <div className="flex flex-col border-2 border-red-pink rounded-xl mr-3 pb-5 pt-5 shadow-sm">
+    <div className="flex flex-col pb-5 pt-5 rounded-xl w-[250px]">
       <h6 className="text-center mb-5">
         Prochaines décisions <br />
         en conflit
@@ -51,7 +51,7 @@ export default function TimeStepperHome() {
                 />
               </div>
               <div>
-                <div className="w-0.5 h-14 bg-dark-blue" />
+                <div className="w-0.5 h-14 bg-red-pink" />
               </div>
 
               <div className="" />

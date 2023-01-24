@@ -226,11 +226,7 @@ export default function Decisions({ open }) {
         <button
           onClick={() => navigate("/create-decision")}
           type="button"
-          className={
-            open
-              ? "ml-[80px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
-              : "ml-[200px] pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
-          }
+          className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
         >
           + Nouvelle décision
         </button>
@@ -339,15 +335,9 @@ export default function Decisions({ open }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:grid-rows-2 mt-3 gap-14">
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:grid-rows-3 mt-3 gap-3 ">
         <div className="md:box col-start-1 col-end-4">
-          <div
-            className={
-              open
-                ? "md:grid grid-cols-5 grid-rows-2 gap-10 ml-10 mr-10 "
-                : "md:grid grid-cols-6 grid-rows-2 gap-10 ml-10 mr-10 "
-            }
-          >
+          <div className="md:grid grid-cols-4 grid-rows-3 gap-5 ml-10 mr-10 ">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
               return (
                 <DecisionCard
@@ -360,7 +350,8 @@ export default function Decisions({ open }) {
               );
             })}
           </div>
-          <div className={open ? "mt-10 md:ml-6 ml-10" : "mt-10 md:ml-6 ml-0"}>
+
+          <div className={open ? " md:ml-6 ml-10" : " md:ml-6 ml-0"}>
             <Paginate
               decisionPerPage={decisionPerPage}
               totalDecisions={totalDecisions}
