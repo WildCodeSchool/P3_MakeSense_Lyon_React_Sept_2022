@@ -6,6 +6,8 @@ import { useCurrentUserContext } from "../../context/UserContext";
 import "../../css/administrator/usersList.css";
 import Avatar1 from "../../assets/icons/user.png";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function UsersList() {
   const { user, token } = useCurrentUserContext();
   const [users, setUsers] = useState([]);
@@ -17,7 +19,7 @@ export default function UsersList() {
     const requestOptions = {
       headers: myHeader,
     };
-    fetch("http://localhost:5000/user", requestOptions)
+    fetch(`${backEnd}/user`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
         console.warn(result);

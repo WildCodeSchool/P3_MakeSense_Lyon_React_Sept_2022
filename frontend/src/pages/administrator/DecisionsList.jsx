@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsTrash } from "react-icons/bs";
+import { useParams } from "react-router-dom";
 import { useCurrentUserContext } from "../../context/UserContext";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/administrator/decisionList.css";
@@ -7,6 +8,9 @@ import "../../css/administrator/decisionList.css";
 export default function DecisionsList() {
   const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
+  // const [valuesDetailsDecisionsById, setValuesDetailsDecisionsById] = useState([]);
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
+  const idParam = useParams();
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -16,11 +20,38 @@ export default function DecisionsList() {
       headers: myHeader,
     };
 
-    fetch("http://localhost:5000/decision", requestOptions)
+    fetch(`${backEnd}/decision`, requestOptions)
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecisions(result))
       .catch((error) => console.warn("error", error));
   }, [token]);
+
+  useEffect(() => {
+    const myHeader = new Headers();
+    myHeader.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      headers: myHeader,
+    };
+    fetch(`${backEnd}/decision/${idParam.id}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.warn(result))
+      .catch((error) => console.warn("error", error));
+  }, []);
+
+  // useEffect(() => {
+  //   const myHeader = new Headers();
+  //   myHeader.append("Authorization", `Bearer ${token}`);
+
+  //   const requestOptions = {
+  //     headers: myHeader,
+  //   };
+
+  //   fetch(`${backEnd}/decision/${idParam.id}`, requestOptions)
+  //     .then((response) => response.json())
+  //     .then((result) => console.warn(result))
+  //     .catch((error) => console.warn("error", error));
+  // }, []);
 
   return (
     <div className="usersListPage w-screen">
@@ -54,7 +85,7 @@ export default function DecisionsList() {
           key={decision.id}
           className="grid grid grid-cols-8 text-center mt-2"
         >
-          {console.warn(valuesDetailsDecisions)}
+          {/* {console.warn(valuesDetailsDecisions)} */}
           <button type="button" className="decisionsListBoard1 pt-1 pl-12">
             <BsTrash />
           </button>
