@@ -72,20 +72,6 @@ const editPassword = (req, res) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        /*   mailer.sendMail(
-          {
-            from: "succi.iris@gmail.com",
-            to: email,
-            subject: "Réinitialisation de votre mot de passe.",
-            text: "Vous souhaitez réinitialiser votre mot de passe ? http://localhost:3000/nouveau-mdp",
-            html: "<a href='http://localhost:3000/nouveau-mdp'>Cliquez ici</a>",
-          },
-          (err, info) => {
-            if (err) console.error(err);
-            else console.warn(info);
-          }
-        ); */
-
         res.status(202).send(pass);
       }
     })
@@ -98,8 +84,6 @@ const editPassword = (req, res) => {
 /* function that retrieves data with "update" by id */
 const edit = (req, res) => {
   const user = req.body;
-
-  // TODO validations (length, format...)
 
   user.id = parseInt(req.params.id, 10);
 
