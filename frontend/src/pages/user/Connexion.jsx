@@ -48,37 +48,35 @@ function Connexion() {
       .catch((error) => console.warn(error));
   };
   return (
-    <div className="connexionPage ">
+    <div className=" h-auto md-max:bg-dark-blue">
       <Toaster position="top-center" reverseOrder={false} />
       <NavLink to="/">
         <img
-          className="p-6 hidden md:block"
+          className="p-6 hidden md:block max-w-xs"
           src="/src/assets/logo-makesense.png"
           alt="logo"
-          width={350}
         />
       </NavLink>
       <NavLink to="/" className="flex justify-center">
         <img
-          className="p-6 md:hidden"
+          className="p-6 md:hidden max-w-xs"
           src="/src/assets/make_sense_white.png"
           alt="logo"
-          width={350}
         />
       </NavLink>
-      <div className="connexionBloc flex flex-col justify-center items-center text-white ">
+      <div className="flex flex-col justify-center items-center text-white ">
         <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 md:shadow-1 relative ">
           {/* <div className="connexion-YellowRectangle" /> */}
-          <div className="p-6 space-y-6 sm:p-8">
+          <div className="p-4 space-y-4 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               CONNEXION
             </h1>
-            <p className="text-2xl text-center">Accédez à votre compte </p>
+            <p className="text-xl text-center">Accédez à votre compte </p>
             <div className="index space-y-8" action="#">
               <div>
                 <label
                   htmlFor="email"
-                  className="text-white block mt-8 mb-2 text-lg font-medium"
+                  className="text-white block mt-8 mb-2 text-md font-medium"
                 >
                   E-mail :
                 </label>
@@ -87,7 +85,7 @@ function Connexion() {
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   id="email"
-                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                  className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                   placeholder="pseudo@exemple.com"
                   required=""
                 />
@@ -95,7 +93,7 @@ function Connexion() {
               <div>
                 <label
                   htmlFor="password"
-                  className=" block mb-2 text-lg font-medium"
+                  className=" block mb-2 text-md font-medium"
                 >
                   Mot de passe :
                 </label>
@@ -105,7 +103,7 @@ function Connexion() {
                   id="password"
                   placeholder="••••••••"
                   onChange={(e) => setPassword(e.target.value)}
-                  className="text-black border sm:text-sm rounded-lg block w-full p-2.5"
+                  className="text-black border text-sm rounded-lg block w-full p-2.5"
                   required=""
                 />
               </div>
@@ -116,7 +114,7 @@ function Connexion() {
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      className="w-4 h-4 border text"
+                      className="w-4 h-4 border text-sm"
                       required=""
                     />
                   </div>
@@ -131,7 +129,7 @@ function Connexion() {
                 <button
                   type="submit"
                   onClick={sendConnexion}
-                  className=" text-white hover:bg-red-pink font-medium rounded-lg text-2xl px-4 py-4 text-center border hover:scale-105 duration-300"
+                  className=" text-white hover:bg-red-pink font-medium rounded-md text-xl p-4 text-center border hover:scale-105 duration-300"
                 >
                   SE CONNECTER
                 </button>
@@ -154,8 +152,10 @@ function Connexion() {
         </div>
         <br />
       </div>
-      {/* <section className="xxl-max:hidden"> */}
-      <section className="">
+      <section
+        className="flex flex-col md-max:h-max
+       md-max:flex-end"
+      >
         <div className="auth-LeftPicture absolute top-[240px] left-0">
           <img
             src={peoplepicture}
@@ -164,17 +164,17 @@ function Connexion() {
             className="1101-max:hidden w-[350px]"
           />
         </div>
-        <div className="flex justify-center md:justify-end mx-20">
-          <div className="flex md:flex-col flex-row w-[300px] text-center md:rounded-full md:border-2 text-red-pink text-l justify-around md:justify-start">
+        <div className="flex justify-center mx-20">
+          <div className="flex flex-row w-[300px] text-center  text-red-pink text-l justify-around">
             <NavLink className="hover:underline" to="/help">
-              <p href="help" className="text-sm md:text-l">
+              <p href="help" className="text-sm">
                 {" "}
                 Besoin d'aides ?
               </p>
             </NavLink>
-            <p className="md:hidden ">-</p>
+            <p>-</p>
             <NavLink to="/legal-notice" className="hover:underline">
-              <p className="md:mt-[5px] text-sm md:text-l">Mentions légales</p>
+              <p className="text-sm">Mentions légales</p>
             </NavLink>
           </div>
         </div>

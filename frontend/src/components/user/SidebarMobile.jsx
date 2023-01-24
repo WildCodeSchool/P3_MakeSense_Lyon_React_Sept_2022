@@ -37,7 +37,7 @@ export default function SidebarMobile({
     <div
       className={`${
         !open ? "h-[50px]" : "h-[500px]"
-      } bg-light-blue duration-300 w-screen flex flex-col justify-between text-white `}
+      } bg-light-blue duration-300 md:w-screen flex flex-col justify-between text-white `}
     >
       {open ? (
         <div className="h-[500px] flex flex-col items-center">

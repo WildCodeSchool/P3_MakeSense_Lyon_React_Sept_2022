@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:h-full w-full">
+    <div className="flex flex-col md:flex-row h-full md:w-screen">
       {location.pathname === "/" ||
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
