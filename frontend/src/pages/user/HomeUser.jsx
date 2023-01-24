@@ -38,7 +38,7 @@ export default function Home() {
   }, [token]);
 
   return (
-    <div className="w-screen">
+    <div className="w-screen z-0">
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -89,13 +89,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="box col-start-1 col-end-4">
-          <h2 className="md:text-3xl text-l text-red-pink font-extrabold p-3 ml-5">
+        <div className="box col-start-1 col-end-4 z-0">
+          <h2 className="md:text-3xl text-l text-red-pink font-extrabold p-3 ml-5 z-0">
             Décisions en cours :{" "}
           </h2>
         </div>
-        <div className="box col-start-1 col-end-4 md:ml-10 md:justify-start flex justify-center items-center">
-          <div className="md:grid md:grid-cols-4 gap-4">
+        <div className="box col-start-1 col-end-4 md:ml-10 md:justify-start flex justify-center items-center z-0">
+          <div className="md:grid md:grid-cols-4 gap-4 z-0">
             {valuesDetailsDecisions.slice(0, 8).map((valueDetailsDecision) => {
               if (
                 valueDetailsDecision.status_decision === "En cours" ||
@@ -114,13 +114,13 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
+              <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-5 sm:px-6 shadow-lg rounded-xl">
                 ... Voir plus
               </div>
             </button>
           </div>
         </div>
-        <div className="md:box md:row-start-1 md:row-end-4 md:col-start-4 justify-center items-center hidden">
+        <div className="hidden md:block md:row-start-1 md:row-end-4 md:col-start-4 md:justify-center md:items-center">
           <TimeStepperHome />
         </div>
       </div>
