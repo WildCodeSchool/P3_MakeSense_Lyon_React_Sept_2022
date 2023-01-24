@@ -86,13 +86,13 @@ export default function DecisionCard({
 
   // fetch avatar status
   useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${valueDetailsDecision.avatar}`)
+    fetch(`${backEnd}/avatar/${valueDetailsDecision.avatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [valueDetailsDecision]);
 
   return (
-    <div className=" w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
+    <div className=" relative w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
@@ -139,15 +139,15 @@ export default function DecisionCard({
       )}
       {valueDetailsDecision ? (
         <NavLink to={`/decision/${valueDetailsDecision.id}`}>
-          <div>
-            <p className="text-center mt-3">{valueDetailsDecision.title}</p>
+          <div className="flex items-center">
+            <p className="text-left mt-5 mb-5">{valueDetailsDecision.title}</p>
           </div>
-          <div className="border-t mt-3">
-            <p className="text-xs font-thin text-left m-1">
+          <div className="border-t absolute bottom-3 ">
+            <p className="text-xs font-thin text-left mt-2 text-gray-500">
               Crée le:{" "}
               {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
             </p>
-            <p className="text-xs font-thin text-left">
+            <p className="text-xs font-thin text-left text-gray-500">
               Fin de conflit le:{" "}
               {convertDateFromApi(valueDetailsDecision.date_decision_conflict)}
             </p>
