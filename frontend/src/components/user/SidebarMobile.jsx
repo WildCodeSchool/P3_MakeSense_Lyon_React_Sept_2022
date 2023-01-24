@@ -209,8 +209,8 @@ export default function SidebarMobile({
             stroke="currentColor"
             className={`${
               openMobile
-                ? "w-6 h-6 stroke-white  rotate-180  "
-                : "w-6 h-6 stroke-white "
+                ? "w-6 h-6 stroke-white   "
+                : "w-6 h-6 stroke-white rotate-180 "
             }`}
             onClick={() => setOpenMobile(!openMobile)}
           >
