@@ -169,7 +169,6 @@ export default function Sidebar({
                 Mon profil
               </p>
             </NavLink>
-
             <button
               type="button"
               className="flex flex-row items-center"
