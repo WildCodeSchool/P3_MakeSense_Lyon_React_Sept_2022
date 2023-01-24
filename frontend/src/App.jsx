@@ -24,6 +24,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState();
   const [open, setOpen] = useState(true);
+  const [openMobile, setOpenMobile] = useState(false);
   const location = useLocation();
   const { token } = useCurrentUserContext();
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ function App() {
               handleChecked={handleChecked}
             />
           </aside>
-          <div className="w-screen md:hidden fixed bottom-0 left-0 right-0">
+          <div className="w-screen md:hidden fixed bottom-0 left-0 right-0 z-50">
             <SidebarMobile
               showModal={showModal}
               setShowModal={setShowModal}
@@ -67,6 +68,8 @@ function App() {
               checked={checked}
               setChecked={setChecked}
               handleChecked={handleChecked}
+              openMobile={openMobile}
+              setOpenMobile={setOpenMobile}
             />
           </div>
         </div>
