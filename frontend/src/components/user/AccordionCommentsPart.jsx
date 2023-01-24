@@ -91,12 +91,12 @@ function AccordionCommentsPart({
 
   return (
     <div>
-      <div className="flex flex-row mx-6">
-        <h2 className="mt-4 mb-3">Commentaire </h2>
+      <div className="flex flex-row mx-6 items-center">
+        <h2 className="mt-4 mb-3">Commentaire :</h2>
         <button
           type="button"
           onClick={handleStatusNeutral}
-          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
+          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
             chosenStatusAgainst === false &&
             chosenStatusFor === false &&
             chosenStatusNeutral === true
@@ -109,7 +109,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={handleStatusFor}
-          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
             chosenStatusNeutral === false &&
             chosenStatusAgainst === false &&
             chosenStatusFor === true
@@ -122,7 +122,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={handleStatusAgainst}
-          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
             chosenStatusNeutral === false &&
             chosenStatusFor === false &&
             chosenStatusAgainst === true
