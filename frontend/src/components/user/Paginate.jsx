@@ -28,7 +28,7 @@ function Paginate({
     pageNumbers.push(i);
   }
   return (
-    <div className=" hite px-4 py-3 flex items-center justify-between border-t rounded-b-xl border-gray-100 sm:px-6">
+    <div className="px-4 py-3 flex items-center justify-between border-t rounded-b-xl border-gray-100 sm:px-6">
       <div className="flex-1 flex justify-between sm">
         {open && isMobile ? null : (
           <button

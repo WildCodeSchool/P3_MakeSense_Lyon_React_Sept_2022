@@ -50,7 +50,7 @@ function ForgottenPassword({ email, setEmail }) {
       </NavLink>
       <div className="flex flex-col justify-between md-max:h-3/4">
         <div className=" flex flex-col justify-center items-center text-white ">
-          <div className="bg-dark-blue  rounded-lg max-w-xl xl:p-0 md:shadow-1 mt-[44px] md:mt-[100px] ">
+          <div className="bg-dark-blue  rounded-lg max-w-xl xl:p-0 md:shadow-1 mt-[30px] md:mt-[60px] ">
             {/* <div className="connexion-YellowRectangle" /> */}
             <div className="p-6 space-y-6 sm:p-12">
               <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
@@ -60,7 +60,7 @@ function ForgottenPassword({ email, setEmail }) {
                 <div>
                   <label
                     htmlFor="email"
-                    className="text-white block mt-8 mb-4 text-lg font-medium"
+                    className="text-white block mt-8 mb-4 text-md font-medium"
                   >
                     Votre adresse e-mail :
                   </label>
@@ -69,7 +69,7 @@ function ForgottenPassword({ email, setEmail }) {
                     name="email"
                     id="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                    className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                     placeholder="pseudo@exemple.com"
                     required=""
                   />
@@ -78,7 +78,7 @@ function ForgottenPassword({ email, setEmail }) {
                   <button
                     onClick={sendEmail}
                     type="submit"
-                    className=" text-white mt-5 hover:bg-red-pink font-medium rounded-lg text-1xl px-5 py-3 text-center border hover:scale-105 duration-300"
+                    className=" text-white mt-5 hover:bg-red-pink font-medium rounded-lg text-xl px-5 py-3 text-center border hover:scale-105 duration-300"
                   >
                     Envoyer la demande
                   </button>
@@ -104,19 +104,17 @@ function ForgottenPassword({ email, setEmail }) {
               className="xl-max:hidden w-[350px]"
             />
           </div>
-          <div className="flex justify-center md:justify-end mx-20">
-            <div className="flex md:flex-col flex-row w-[300px] text-center md:rounded-full md:border-2 text-red-pink  justify-around md:justify-start md:mt-12">
+          <div className="flex justify-center mx-20">
+            <div className="flex flex-row w-[300px] text-center text-red-pink  justify-around">
               <NavLink className="hover:underline " to="/help">
-                <p href="help" className="text-sm md:text-l hover:underline">
+                <p href="help" className="text-sm hover:underline">
                   {" "}
                   Besoin d'aides ?
                 </p>
               </NavLink>
-              <p className="md:hidden">-</p>
+              <p>-</p>
               <NavLink to="/legal-notice" className="hover:underline ">
-                <p className="md:mt-[5px] text-sm md:text-l">
-                  Mentions légales
-                </p>
+                <p className="text-sm ">Mentions légales</p>
               </NavLink>
             </div>
           </div>
