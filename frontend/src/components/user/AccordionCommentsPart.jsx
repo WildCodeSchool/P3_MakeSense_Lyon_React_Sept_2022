@@ -92,11 +92,11 @@ function AccordionCommentsPart({
   return (
     <div>
       <div className="flex flex-row mx-6">
-        <h2 className="mt-8 mb-3">Commentaire :</h2>
+        <h2 className="mt-4 mb-3">Commentaire </h2>
         <button
           type="button"
           onClick={handleStatusNeutral}
-          className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
             chosenStatusAgainst === false &&
             chosenStatusFor === false &&
             chosenStatusNeutral === true
@@ -109,7 +109,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={handleStatusFor}
-          className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
             chosenStatusNeutral === false &&
             chosenStatusAgainst === false &&
             chosenStatusFor === true
@@ -122,7 +122,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={handleStatusAgainst}
-          className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
             chosenStatusNeutral === false &&
             chosenStatusFor === false &&
             chosenStatusAgainst === true
@@ -139,8 +139,9 @@ function AccordionCommentsPart({
         onChange={(value) => setValueComment(value)}
         modules={modules}
       />
+
       {/* when this button is clicked it enables the addComment function */}
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between mr-4">
         <div> </div>
         <button
           type="button"

@@ -49,7 +49,7 @@ export default function DecisionDetails() {
     return "encours";
   };
   return (
-    <div className="flex flex-col w-screen">
+    <div className="flex flex-col w-screen overflow-hidden">
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -57,48 +57,58 @@ export default function DecisionDetails() {
           ) : (
             <p className="pl-10 pt-3 text-xl">Bonjour</p>
           )}
-          <p className="pl-10 text-x font-extralight">
+          <p className="pl-10 text-x font-extralight text-gray-500">
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Détail de la décision</h1>
-        <div className="logo-home">
+        <h1 className="md:text-2xl text-red-pink hidden">
+          Détail de la décision
+        </h1>
+        <div className="hidden md:block logo-home">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row-reverse justify-around mt-10">
-        <TimelineStepperDecision
-          clickedAnswer4={clickedAnswer4}
-          setClickedAnswer4={setClickedAnswer4}
-          valuesDetailsDecision={valuesDetailsDecision}
-          urlAvatarStatus={urlAvatarStatus}
-        />
-        <div className="flex flex-col mr-10">
-          <div className="flex flex-row items-center">
-            <div className={statusForClassname()} />
+      <div className="flex flex-col md:flex-row-reverse  justify-around mt-10">
+        <div className="hidden md:flex md:flex-col">
+          <TimelineStepperDecision
+            clickedAnswer4={clickedAnswer4}
+            setClickedAnswer4={setClickedAnswer4}
+            valuesDetailsDecision={valuesDetailsDecision}
+            urlAvatarStatus={urlAvatarStatus}
+          />
+        </div>
+
+        <div className="flex flex-col md:mr-10 ml-2 md:ml-10">
+          <div className="flex flex-col">
             <div className="flex flex-row items-end">
-              <h2 className="text-2xl mr-3">
+              <h2 className="text-2xl">
                 {" "}
                 &nbsp; {valuesDetailsDecision.title}
               </h2>
               {/* Here the status color changes according to the decision status */}
+            </div>
+          </div>
+          <div className="flex flex-row ml-3 items-center">
+            <div className="flex flex-row items-center ">
+              <div className={statusForClassname()} />
               <p
                 className={`${
                   valuesDetailsDecision.status_decision === "En cours"
-                    ? "text-light-blue"
+                    ? "text-light-blue "
                     : valuesDetailsDecision.status_decision === "En conflit"
                     ? "text-light-orange"
                     : valuesDetailsDecision.status_decision === "Non aboutie"
-                    ? "text-red-pink"
+                    ? "text-red-pink "
                     : valuesDetailsDecision.status_decision === "Terminee"
                     ? "text-light-green"
                     : " "
                 }`}
               >
-                -&nbsp; {valuesDetailsDecision.status_decision}
+                &nbsp; {valuesDetailsDecision.status_decision}
               </p>
             </div>
-
+          </div>
+          <div className="flex flex-col md:mr-10 ml-2">
             {valuesDetailsDecision.user_id === user.id ? (
               <button
                 type="button"
@@ -109,8 +119,10 @@ export default function DecisionDetails() {
               </button>
             ) : null}
           </div>
-          <div>
-            <p>Proposé par {valuesDetailsDecision.firstname} :</p>
+          <div className="flex flex-row justify-end">
+            <p className="mt-2 mr-3">
+              Proposé par {valuesDetailsDecision.firstname} :
+            </p>
             <button
               type="button"
               onClick={() =>
@@ -118,7 +130,7 @@ export default function DecisionDetails() {
               }
             >
               <img
-                className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 "
+                className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 mr-3"
                 src={
                   urlAvatarStatus.status === 200
                     ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
@@ -128,7 +140,7 @@ export default function DecisionDetails() {
               />
             </button>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center overflow-hidden">
             <AccordionDecisionDetails
               clickedAnswer4={clickedAnswer4}
               setClickedAnswer4={setClickedAnswer4}
