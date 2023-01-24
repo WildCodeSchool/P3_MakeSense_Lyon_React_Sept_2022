@@ -30,8 +30,8 @@ export default function AccordionDecisionDetails({
   };
 
   return (
-    <div>
-      <ul className="accordion max-w-screen-md mt-10 h-auto">
+    <div className="">
+      <ul className="accordion md:max-w-screen-md mt-10  h-auto w-screen">
         <li className={`accordion_item ${clickedAnswer1 ? "active" : ""}`}>
           <div className="border-b-2 border-red-pink py-4">
             <button
@@ -55,7 +55,7 @@ export default function AccordionDecisionDetails({
             className="answer_wrapper"
             style={clickedAnswer1 ? { height: "auto" } : { height: "0px" }}
           >
-            <div className="answer my-6">
+            <div className="my-6">
               <ReactQuill
                 theme="bubble"
                 value={valuesDetailsDecision.content}
@@ -89,14 +89,14 @@ export default function AccordionDecisionDetails({
             style={clickedAnswer2 ? { height: "auto" } : { height: "0px" }}
           >
             <div className="answer my-6">
-              <h3>Risque potentiel :</h3>
+              <h3 className="ml-2">Risque potentiel :</h3>
               <ReactQuill
                 theme="bubble"
                 value={valuesDetailsDecision.risk}
                 readOnly
               />
               <hr className="border-red-pink my-6" />
-              <h3>Impact :</h3>
+              <h3 className="ml-2">Impact :</h3>
               <ReactQuill
                 theme="bubble"
                 value={valuesDetailsDecision.impact}
