@@ -1,5 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 const CurrentUserContext = createContext();
 
 export default CurrentUserContext;
@@ -16,7 +18,7 @@ export function CurrentUserContextProvider({ children }) {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/user/bytoken`, requestOptions)
+    fetch(`${backEnd}/user/bytoken`, requestOptions)
       .then((response) => response.json())
       .then((result) => setUser(result))
       .catch((error) => console.warn("error", error));

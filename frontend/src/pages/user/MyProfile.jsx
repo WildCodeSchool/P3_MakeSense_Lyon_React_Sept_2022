@@ -25,6 +25,27 @@ export default function MyProfile() {
   const notifyErrorProfile = () =>
     toast.error("Une erreur est survenue, veuillez vérifier vos informations");
 
+  // fetch user informations
+  useEffect(() => {
+    const myHeader = new Headers();
+    myHeader.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      headers: myHeader,
+    };
+
+    fetch(`${backEnd}/user/bytoken`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setFirstname(result.firstname);
+        setLastname(result.lastname);
+        setEmail(result.email);
+        setCity(result.city);
+        setPhone(result.phone);
+      })
+      .catch((error) => console.warn("error", error));
+  }, []);
+
   // fetch to submit my avatr
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +63,7 @@ export default function MyProfile() {
         body: formData,
       };
 
-      fetch("http://localhost:5000/avatar", requestOptions)
+      fetch(`${backEnd}/avatar`, requestOptions)
         .then((response) => response.json())
         .then((results) => {
           setUser({ ...user, avatar: results.avatar });
@@ -86,14 +107,10 @@ export default function MyProfile() {
         }
       )
       .then((response) => {
-        response.json();
-        if (response.status === 202) {
-          setTimeout(() => {
-            navigate("/home");
-          }, 2000);
-        } else {
+        if (response.status !== 202) {
           notifyErrorProfile();
         }
+        return response.json();
       })
       .then((results) => {
         setUser({
