@@ -40,7 +40,7 @@ export default function DecisionsList() {
         </div>
       </div>
       <div className="usersListBoard grid grid-cols-8 mt-12 text-center bg-gray-200 border-2 border-gray-600 border-solid">
-        <div className="decisionsListBoard1 pt-1" />
+        <div className="decisionsListBoard1 pt-1 bg-white" />
         <div className="decisionsListBoard">Auteur</div>
         <div className="decisionsListBoard">Concerné</div>
         <div className="decisionsListBoard">Expert</div>

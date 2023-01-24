@@ -66,50 +66,7 @@ export default function UsersList() {
           </p>
         </div>
       </div>
-
-      {/* {users.map((user) => (
-        <div className="usersListBoard grid grid-cols-8 text-center border-2 border-gray-600 border-solid">
-          <ul>
-            <li className="usersListBoardCol">
-              <input type="checkbox" />
-            </li>
-            <li>
-              <input type="checkbox" />
-            </li>
-          </ul>
-          <ul>
-            <li className="usersListBoardCol">Prénom</li>
-            <li>{user.firstname}</li>
-          </ul>
-          <ul>
-            <li className="usersListBoardCol">Nom</li>
-            <li>{user.lastname}</li>
-          </ul>
-          <ul>
-            <li className="usersListBoardCol">Email</li>
-            <li>{user.email}</li>
-          </ul>
-          <ul>
-            <li className="usersListBoardCol">Localisation</li>
-            <li>{user.city}</li>
-          </ul>
-
-          <ul>
-            <li className="usersListBoardCol">Téléphone</li>
-            <li>{user.phone}</li>
-          </ul>
-          <ul>
-            <li className="usersListBoardCol">Photo</li>
-            <li>{user.avatar}</li>
-          </ul>
-          <ul>
-            <li className="usersListBoardCol">Status</li>
-            <li>{user.is_admin === 1 ? "Administrateur" : "Utilisateur"}</li>
-          </ul>
-        </div>
-      ))} */}
-
-      <div className="usersListBoard grid grid-cols-8 text-center border-2 border-gray-600 border-solid">
+      <div className="usersListBoard grid grid-cols-8 text-center border-2 border-gray-200 border-solid">
         <div className="usersListBoardCol">
           <input type="checkbox" />
         </div>
