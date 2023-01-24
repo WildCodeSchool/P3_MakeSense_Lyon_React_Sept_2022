@@ -56,6 +56,11 @@ router.post(
 
 // Routes for decision ***************************************
 router.get("/decision", verifyToken, decisionControllers.browse);
+router.get(
+  "/decision/page",
+  verifyToken,
+  decisionControllers.browseByPageAndFilter
+);
 router.get("/decision/last", verifyToken, decisionControllers.readByLast);
 router.get("/decision/:id", verifyToken, decisionControllers.read);
 router.get(

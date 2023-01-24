@@ -5,6 +5,8 @@ import { useCurrentUserContext } from "../../context/UserContext";
 import userimg from "../../assets/icons/user.png";
 import edit from "../../assets/icons/edit.svg";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 function Comments({
   valuesDetailsDecision,
   urlAvatarStatus,
@@ -62,7 +64,7 @@ function Comments({
     };
 
     fetch(
-      `http://localhost:5000/decision/${decisionIdParam.id}/comments/${comment.id}`,
+      `${backEnd}/decision/${decisionIdParam.id}/comments/${comment.id}`,
       requestOptions
     )
       .then((response) => response.text())

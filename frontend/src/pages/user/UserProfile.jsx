@@ -6,6 +6,8 @@ import Logo from "../../assets/logo-makesense.png";
 import DecisionCard from "../../components/user/DecisionCard";
 import { useCurrentUserContext } from "../../context/UserContext";
 
+const backEnd = import.meta.env.VITE_BACKEND_URL;
+
 export default function UserProfile() {
   const { user, token } = useCurrentUserContext();
   const idParam = useParams();
@@ -30,12 +32,12 @@ export default function UserProfile() {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/user/${idParam.id}`, requestOptions)
+    fetch(`${backEnd}/user/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setValuesUser(result);
         setUrlAvatar(result.avatar);
-        console.warn("result", result.avatar);
+        console.warn("result", result);
       })
       .catch((error) => console.warn("error", error));
   }, []);
@@ -95,7 +97,7 @@ export default function UserProfile() {
                   : Randomuser
               }
               alt="Avatar"
-              width={250}
+              width={200}
             />
           </div>
           <div className="flex flex-col gap-y-20 justify-center">

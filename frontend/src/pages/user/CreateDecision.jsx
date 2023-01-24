@@ -1,19 +1,19 @@
-/* eslint-disable camelcase */
-/* eslint-disable import/order */
 import { React, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import DatePicker from "react-datepicker";
+import { useNavigate } from "react-router-dom";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import toast, { Toaster } from "react-hot-toast";
 import target from "../../assets/icons/target.svg";
 import "../../css/user/createDecision.css";
 import Close from "../../assets/icons/x.svg";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useCurrentUserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-makesense.png";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import toast, { Toaster } from "react-hot-toast";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function CreateDecision() {
   const { user, token } = useCurrentUserContext();
@@ -22,7 +22,7 @@ export default function CreateDecision() {
   const [impact, setValueImpactOfDecision] = useState("");
   const [benefits, setValueBenefitsOfDecision] = useState("");
   const [risk, setValueRiskOfDecision] = useState("");
-  const [date_decision_conflict, setStartDateConflictOfDecision] = useState(
+  const [dateDecisionConflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
   const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
@@ -40,6 +40,13 @@ export default function CreateDecision() {
       ["bold", "underline", "italic"],
       [{ color: [] }, { background: [] }],
       [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
+    ],
+  };
+
+  const modulesmobile = {
+    toolbar: [
+      ["bold", "underline", "italic"],
       ["link", "image"],
     ],
   };
@@ -74,7 +81,7 @@ export default function CreateDecision() {
       risk,
       benefits,
       date_decision_creation: dateConvertedToSqlFormat(Date.now()),
-      date_decision_conflict: dateConvertedToSqlFormat(date_decision_conflict),
+      date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
       status_decision: "En cours",
       user_id: user.id,
       person_expert: choosePersonExpert,
@@ -83,7 +90,7 @@ export default function CreateDecision() {
     });
     toast
       .promise(
-        fetch("http://localhost:5000/decision", {
+        fetch(`${backEnd}/decision`, {
           method: "POST",
           redirect: "follow",
           body: raw,
@@ -98,7 +105,6 @@ export default function CreateDecision() {
       )
       .then((response) => {
         response.json();
-        console.warn(response.status);
         if (response.status === 201) {
           setTimeout(() => {
             navigate("/home");
@@ -118,7 +124,7 @@ export default function CreateDecision() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:5000/user/byname`, requestOptions)
+    fetch(`${backEnd}/user/byname`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setPersonExperteDecision(result);
@@ -158,7 +164,7 @@ export default function CreateDecision() {
       </div>
       <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
-          <div className="row-span-3 ...">
+          <div className="hidden md:block row-span-3 ...">
             <p className="mt-20 decision-resume">
               <img src={target} alt="targeticon" />
               Décision
@@ -182,39 +188,91 @@ export default function CreateDecision() {
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
               />
             </div>
-            <h2 className="mt-8 mb-3">Description de la décision :</h2>
-            <ReactQuill
-              theme="snow"
-              value={content}
-              onChange={setValueDecision}
-              modules={modules}
-            />
-            <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
-            <ReactQuill
-              theme="snow"
-              value={impact}
-              onChange={setValueImpactOfDecision}
-              modules={modules}
-            />
-            <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
-            <ReactQuill
-              theme="snow"
-              value={benefits}
-              onChange={setValueBenefitsOfDecision}
-              modules={modules}
-            />
-            <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
-            <ReactQuill
-              theme="snow"
-              value={risk}
-              onChange={setValueRiskOfDecision}
-              modules={modules}
-            />
+            <div className="hidden md:block">
+              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={content}
+                onChange={setValueDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="hidden md:block">
+              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <ReactQuill
+                theme="snow"
+                value={impact}
+                onChange={setValueImpactOfDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="hidden md:block">
+              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={benefits}
+                onChange={setValueBenefitsOfDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="hidden md:hidden">
+              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={risk}
+                onChange={setValueRiskOfDecision}
+                modules={modules}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={content}
+                onChange={setValueDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <ReactQuill
+                theme="snow"
+                value={impact}
+                onChange={setValueImpactOfDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={benefits}
+                onChange={setValueBenefitsOfDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
+            <div className="md:hidden">
+              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <ReactQuill
+                theme="snow"
+                value={risk}
+                onChange={setValueRiskOfDecision}
+                modules={modulesmobile}
+              />
+            </div>
+
             <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
               <div className="containerDate">
                 <DatePicker
-                  selected={date_decision_conflict}
+                  selected={dateDecisionConflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Donner son avis"

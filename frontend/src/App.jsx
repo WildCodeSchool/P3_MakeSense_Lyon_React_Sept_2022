@@ -1,28 +1,26 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/order */
-// eslint-disable-next-line import/order
 import { React, useState } from "react";
-import CreateDecision from "@pages/user/CreateDecision";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import CreateDecision from "./pages/user/CreateDecision";
 import HomeUser from "./pages/user/HomeUser";
-import Sidebar from "@components/user/Sidebar";
 import Authentification from "./pages/Authentification";
 import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
-import LegalNotice from "@pages/user/LegalNotice";
-import MyProfile from "@pages/user/MyProfile";
-import Help from "@pages/user/Help";
-import Decisions from "@pages/user/Decisions";
-import DecisionDetails from "@pages/user/DecisionDetails";
-import NotificationModal from "@components/user/NotificationModal";
-import Inscription from "@pages/user/Inscription";
-import ForgottenPassword from "@pages/user/ForgottenPassword";
+import LegalNotice from "./pages/user/LegalNotice";
+import Sidebar from "./components/user/Sidebar";
+import MyProfile from "./pages/user/MyProfile";
+import Help from "./pages/user/Help";
+import Decisions from "./pages/user/Decisions";
+import DecisionDetails from "./pages/user/DecisionDetails";
+import NotificationModal from "./components/user/NotificationModal";
+import Inscription from "./pages/user/Inscription";
+import ForgottenPassword from "./pages/user/ForgottenPassword";
 import { useCurrentUserContext } from "./context/UserContext";
-import EditDecision from "@pages/user/EditDecision";
-import Password from "@pages/user/Password";
-import HomeAdmin from "@pages/administrator/HomeAdmin";
-import UsersList from "@pages/administrator/UsersList";
-import DecisionsList from "@pages/administrator/DecisionsList";
+import EditDecision from "./pages/user/EditDecision";
+import Password from "./pages/user/Password";
+import SidebarMobile from "./components/user/SidebarMobile";
+import HomeAdmin from "./pages/administrator/HomeAdmin";
+import UsersList from "./pages/administrator/UsersList";
+import DecisionsList from "./pages/administrator/DecisionsList";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -43,24 +41,37 @@ function App() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row md:h-full w-full">
       {location.pathname === "/" ||
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
       token === null ||
       location.pathname === "/help" ? null : (
-        <aside className="h-screen sticky top-0 overflow-hidden">
-          <Sidebar
-            showModal={showModal}
-            setShowModal={setShowModal}
-            open={open}
-            setOpen={setOpen}
-            checked={checked}
-            setChecked={setChecked}
-            handleChecked={handleChecked}
-          />
-        </aside>
+        <div className="relative">
+          <aside className="h-screen sticky top-0 overflow-hidden hidden md:block">
+            <Sidebar
+              showModal={showModal}
+              setShowModal={setShowModal}
+              open={open}
+              setOpen={setOpen}
+              checked={checked}
+              setChecked={setChecked}
+              handleChecked={handleChecked}
+            />
+          </aside>
+          <div className="w-screen md:hidden fixed bottom-0 left-0 right-0">
+            <SidebarMobile
+              showModal={showModal}
+              setShowModal={setShowModal}
+              open={open}
+              setOpen={setOpen}
+              checked={checked}
+              setChecked={setChecked}
+              handleChecked={handleChecked}
+            />
+          </div>
+        </div>
       )}
       {showModal ? (
         <NotificationModal

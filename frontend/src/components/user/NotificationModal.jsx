@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { useCurrentUserContext } from "../../context/UserContext";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function NotificationModal({ setShowModal, open }) {
   const { user, token } = useCurrentUserContext();
@@ -14,7 +15,7 @@ function NotificationModal({ setShowModal, open }) {
     const requestOptions = {
       headers: myHeader,
     };
-    fetch(`http://localhost:5000/notification/${user.id}`, requestOptions)
+    fetch(`${backEnd}/notification/${user.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setNotifs(result);

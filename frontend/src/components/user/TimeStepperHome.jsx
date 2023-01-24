@@ -1,9 +1,9 @@
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from "react";
 import "../../css/user/homeUser.css";
 import circle from "../../assets/icons/circle.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function TimeStepperHome() {
   const { token } = useCurrentUserContext();
@@ -21,17 +21,17 @@ export default function TimeStepperHome() {
       headers: myHeader,
     };
 
-    fetch("http://localhost:5000/decision/last", requestOptions)
+    fetch(`${backEnd}/decision/last`, requestOptions)
       .then((response) => response.json())
       .then((result) => setDecisions(result))
       .catch((error) => console.warn("error", error));
   }, [token]);
 
-  console.warn(decisions);
   return (
-    <div className="flex flex-col border-2 border-red-pink rounded-xl mr-3 pb-5 pt-5 shadow-sm">
+    <div className="flex flex-col pb-5 pt-5 rounded-xl w-[250px]">
       <h6 className="text-center mb-5">
-        Prochaines décisions <br></br>en conflit
+        Prochaines décisions <br />
+        en conflit
       </h6>
       <ul className="flex flex-col ">
         {decisions?.map((data, index) => (
@@ -51,7 +51,7 @@ export default function TimeStepperHome() {
                 />
               </div>
               <div>
-                <div className="w-0.5 h-14 bg-dark-blue" />
+                <div className="w-0.5 h-14 bg-red-pink" />
               </div>
 
               <div className="" />

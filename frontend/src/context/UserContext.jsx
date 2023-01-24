@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useState, useContext, useEffect } from "react";
 
 const CurrentUserContext = createContext();
