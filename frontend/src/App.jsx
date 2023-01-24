@@ -21,6 +21,7 @@ import SidebarMobile from "./components/user/SidebarMobile";
 import HomeAdmin from "./pages/administrator/HomeAdmin";
 import UsersList from "./pages/administrator/UsersList";
 import DecisionsList from "./pages/administrator/DecisionsList";
+import Messages from "./pages/administrator/Messages";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -85,6 +86,8 @@ function App() {
       ) : null}
       {token ? (
         <Routes>
+          <Route path="/help" element={<Help />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
           <Route
             path="/home"
             element={<HomeUser open={open} setOpen={setOpen} />}
@@ -122,7 +125,7 @@ function App() {
           />
           <Route path="/userslist" element={<UsersList />} />
           <Route path="/decisionslist" element={<DecisionsList />} />
-          {/* <Route path="mailbox" element={<Messages />} /> */}
+          <Route path="mailbox" element={<Messages />} />
           {/* <Route path="bin" element={<Bin />} /> */}
         </Routes>
       ) : (
