@@ -6,7 +6,7 @@ import HeaderCountryChoice from "../components/user/HeaderCountryChoice";
 
 export default function Authentification() {
   return (
-    <section className="auth-Page bg-dark-blue md:bg-white relative h-screen w-screen xl:overflow-hidden">
+    <section className="bg-dark-blue md:bg-white relative h-screen w-auto xl:overflow-hidden">
       <HeaderCountryChoice />
       <Connexion />
     </section>
