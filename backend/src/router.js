@@ -90,5 +90,5 @@ router.post("/decision/:id/comments", verifyToken, commentControllers.add);
 router.get("/notification/:id", verifyToken, notificationControllers.browse);
 
 // Route for admin **********************************************
-router.get("/admin/countstats", verifyToken, adminControllers.browseCount);
+router.get("/admin/countstats", adminControllers.browseCount);
 module.exports = router;

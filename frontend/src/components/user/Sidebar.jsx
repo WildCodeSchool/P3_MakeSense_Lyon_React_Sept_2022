@@ -240,7 +240,7 @@ export default function Sidebar({
               </svg>
               <p className={`${open ? "text-xl mt-1" : "hidden"}`}>Home</p>
             </NavLink>
-            <NavLink to="/decisions" className="flex flex-row items-center ">
+            <NavLink to="/mailbox" className="flex flex-row items-center ">
               <div className="yellow-point mr-2 mt-3 " />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -263,12 +263,8 @@ export default function Sidebar({
                 Messagerie
               </p>
             </NavLink>
-            <button
-              type="button"
-              onClick={handleNotificationModal}
-              className="flex flex-row items-center"
-            >
-              <div className="yellow-point mr-2 mt-3" />
+            <NavLink to="/userslist" className="flex flex-row items-center ">
+              <div className="yellow-point mr-2 mt-3 " />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -287,10 +283,10 @@ export default function Sidebar({
               </svg>
 
               <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
-                Liste d'utilisateur
+                Liste Utilisateurs
               </p>
-            </button>
-            <NavLink to="/my-profile" className="flex flex-row items-center">
+            </NavLink>
+            <NavLink to="/decisionsList" className="flex flex-row items-center">
               <div className="yellow-point mr-2 mt-3" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -313,7 +309,7 @@ export default function Sidebar({
                 Liste décisions
               </p>
             </NavLink>
-            <NavLink to="/my-profile" className="flex flex-row items-center">
+            <NavLink to="/bin" className="flex flex-row items-center">
               <div className="yellow-point mr-2 mt-3" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -2,11 +2,11 @@ import { React, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import CreateDecision from "./pages/user/CreateDecision";
 import HomeUser from "./pages/user/HomeUser";
-import Sidebar from "./components/user/Sidebar";
 import Authentification from "./pages/Authentification";
 import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
 import LegalNotice from "./pages/user/LegalNotice";
+import Sidebar from "./components/user/Sidebar";
 import MyProfile from "./pages/user/MyProfile";
 import Help from "./pages/user/Help";
 import Decisions from "./pages/user/Decisions";
@@ -19,6 +19,8 @@ import EditDecision from "./pages/user/EditDecision";
 import Password from "./pages/user/Password";
 import SidebarMobile from "./components/user/SidebarMobile";
 import HomeAdmin from "./pages/administrator/HomeAdmin";
+import UsersList from "./pages/administrator/UsersList";
+import DecisionsList from "./pages/administrator/DecisionsList";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -118,7 +120,10 @@ function App() {
               />
             }
           />
-          {/* <Route path="messages" element={<Messages />} /> */}
+          <Route path="/userslist" element={<UsersList />} />
+          <Route path="/decisionslist" element={<DecisionsList />} />
+          {/* <Route path="mailbox" element={<Messages />} /> */}
+          {/* <Route path="bin" element={<Bin />} /> */}
         </Routes>
       ) : (
         <Routes>
