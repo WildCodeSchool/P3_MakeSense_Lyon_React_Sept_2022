@@ -46,7 +46,7 @@ export default function Home() {
           ) : (
             <p className="pl-10 pt-3 text-xl">Bonjour</p>
           )}
-          <p className="hidden md:flex pl-10 text-x font-extralight text-gray-500">
+          <p className="md:flex pl-10 text-x font-extralight text-gray-500">
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>

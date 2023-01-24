@@ -161,12 +161,12 @@ export default function Decisions({ open }) {
           ) : (
             <p className="pl-10 pt-3 text-xl">Bonjour</p>
           )}
-          <p className="pl-10 text-x font-extralight">
+          <p className="pl-10 text-x font-extralight text-gray-500">
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Décisions</h1>
-        <div className="logo-home">
+        <h1 className="hidden md:flex text-2xl text-red-pink">Décisions</h1>
+        <div className="logo-home hidden md:flex ">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
@@ -231,12 +231,15 @@ export default function Decisions({ open }) {
           + Nouvelle décision
         </button>
       </div>
-      <Menu as="div" className="relative inline-block text-left mt-3 md:hidden">
-        <div className="">
+      <Menu
+        as="div"
+        className="flex justify-center items-center relative text-left mt-3 md:hidden "
+      >
+        <div className="relative inline-block">
           <button
             type="button"
             onClick={() => navigate("/create-decision")}
-            className="inline-flex w-[100px] ml-10 mr-9 justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+            className="inline-flex w-[100px] mr-9 justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
           >
             {" "}
             + décision
@@ -335,7 +338,7 @@ export default function Decisions({ open }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:grid-rows-3 mt-3 gap-3 ">
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start md:grid-rows-3 mt-3 gap-3 ">
         <div className="md:box col-start-1 col-end-4">
           <div className="md:grid grid-cols-4 grid-rows-3 gap-5 ml-10 mr-10 ">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
