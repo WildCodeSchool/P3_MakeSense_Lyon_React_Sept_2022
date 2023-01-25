@@ -80,7 +80,7 @@ function Messages() {
       </div>
 
       <div className="md:w-[95%] m-auto h-auto ">
-        <div className="grid grid-cols-6 items-center  bg-gray-400 h-8 mt-10 justify-center rounded-md">
+        <div className="grid grid-cols-6 items-center bg-gray-400 h-12 mt-10 justify-center rounded-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -101,8 +101,12 @@ function Messages() {
         </div>
         {messages.map((message) => (
           <div
-            className="grid grid-cols-6 items-center bg-gray-200 h-8 justify-center hover:bg-white border-b-2 border-gray-400	rounded-md"
             key={message.id}
+            className={
+              message.id % 2 === 0
+                ? "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-200 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	"
+                : "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-300 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	"
+            }
           >
             <button
               type="button"
