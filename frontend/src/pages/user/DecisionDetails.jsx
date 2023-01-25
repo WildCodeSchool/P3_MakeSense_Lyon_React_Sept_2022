@@ -140,7 +140,7 @@ export default function DecisionDetails() {
               />
             </button>
           </div>
-          <div className="flex justify-center overflow-hidden">
+          <div className="flex justify-center mb-16 overflow-hidden">
             <AccordionDecisionDetails
               clickedAnswer4={clickedAnswer4}
               setClickedAnswer4={setClickedAnswer4}
