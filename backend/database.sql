@@ -57,6 +57,15 @@ CREATE TABLE person_concern (
   FOREIGN KEY (decision_id) REFERENCES decision(id)
 );
 
+DROP TABLE IF EXISTS message_help;
+
+CREATE TABLE message_help (
+  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  username varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  content text NOT NULL
+);
+
 DROP TABLE IF EXISTS comment;
 
 CREATE TABLE comment (
