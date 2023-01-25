@@ -11,6 +11,12 @@ class MessageManager extends AbstractManager {
       [message.username, message.email, message.content]
     );
   }
+
+  deleteMessage(id) {
+    return this.connection.query(`delete from ${this.table} where id = ?`, [
+      id,
+    ]);
+  }
 }
 
 module.exports = MessageManager;
