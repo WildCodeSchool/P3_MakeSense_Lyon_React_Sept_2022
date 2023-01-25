@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import { useCurrentUserContext } from "../../context/UserContext";
 import userimg from "../../assets/icons/user.png";
@@ -7,36 +7,39 @@ import edit from "../../assets/icons/edit.svg";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
-function Comments({
+function Comment({
   valuesDetailsDecision,
   urlAvatarStatus,
   comment,
-  valueComment,
-  setValueComment,
+  updateDecisionCommentById,
   toggleUpdateDecision,
-  handleStatusAgainst,
-  handleStatusFor,
-  handleStatusNeutral,
-  chosenStatusNeutral,
-  chosenStatusFor,
-  chosenStatusAgainst,
-  valueStatus,
 }) {
   const [modifyComment, setModifyComment] = useState(false);
+  const [updatedValueComment, setUpdatedValueComment] = useState(
+    comment.content
+  );
+  const [updatedValueStatus, setUpdatedValueStatus] = useState(comment.status);
+  const [chosenUpdatedStatusNeutral, setChosenUpdatedStatusNeutral] =
+    useState(false);
+  const [chosenUpdatedStatusFor, setChosenUpdatedStatusFor] = useState(false);
+  const [chosenUpdatedStatusAgainst, setChosenUpdatedStatusAgainst] =
+    useState(false);
   const { user, token } = useCurrentUserContext();
   const decisionIdParam = useParams();
 
+  const navigate = useNavigate();
+
   // Define the date format for comments :
   const dateComment = (date) => {
-    return date.slice(2, 10);
+    return date?.slice(2, 10);
   };
   const hourComment = (date) => {
-    return date.slice(11, 16);
+    return date?.slice(11, 16);
   };
 
   const handleCommentEdit = () => {
     setModifyComment(!modifyComment);
-    setValueComment(comment.content);
+    // setValueComment(comment.content);
   };
   const modules = {
     toolbar: [
@@ -45,14 +48,36 @@ function Comments({
     ],
   };
 
+  const handleUpdatedStatus = (value) => {
+    if (value === "Neutre") {
+      setUpdatedValueStatus("Neutre");
+      setChosenUpdatedStatusNeutral(!chosenUpdatedStatusNeutral);
+      setChosenUpdatedStatusFor(false);
+      setChosenUpdatedStatusAgainst(false);
+    } else if (value === "Pour") {
+      setUpdatedValueStatus("Pour");
+      setChosenUpdatedStatusFor(!chosenUpdatedStatusFor);
+      setChosenUpdatedStatusNeutral(false);
+      setChosenUpdatedStatusAgainst(false);
+    } else if (value === "Contre") {
+      setUpdatedValueStatus("Contre");
+      setChosenUpdatedStatusAgainst(!chosenUpdatedStatusAgainst);
+      setChosenUpdatedStatusFor(false);
+      setChosenUpdatedStatusNeutral(false);
+    } else {
+      setUpdatedValueStatus("Neutre");
+    }
+  };
+
+  // update comments table in backend
   const updateComment = () => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-      content: valueComment,
-      vote: valueStatus,
+      content: updatedValueComment,
+      vote: updatedValueStatus,
       id: comment.id,
     });
 
@@ -72,6 +97,12 @@ function Comments({
         console.warn(result);
         toggleUpdateDecision();
         setModifyComment(!modifyComment);
+        navigate(`/decision/${decisionIdParam.id}`);
+        updateDecisionCommentById(
+          `${comment.id}`,
+          updatedValueComment,
+          updatedValueStatus
+        );
       })
       .catch((error) => console.warn("error", error));
   };
@@ -83,7 +114,7 @@ function Comments({
           className="mx-4"
           type="button"
           onClick={() =>
-            Navigate(`/user-profile/${valuesDetailsDecision.user_id}`)
+            navigate(`/user-profile/${valuesDetailsDecision.user_id}`)
           }
         >
           <img
@@ -117,12 +148,7 @@ function Comments({
             </p>
             {comment.user_id === user.id ? (
               <button type="button" onClick={handleCommentEdit}>
-                <Link
-                  to={`/decision/${decisionIdParam.id}/comments/${comment.id}`}
-                  className="flex flex-row items-center"
-                >
-                  <img src={edit} alt="" className="h-4 mx-2" /> modifier
-                </Link>
+                <img src={edit} alt="" className="h-4 mx-2" /> modifier
               </button>
             ) : (
               ""
@@ -131,15 +157,13 @@ function Comments({
         </div>
       </div>
       {modifyComment ? (
-        <div>
+        <div key={comment.id}>
           <div className="flex flex-row mx-6">
             <button
               type="button"
-              onClick={handleStatusNeutral}
+              onClick={() => handleUpdatedStatus("Neutre")}
               className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
-                chosenStatusAgainst === false &&
-                chosenStatusFor === false &&
-                chosenStatusNeutral === true
+                chosenUpdatedStatusNeutral
                   ? "bg-light-blue text-white "
                   : "border-2 border-light-blue text-light-blue"
               }`}
@@ -148,11 +172,9 @@ function Comments({
             </button>
             <button
               type="button"
-              onClick={handleStatusFor}
+              onClick={() => handleUpdatedStatus("Pour")}
               className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
-                chosenStatusNeutral === false &&
-                chosenStatusAgainst === false &&
-                chosenStatusFor === true
+                chosenUpdatedStatusFor
                   ? "bg-light-green text-white "
                   : "border-2 border-light-green text-light-green"
               }`}
@@ -161,11 +183,9 @@ function Comments({
             </button>
             <button
               type="button"
-              onClick={handleStatusAgainst}
+              onClick={() => handleUpdatedStatus("Contre")}
               className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
-                chosenStatusNeutral === false &&
-                chosenStatusFor === false &&
-                chosenStatusAgainst === true
+                chosenUpdatedStatusAgainst
                   ? "bg-red-pink text-white "
                   : "border-2 border-red-pink text-red-pink"
               }`}
@@ -175,8 +195,8 @@ function Comments({
           </div>
           <ReactQuill
             theme="bubble"
-            value={valueComment}
-            onChange={setValueComment}
+            value={updatedValueComment}
+            onChange={setUpdatedValueComment}
             modules={modules}
             className="border-2"
           />
@@ -185,7 +205,7 @@ function Comments({
             onClick={updateComment}
             className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
           >
-            <Link to={`/decision/${valuesDetailsDecision.id}`}>Valider</Link>
+            Valider
           </button>
         </div>
       ) : (
@@ -204,4 +224,4 @@ function Comments({
   );
 }
 
-export default Comments;
+export default Comment;
