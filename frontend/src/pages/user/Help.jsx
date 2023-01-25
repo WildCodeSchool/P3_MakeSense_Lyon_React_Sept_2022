@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 import Logo from "../../assets/logo-makesense.png";
 import Return from "../../assets/icons/corner-down-left.svg";
@@ -9,6 +11,13 @@ export default function Help() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const sendMessage = () => {
     const myHeaders = new Headers();
@@ -19,25 +28,42 @@ export default function Help() {
       email,
       content,
     });
-
-    fetch(`${backEnd}/admin/addmessage`, {
-      method: "POST",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
-      .then((res) => {
-        res.json();
+    toast
+      .promise(
+        fetch(`${backEnd}/admin/addmessage`, {
+          method: "POST",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "Message envoyé !",
+          error:
+            "Une erreur sur le serveur est survenue lors de l'envoi de votre message",
+        }
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        } else {
+          notify();
+        }
       })
       .then((result) => {
         console.warn(result);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
     <div>
       <HeaderCountryChoice />
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex justify-center items-center h-32 m-8">
         <img className="h-12" src={Logo} alt="logo MakeSense" />
       </div>

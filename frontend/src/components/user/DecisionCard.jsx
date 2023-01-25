@@ -23,7 +23,7 @@ export default function DecisionCard({
     return `${day}/${month}/${year}`;
   };
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
-  const [deleteIsConfirm, setdeleteIsConfirm] = useState(false);
+  const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
 
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ export default function DecisionCard({
       setOpenModalAlertDelete(false);
       handleDeleteDecision();
     } else {
-      setdeleteIsConfirm(false);
+      setDeleteIsConfirm(false);
     }
   }, [deleteIsConfirm]);
 
@@ -97,7 +97,7 @@ export default function DecisionCard({
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
         setOpenModalAlertDelete={setOpenModalAlertDelete}
-        setdeleteIsConfirm={setdeleteIsConfirm}
+        setdeleteIsConfirm={setDeleteIsConfirm}
       />
       {valueDetailsDecision.user_id === user.id ? (
         <div className="flex justify-between">
