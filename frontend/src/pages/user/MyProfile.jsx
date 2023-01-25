@@ -255,7 +255,7 @@ export default function MyProfile() {
                 type="button"
                 onClick={sendUserInformations}
                 id="buttonEnvoyerDecision"
-                className="flex bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+                className="flex mb-8 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
               >
                 Envoyer
               </button>
