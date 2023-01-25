@@ -35,7 +35,7 @@ export default function EditDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
 
-  const [statusDecision, setStatusOfDecision] = useState("");
+  const [status_decision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
 
@@ -129,7 +129,7 @@ export default function EditDecision() {
       impact,
       risk,
       benefits,
-      statusDecision,
+      status_decision,
       date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
       user_id: user.id,
       person_expert: choosePersonExpert,
@@ -164,6 +164,8 @@ export default function EditDecision() {
       .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
+
+  console.warn("status", status_decision);
 
   // This is for GET user by name for input autocomplete
   const handleChange = () => {
@@ -206,8 +208,10 @@ export default function EditDecision() {
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Modifier ma décision</h1>
-        <div className="logo-home">
+        <h1 className="hidden md:flex text-2xl text-red-pink">
+          Modifier ma décision
+        </h1>
+        <div className="hidden md:block logo-home">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
@@ -319,7 +323,7 @@ export default function EditDecision() {
               ))}
             </ul>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 mb-8">
             <label htmlFor="pexpert-input" className="block mb-2 ">
               Personne expertes{" "}
             </label>
@@ -350,14 +354,16 @@ export default function EditDecision() {
           </div>
         </div>
       </main>
-      <button
-        type="button"
-        onClick={sendEditDecision}
-        id="buttonEnvoyerDecision"
-        className="bg-red-400 hover:bg-red-500 mt-8 mb-11 text-white font-bold py-2 px-4 rounded-full"
-      >
-        Envoyer
-      </button>
+      <div className="mb-24 md:mb-5">
+        <button
+          type="button"
+          onClick={sendEditDecision}
+          id="buttonEnvoyerDecision"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-full"
+        >
+          Envoyer
+        </button>
+      </div>
     </div>
   );
 }

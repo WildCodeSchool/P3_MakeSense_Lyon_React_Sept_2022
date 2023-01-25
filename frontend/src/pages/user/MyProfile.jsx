@@ -151,13 +151,13 @@ export default function MyProfile() {
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Mon profil</h1>
-        <div className="logo-home">
+        <h1 className="text-2xl md:flex hidden text-red-pink">Mon profil</h1>
+        <div className="logo-home hidden md:flex ">
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="w-5/6 m-auto md:flex md:flex-row items-end">
-        <div className="flex flex-wrap justify-center items-center justify-items-center content-center">
+      <div className="w-5/6 ml-5 md:m-auto md:flex md:flex-row items-end">
+        <div className="flex flex-wrap justify-start md:justify-center items-center justify-items-center content-center">
           <div className="circle_add mt-10 md:mt-[80px]">
             {urlAvatarStatus.status === 200 ? (
               <img
@@ -169,11 +169,11 @@ export default function MyProfile() {
           </div>
         </div>
         <div className="flex flex-col">
-          <p className=" mt-10 md:mt-[125px] ml-5">
+          <p className=" mt-6 md:mt-[125px] md:ml-5">
             Ajoute une photo de profil avec ton plus beau sourire !
           </p>
           <form
-            className="flex flex-col items-start ml-5"
+            className="flex flex-col items-start md:ml-5"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
           >
@@ -187,13 +187,13 @@ export default function MyProfile() {
           </form>
         </div>
       </div>
-      <form className="flex flex-col m-auto pt-8 items-center justify-center">
+      <form className="flex flex-col md:m-auto pt-8 items-start md:items-center justify-center">
         <div className="md:grid md:w-2/3 ml-5 overflow-hidden md:grid-cols-2 md:grid-rows-4 md:gap-3 md:pt-5">
-          <div className="md:box md:col-start-1 md:col-end-2 ">
+          <div className="md:box mt-3 md:col-start-1 md:col-end-2 ">
             <label className="flex flex-col text font-light">
               Prénom :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-lg h-10"
                 type="text"
                 name="name"
                 onChange={(e) => setFirstname(e.target.value)}
@@ -205,7 +205,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               Nom:
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 mb-5 md:mb-0 md:w-[200px] border-2 rounded-lg h-10"
                 type="text"
                 name="name"
                 onChange={(e) => setLastname(e.target.value)}
@@ -217,7 +217,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               Localisation:
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-lg h-10"
                 type="text"
                 name="name"
                 onChange={(e) => setCity(e.target.value)}
@@ -229,7 +229,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               Email:
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] border-2 mb-5 md:mb-0 rounded-lg h-10"
                 type="text"
                 name="name"
                 onChange={(e) => setEmail(e.target.value)}
@@ -250,12 +250,12 @@ export default function MyProfile() {
             </label>
           </div>
           <div className="box pt-[32px] col-start-2 col-end-3">
-            <div className="flex md:pl-[56px]">
+            <div className="flex mb-10 md:pl-[56px]">
               <button
                 type="button"
                 onClick={sendUserInformations}
                 id="buttonEnvoyerDecision"
-                className="flex bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+                className="flex mb-8 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
               >
                 Envoyer
               </button>

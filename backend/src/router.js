@@ -22,6 +22,7 @@ const mailController = require("./controllers/mailController");
 const commentControllers = require("./controllers/commentController");
 const notificationControllers = require("./controllers/notificationController");
 const adminControllers = require("./controllers/adminController");
+const messageControllers = require("./controllers/messageController");
 
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
@@ -91,4 +92,10 @@ router.get("/notification/:id", verifyToken, notificationControllers.browse);
 
 // Route for admin **********************************************
 router.get("/admin/countstats", adminControllers.browseCount);
+
+// Route for message *********************************************
+router.get("/admin/message", messageControllers.browseMessage);
+router.post("/admin/addmessage", messageControllers.addMessage);
+router.delete("/admin/message/:id", messageControllers.deleteMessage);
+
 module.exports = router;

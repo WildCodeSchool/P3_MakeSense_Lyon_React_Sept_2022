@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
 import { useCurrentUserContext } from "../../context/UserContext";
-import Comments from "./Comments";
+import Comment from "./Comment";
 
 function AccordionCommentsPart({
   toggleUpdateDecision,
   urlAvatarStatus,
   valuesDetailsDecision,
 }) {
-  const [valueComment, setValueComment] = useState("");
-  const [valueStatus, setValueStatus] = useState("");
+  const [valueNewComment, setValueNewComment] = useState("");
+  const [newValueStatus, setNewValueStatus] = useState("");
   const [chosenStatusNeutral, setChosenStatusNeutral] = useState(false);
   const [chosenStatusFor, setChosenStatusFor] = useState(false);
   const [chosenStatusAgainst, setChosenStatusAgainst] = useState(false);
+
   const { user, token } = useCurrentUserContext();
   const idParam = useParams();
   const backEnd = import.meta.env.VITE_BACKEND_URL;
@@ -36,6 +37,27 @@ function AccordionCommentsPart({
     return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
   };
 
+  const handleStatus = (value) => {
+    if (value === "Neutre") {
+      setNewValueStatus("Neutre");
+      setChosenStatusNeutral(!chosenStatusNeutral);
+      setChosenStatusFor(false);
+      setChosenStatusAgainst(false);
+    } else if (value === "Pour") {
+      setNewValueStatus("Pour");
+      setChosenStatusFor(!chosenStatusFor);
+      setChosenStatusNeutral(false);
+      setChosenStatusAgainst(false);
+    } else if (value === "Contre") {
+      setNewValueStatus("Contre");
+      setChosenStatusAgainst(!chosenStatusAgainst);
+      setChosenStatusFor(false);
+      setChosenStatusNeutral(false);
+    } else {
+      setNewValueStatus("Neutre");
+    }
+  };
+
   // This addComment function is used to add comments to the database in the comment table when a user send a new comment on a decision.
   // It also sends the new comment to th front so it is automatically displayed
   function addComment() {
@@ -44,8 +66,8 @@ function AccordionCommentsPart({
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-      content: valueComment,
-      vote: valueStatus,
+      content: valueNewComment,
+      vote: newValueStatus,
       user_id: user.id,
       date_creation: dateConvertedToSqlFormat(Date.now()),
       decision_id: valuesDetailsDecision.id,
@@ -63,43 +85,34 @@ function AccordionCommentsPart({
       .then((comment) => {
         console.warn(comment);
         toggleUpdateDecision();
-        setValueComment(" ");
+        setValueNewComment("");
+        handleStatus();
       })
+
       .catch((error) => console.warn("error", error));
   }
 
-  const handleStatusNeutral = () => {
-    setValueStatus("Neutre");
-    setChosenStatusNeutral(!chosenStatusNeutral);
-    setChosenStatusFor(false);
-    setChosenStatusAgainst(false);
-  };
-
-  const handleStatusFor = () => {
-    setValueStatus("Pour");
-    setChosenStatusFor(!chosenStatusFor);
-    setChosenStatusNeutral(false);
-    setChosenStatusAgainst(false);
-  };
-
-  const handleStatusAgainst = () => {
-    setValueStatus("Contre");
-    setChosenStatusAgainst(!chosenStatusAgainst);
-    setChosenStatusFor(false);
-    setChosenStatusNeutral(false);
+  const updateDecisionCommentById = (idCom, content, status) => {
+    // dans valuesDetailsDecision.comments
+    // je vais chercher le commentaire par son id avec un find
+    // je mets à jour
+    const commentIndex = valuesDetailsDecision.comments.findIndex(
+      (comment) => comment.id === idCom
+    );
+    valuesDetailsDecision.comments[commentIndex].content = content;
+    valuesDetailsDecision.comments[commentIndex].status = status;
+    toggleUpdateDecision();
   };
 
   return (
     <div>
-      <div className="flex flex-row mx-6">
-        <h2 className="mt-4 mb-3">Commentaire </h2>
+      <div className="flex flex-row mx-6 items-center">
+        <h2 className="mt-4 mb-3">Commentaire :</h2>
         <button
           type="button"
-          onClick={handleStatusNeutral}
-          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
-            chosenStatusAgainst === false &&
-            chosenStatusFor === false &&
-            chosenStatusNeutral === true
+          onClick={() => handleStatus("Neutre")}
+          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
+            chosenStatusNeutral
               ? "bg-light-blue text-white "
               : "border-2 border-light-blue text-light-blue"
           }`}
@@ -108,11 +121,9 @@ function AccordionCommentsPart({
         </button>
         <button
           type="button"
-          onClick={handleStatusFor}
-          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
-            chosenStatusNeutral === false &&
-            chosenStatusAgainst === false &&
-            chosenStatusFor === true
+          onClick={() => handleStatus("Pour")}
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
+            chosenStatusFor
               ? "bg-light-green text-white "
               : "border-2 border-light-green text-light-green"
           }`}
@@ -121,11 +132,9 @@ function AccordionCommentsPart({
         </button>
         <button
           type="button"
-          onClick={handleStatusAgainst}
-          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 ${
-            chosenStatusNeutral === false &&
-            chosenStatusFor === false &&
-            chosenStatusAgainst === true
+          onClick={() => handleStatus("Contre")}
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
+            chosenStatusAgainst
               ? "bg-red-pink text-white "
               : "border-2 border-red-pink text-red-pink"
           }`}
@@ -135,8 +144,8 @@ function AccordionCommentsPart({
       </div>
       <ReactQuill
         theme="snow"
-        value={valueComment}
-        onChange={(value) => setValueComment(value)}
+        value={valueNewComment}
+        onChange={setValueNewComment}
         modules={modules}
       />
 
@@ -155,21 +164,13 @@ function AccordionCommentsPart({
       <div className="my-6">
         <ul>
           {valuesDetailsDecision.comments?.map((comment) => (
-            <Comments
+            <Comment
               key={comment.id}
               valuesDetailsDecision={valuesDetailsDecision}
               urlAvatarStatus={urlAvatarStatus}
               comment={comment}
-              valueComment={valueComment}
-              setValueComment={setValueComment}
               toggleUpdateDecision={toggleUpdateDecision}
-              handleStatusAgainst={handleStatusAgainst}
-              handleStatusFor={handleStatusFor}
-              handleStatusNeutral={handleStatusNeutral}
-              chosenStatusNeutral={chosenStatusNeutral}
-              chosenStatusFor={chosenStatusFor}
-              chosenStatusAgainst={chosenStatusAgainst}
-              valueStatus={valueStatus}
+              updateDecisionCommentById={updateDecisionCommentById}
             />
           ))}
         </ul>
