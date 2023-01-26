@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Switch } from "@material-tailwind/react";
 import "../../css/user/sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useCurrentLangContext } from "../../context/LangContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeconnexion from "./AlertDeconnexion";
 
@@ -18,6 +19,7 @@ export default function Sidebar({
   const [openModalAlertDeconnexion, setOpenModalAlertDeconnexion] =
     useState(false);
   const navigate = useNavigate();
+  const { lang, toggleLang } = useCurrentLangContext();
 
   const handleNotificationModal = () => {
     setShowModal(!showModal);
@@ -362,13 +364,33 @@ export default function Sidebar({
         <div className={`${open ? "yellow-point mr-4" : "hidden"}`} />
         <p className={`${open ? "text-xl" : "hidden"}`}>Changer de pays</p>
       </div>
-      <p
+      <div
         className={`${
           open ? "text-x font-light pl-8 pt-3" : "text-sm font-light pl-2"
         }`}
       >
-        <span className="font-extrabold">FR</span> EN ES
-      </p>
+        <button
+          type="button"
+          onClick={() => toggleLang("FR")}
+          className={lang === "FR" ? "font-extrabold ml-2" : "ml-2"}
+        >
+          FR
+        </button>
+        <button
+          type="button"
+          onClick={() => toggleLang("EN")}
+          className={lang === "EN" ? "font-extrabold ml-2" : "ml-2"}
+        >
+          EN
+        </button>
+        <button
+          type="button"
+          onClick={() => toggleLang("ES")}
+          className={lang === "ES" ? "font-extrabold ml-2" : "ml-2"}
+        >
+          ES
+        </button>
+      </div>
       <div
         className={`${open ? "block-color absolute bottom-36" : "hidden"}`}
       />

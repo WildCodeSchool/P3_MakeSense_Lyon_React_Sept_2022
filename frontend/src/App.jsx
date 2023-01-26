@@ -5,6 +5,7 @@ import HomeUser from "./pages/user/HomeUser";
 import Authentification from "./pages/Authentification";
 import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
+import "./i18n";
 import LegalNotice from "./pages/user/LegalNotice";
 import Sidebar from "./components/user/Sidebar";
 import MyProfile from "./pages/user/MyProfile";
