@@ -3,6 +3,7 @@ import { Switch } from "@material-tailwind/react";
 import "../../css/user/sidebar.css";
 import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentLangContext } from "../../context/LangContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeconnexion from "./AlertDeconnexion";
@@ -18,6 +19,7 @@ export default function Sidebar({
   const { user, setUser } = useCurrentUserContext();
   const { t } = useTranslation();
   const { lang, toggleLang } = useCurrentLangContext();
+  const { dark, toggleDark } = useCurrentDarkContext();
   const [logoutIsConfirm, setLogoutIsConfirm] = useState(false);
   const [openModalAlertDeconnexion, setOpenModalAlertDeconnexion] =
     useState(false);
@@ -43,9 +45,9 @@ export default function Sidebar({
 
   return (
     <div
-      className={`${
-        open ? "w-[290px]" : "w-[100px]"
-      } bg-light-blue duration-300 h-screen flex flex-col text-white`}
+      className={`${open ? "w-[290px]" : "w-[100px]"} ${
+        dark ? "bg-light-blue" : "bg-dark-bg"
+      }  duration-300 h-screen flex flex-col text-white`}
     >
       <AlertDeconnexion
         openModalAlertDeconnexion={openModalAlertDeconnexion}
@@ -53,7 +55,7 @@ export default function Sidebar({
         setLogoutIsConfirm={setLogoutIsConfirm}
       />
       {user?.is_admin === 1 ? (
-        <div className="text-white mt-4 ml-2">
+        <div className="text-white mt-4 ml-2 flex">
           {" "}
           <Switch
             id="amber"
@@ -61,9 +63,9 @@ export default function Sidebar({
             value={checked}
             onClick={handleChecked}
           />{" "}
+          <p className={`${open ? "text-l mt-1 pl-3" : "hidden"}`}>Admin ?</p>
         </div>
       ) : null}
-
       {checked ? (
         <>
           {" "}
@@ -379,6 +381,15 @@ export default function Sidebar({
         >
           ES
         </button>
+      </div>
+      <div className="pl-2 pt-2 flex">
+        <Switch
+          id="indigo"
+          color="indigo"
+          value={dark}
+          onClick={() => toggleDark()}
+        />{" "}
+        <p className={`${open ? "text-l mt-1 pl-3" : "hidden"}`}>Dark ?</p>
       </div>
       <div
         className={`${open ? "block-color absolute bottom-36" : "hidden"}`}
