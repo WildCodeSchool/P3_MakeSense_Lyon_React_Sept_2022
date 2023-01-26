@@ -172,9 +172,7 @@ export default function CreateDecision() {
               Décision
             </p>
             <p className="decision-explaination">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-              totam natus assumenda placeat ex vel, omnis et corrupti eius! Ut
-              asperiores adipisci, vero
+              Veuillez créer votre décision en remplissant les champs ci-dessous
             </p>
           </div>
           <div className="col-span-2 ...">
@@ -272,7 +270,7 @@ export default function CreateDecision() {
 
             <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
-              <div className="containerDate">
+              <div className="containerDate z-20">
                 <DatePicker
                   selected={date_Decision_Conflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
@@ -295,7 +293,7 @@ export default function CreateDecision() {
                   ])
                 }
                 styling={{ zIndex: 3 }}
-                maxResults={15}
+                maxResults={3}
               />
               {/* this is for display expert person */}
               <ul className="m-3">
@@ -325,7 +323,7 @@ export default function CreateDecision() {
                     newChoosePersonExpert,
                   ])
                 }
-                maxResults={15}
+                maxResults={3}
               />
               <ul className="m-3">
                 {choosePersonExpert?.map((person, index) => (
