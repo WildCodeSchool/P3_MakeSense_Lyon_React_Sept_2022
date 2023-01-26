@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
+import { useTranslation } from "react-i18next";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
@@ -8,6 +9,7 @@ import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function Inscription() {
+  const { t } = useTranslation();
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [email, setEmail] = useState();
@@ -75,9 +77,9 @@ function Inscription() {
           <div className=" inscriptionBloc flex flex-col justify-center items-center text-white ">
             <div className="w-full bg-dark-blue rounded-lg max-w-xl md:shadow-1 p-6 sm-max:p-10 space-y-6 sm:p-8">
               <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
-                INSCRIPTION
+                {t("Inscription page")}
               </h1>
-              <p className="text-xl text-center">Créez votre compte </p>
+              <p className="text-xl text-center">{t("Créez votre compte")}</p>
               <form
                 className=" index sm:grid grid-cols-2 grid-rows-3 gap-5 sm-max:flex sm-max:flex-col"
                 action="#"
@@ -89,7 +91,7 @@ function Inscription() {
                     htmlFor="text"
                     className="text-white block text-md font-medium"
                   >
-                    Prénom :
+                    {t("Prénom input")} :
                   </label>
                   <input
                     type="text"
@@ -107,7 +109,7 @@ function Inscription() {
                     htmlFor="text"
                     className="text-white block text-md font-medium"
                   >
-                    Nom :
+                    {t("Nom input")} :
                   </label>
                   <input
                     type="text"
@@ -144,7 +146,7 @@ function Inscription() {
                     htmlFor="password"
                     className="text-white block text-md font-medium mb-2"
                   >
-                    Mot de passe :
+                    {t("Mot de passe")} :
                   </label>
                   <input
                     type="password"
@@ -162,14 +164,14 @@ function Inscription() {
                     type="submit"
                     className=" text-white hover:bg-red-pink font-medium rounded-lg text-xl mt-3 mb-3 px-5 py-4 text-center border hover:scale-105 duration-300"
                   >
-                    S'ENREGISTRER{" "}
+                    {t("S'enregistrer")}{" "}
                   </button>
                 </div>
                 {/* Déja membre */}
                 <div className="box flex justify-start ml-[16px] items-center sm-max:justify-center">
                   <NavLink to="/">
                     <p className="text-white text-md font-medium text-primary-600 hover:underline hover:text-flash-yellow">
-                      Déja membre ?
+                      {t("Déjà membre ?")}
                     </p>
                   </NavLink>
                 </div>
@@ -194,12 +196,12 @@ function Inscription() {
                 <NavLink className="hover:underline " to="/help">
                   <p href="help" className="text-sm">
                     {" "}
-                    Besoin d'aides ?
+                    {t("Besoin d'aides ?")}
                   </p>
                 </NavLink>
                 <p>-</p>
                 <NavLink to="/legal-notice" className="hover:underline ">
-                  <p className=" text-sm">Mentions légales</p>
+                  <p className=" text-sm">{t("Mentions légales")}</p>
                 </NavLink>
               </div>
             </div>

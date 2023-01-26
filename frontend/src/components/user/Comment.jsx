@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
+import { useTranslation } from "react-i18next";
 import { useCurrentUserContext } from "../../context/UserContext";
 import userimg from "../../assets/icons/user.png";
 import edit from "../../assets/icons/edit.svg";
@@ -106,6 +107,7 @@ function Comment({
       })
       .catch((error) => console.warn("error", error));
   };
+  const { t } = useTranslation();
 
   return (
     <li>
@@ -148,7 +150,8 @@ function Comment({
             </p>
             {comment.user_id === user.id ? (
               <button type="button" onClick={handleCommentEdit}>
-                <img src={edit} alt="" className="h-4 mx-2" /> modifier
+                <img src={edit} alt="" className="h-4 mx-2" />{" "}
+                {t("modifier commentaire")}
               </button>
             ) : (
               ""
@@ -168,7 +171,7 @@ function Comment({
                   : "border-2 border-light-blue text-light-blue"
               }`}
             >
-              Neutre
+              {t("Neutre vote")}
             </button>
             <button
               type="button"
@@ -179,7 +182,7 @@ function Comment({
                   : "border-2 border-light-green text-light-green"
               }`}
             >
-              Pour
+              {t("Pour vote")}
             </button>
             <button
               type="button"
@@ -190,7 +193,7 @@ function Comment({
                   : "border-2 border-red-pink text-red-pink"
               }`}
             >
-              Contre
+              {t("Contre vote")}
             </button>
           </div>
           <ReactQuill
@@ -205,7 +208,7 @@ function Comment({
             onClick={updateComment}
             className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
           >
-            Valider
+            {t("Valider commentaire")}
           </button>
         </div>
       ) : (

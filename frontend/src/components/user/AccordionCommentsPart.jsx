@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
 import { useCurrentUserContext } from "../../context/UserContext";
@@ -104,10 +105,12 @@ function AccordionCommentsPart({
     toggleUpdateDecision();
   };
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="flex flex-row mx-6 items-center">
-        <h2 className="mt-4 mb-3">Commentaire :</h2>
+        <h2 className="mt-4 mb-3">{t("Commentaire details")} :</h2>
         <button
           type="button"
           onClick={() => handleStatus("Neutre")}
@@ -117,7 +120,7 @@ function AccordionCommentsPart({
               : "border-2 border-light-blue text-light-blue"
           }`}
         >
-          Neutre
+          {t("Neutre vote")}
         </button>
         <button
           type="button"
@@ -128,7 +131,7 @@ function AccordionCommentsPart({
               : "border-2 border-light-green text-light-green"
           }`}
         >
-          Pour
+          {t("Pour vote")}
         </button>
         <button
           type="button"
@@ -139,7 +142,7 @@ function AccordionCommentsPart({
               : "border-2 border-red-pink text-red-pink"
           }`}
         >
-          Contre
+          {t("Contre vote")}
         </button>
       </div>
       <ReactQuill
@@ -157,7 +160,7 @@ function AccordionCommentsPart({
           onClick={addComment}
           className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
         >
-          Envoyer
+          {t("Envoyer btn")}
         </button>
       </div>
       {/* display comments */}

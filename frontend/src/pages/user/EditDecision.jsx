@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { useCurrentUserContext } from "../../context/UserContext";
@@ -15,6 +16,7 @@ import Logo from "../../assets/logo-makesense.png";
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function EditDecision() {
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
@@ -200,16 +202,18 @@ export default function EditDecision() {
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <h1 className="hidden md:flex text-2xl text-red-pink">
-          Modifier ma décision
+          {t("Modifier ma décision")}
         </h1>
         <div className="hidden md:block logo-home">
           <img src={Logo} alt="logo make-sense" />
@@ -219,7 +223,7 @@ export default function EditDecision() {
         <div className="col-span-2 ...">
           <div className="mt-14 mb-6">
             <label htmlFor="title-input" className="block mb-2">
-              Titre de la décision :
+              {t("Titre de la décision")} :
             </label>
             <input
               onChange={(e) => setTitleDecision(e.target.value)}
@@ -229,28 +233,28 @@ export default function EditDecision() {
               className="border border-gray-300 text-gray-900 text-sm rounded-xl block w-full p-2.5"
             />
           </div>
-          <h2 className="mt-8 mb-3">Description de la décision :</h2>
+          <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
           <ReactQuill
             theme="snow"
             value={content}
             onChange={setValueDecision}
             modules={modules}
           />
-          <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+          <h2 className="mt-8 mb-3">{t("Impact sur l'organisation")} :</h2>
           <ReactQuill
             theme="snow"
             value={impact}
             onChange={setValueImpactOfDecision}
             modules={modules}
           />
-          <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+          <h2 className="mt-8 mb-3">{t("Bénéfice de la décision")} :</h2>
           <ReactQuill
             theme="snow"
             value={benefits}
             onChange={setValueBenefitsOfDecision}
             modules={modules}
           />
-          <h2 className="mt-8 mb-3">Risques potentiels :</h2>
+          <h2 className="mt-8 mb-3">{t("Risque potentiel")} :</h2>
           <ReactQuill
             theme="snow"
             value={risk}
@@ -276,7 +280,8 @@ export default function EditDecision() {
           <br />
           <div>
             <label htmlFor="status-input" className="block mb-2">
-              Statut de la décision (Actuel : {valueDefaultStatusOfDecision}) :
+              {t("Statut de la décision")} ({t("Actuel statut")} :{" "}
+              {valueDefaultStatusOfDecision}) :
             </label>
             <select
               onChange={(e) => setStatusOfDecision(e.target.value)}
@@ -284,17 +289,17 @@ export default function EditDecision() {
               className="border border-gray-300 text-sm rounded-xl block w-80 p-2.5  bg-white"
             >
               <option defaultValue="OptionStatus" disabled selected>
-                Cliquer pour changer de statut
+                {t("Cliquer pour changer de statut")}
               </option>
-              <option value="En cours">En cours</option>
-              <option value="En conflit">En conflit</option>
-              <option value="Terminee">Terminée</option>
-              <option value="Non aboutie">Non aboutie</option>
+              <option value="En cours">{t("En cours")}</option>
+              <option value="En conflit">{t("Conflits filter")}</option>
+              <option value="Terminee">{t("Terminée filter")}</option>
+              <option value="Non aboutie">{t("Non abouties")}</option>
             </select>
           </div>
           <div className="mt-8">
             <label htmlFor="pconcern-input" className="block mb-2">
-              Personnes impactées{" "}
+              {t("Personnes impactées")}{" "}
             </label>
             <ReactSearchAutocomplete
               items={personImpactedDecision}
@@ -325,7 +330,7 @@ export default function EditDecision() {
           </div>
           <div className="mt-8 mb-8">
             <label htmlFor="pexpert-input" className="block mb-2 ">
-              Personne expertes{" "}
+              {t("Personnes expertes")}{" "}
             </label>
             <ReactSearchAutocomplete
               items={personExperteDecision}
@@ -361,7 +366,7 @@ export default function EditDecision() {
           id="buttonEnvoyerDecision"
           className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-xl"
         >
-          Envoyer
+          {t("Envoyer btn")}
         </button>
       </div>
     </div>

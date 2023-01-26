@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "flowbite-react";
+import { useTranslation } from "react-i18next";
 import { useCurrentUserContext } from "../../context/UserContext";
 import "../../css/user/sidebar.css";
 
@@ -7,6 +8,7 @@ const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function NotificationModal({ setShowModal, open, showModal }) {
   const { user, token } = useCurrentUserContext();
+  const { t } = useTranslation();
   const [notifs, setNotifs] = useState();
 
   useEffect(() => {
@@ -38,13 +40,13 @@ function NotificationModal({ setShowModal, open, showModal }) {
         onClose={() => setShowModal(false)}
       >
         <Modal.Header className="pl-3 pr-3 pt-6 pb-6 bg-light-blue text-slate-50 align-middle rounded-tr-lg">
-          <div className="text-white">Notifications:</div>
+          <div className="text-white">{t("Notifications title")}:</div>
         </Modal.Header>
         <Modal.Body className="bg-gray-200">
           <div className="space-y-3 p-6 grid grid-cols-1 divide-y text-base leading-relaxed text-gray-500 dark:text-gray-400">
             {notifs?.map((notif) => (
               <div key={notif.id}>
-                Identifié sur la decision : {notif.title}
+                {t("Identifié sur la decision")} : {notif.title}
               </div>
             ))}
           </div>
@@ -55,7 +57,7 @@ function NotificationModal({ setShowModal, open, showModal }) {
             onClick={() => setShowModal(false)}
             color="gray"
           >
-            <div className="text-slate-50">Fermer</div>
+            <div className="text-slate-50">{t("Fermer btn")}</div>
           </Button>
         </Modal.Footer>
       </Modal>

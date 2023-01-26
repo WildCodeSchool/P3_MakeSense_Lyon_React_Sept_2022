@@ -1,4 +1,5 @@
 import { React, useRef, Fragment } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, Transition } from "@headlessui/react";
 import alertTriangleIcon from "../../assets/icons/alert-triangle.svg";
 
@@ -8,6 +9,7 @@ function AlertDeconnexion({
   setOpenModalAlertDeconnexion,
 }) {
   const cancelButtonRef = useRef(null);
+  const { t } = useTranslation();
 
   return (
     <Transition.Root show={openModalAlertDeconnexion} as={Fragment}>
@@ -50,11 +52,11 @@ function AlertDeconnexion({
                         as="h3"
                         className="hidden sm:flex text-lg font-medium leading-6 text-gray-900"
                       >
-                        Deconnexion
+                        {t("Se déconnecter")}
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Êtes-vous sûr de vouloir vous deconnecter ?
+                          {t("Êtes-vous sûr de vouloir vous deconnecter ?")}
                         </p>
                       </div>
                     </div>
@@ -66,7 +68,7 @@ function AlertDeconnexion({
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => setLogoutIsConfirm(true)}
                   >
-                    Oui, je souhaite me deconnecter
+                    {t("Oui btn")}
                   </button>
                   <button
                     type="button"
@@ -74,7 +76,7 @@ function AlertDeconnexion({
                     onClick={() => setOpenModalAlertDeconnexion(false)}
                     ref={cancelButtonRef}
                   >
-                    Annuler
+                    {t("Annuler btn")}
                   </button>
                 </div>
               </Dialog.Panel>

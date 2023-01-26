@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import target from "../../assets/icons/target.svg";
@@ -16,6 +17,7 @@ import Logo from "../../assets/logo-makesense.png";
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function CreateDecision() {
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
@@ -149,16 +151,18 @@ export default function CreateDecision() {
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <h1 className="hidden md:flex text-2xl text-red-pink">
-          Créer une décision
+          {t("Créer une décision")}
         </h1>
         <div className="hidden md:block logo-home">
           <img src={Logo} alt="logo make-sense" />
@@ -169,18 +173,18 @@ export default function CreateDecision() {
           <div className="hidden md:block row-span-3 ...">
             <p className="mt-20 decision-resume">
               <img src={target} alt="targeticon" />
-              Décision
+              {t("Décision title")}
             </p>
             <p className="decision-explaination">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-              totam natus assumenda placeat ex vel, omnis et corrupti eius! Ut
-              asperiores adipisci, vero
+              {t(
+                "Veuillez créer une décision en remplissant les champs ci-dessous."
+              )}
             </p>
           </div>
           <div className="col-span-2 ...">
             <div className="mt-14 mb-6">
               <label htmlFor="title-input" className="block mb-2">
-                Titre de la décision{" "}
+                {t("Titre de la décision")}{" "}
               </label>
               <input
                 onChange={(e) => setTitleDecision(e.target.value)}
@@ -191,7 +195,7 @@ export default function CreateDecision() {
               />
             </div>
             <div className="hidden md:block">
-              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={content}
@@ -201,7 +205,7 @@ export default function CreateDecision() {
             </div>
 
             <div className="hidden md:block">
-              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <h2 className="mt-8 mb-3">{t("Impact sur l'organisation")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={impact}
@@ -211,7 +215,7 @@ export default function CreateDecision() {
             </div>
 
             <div className="hidden md:block">
-              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Bénéfice de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={benefits}
@@ -221,7 +225,9 @@ export default function CreateDecision() {
             </div>
 
             <div className="hidden md:hidden">
-              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <h2 className="mt-8 mb-3">
+                {t("Risques potentiels de la décision")} :
+              </h2>
               <ReactQuill
                 theme="snow"
                 value={risk}
@@ -231,7 +237,7 @@ export default function CreateDecision() {
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={content}
@@ -241,7 +247,7 @@ export default function CreateDecision() {
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <h2 className="mt-8 mb-3">{t("Impact sur l'organisation")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={impact}
@@ -251,7 +257,7 @@ export default function CreateDecision() {
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Bénéfice de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={benefits}
@@ -261,7 +267,9 @@ export default function CreateDecision() {
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <h2 className="mt-8 mb-3">
+                {t("Risques potentiels de la décision")} :
+              </h2>
               <ReactQuill
                 theme="snow"
                 value={risk}
@@ -270,9 +278,9 @@ export default function CreateDecision() {
               />
             </div>
 
-            <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
+            <h2 className="mt-8 mb-3">{t("Date finale de la décision")} :</h2>
             <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8 xl p-2">
-              <div className="containerDate">
+              <div className="containerDate z-20">
                 <DatePicker
                   selected={date_Decision_Conflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
@@ -283,7 +291,7 @@ export default function CreateDecision() {
             </div>
             <div className="mt-8">
               <label htmlFor="pconcern-input" className="block mb-2">
-                Personnes impactées{" "}
+                {t("Personnes impactées")}{" "}
               </label>
               <ReactSearchAutocomplete
                 items={personImpactedDecision}
@@ -295,7 +303,7 @@ export default function CreateDecision() {
                   ])
                 }
                 styling={{ zIndex: 3 }}
-                maxResults={15}
+                maxResults={3}
               />
               {/* this is for display expert person */}
               <ul className="m-3">
@@ -314,7 +322,7 @@ export default function CreateDecision() {
             </div>
             <div className="mt-8 mb-8">
               <label htmlFor="pexpert-input" className="block mb-2">
-                Personne expertes{" "}
+                {t("Personnes expertes")}{" "}
               </label>
               <ReactSearchAutocomplete
                 items={personExperteDecision}
@@ -325,7 +333,7 @@ export default function CreateDecision() {
                     newChoosePersonExpert,
                   ])
                 }
-                maxResults={15}
+                maxResults={3}
               />
               <ul className="m-3">
                 {choosePersonExpert?.map((person, index) => (
@@ -351,7 +359,7 @@ export default function CreateDecision() {
           id="buttonEnvoyerDecision"
           className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-xl"
         >
-          Envoyer
+          {t("Envoyer btn")}
         </button>
       </div>
     </div>
