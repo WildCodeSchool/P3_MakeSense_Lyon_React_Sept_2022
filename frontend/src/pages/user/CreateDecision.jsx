@@ -191,7 +191,7 @@ export default function CreateDecision() {
                 type="text"
                 value={title}
                 id="title-input"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-gray-900 text-sm rounded-xl block w-full p-2.5"
               />
             </div>
             <div className="hidden md:block">
@@ -279,7 +279,7 @@ export default function CreateDecision() {
             </div>
 
             <h2 className="mt-8 mb-3">{t("Date finale de la décision")} :</h2>
-            <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
+            <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8 xl p-2">
               <div className="containerDate z-20">
                 <DatePicker
                   selected={date_Decision_Conflict}
@@ -357,7 +357,7 @@ export default function CreateDecision() {
           type="button"
           onClick={sendDecision}
           id="buttonEnvoyerDecision"
-          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-full"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-xl"
         >
           {t("Envoyer btn")}
         </button>

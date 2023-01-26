@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div className="w-screen z-0">
-      <div className="flex flex-row items-center justify-between bg-light-grey pr-16 pl-10">
+      <div className="flex flex-row items-center justify-between bg-light-grey pr-10 pl-10">
         <div className="flex flex-col">
           {user ? (
             <p className="pt-3 text-xl">
@@ -67,9 +67,9 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate("/create-decision")}
-              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-3xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
+              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
             >
-              + {t("Nouvelle décision")}
+              + {t("Décision")}
             </button>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
+              <div className=" z-0 max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
                 ... {t("Voir plus")}
               </div>
             </button>
@@ -123,7 +123,7 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
+              <div className=" z-0 max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
                 ... {t("Voir plus")}
               </div>
             </button>
