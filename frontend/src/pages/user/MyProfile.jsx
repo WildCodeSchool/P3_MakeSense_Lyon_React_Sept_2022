@@ -182,7 +182,7 @@ export default function MyProfile() {
           >
             <input type="file" ref={avatarRef} />
             <button
-              className=" bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full mt-2"
+              className=" bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl mt-2"
               type="submit"
             >
               {t("Envoyer btn")}
@@ -196,7 +196,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               {t("Prénom input")} :
               <input
-                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setFirstname(e.target.value)}
@@ -208,7 +208,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               {t("Nom input")} :
               <input
-                className="mt-3 mb-5 md:mb-0 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 mb-5 md:mb-0 md:w-[200px] border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setLastname(e.target.value)}
@@ -220,7 +220,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               {t("Localisation input")} :
               <input
-                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setCity(e.target.value)}
@@ -232,7 +232,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               Email :
               <input
-                className="mt-3 md:w-[200px] border-2 mb-5 md:mb-0 rounded-lg h-10"
+                className="mt-3 md:w-[200px] border-2 mb-5 md:mb-0 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setEmail(e.target.value)}
@@ -244,7 +244,7 @@ export default function MyProfile() {
             <label className="flex flex-col text font-light">
               {t("Téléphone input")} :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setPhone(e.target.value)}
@@ -258,7 +258,7 @@ export default function MyProfile() {
                 type="button"
                 onClick={sendUserInformations}
                 id="buttonEnvoyerDecision"
-                className="flex mb-8 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+                className="flex mb-8 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl"
               >
                 {t("Envoyer btn")}
               </button>

@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import DecisionCard from "../../components/user/DecisionCard";
 import "../../css/user/homeUser.css";
+import DecisionCard from "../../components/user/DecisionCard";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import Logo from "../../assets/logo-makesense.png";
 import LogoWhite from "../../assets/make_sense_white.png";
@@ -85,9 +85,9 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate("/create-decision")}
-              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-3xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
+              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
             >
-              + {t("Nouvelle décision")}
+              + {t("Décision")}
             </button>
           </div>
         </div>

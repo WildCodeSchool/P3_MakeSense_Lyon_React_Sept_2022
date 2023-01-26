@@ -13,7 +13,7 @@ export default function AccordionDecisionDetails({
   urlAvatarStatus,
   toggleUpdateDecision,
 }) {
-  const [clickedAnswer1, setClickedAnswer1] = useState(false);
+  const [clickedAnswer1, setClickedAnswer1] = useState(true);
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
   const { t } = useTranslation();
@@ -33,8 +33,8 @@ export default function AccordionDecisionDetails({
 
   return (
     <div className="">
-      <ul className="accordion md:max-w-screen-md mt-10  h-auto w-screen">
-        <li className={`accordion_item ${clickedAnswer1 ? "active" : ""}`}>
+      <ul className="accordion md:max-w-screen-md mt-10 mx-2 h-auto w-screen">
+        <li className={`accordion_item mx-2 ${clickedAnswer1 ? "active" : ""}`}>
           <div className="border-b-2 border-red-pink py-4">
             <button
               type="button"
@@ -67,7 +67,7 @@ export default function AccordionDecisionDetails({
           </div>
         </li>
 
-        <li className={`accordion_item ${clickedAnswer2 ? "active" : ""}`}>
+        <li className={`accordion_item mx-2 ${clickedAnswer2 ? "active" : ""}`}>
           <div className="border-b-2 border-red-pink py-4">
             <button
               type="button"
@@ -108,7 +108,7 @@ export default function AccordionDecisionDetails({
           </div>
         </li>
 
-        <li className={`accordion_item ${clickedAnswer3 ? "active" : ""}`}>
+        <li className={`accordion_item mx-2 ${clickedAnswer3 ? "active" : ""}`}>
           <div className="border-b-2 border-red-pink py-4">
             <button
               type="button"
@@ -141,7 +141,7 @@ export default function AccordionDecisionDetails({
           </div>
         </li>
 
-        <li className={`accordion_item ${clickedAnswer4 ? "active" : ""}`}>
+        <li className={`accordion_item mx-2 ${clickedAnswer4 ? "active" : ""}`}>
           <div className="border-b-2 border-red-pink py-4">
             <button
               type="button"
