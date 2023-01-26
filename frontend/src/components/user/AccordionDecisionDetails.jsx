@@ -1,5 +1,6 @@
 import ReactQuill from "react-quill";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import chevronup from "../../assets/icons/chevron-up.svg";
 import chevrondown from "../../assets/icons/chevron-down.svg";
 import "../../css/user/Accordion.css";
@@ -15,6 +16,7 @@ export default function AccordionDecisionDetails({
   const [clickedAnswer1, setClickedAnswer1] = useState(false);
   const [clickedAnswer2, setClickedAnswer2] = useState(false);
   const [clickedAnswer3, setClickedAnswer3] = useState(false);
+  const { t } = useTranslation();
 
   const handleToggle1 = () => {
     setClickedAnswer1((prev) => !prev);
@@ -46,7 +48,7 @@ export default function AccordionDecisionDetails({
                   <img src={chevrondown} alt="" />
                 )}
               </span>
-              <h2>Détails de la décision</h2>
+              <h2>{t("Détails de la décision")}</h2>
             </button>
           </div>
 
@@ -79,7 +81,7 @@ export default function AccordionDecisionDetails({
                   <img src={chevrondown} alt="" />
                 )}
               </span>
-              <h2>Risque potentiel & impact</h2>
+              <h2>{t("Risque potentiel & impact")}</h2>
             </button>
           </div>
 
@@ -89,14 +91,14 @@ export default function AccordionDecisionDetails({
             style={clickedAnswer2 ? { height: "auto" } : { height: "0px" }}
           >
             <div className="answer my-6">
-              <h3 className="ml-2">Risque potentiel :</h3>
+              <h3 className="ml-2">{t("Risque potentiel")} :</h3>
               <ReactQuill
                 theme="bubble"
                 value={valuesDetailsDecision.risk}
                 readOnly
               />
               <hr className="border-red-pink my-6" />
-              <h3 className="ml-2">Impact :</h3>
+              <h3 className="ml-2">{t("Impact details")} :</h3>
               <ReactQuill
                 theme="bubble"
                 value={valuesDetailsDecision.impact}
@@ -120,7 +122,7 @@ export default function AccordionDecisionDetails({
                   <img src={chevrondown} alt="" />
                 )}
               </span>
-              <h2>Bénéfices</h2>
+              <h2>{t("Bénéfices details")}</h2>
             </button>
           </div>
 
@@ -153,7 +155,7 @@ export default function AccordionDecisionDetails({
                   <img src={chevrondown} alt="" />
                 )}
               </span>
-              <h2>Commentaires</h2>
+              <h2>{t("Commentaires details")}</h2>
             </button>
           </div>
 

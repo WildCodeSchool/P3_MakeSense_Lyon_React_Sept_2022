@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../css/user/decisionCard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import iconTrash from "../../assets/icons/trash-orange.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
@@ -25,7 +26,7 @@ export default function DecisionCard({
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
   const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // for alert notification error delete decision after submit
@@ -105,7 +106,7 @@ export default function DecisionCard({
           <button type="button" onClick={() => setOpenModalAlertDelete(true)}>
             <div className="wrapForHide flex justify-center flex-row items-center group-hover:opacity-50">
               <span className="spanhidden text-xs text-slate-400">
-                Supprimer
+                {t("Supprimer btn")}
               </span>
               <img className="" src={iconTrash} alt="trash" />
             </div>
@@ -122,7 +123,7 @@ export default function DecisionCard({
           >
             <div className="wrapForHide flex justify-center flex-row items-center group-hover:opacity-50">
               <span className="spanhidden text-xs text-right text-slate-400">
-                Voir le profil de {valueDetailsDecision.firstname}
+                {t("Voir le profil de")} {valueDetailsDecision.firstname}
               </span>
               <img
                 className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50"
@@ -144,11 +145,11 @@ export default function DecisionCard({
           </div>
           <div className="border-t absolute bottom-3 ">
             <p className="text-xs font-thin text-left mt-2 text-gray-500">
-              Crée le:{" "}
+              {t("Crée le")} :{" "}
               {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
             </p>
             <p className="text-xs font-thin text-left text-gray-500">
-              Fin de conflit le:{" "}
+              {t("Fin de conflit le")} :{" "}
               {convertDateFromApi(valueDetailsDecision.date_decision_conflict)}
             </p>
           </div>

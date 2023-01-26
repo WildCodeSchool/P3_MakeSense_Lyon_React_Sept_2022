@@ -2,12 +2,12 @@ import { React, useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Paginate from "../../components/user/Paginate";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
-
 import { useCurrentUserContext } from "../../context/UserContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
@@ -17,6 +17,7 @@ export default function Decisions({ open }) {
     return classes.filter(Boolean).join(" ");
   }
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -157,15 +158,19 @@ export default function Decisions({ open }) {
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight text-gray-500">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="hidden md:flex text-2xl text-red-pink">Décisions</h1>
+        <h1 className="hidden md:flex text-2xl text-red-pink">
+          {t("Décisions page")}
+        </h1>
         <div className="logo-home hidden md:flex ">
           <img src={Logo} alt="logo make-sense" />
         </div>
@@ -180,7 +185,7 @@ export default function Decisions({ open }) {
             {isOpenAllDecisions ? (
               <img src={ChevronDown} alt="fleche vers le bas" />
             ) : null}
-            Toutes les décisions
+            {t("Toutes les décisions")}
           </button>
         </div>
         <button
@@ -191,7 +196,7 @@ export default function Decisions({ open }) {
           {isOpenInProgress ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          En cours
+          {t("En cours")}
         </button>
         <button
           type="button"
@@ -201,7 +206,7 @@ export default function Decisions({ open }) {
           {isOpenConflicts ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          Conflits
+          {t("Conflits filter")}
         </button>
         <button
           type="button"
@@ -211,7 +216,7 @@ export default function Decisions({ open }) {
           {isOpenFinished ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          Terminées
+          {t("Terminées filter")}
         </button>
         <button
           type="button"
@@ -221,14 +226,14 @@ export default function Decisions({ open }) {
           {isOpenUnfinished ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          Non abouties
+          {t("Non abouties")}
         </button>
         <button
           onClick={() => navigate("/create-decision")}
           type="button"
           className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
         >
-          + Nouvelle décision
+          + {t("Nouvelle décision")}
         </button>
       </div>
       <Menu

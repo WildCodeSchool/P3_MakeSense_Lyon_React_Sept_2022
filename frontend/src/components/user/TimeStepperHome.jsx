@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../css/user/homeUser.css";
+import { useTranslation } from "react-i18next";
 import circle from "../../assets/icons/circle.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function TimeStepperHome() {
+  const { t } = useTranslation();
   const { token } = useCurrentUserContext();
   const [decisions, setDecisions] = useState([]);
   const dateFormat = (date) => {
@@ -29,10 +31,7 @@ export default function TimeStepperHome() {
 
   return (
     <div className="flex flex-col pb-5 pt-5 rounded-xl w-[250px]">
-      <h6 className="text-center mb-5">
-        Prochaines décisions <br />
-        en conflit
-      </h6>
+      <h6 className="text-center mb-5">{t("Prochaines décisions")}</h6>
       <ul className="flex flex-col ">
         {decisions?.map((data, index) => (
           <li key={index} className="grid grid-cols-7">

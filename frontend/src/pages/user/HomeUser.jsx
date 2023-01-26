@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import DecisionCard from "../../components/user/DecisionCard";
 import "../../css/user/homeUser.css";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
@@ -10,6 +11,7 @@ const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function Home() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const { token } = useCurrentUserContext();
@@ -42,12 +44,14 @@ export default function Home() {
       <div className="flex flex-row items-center justify-between bg-light-grey pr-16 pl-10">
         <div className="flex flex-col">
           {user ? (
-            <p className="pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pt-3 text-xl">Bonjour</p>
+            <p className="pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="md:flex text-x font-extralight text-gray-500">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="hidden md:block logo-home">
@@ -58,14 +62,14 @@ export default function Home() {
         <div className="box col-start-1 col-end-4">
           <div className="flex align-center">
             <h2 className="text-l ml-5 md:text-3xl text-red-pink font-extrabold p-4">
-              Mes décisions :{" "}
+              {t("Mes décisions")} :{" "}
             </h2>
             <button
               type="button"
               onClick={() => navigate("/create-decision")}
               className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-3xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
             >
-              + Nouvelle décision
+              + {t("Nouvelle décision")}
             </button>
           </div>
         </div>
@@ -88,7 +92,7 @@ export default function Home() {
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
               <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
-                ... Voir plus
+                ... {t("Voir plus")}
               </div>
             </button>
           </div>
@@ -96,7 +100,7 @@ export default function Home() {
 
         <div className="box col-start-1 col-end-4 z-0">
           <h2 className="md:text-3xl text-l text-red-pink font-extrabold p-3 ml-5 z-0">
-            Décisions en cours :{" "}
+            {t("Décisions en cours")} :{" "}
           </h2>
         </div>
         <div className="box col-start-1 col-end-4 md:ml-10 md:justify-start flex justify-center items-center z-0">
@@ -120,7 +124,7 @@ export default function Home() {
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
               <div className=" z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
-                ... Voir plus
+                ... {t("Voir plus")}
               </div>
             </button>
           </div>

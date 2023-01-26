@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "../../css/user/ForgottenPassword.css";
+import { useTranslation } from "react-i18next";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
@@ -9,6 +10,7 @@ const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function ForgottenPassword({ email, setEmail }) {
   const myHeaders = new Headers();
+  const { t } = useTranslation();
   myHeaders.append("Content-Type", "application/json");
   const raw = JSON.stringify({
     email,
@@ -54,7 +56,7 @@ function ForgottenPassword({ email, setEmail }) {
             {/* <div className="connexion-YellowRectangle" /> */}
             <div className="p-6 space-y-6 sm:p-12">
               <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
-                MOT DE PASSE OUBLIE ?
+                {t("Mot de passe oublié ?")}
               </h1>
               <form className=" index space-y-8" action="#">
                 <div>
@@ -62,7 +64,7 @@ function ForgottenPassword({ email, setEmail }) {
                     htmlFor="email"
                     className="text-white block mt-8 mb-4 text-md font-medium"
                   >
-                    Votre adresse e-mail :
+                    {t("Votre adresse mail")} :
                   </label>
                   <input
                     type="email"
@@ -80,13 +82,10 @@ function ForgottenPassword({ email, setEmail }) {
                     type="submit"
                     className=" text-white mt-5 hover:bg-red-pink font-medium rounded-lg text-xl px-5 py-3 text-center border hover:scale-105 duration-300"
                   >
-                    Envoyer la demande
+                    {t("Envoyer la demande")}
                   </button>
                 </div>
-                <p className="text-center">
-                  Un e-mail vous a été envoyé ! Suivez les instructions dans cet
-                  e-mail pour modifier votre mot de passe.
-                </p>
+                <p className="text-center">{t("Reponse mdp")}</p>
               </form>
             </div>
           </div>
@@ -109,12 +108,12 @@ function ForgottenPassword({ email, setEmail }) {
               <NavLink className="hover:underline " to="/help">
                 <p href="help" className="text-sm hover:underline">
                   {" "}
-                  Besoin d'aides ?
+                  {t("Besoin d'aides ?")}
                 </p>
               </NavLink>
               <p>-</p>
               <NavLink to="/legal-notice" className="hover:underline ">
-                <p className="text-sm ">Mentions légales</p>
+                <p className="text-sm ">{t("Mentions légales")}</p>
               </NavLink>
             </div>
           </div>

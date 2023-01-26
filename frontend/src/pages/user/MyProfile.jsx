@@ -1,5 +1,6 @@
 import { React, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/user/myprofile.css";
@@ -10,7 +11,7 @@ const backEnd = import.meta.env.VITE_BACKEND_URL;
 export default function MyProfile() {
   const { user, setUser, token } = useCurrentUserContext();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const avatarRef = useRef(null);
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
@@ -143,15 +144,19 @@ export default function MyProfile() {
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl md:flex hidden text-red-pink">Mon profil</h1>
+        <h1 className="text-2xl md:flex hidden text-red-pink">
+          {t("Mon profil")}
+        </h1>
         <div className="logo-home hidden md:flex ">
           <img src={Logo} alt="logo make-sense" />
         </div>
@@ -169,9 +174,7 @@ export default function MyProfile() {
           </div>
         </div>
         <div className="flex flex-col">
-          <p className=" mt-6 md:mt-[125px] md:ml-5">
-            Ajoute une photo de profil avec ton plus beau sourire !
-          </p>
+          <p className=" mt-6 md:mt-[125px] md:ml-5">{t("Ajoute une photo")}</p>
           <form
             className="flex flex-col items-start md:ml-5"
             encType="multipart/form-data"
@@ -182,7 +185,7 @@ export default function MyProfile() {
               className=" bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full mt-2"
               type="submit"
             >
-              Envoyer
+              {t("Envoyer btn")}
             </button>
           </form>
         </div>
@@ -191,7 +194,7 @@ export default function MyProfile() {
         <div className="md:grid md:w-2/3 ml-5 overflow-hidden md:grid-cols-2 md:grid-rows-4 md:gap-3 md:pt-5">
           <div className="md:box mt-3 md:col-start-1 md:col-end-2 ">
             <label className="flex flex-col text font-light">
-              Prénom :
+              {t("Prénom input")} :
               <input
                 className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-lg h-10"
                 type="text"
@@ -203,7 +206,7 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-2 col-end-3">
             <label className="flex flex-col text font-light">
-              Nom:
+              {t("Nom input")} :
               <input
                 className="mt-3 mb-5 md:mb-0 md:w-[200px] border-2 rounded-lg h-10"
                 type="text"
@@ -215,7 +218,7 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-1 col-end-2">
             <label className="flex flex-col text font-light">
-              Localisation:
+              {t("Localisation input")} :
               <input
                 className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-lg h-10"
                 type="text"
@@ -227,7 +230,7 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-2 col-end-3">
             <label className="flex flex-col text font-light">
-              Email:
+              Email :
               <input
                 className="mt-3 md:w-[200px] border-2 mb-5 md:mb-0 rounded-lg h-10"
                 type="text"
@@ -239,7 +242,7 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-1 col-end-2">
             <label className="flex flex-col text font-light">
-              Téléphone:
+              {t("Téléphone input")} :
               <input
                 className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
                 type="text"
@@ -257,7 +260,7 @@ export default function MyProfile() {
                 id="buttonEnvoyerDecision"
                 className="flex mb-8 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
               >
-                Envoyer
+                {t("Envoyer btn")}
               </button>
             </div>
           </div>
