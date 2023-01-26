@@ -71,7 +71,7 @@ function Connexion() {
           {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-4 space-y-4 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
-              {t("Connexion")}
+              {t("Connexion page")}
             </h1>
             <p className="text-xl text-center">{t("Accédez à votre compte")}</p>
             <div className="index space-y-8" action="#">
@@ -122,12 +122,12 @@ function Connexion() {
                 <p className="text-center mt-3 text-sm">
                   <NavLink to="/motdepasseoublie">
                     <p className="text-white mtmb-1 font-medium hover:underline hover:text-flash-yellow">
-                      Mot de passe oublié?
+                      {t("Mot de passe oublié ?")}
                     </p>
                   </NavLink>
                   <NavLink to="/inscription">
                     <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
-                      S'inscrire
+                      {t("S'inscrire")}
                     </p>
                   </NavLink>
                 </p>
@@ -154,12 +154,12 @@ function Connexion() {
             <NavLink className="hover:underline" to="/help">
               <p href="help" className="text-sm">
                 {" "}
-                Besoin d'aides ?
+                {t("Besoin d'aides ?")}
               </p>
             </NavLink>
             <p>-</p>
             <NavLink to="/legal-notice" className="hover:underline">
-              <p className="text-sm">Mentions légales</p>
+              <p className="text-sm">{t("Mentions légales")}</p>
             </NavLink>
           </div>
         </div>

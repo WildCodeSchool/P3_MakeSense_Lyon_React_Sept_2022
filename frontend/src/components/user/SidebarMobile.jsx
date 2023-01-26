@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import "../../css/user/sidebar.css";
+import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeconnexion from "./AlertDeconnexion";
@@ -23,6 +24,7 @@ export default function SidebarMobile({
   const handleLogOut = () => {
     setOpenModalAlertDeconnexion(true);
   };
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (logoutIsConfirm === true) {
@@ -65,7 +67,7 @@ export default function SidebarMobile({
                 />
               </svg>
               <p className={`${openMobile ? "text-xl mt-1" : "hidden"}`}>
-                Home
+                {t("Accueil page")}
               </p>
             </NavLink>
             <NavLink
@@ -91,7 +93,7 @@ export default function SidebarMobile({
                 />
               </svg>
               <p className={`${openMobile ? "text-xl mt-3" : "hidden"}`}>
-                Décisions
+                {t("Décisions page")}
               </p>
             </NavLink>
             <button
@@ -117,7 +119,7 @@ export default function SidebarMobile({
                 />
               </svg>
               <p className={`${openMobile ? "text-xl mt-3" : "hidden"}`}>
-                Mes notifications
+                {t("Mes notifications")}
               </p>
             </button>
             <NavLink
@@ -143,7 +145,7 @@ export default function SidebarMobile({
                 />
               </svg>
               <p className={`${openMobile ? "text-xl mt-3" : "hidden"}`}>
-                Mon profil
+                {t("Mon profil")}
               </p>
             </NavLink>
             <button
@@ -168,7 +170,7 @@ export default function SidebarMobile({
                 <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
               <p className={`${openMobile ? "text-xl mt-3" : "hidden"}`}>
-                Se déconnecter
+                {t("Se déconnecter")}
               </p>
             </button>
             <div className="flex flex-row items-center mt-8">
@@ -176,7 +178,7 @@ export default function SidebarMobile({
                 className={`${openMobile ? "yellow-point mr-4" : "hidden"}`}
               />
               <p className={`${openMobile ? "text-xl" : "hidden"}`}>
-                Changer de pays
+                {t("Changer de pays")}
               </p>
             </div>
             <p

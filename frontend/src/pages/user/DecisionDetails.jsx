@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 import AccordionDecisionDetails from "../../components/user/AccordionDecisionDetails";
 import userimg from "../../assets/icons/user.png";
@@ -11,6 +12,7 @@ const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function DecisionDetails() {
   const idParam = useParams();
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
   const [clickedAnswer4, setClickedAnswer4] = useState(false);
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
@@ -53,16 +55,18 @@ export default function DecisionDetails() {
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight text-gray-500">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <h1 className="md:text-2xl text-red-pink hidden">
-          Détail de la décision
+          {t("Détails de la décision")}
         </h1>
         <div className="hidden md:block logo-home">
           <img src={Logo} alt="logo make-sense" />
@@ -115,13 +119,13 @@ export default function DecisionDetails() {
                 onClick={() => navigate(`/edit-decision/${idParam.id}`)}
                 className="pr-3 pl-3 h-10 w-48 bg-dark-blue rounded-3xl text-white"
               >
-                Modifier ma décision
+                {t("Modifier ma décision")}
               </button>
             ) : null}
           </div>
           <div className="flex flex-row justify-end">
             <p className="mt-2 mr-3">
-              Proposé par {valuesDetailsDecision.firstname} :
+              {t("Proposé par")} {valuesDetailsDecision.firstname} :
             </p>
             <button
               type="button"
