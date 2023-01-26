@@ -3,12 +3,14 @@ import "../../css/user/homeUser.css";
 import { useTranslation } from "react-i18next";
 import circle from "../../assets/icons/circle.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function TimeStepperHome() {
   const { t } = useTranslation();
   const { token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [decisions, setDecisions] = useState([]);
   const dateFormat = (date) => {
     return date.slice(2, 10);
@@ -31,7 +33,9 @@ export default function TimeStepperHome() {
 
   return (
     <div className="flex flex-col pb-5 pt-5 rounded-xl w-[250px] pr-10">
-      <h6 className="text-center mb-5">{t("Prochaines décisions")}</h6>
+      <h6 className={`text-center mb-5 ${dark ? "text-black" : "text-white"}`}>
+        {t("Prochaines décisions")}
+      </h6>
       <ul className="flex flex-col ">
         {decisions?.map((data, index) => (
           <li key={index} className="grid grid-cols-7">
@@ -56,7 +60,13 @@ export default function TimeStepperHome() {
               <div className="" />
             </div>
 
-            <p className="text-sm text-dark-blue col-span-3">{data.title}</p>
+            <p
+              className={`text-sm  col-span-3 ${
+                dark ? "text-dark-blue" : "text-gray-500"
+              }`}
+            >
+              {data.title}
+            </p>
           </li>
         ))}
       </ul>

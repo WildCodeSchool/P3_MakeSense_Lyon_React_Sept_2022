@@ -53,7 +53,7 @@ export default function Home() {
           ${
             dark
               ? "text-black"
-              : "text-white bg-dark-bg border-b-2 border-dark-header"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
           }`}
       >
         <div className="flex flex-col">
