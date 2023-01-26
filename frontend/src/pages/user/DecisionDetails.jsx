@@ -73,7 +73,7 @@ export default function DecisionDetails() {
         </div>
       </div>
       <div className="flex flex-col md:flex-row-reverse  justify-around mt-10">
-        <div className="hidden md:flex md:flex-col">
+        <div className="hidden lg:flex lg:flex-col">
           <TimelineStepperDecision
             clickedAnswer4={clickedAnswer4}
             setClickedAnswer4={setClickedAnswer4}
@@ -82,7 +82,7 @@ export default function DecisionDetails() {
           />
         </div>
 
-        <div className="flex flex-col md:mr-10 ml-2 md:ml-10">
+        <div className="flex flex-col md:mr-10 mx-2 md:ml-10">
           <div className="flex flex-col">
             <div className="flex flex-row items-end">
               <h2 className="text-2xl">
