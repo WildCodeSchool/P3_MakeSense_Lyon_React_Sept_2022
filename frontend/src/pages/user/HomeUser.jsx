@@ -1,11 +1,13 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import DecisionCard from "../../components/user/DecisionCard";
 import "../../css/user/homeUser.css";
+import DecisionCard from "../../components/user/DecisionCard";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -15,6 +17,7 @@ export default function Home() {
   const { user } = useCurrentUserContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const { token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   // function to update the array of decisions after delete one decision
   const updateArrayDecisionsAfterDelete = (id) => {
     const indexOfValueDecision = valuesDetailsDecisions.findIndex(
@@ -40,8 +43,19 @@ export default function Home() {
   }, [token]);
 
   return (
-    <div className="w-screen z-0">
-      <div className="flex flex-row items-center justify-between bg-light-grey pr-10 pl-10">
+    <div
+      className={`w-screen z-0${
+        dark ? "text-black" : "text-white bg-dark-header"
+      }`}
+    >
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pt-3 text-xl">
@@ -50,12 +64,16 @@ export default function Home() {
           ) : (
             <p className="pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="md:flex text-x font-extralight text-gray-500">
+          <p className="md:flex text-x font-extralight text-gray-500 pb-2">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="hidden md:block logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <div className="md:grid overflow-hidden grid-cols-4 grid-rows-7 gap-3 mt-3">
@@ -91,7 +109,13 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
+              <div
+                className={`z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc]  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center ${
+                  dark
+                    ? " text-light-blue"
+                    : "bg-dark-header text-white border-2 border-dark-bg"
+                }`}
+              >
                 ... {t("Voir plus")}
               </div>
             </button>
@@ -123,7 +147,13 @@ export default function Home() {
               return null;
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
-              <div className=" z-0 max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] text-light-blue  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center">
+              <div
+                className={`z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc]  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center ${
+                  dark
+                    ? " text-light-blue"
+                    : "bg-dark-header text-white border-2 border-dark-bg"
+                }`}
+              >
                 ... {t("Voir plus")}
               </div>
             </button>
