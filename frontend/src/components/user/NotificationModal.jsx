@@ -29,15 +29,15 @@ function NotificationModal({ setShowModal, open, showModal }) {
       <Modal
         className={`${
           open && showModal
-            ? "md:ml-[274px] md:mt-[110px] rounded-xl w-[400px] shake"
-            : "md:ml-[78px] md:mt-[110px] rounded-xl  w-[400px] shake"
+            ? "md:ml-[274px] md:mt-[110px] rounded-r-xl w-[400px] shake"
+            : "md:ml-[78px] md:mt-[110px] rounded-r-xl  w-[400px] shake"
         }`}
         show
         position="left"
         size="2xl"
         onClose={() => setShowModal(false)}
       >
-        <Modal.Header className="pl-3 pr-3 pt-6 pb-6 bg-light-blue text-slate-50 align-middle rounded-lg">
+        <Modal.Header className="pl-3 pr-3 pt-6 pb-6 bg-light-blue text-slate-50 align-middle rounded-tr-lg">
           <div className="text-white">Notifications:</div>
         </Modal.Header>
         <Modal.Body className="bg-gray-200">
@@ -51,7 +51,7 @@ function NotificationModal({ setShowModal, open, showModal }) {
         </Modal.Body>
         <Modal.Footer className="bg-gray-200">
           <Button
-            className="bg-light-blue"
+            className="bg-light-blue rounded-xl"
             onClick={() => setShowModal(false)}
             color="gray"
           >

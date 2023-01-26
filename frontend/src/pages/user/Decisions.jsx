@@ -153,15 +153,15 @@ export default function Decisions({ open }) {
   };
 
   return (
-    <div className="w-screen md:h-screen overflow-hidden">
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div className="w-screen overflow-hidden flex flex-col justify-between">
+      <div className="flex flex-row items-center justify-between bg-light-grey pr-10 pl-10">
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className=" pt-3 text-xl">Bonjour {user.firstname}</p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className=" pt-3 text-xl">Bonjour</p>
           )}
-          <p className="pl-10 text-x font-extralight text-gray-500">
+          <p className=" text-x font-extralight text-gray-500">
             Nous sommes le : {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -170,12 +170,12 @@ export default function Decisions({ open }) {
           <img src={Logo} alt="logo make-sense" />
         </div>
       </div>
-      <div className="md:flex hidden">
+      <div className="lg:flex hidden">
         <div className="md:flex">
           <button
             type="button"
             onClick={handleChevrondownAllDecisions}
-            className=" ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-black rounded-3xl text-black"
+            className=" ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-black rounded-xl text-black"
           >
             {isOpenAllDecisions ? (
               <img src={ChevronDown} alt="fleche vers le bas" />
@@ -186,7 +186,7 @@ export default function Decisions({ open }) {
         <button
           type="button"
           onClick={handleChevrondownInProgress}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-blue text-light-blue rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-blue text-light-blue rounded-xl"
         >
           {isOpenInProgress ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
@@ -196,7 +196,7 @@ export default function Decisions({ open }) {
         <button
           type="button"
           onClick={handleChevrondownConflicts}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-orange text-light-orange rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-orange text-light-orange rounded-xl"
         >
           {isOpenConflicts ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
@@ -206,7 +206,7 @@ export default function Decisions({ open }) {
         <button
           type="button"
           onClick={handleChevrondownFinished}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-green text-light-green rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-green text-light-green rounded-xl"
         >
           {isOpenFinished ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
@@ -216,7 +216,7 @@ export default function Decisions({ open }) {
         <button
           type="button"
           onClick={handleChevrondownUnfinished}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-red-pink text-red-pink rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-red-pink text-red-pink rounded-xl"
         >
           {isOpenUnfinished ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
@@ -226,25 +226,25 @@ export default function Decisions({ open }) {
         <button
           onClick={() => navigate("/create-decision")}
           type="button"
-          className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+          className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink"
         >
-          + Nouvelle décision
+          + Décision
         </button>
       </div>
       <Menu
         as="div"
-        className="flex justify-center items-center relative text-left mt-3 md:hidden "
+        className="flex justify-center md:items-start items-center text-left mt-3 lg:hidden md:ml-10 flex-col"
       >
         <div className="relative inline-block">
           <button
             type="button"
             onClick={() => navigate("/create-decision")}
-            className="inline-flex w-[100px] mr-9 justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+            className="inline-flex w-[100px] mr-9 justify-center rounded-xl  bg-red-pink px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
           >
             {" "}
-            + décision
+            + Décision
           </button>
-          <Menu.Button className="inline-flex w-[100px] justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+          <Menu.Button className="inline-flex w-[100px] justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
             Filtrer
             <ChevronDownIcon
               className="-mr-1 ml-2 h-5 w-5"
@@ -262,7 +262,7 @@ export default function Decisions({ open }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
               <Menu.Item>
                 {({ active }) => (
@@ -278,6 +278,7 @@ export default function Decisions({ open }) {
                   </button>
                 )}
               </Menu.Item>
+
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -338,9 +339,9 @@ export default function Decisions({ open }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start md:grid-rows-3 mt-3 gap-3 ">
-        <div className="md:box col-start-1 col-end-4">
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-5 ml-10 mr-10 ">
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start mt-3 gap-3 ">
+        <div className="md:box col-start-1 col-end-4 ">
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 xl:grid-rows-2 gap-5 ml-10 mr-10">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
               return (
                 <DecisionCard
@@ -354,7 +355,7 @@ export default function Decisions({ open }) {
             })}
           </div>
 
-          <div className="md:ml-6 mb-16 mt-7">
+          <div className="md:ml-6 mb-16 xl:mt-6">
             <Paginate
               decisionPerPage={decisionPerPage}
               totalDecisions={totalDecisions}

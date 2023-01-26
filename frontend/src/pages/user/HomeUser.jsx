@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <div className="w-screen z-0">
-      <div className="flex flex-row items-center justify-between bg-light-grey pr-16 pl-10">
+      <div className="flex flex-row items-center justify-between bg-light-grey pr-10 pl-10">
         <div className="flex flex-col">
           {user ? (
             <p className="pt-3 text-xl">Bonjour {user.firstname}</p>
@@ -63,9 +63,9 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate("/create-decision")}
-              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-3xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
+              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
             >
-              + Nouvelle décision
+              + Décision
             </button>
           </div>
         </div>

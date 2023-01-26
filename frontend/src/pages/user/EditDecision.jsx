@@ -226,7 +226,7 @@ export default function EditDecision() {
               type="text"
               value={title}
               id="title-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              className="border border-gray-300 text-gray-900 text-sm rounded-xl block w-full p-2.5"
             />
           </div>
           <h2 className="mt-8 mb-3">Description de la décision :</h2>
@@ -281,7 +281,7 @@ export default function EditDecision() {
             <select
               onChange={(e) => setStatusOfDecision(e.target.value)}
               id="status-input"
-              className="border border-gray-300 text-sm rounded-lg block w-80 p-2.5  bg-white"
+              className="border border-gray-300 text-sm rounded-xl block w-80 p-2.5  bg-white"
             >
               <option defaultValue="OptionStatus" disabled selected>
                 Cliquer pour changer de statut
@@ -359,7 +359,7 @@ export default function EditDecision() {
           type="button"
           onClick={sendEditDecision}
           id="buttonEnvoyerDecision"
-          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-full"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-xl"
         >
           Envoyer
         </button>
