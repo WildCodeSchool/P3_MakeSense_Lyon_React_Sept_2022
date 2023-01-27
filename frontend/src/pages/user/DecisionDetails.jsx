@@ -4,9 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import AccordionDecisionDetails from "../../components/user/AccordionDecisionDetails";
 import userimg from "../../assets/icons/user.png";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import TimelineStepperDecision from "../../components/user/TimelineStepperDecision";
 import "../../css/user/createDecision.css";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -14,6 +16,7 @@ export default function DecisionDetails() {
   const idParam = useParams();
   const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [clickedAnswer4, setClickedAnswer4] = useState(false);
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
@@ -51,8 +54,19 @@ export default function DecisionDetails() {
     return "encours";
   };
   return (
-    <div className="flex flex-col w-screen overflow-hidden">
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div
+      className={`flex flex-col w-screen overflow-hidden ${
+        dark ? "" : "bg-dark-header text-white"
+      }`}
+    >
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">
@@ -61,7 +75,7 @@ export default function DecisionDetails() {
           ) : (
             <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight text-gray-500">
+          <p className="pl-10 text-x font-extralight text-gray-500 pb-2">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -69,7 +83,11 @@ export default function DecisionDetails() {
           {t("Détails de la décision")}
         </h1>
         <div className="hidden md:block logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <div className="flex flex-col md:flex-row-reverse  justify-around mt-10">
@@ -112,7 +130,7 @@ export default function DecisionDetails() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col md:mr-10 ml-2">
+          <div className="flex flex-col md:mr-10 ml-2 pt-5">
             {valuesDetailsDecision.user_id === user.id ? (
               <button
                 type="button"
