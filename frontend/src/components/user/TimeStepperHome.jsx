@@ -32,7 +32,7 @@ export default function TimeStepperHome() {
   }, [token]);
 
   return (
-    <div className="flex flex-col pb-5 pt-5 rounded-xl w-[250px] pr-10">
+    <div className="flex flex-col pb-5 pt-5 rounded-xl w-[250px]">
       <h6 className={`text-center mb-5 ${dark ? "text-black" : "text-white"}`}>
         {t("Prochaines décisions")}
       </h6>

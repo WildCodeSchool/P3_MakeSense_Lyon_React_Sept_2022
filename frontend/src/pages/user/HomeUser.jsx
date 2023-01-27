@@ -92,10 +92,10 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate("/create-decision")}
-              className="w-[100px] mr-9 rounded-xl  bg-red-pink px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+              className="lg:hidden w-[100px] mr-9 rounded-xl  bg-red-pink px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
             >
               {" "}
-              + Décision
+              + {t("Décision")}
             </button>
           </div>
         </div>
