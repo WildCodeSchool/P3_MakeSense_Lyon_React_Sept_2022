@@ -9,6 +9,7 @@ const backEnd = import.meta.env.VITE_BACKEND_URL;
 export default function Help() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [objet, setObjet] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ export default function Help() {
     const raw = JSON.stringify({
       username,
       email,
+      objet,
       content,
     });
     toast
@@ -105,8 +107,8 @@ export default function Help() {
           <input
             className="mt-3 border-2 h-10 rounded-lg"
             type="text"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={objet}
+            onChange={(e) => setObjet(e.target.value)}
             name="message"
           />
         </label>
