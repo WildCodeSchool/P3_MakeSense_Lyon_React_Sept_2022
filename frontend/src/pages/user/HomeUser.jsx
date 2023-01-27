@@ -78,15 +78,23 @@ export default function Home() {
       </div>
       <div className="md:grid overflow-hidden grid-cols-4 grid-rows-7 gap-3 mt-3">
         <div className="box col-start-1 col-end-4">
-          <div className="flex align-center">
+          <div className="flex items-center">
             <h2 className="text-l ml-5 md:text-3xl text-red-pink font-extrabold p-4">
               {t("Mes décisions")} :{" "}
             </h2>
             <button
               type="button"
               onClick={() => navigate("/create-decision")}
-              className=" h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
+              className=" lg:block hidden h-6 pr-3 pl-3 mt-4 md:m-4 md:h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink transition duration-200 ease-in-out"
             >
+              + {t("Décision")}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/create-decision")}
+              className="lg:hidden w-[100px] mr-9 rounded-xl  bg-red-pink px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+            >
+              {" "}
               + {t("Décision")}
             </button>
           </div>
@@ -109,7 +117,7 @@ export default function Home() {
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
               <div
-                className={`z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc]  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center ${
+                className={`z-0 w-[250px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc]  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center ${
                   dark
                     ? " text-light-blue"
                     : "bg-dark-header text-white border-2 border-dark-bg"
@@ -147,7 +155,7 @@ export default function Home() {
             })}
             <button type="button" onClick={() => navigate("/decisions")}>
               <div
-                className={`z-0 w-[250px] md:w-[200px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc]  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center ${
+                className={`z-0 w-[250px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-20 bg-[#fcfcfc]  px-4 py-5 sm:px-6 shadow-lg rounded-xl flex items-center justify-center ${
                   dark
                     ? " text-light-blue"
                     : "bg-dark-header text-white border-2 border-dark-bg"

@@ -114,7 +114,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={() => handleStatus("Neutre")}
-          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
+          className={`h-5 ml-2  md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-xl w-20 mb-4 ${
             chosenStatusNeutral
               ? "bg-light-blue text-white "
               : "border-2 border-light-blue text-light-blue"
@@ -125,7 +125,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={() => handleStatus("Pour")}
-          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-xl w-20 mb-4 ${
             chosenStatusFor
               ? "bg-light-green text-white "
               : "border-2 border-light-green text-light-green"
@@ -136,7 +136,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={() => handleStatus("Contre")}
-          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-3xl w-20 mb-4 ${
+          className={`h-5 ml-2 md:ml-10 flex items-center justify-center mt-5 md:h-10 pl-2 pr-2 rounded-xl w-20 mb-4 ${
             chosenStatusAgainst
               ? "bg-red-pink text-white "
               : "border-2 border-red-pink text-red-pink"
@@ -158,7 +158,7 @@ function AccordionCommentsPart({
         <button
           type="button"
           onClick={addComment}
-          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl my-6"
         >
           {t("Envoyer btn")}
         </button>
