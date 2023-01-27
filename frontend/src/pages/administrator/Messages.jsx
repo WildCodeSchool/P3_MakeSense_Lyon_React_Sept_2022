@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCurrentUserContext } from "../../context/UserContext";
+import ModalMessage from "../../components/administrator/ModalMessage";
 import Logo from "../../assets/logo-makesense.png";
 import AlertDeleteDecision from "../../components/user/AlertDeleteDecision";
 
@@ -9,6 +10,7 @@ function Messages() {
   const [messages, setMessages] = useState([]);
   const { user, token } = useCurrentUserContext();
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
+  const [showModalMessage, setShowModalMessage] = useState(false);
   const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
   const [id, setId] = useState();
 
@@ -55,7 +57,6 @@ function Messages() {
     }
   }, [deleteIsConfirm]);
 
-  console.warn(id);
   return (
     <div className="w-screen ">
       <AlertDeleteDecision
@@ -63,6 +64,7 @@ function Messages() {
         setOpenModalAlertDelete={setOpenModalAlertDelete}
         setdeleteIsConfirm={setDeleteIsConfirm}
       />
+
       <div className="flex flex-row items-center justify-between bg-light-grey">
         <div className="flex flex-col">
           {user ? (
@@ -101,11 +103,12 @@ function Messages() {
         </div>
         {messages.map((message) => (
           <div
+            type="button"
             key={message.id}
             className={
               message.id % 2 === 0
-                ? "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-200 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	"
-                : "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-300 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	"
+                ? "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-200 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	w-full "
+                : "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-300 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	w-full "
             }
           >
             <button
@@ -132,9 +135,18 @@ function Messages() {
             </button>
             <p className="col-start-2 text-center">{message.username}</p>
             <p className="col-start-3 col-end-5 text-center">{message.email}</p>
-            <p className="col-start-5 col-end-7 text-center">
-              {message.content}
-            </p>
+            <button
+              type="button"
+              className="col-start-5 col-end-7 text-center"
+              onClick={() => setShowModalMessage(true)}
+            >
+              <p>{message.objet}</p>
+            </button>
+            <ModalMessage
+              showModalMessage={showModalMessage}
+              setShowModalMessage={setShowModalMessage}
+              message={message}
+            />
           </div>
         ))}
       </div>
