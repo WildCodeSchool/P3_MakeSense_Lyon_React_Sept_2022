@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 import Logo from "../../assets/logo-makesense.png";
-import Return from "../../assets/icons/corner-down-left.svg";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -67,10 +66,6 @@ export default function Help() {
       <div className="flex justify-center items-center h-32 m-8">
         <img className="h-12" src={Logo} alt="logo MakeSense" />
       </div>
-      <div className="flex items-center">
-        <img className="m-5" src={Return} alt="arrow return" />
-        <p>Back to home</p>
-      </div>
       <div className="h-auto w-screen bg-dark-blue ">
         <p className="text-white pt-8 pl-20 text-2xl">Besoin d'aide ?</p>
         <p className="text-flash-yellow pl-20 pt-8 pb-8 text-7xl">
@@ -105,7 +100,17 @@ export default function Help() {
             placeholder="john.doe@gmail.com"
           />
         </label>
-        <label className="flex flex-col mt-4 mb-10 text font-light">
+        <label className="flex flex-col mt-4 text font-light">
+          Objet :
+          <input
+            className="mt-3 border-2 h-10 rounded-lg"
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            name="message"
+          />
+        </label>
+        <label className="flex flex-col mt-4 mb-10 font-light">
           Message :
           <input
             className="mt-3 border-2 h-20 rounded-lg"
