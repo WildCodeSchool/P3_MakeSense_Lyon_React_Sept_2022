@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 import Logo from "../../assets/logo-makesense.png";
@@ -11,7 +10,6 @@ export default function Help() {
   const [email, setEmail] = useState("");
   const [objet, setObjet] = useState("");
   const [content, setContent] = useState("");
-  const navigate = useNavigate();
 
   // for alert notification error edit decision after submit
   const notify = () =>
@@ -46,9 +44,7 @@ export default function Help() {
       )
       .then((response) => {
         if (response.status === 201) {
-          setTimeout(() => {
-            navigate("/");
-          }, 2000);
+          console.warn("ok");
         } else {
           notify();
         }
