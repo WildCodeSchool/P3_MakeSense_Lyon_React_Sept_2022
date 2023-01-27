@@ -30,6 +30,9 @@ module.exports = withMT({
         "light-orange": "#F3976B",
         "light-grey": "#f7f7f7",
         "nav-color": "#196C84",
+        "dark-bg": "#303134",
+        "dark-header": "#1e1e1e",
+        "gray-bar": "#98999b",
       },
       boxShadow: {
         1: "10px 10px 20px 0 rgba(50, 0, 50, 0.3)",

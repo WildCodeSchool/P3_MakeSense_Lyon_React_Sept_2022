@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import iconTrash from "../../assets/icons/trash-orange.svg";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
 import userimg from "../../assets/icons/user.png";
@@ -24,6 +25,7 @@ export default function DecisionCard({
     return `${day}/${month}/${year}`;
   };
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
+  const { dark } = useCurrentDarkContext();
   const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
   const { t } = useTranslation();
@@ -93,7 +95,11 @@ export default function DecisionCard({
   }, [valueDetailsDecision]);
 
   return (
-    <div className=" relative max-w-[250px] min-w-[240px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl">
+    <div
+      className={`relative w-[250px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl ${
+        dark ? "" : "bg-dark-bg"
+      }`}
+    >
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
@@ -141,7 +147,13 @@ export default function DecisionCard({
       {valueDetailsDecision ? (
         <NavLink to={`/decision/${valueDetailsDecision.id}`}>
           <div className="flex items-center">
-            <p className="text-left mt-5 mb-5">{valueDetailsDecision.title}</p>
+            <p
+              className={`text-left mt-5 mb-5 ${
+                dark ? "text-black" : "text-white"
+              }`}
+            >
+              {valueDetailsDecision.title}
+            </p>
           </div>
           <div className="border-t absolute bottom-3 ">
             <p className="text-xs font-thin text-left mt-2 text-gray-500">

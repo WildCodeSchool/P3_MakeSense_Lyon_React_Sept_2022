@@ -9,8 +9,8 @@ const {
   hashPassword,
   verifyPassword,
   verifyToken,
-} = require("./Middlewares/auth");
-const { verifyEmail } = require("./Middlewares/verifyEmail");
+} = require("./middlewares/auth");
+const { verifyEmail } = require("./middlewares/verifyEmail");
 
 // call controller ******************************************
 const authControllers = require("./controllers/authController");
