@@ -4,13 +4,16 @@ import "../../css/user/Profile.css";
 import { useTranslation } from "react-i18next";
 import Randomuser from "../../assets/randomuser.jpg";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import DecisionCard from "../../components/user/DecisionCard";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function UserProfile() {
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const idParam = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -69,8 +72,15 @@ export default function UserProfile() {
   }, []);
 
   return (
-    <div className="userProfilePage w-screen">
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">
@@ -79,7 +89,7 @@ export default function UserProfile() {
           ) : (
             <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight">
+          <p className="pl-10 text-x font-extralight pb-2">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -87,7 +97,11 @@ export default function UserProfile() {
           {t("Profil de")} {`${valuesUser.firstname} ${valuesUser.lastname}`}
         </h1>
         <div className="logo-home hidden md:flex ">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <main>

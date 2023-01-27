@@ -7,8 +7,10 @@ import Paginate from "../../components/user/Paginate";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -19,6 +21,7 @@ export default function Decisions({ open }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalDecisions, setTotalDecisions] = useState();
@@ -154,8 +157,19 @@ export default function Decisions({ open }) {
   };
 
   return (
-    <div className="w-screen overflow-hidden flex flex-col">
-      <div className="flex flex-row items-center justify-between bg-light-grey pr-10 pl-10">
+    <div
+      className={`w-screen overflow-hidden flex flex-col ${
+        dark ? "" : "bg-dark-header"
+      }`}
+    >
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className=" pt-3 text-xl">
@@ -164,7 +178,7 @@ export default function Decisions({ open }) {
           ) : (
             <p className=" pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className=" text-x font-extralight text-gray-500">
+          <p className=" text-x font-extralight text-gray-500 pb-2">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -172,7 +186,11 @@ export default function Decisions({ open }) {
           {t("Décisions page")}
         </h1>
         <div className="logo-home hidden md:flex ">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <div className="lg:flex hidden">
@@ -180,7 +198,11 @@ export default function Decisions({ open }) {
           <button
             type="button"
             onClick={handleChevrondownAllDecisions}
-            className=" ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-black rounded-xl text-black"
+            className={`ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 rounded-xl  ${
+              dark
+                ? "border-black text-black"
+                : " border-gray-bar text-gray-bar"
+            }`}
           >
             {isOpenAllDecisions ? (
               <img src={ChevronDown} alt="fleche vers le bas" />
