@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 import AccordionDecisionDetails from "../../components/user/AccordionDecisionDetails";
 import userimg from "../../assets/icons/user.png";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import TimelineStepperDecision from "../../components/user/TimelineStepperDecision";
 import "../../css/user/createDecision.css";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function DecisionDetails() {
   const idParam = useParams();
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [clickedAnswer4, setClickedAnswer4] = useState(false);
   const [valuesDetailsDecision, setValuesDetailsDecision] = useState([]);
   const [urlAvatarStatus, setAvatarStatus] = useState("");
@@ -49,27 +54,44 @@ export default function DecisionDetails() {
     return "encours";
   };
   return (
-    <div className="flex flex-col w-screen overflow-hidden">
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div
+      className={`flex flex-col w-screen overflow-hidden ${
+        dark ? "" : "bg-dark-header text-white"
+      }`}
+    >
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight text-gray-500">
-            Nous sommes le : {new Date().toLocaleDateString()}
+          <p className="pl-10 text-x font-extralight text-gray-500 pb-2">
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <h1 className="md:text-2xl text-red-pink hidden">
-          Détail de la décision
+          {t("Détails de la décision")}
         </h1>
         <div className="hidden md:block logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <div className="flex flex-col md:flex-row-reverse  justify-around mt-10">
-        <div className="hidden md:flex md:flex-col">
+        <div className="hidden lg:flex lg:flex-col">
           <TimelineStepperDecision
             clickedAnswer4={clickedAnswer4}
             setClickedAnswer4={setClickedAnswer4}
@@ -78,7 +100,7 @@ export default function DecisionDetails() {
           />
         </div>
 
-        <div className="flex flex-col md:mr-10 ml-2 md:ml-10">
+        <div className="flex flex-col md:mr-10 mx-2 md:ml-10">
           <div className="flex flex-col">
             <div className="flex flex-row items-end">
               <h2 className="text-2xl">
@@ -108,20 +130,20 @@ export default function DecisionDetails() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col md:mr-10 ml-2">
+          <div className="flex flex-col md:mr-10 ml-2 pt-5">
             {valuesDetailsDecision.user_id === user.id ? (
               <button
                 type="button"
                 onClick={() => navigate(`/edit-decision/${idParam.id}`)}
                 className="pr-3 pl-3 h-10 w-48 bg-dark-blue rounded-3xl text-white"
               >
-                Modifier ma décision
+                {t("Modifier ma décision")}
               </button>
             ) : null}
           </div>
           <div className="flex flex-row justify-end">
             <p className="mt-2 mr-3">
-              Proposé par {valuesDetailsDecision.firstname} :
+              {t("Proposé par")} {valuesDetailsDecision.firstname} :
             </p>
             <button
               type="button"

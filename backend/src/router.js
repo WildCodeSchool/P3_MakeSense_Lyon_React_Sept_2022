@@ -101,5 +101,6 @@ router.get("/admin/countstats", adminControllers.browseCount);
 // Route for message *********************************************
 router.get("/admin/message", messageControllers.browseMessage);
 router.post("/admin/addmessage", messageControllers.addMessage);
+router.delete("/admin/message/:id", messageControllers.deleteMessage);
 
 module.exports = router;

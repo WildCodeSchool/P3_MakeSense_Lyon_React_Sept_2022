@@ -3,12 +3,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Connexion.css";
 import "../../assets/logo-makesense.png";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import peoplepicture from "../../assets/peoplepicture.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 function Connexion() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useCurrentUserContext({});
@@ -69,9 +71,9 @@ function Connexion() {
           {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-4 space-y-4 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
-              CONNEXION
+              {t("Connexion page")}
             </h1>
-            <p className="text-xl text-center">Accédez à votre compte </p>
+            <p className="text-xl text-center">{t("Accédez à votre compte")}</p>
             <div className="index space-y-8" action="#">
               <div>
                 <label
@@ -95,7 +97,7 @@ function Connexion() {
                   htmlFor="password"
                   className=" block mb-2 text-md font-medium"
                 >
-                  Mot de passe :
+                  {t("Mot de passe")} :
                 </label>
                 <input
                   type="password"
@@ -107,42 +109,25 @@ function Connexion() {
                   required=""
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border text-sm"
-                      required=""
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-white">
-                      Mémoriser
-                    </label>
-                  </div>
-                </div>
-              </div>
+
               <div className="text-center ">
                 <button
                   type="submit"
                   onClick={sendConnexion}
                   className=" text-white hover:bg-red-pink font-medium rounded-md text-xl p-4 text-center border hover:scale-105 duration-300"
                 >
-                  SE CONNECTER
+                  {t("Se connecter")}
                 </button>
 
                 <p className="text-center mt-3 text-sm">
                   <NavLink to="/motdepasseoublie">
                     <p className="text-white mtmb-1 font-medium hover:underline hover:text-flash-yellow">
-                      Mot de passe oublié?
+                      {t("Mot de passe oublié ?")}
                     </p>
                   </NavLink>
                   <NavLink to="/inscription">
                     <p className=" text-white font-medium text-primary-600 hover:underline hover:text-primary-yellow">
-                      S'inscrire
+                      {t("S'inscrire")}
                     </p>
                   </NavLink>
                 </p>
@@ -169,12 +154,12 @@ function Connexion() {
             <NavLink className="hover:underline" to="/help">
               <p href="help" className="text-sm">
                 {" "}
-                Besoin d'aides ?
+                {t("Besoin d'aides ?")}
               </p>
             </NavLink>
             <p>-</p>
             <NavLink to="/legal-notice" className="hover:underline">
-              <p className="text-sm">Mentions légales</p>
+              <p className="text-sm">{t("Mentions légales")}</p>
             </NavLink>
           </div>
         </div>

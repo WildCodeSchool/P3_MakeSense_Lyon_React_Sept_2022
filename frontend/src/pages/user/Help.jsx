@@ -1,14 +1,21 @@
 import React, { useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
 import Logo from "../../assets/logo-makesense.png";
-import Return from "../../assets/icons/corner-down-left.svg";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function Help() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [objet, setObjet] = useState("");
   const [content, setContent] = useState("");
+
+  // for alert notification error edit decision after submit
+  const notify = () =>
+    toast.error(
+      "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
 
   const sendMessage = () => {
     const myHeaders = new Headers();
@@ -17,33 +24,45 @@ export default function Help() {
     const raw = JSON.stringify({
       username,
       email,
+      objet,
       content,
     });
-
-    fetch(`${backEnd}/admin/addmessage`, {
-      method: "POST",
-      redirect: "follow",
-      body: raw,
-      headers: myHeaders,
-    })
-      .then((res) => {
-        res.json();
+    toast
+      .promise(
+        fetch(`${backEnd}/admin/addmessage`, {
+          method: "POST",
+          redirect: "follow",
+          body: raw,
+          headers: myHeaders,
+        }),
+        {
+          loading: "Envoi en cours",
+          success: "Message envoyé !",
+          error:
+            "Une erreur sur le serveur est survenue lors de l'envoi de votre message",
+        }
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          console.warn("ok");
+        } else {
+          notify();
+        }
       })
       .then((result) => {
         console.warn(result);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
     <div>
       <HeaderCountryChoice />
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex justify-center items-center h-32 m-8">
         <img className="h-12" src={Logo} alt="logo MakeSense" />
-      </div>
-      <div className="flex items-center">
-        <img className="m-5" src={Return} alt="arrow return" />
-        <p>Back to home</p>
       </div>
       <div className="h-auto w-screen bg-dark-blue ">
         <p className="text-white pt-8 pl-20 text-2xl">Besoin d'aide ?</p>
@@ -79,7 +98,17 @@ export default function Help() {
             placeholder="john.doe@gmail.com"
           />
         </label>
-        <label className="flex flex-col mt-4 mb-10 text font-light">
+        <label className="flex flex-col mt-4 text font-light">
+          Objet :
+          <input
+            className="mt-3 border-2 h-10 rounded-lg"
+            type="text"
+            value={objet}
+            onChange={(e) => setObjet(e.target.value)}
+            name="message"
+          />
+        </label>
+        <label className="flex flex-col mt-4 mb-10 font-light">
           Message :
           <input
             className="mt-3 border-2 h-20 rounded-lg"

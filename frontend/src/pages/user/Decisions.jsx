@@ -2,13 +2,15 @@ import { React, useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Paginate from "../../components/user/Paginate";
 import TimeStepperHome from "../../components/user/TimeStepperHome";
 import DecisionCard from "../../components/user/DecisionCard";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import ChevronDown from "../../assets/icons/chevron-down.svg";
-
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -17,13 +19,15 @@ export default function Decisions({ open }) {
     return classes.filter(Boolean).join(" ");
   }
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [valuesDetailsDecisions, setValuesDetailsDecisions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalDecisions, setTotalDecisions] = useState();
 
   // decision per page fix for now
-  const decisionPerPage = 8;
+  const decisionPerPage = 12;
 
   // to show or not the chevron-down icon with filter
   const [isOpenAllDecisions, setIsOpenAllDecisions] = useState(true);
@@ -153,98 +157,121 @@ export default function Decisions({ open }) {
   };
 
   return (
-    <div className="w-screen md:h-screen overflow-hidden">
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div
+      className={`w-screen overflow-hidden flex flex-col ${
+        dark ? "" : "bg-dark-header"
+      }`}
+    >
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className=" pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className=" pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight text-gray-500">
-            Nous sommes le : {new Date().toLocaleDateString()}
+          <p className=" text-x font-extralight text-gray-500 pb-2">
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="hidden md:flex text-2xl text-red-pink">Décisions</h1>
+        <h1 className="hidden md:flex text-2xl text-red-pink">
+          {t("Décisions page")}
+        </h1>
         <div className="logo-home hidden md:flex ">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
-      <div className="md:flex hidden">
+      <div className="lg:flex hidden">
         <div className="md:flex">
           <button
             type="button"
             onClick={handleChevrondownAllDecisions}
-            className=" ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-black rounded-3xl text-black"
+            className={`ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 rounded-xl  ${
+              dark
+                ? "border-black text-black"
+                : " border-gray-bar text-gray-bar"
+            }`}
           >
             {isOpenAllDecisions ? (
               <img src={ChevronDown} alt="fleche vers le bas" />
             ) : null}
-            Toutes les décisions
+            {t("Toutes les décisions")}
           </button>
         </div>
         <button
           type="button"
           onClick={handleChevrondownInProgress}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-blue text-light-blue rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-blue text-light-blue rounded-xl"
         >
           {isOpenInProgress ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          En cours
+          {t("En cours")}
         </button>
         <button
           type="button"
           onClick={handleChevrondownConflicts}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-orange text-light-orange rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-orange text-light-orange rounded-xl"
         >
           {isOpenConflicts ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          Conflits
+          {t("Conflits filter")}
         </button>
         <button
           type="button"
           onClick={handleChevrondownFinished}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-green text-light-green rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-light-green text-light-green rounded-xl"
         >
           {isOpenFinished ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          Terminées
+          {t("Terminées filter")}
         </button>
         <button
           type="button"
           onClick={handleChevrondownUnfinished}
-          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-red-pink text-red-pink rounded-3xl"
+          className="ml-10 flex items-center mt-5 h-10 pl-2 pr-2 border-2 border-red-pink text-red-pink rounded-xl"
         >
           {isOpenUnfinished ? (
             <img src={ChevronDown} alt="fleche vers le bas" />
           ) : null}
-          Non abouties
+          {t("Non abouties")}
         </button>
         <button
           onClick={() => navigate("/create-decision")}
           type="button"
-          className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-3xl text-white"
+          className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink"
         >
-          + Nouvelle décision
+          + {t("Décision")}
         </button>
       </div>
       <Menu
         as="div"
-        className="flex justify-center items-center relative text-left mt-3 md:hidden "
+        className="flex justify-center md:items-start items-center text-left mt-3 lg:hidden md:ml-10 flex-col"
       >
         <div className="relative inline-block">
           <button
             type="button"
             onClick={() => navigate("/create-decision")}
-            className="inline-flex w-[100px] mr-9 justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+            className="inline-flex w-[100px] mr-9 justify-center rounded-xl  bg-red-pink px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
           >
             {" "}
-            + décision
+            + Décision
           </button>
-          <Menu.Button className="inline-flex w-[100px] justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+          <Menu.Button className="inline-flex w-[100px] justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
             Filtrer
             <ChevronDownIcon
               className="-mr-1 ml-2 h-5 w-5"
@@ -262,7 +289,7 @@ export default function Decisions({ open }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
               <Menu.Item>
                 {({ active }) => (
@@ -278,6 +305,7 @@ export default function Decisions({ open }) {
                   </button>
                 )}
               </Menu.Item>
+
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -338,9 +366,9 @@ export default function Decisions({ open }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start md:grid-rows-3 mt-3 gap-3 ">
-        <div className="md:box col-start-1 col-end-4">
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-5 ml-10 mr-10 ">
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start mt-3 gap-3 ">
+        <div className="md:box col-start-1 col-end-4 ">
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-5 ml-10 mr-10">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
               return (
                 <DecisionCard
@@ -354,7 +382,7 @@ export default function Decisions({ open }) {
             })}
           </div>
 
-          <div className="md:ml-6 mb-16 mt-7">
+          <div className="md:ml-6 mb-16 mt-6">
             <Paginate
               decisionPerPage={decisionPerPage}
               totalDecisions={totalDecisions}
