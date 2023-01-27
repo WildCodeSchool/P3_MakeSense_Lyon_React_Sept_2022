@@ -209,6 +209,32 @@ class DecisionManager extends AbstractManager {
       LIMIT ${limit} OFFSET ${offset}`
     );
   }
+
+  findAllNbOfDecisions() {
+    return this.connection.query(
+      `SELECT count(${this.table}.id) as nbDecision
+      FROM ${this.table}`
+    );
+  }
+
+  findAllByPageAndFilter(limit, offset) {
+    return this.connection.query(
+      `SELECT ${this.table}.title, ${this.table}.date_decision_creation,
+      ${this.table}.date_decision_conflict, ${this.table}.status_decision,
+      ${this.table}.id as decisionId,
+       u.id as userId, u.firstname, u.lastname,
+       concerned.id as concernedId, experted.id as expertedId,
+       concerned.firstname AS concernedFirstname, concerned.lastname AS concernedLastname,
+       experted.lastname AS expertedLastname, experted.firstname AS expertedFirstname
+       FROM ${this.table}
+       left JOIN user AS u ON ${this.table}.USER_ID = u.id
+       left JOIN person_concern as pc ON ${this.table}.id = pc.decision_id
+       left JOIN user AS concerned on pc.user_id=concerned.id
+       left JOIN person_expert as pe ON ${this.table}.id = pe.decision_id
+       left JOIN user AS experted on pe.user_id=experted.id
+       LIMIT ${limit} OFFSET ${offset}`
+    );
+  }
 }
 
 module.exports = DecisionManager;

@@ -62,6 +62,11 @@ router.get(
   verifyToken,
   decisionControllers.browseByPageAndFilter
 );
+router.get(
+  "/decision/listadminbypage",
+  verifyToken,
+  decisionControllers.browseAllByPageAndFilter
+);
 router.get("/decision/last", verifyToken, decisionControllers.readByLast);
 router.get("/decision/:id", verifyToken, decisionControllers.read);
 router.get(

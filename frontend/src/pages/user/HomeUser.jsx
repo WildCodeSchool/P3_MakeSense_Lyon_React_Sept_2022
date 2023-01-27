@@ -69,7 +69,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-
         <div className="md:grid md:col-start-1 md:col-end-4 md:ml-10 md:justify-start flex justify-center items-center">
           <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-2 gap-4">
             {valuesDetailsDecisions.slice(0, 9).map((valueDetailsDecision) => {
