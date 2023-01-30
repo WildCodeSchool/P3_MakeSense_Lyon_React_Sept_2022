@@ -12,7 +12,7 @@ export default function Modal({
           <div className="relative w-full my-6 mx-auto max-w-3xl">
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                <h3 className="text-3xl text-center font-semibold">
+                <h3 className="text-black text-3xl text-center font-semibold">
                   Nouveau message
                 </h3>
                 <button
@@ -26,7 +26,7 @@ export default function Modal({
                 </button>
               </div>
               <div className="relative p-6 flex-auto">
-                <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                <p className="my-4 text-slate-500 text-lg leading-relaxed text-black">
                   {message.content}
                 </p>
               </div>
