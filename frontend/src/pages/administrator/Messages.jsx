@@ -107,7 +107,7 @@ function Messages() {
         }`}
       >
         <div
-          className={`grid grid-cols-6 items-center ${
+          className={`grid grid-cols-6 items-center bg-gray-400 ${
             dark ? "bg-gray-200" : "bg-dark-bg border-gray-400"
           }bg-gray-400 h-12 mt-10 justify-center rounded-sm`}
         >
