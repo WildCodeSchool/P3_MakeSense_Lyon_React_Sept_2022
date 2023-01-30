@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useCurrentUserContext } from "../../context/UserContext";
 import ModalMessage from "../../components/administrator/ModalMessage";
 import Logo from "../../assets/logo-makesense.png";
@@ -13,6 +14,7 @@ function Messages() {
   const [showModalMessage, setShowModalMessage] = useState(false);
   const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
   const [id, setId] = useState();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -73,7 +75,7 @@ function Messages() {
             <p className="pl-10 pt-3 text-xl">Bonjour</p>
           )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="logo-home mr-3 md:mr-3">
