@@ -79,7 +79,7 @@ export default function Home() {
       <div className="md:grid overflow-hidden grid-cols-4 grid-rows-7 gap-3 mt-3">
         <div className="box col-start-1 col-end-4">
           <div className="flex items-center">
-            <h2 className="text-l ml-5 md:text-3xl text-red-pink font-extrabold p-4">
+            <h2 className="text-xl ml-5 md:text-3xl text-red-pink font-extrabold p-4">
               {t("Mes décisions")} :{" "}
             </h2>
             <button
@@ -130,7 +130,7 @@ export default function Home() {
         </div>
 
         <div className="box col-start-1 col-end-4 z-0">
-          <h2 className="md:text-3xl text-l text-red-pink font-extrabold p-3 ml-5 z-0">
+          <h2 className="md:text-3xl text-xl text-red-pink font-extrabold p-3 ml-5 z-0">
             {t("Décisions en cours")} :{" "}
           </h2>
         </div>

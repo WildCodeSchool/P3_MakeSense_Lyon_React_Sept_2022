@@ -255,7 +255,7 @@ export default function Decisions({ open }) {
           type="button"
           className="ml-10 pl-2 pr-2 mt-5 mb-5 h-10 bg-red-pink rounded-xl text-white hover:bg-white hover:text-red-pink hover:border-2 hover:border-red-pink"
         >
-          + {t("Décision")}
+          + {t("Créer une décision")}
         </button>
       </div>
       <Menu
@@ -268,11 +268,10 @@ export default function Decisions({ open }) {
             onClick={() => navigate("/create-decision")}
             className="inline-flex w-[100px] mr-9 justify-center rounded-xl  bg-red-pink px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
           >
-            {" "}
-            + Décision
+            + {t("Créer une décision")}
           </button>
           <Menu.Button className="inline-flex w-[100px] justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-            Filtrer
+            {t("Filtrer btn")}
             <ChevronDownIcon
               className="-mr-1 ml-2 h-5 w-5"
               aria-hidden="true"
@@ -366,9 +365,9 @@ export default function Decisions({ open }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start mt-3 gap-3 ">
-        <div className="md:box col-start-1 col-end-4 ">
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-5 ml-10 ">
+      <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start mt-3 ">
+        <div className="md:grid col-start-1 col-end-4 md:ml-10 md:justify-start">
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-4">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
               return (
                 <DecisionCard
