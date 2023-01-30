@@ -60,7 +60,7 @@ export default function SidebarMobile({
                   value={checked}
                   onClick={handleChecked}
                 />{" "}
-                <p className={`${openMobile ? "text-l mt-1 pl-3" : "hidden"}`}>
+                <p className={`${openMobile ? "text-l mt-1 ml-3" : ""}`}>
                   Admin ?
                 </p>
               </div>
@@ -72,7 +72,7 @@ export default function SidebarMobile({
                 value={dark}
                 onClick={() => toggleDark()}
               />{" "}
-              <p className={`${openMobile ? "text-l mt-1 pl-3" : "hidden"}`}>
+              <p className={`${openMobile ? "text-l mt-1 ml-3" : ""}`}>
                 Dark ?
               </p>
             </div>
