@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import UsersCard from "../../components/administrator/UsersCard";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function HomeAdmin({ open }) {
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState([]);
 
@@ -33,8 +38,19 @@ export default function HomeAdmin({ open }) {
   }, [token]);
 
   return (
-    <div className="w-screen ">
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div
+      className={`w-screen z-0${
+        dark ? "text-black" : "text-white bg-dark-header"
+      }`}
+    >
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">
@@ -43,12 +59,16 @@ export default function HomeAdmin({ open }) {
           ) : (
             <p className="pl-10 pt-3 text-xl">Bonjour</p>
           )}
-          <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+          <p className="pl-10 text-x font-extralight pb-2">
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="logo-home mr-3 md:mr-3">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <div className="flex md:flex-row flex-col">
