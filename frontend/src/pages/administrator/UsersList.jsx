@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import "../../css/administrator/usersList.css";
 import AlertDeleteDecision from "../../components/user/AlertDeleteDecision";
@@ -15,6 +17,7 @@ export default function UsersList() {
   const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
   const [id, setId] = useState();
   const { t } = useTranslation();
+  const { dark } = useCurrentDarkContext();
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -57,13 +60,23 @@ export default function UsersList() {
     }
   }, [deleteIsConfirm]);
   return (
-    <div className="w-screen">
+    <div
+      className={`w-screen z-0${
+        dark ? "text-black" : "text-white bg-dark-header"
+      }`}
+    >
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
         setOpenModalAlertDelete={setOpenModalAlertDelete}
         setdeleteIsConfirm={setDeleteIsConfirm}
       />
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey ${
+          dark
+            ? "text-black"
+            : "text-white bg-dark-header border-b-2 border-dark-bg"
+        }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">LISTE UTILISATEURS </p>
@@ -75,12 +88,25 @@ export default function UsersList() {
           </p>
         </div>
         <div className="logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
 
-      <div className="md:w-[95%] m-auto h-auto ">
-        <div className="grid grid-cols-6 items-center bg-gray-400 h-12 mt-10 justify-center rounded-sm">
+      <div
+        className={`md:w-[95%] m-auto h-auto ${
+          dark ? "text-black" : "text-white"
+        }`}
+      >
+        <div
+          className={`grid grid-cols-6 items-center ${
+            dark ? "bg-gray-200" : "bg-dark-bg border-gray-400"
+          }bg-gray-400 h-12 mt-10 justify-center rounded-sm`}
+        >
+          {" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -106,8 +132,12 @@ export default function UsersList() {
             key={user.id}
             className={
               user.id % 2 === 0
-                ? "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-200 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	w-full "
-                : "grid pt-2 pb-2 grid-cols-6 items-center bg-gray-300 h-auto min-h-min	justify-center hover:bg-white border-b-2 border-gray-400	w-full "
+                ? `grid pt-2 pb-2 grid-cols-6 items-center ${
+                    dark ? "bg-gray-200" : "bg-dark-header"
+                  }  h-auto min-h-min	justify-center border-b-2 border-gray-400	w-full `
+                : `grid pt-2 pb-2 grid-cols-6 items-center${
+                    dark ? "bg-gray-300" : "bg-dark-header"
+                  } h-auto min-h-min	justify-center hover:bg-gray-400 hover:text-black border-b-2 border-gray-400	w-full `
             }
           >
             <button

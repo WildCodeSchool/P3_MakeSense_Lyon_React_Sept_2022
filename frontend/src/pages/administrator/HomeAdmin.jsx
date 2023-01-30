@@ -71,7 +71,11 @@ export default function HomeAdmin({ open }) {
           )}
         </div>
       </div>
-      <div className="flex md:flex-row flex-col">
+      <div
+        className={`${
+          dark ? "text-black" : "text-white bg-dark-header"
+        } flex md:flex-row flex-col`}
+      >
         <div className="md:w-[300px] h-[350px] border-2 rounded-xl m-10 md:flex md:flex-col shadow-lg grid grid-cols-4 grid-rows-4">
           <h3 className="text-center text-2xl md:mt-3  col-start-1 col-end-5">
             Statistiques :
