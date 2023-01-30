@@ -1,14 +1,23 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from "react";
-import { IoAddCircle } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import "../../css/administrator/usersList.css";
-import Avatar1 from "../../assets/icons/user.png";
+import AlertDeleteDecision from "../../components/user/AlertDeleteDecision";
+
+const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function UsersList() {
   const { user, token } = useCurrentUserContext();
   const [users, setUsers] = useState([]);
+  const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
+  const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
+  const [id, setId] = useState();
+  const { t } = useTranslation();
+  const { dark } = useCurrentDarkContext();
 
   useEffect(() => {
     const myHeader = new Headers();
@@ -26,85 +35,148 @@ export default function UsersList() {
       .catch((err) => console.error(err));
   }, [token]);
 
+  const deleteUser = () => {
+    const myHeader = new Headers();
+    myHeader.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeader,
+    };
+    fetch(`${backEnd}/admin/user/${id}`, requestOptions)
+      .then(() => {
+        setUsers(users.filter((user) => user.id !== id));
+      })
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    if (deleteIsConfirm) {
+      setOpenModalAlertDelete(false);
+      deleteUser();
+      setDeleteIsConfirm(false);
+    } else {
+      setDeleteIsConfirm(false);
+    }
+  }, [deleteIsConfirm]);
   return (
-    <div className="usersListPage w-screen">
-      <div className="usersListHeader flex flex-row items-center justify-between bg-light-grey">
+    <div
+      className={`w-screen z-0${
+        dark ? "text-black" : "text-white bg-dark-header"
+      }`}
+    >
+      <AlertDeleteDecision
+        openModalAlertDelete={openModalAlertDelete}
+        setOpenModalAlertDelete={setOpenModalAlertDelete}
+        setdeleteIsConfirm={setDeleteIsConfirm}
+      />
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey ${
+          dark
+            ? "text-black"
+            : "text-white bg-dark-header border-b-2 border-dark-bg"
+        }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">LISTE UTILISATEURS </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
-      <div className="flex justify-between">
-        <div className="usersListButtons ml-12 mt-6">
-          <button
-            type="button"
-            className="pr-3 pl-3 m-4 h-10 bg-red-pink rounded-3xl text-white"
+
+      <div
+        className={`md:w-[95%] m-auto h-auto ${
+          dark ? "text-black" : "text-white"
+        }`}
+      >
+        <div
+          className={`grid grid-cols-6 items-center ${
+            dark ? "bg-gray-200" : "bg-dark-bg border-gray-400"
+          }bg-gray-400 h-12 mt-10 justify-center rounded-sm`}
+        >
+          {" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            className="ml-10 col-start-1 col-end-2"
           >
-            Supprimer
-          </button>
-          <button
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            <line x1="10" y1="11" x2="10" y2="17" />
+            <line x1="14" y1="11" x2="14" y2="17" />
+          </svg>
+          <p className="col-start-2 ">Avatar</p>
+          <p className="col-start-3 text-center">Nom, prémon</p>
+          <p className="col-start-4 col-end-6 text-center">Email</p>
+          <p className="col-start-6 col-end-7 text-center">Phone</p>
+        </div>
+        {users.map((user) => (
+          <div
             type="button"
-            className="pr-5 pl-5 m-4 h-10 bg-light-blue rounded-3xl text-white"
+            key={user.id}
+            className={
+              user.id % 2 === 0
+                ? `grid pt-2 pb-2 grid-cols-6 items-center ${
+                    dark ? "bg-gray-200" : "bg-dark-header"
+                  }  h-auto min-h-min	justify-center border-b-2 border-gray-400	w-full `
+                : `grid pt-2 pb-2 grid-cols-6 items-center${
+                    dark ? "bg-gray-300" : "bg-dark-header"
+                  } h-auto min-h-min	justify-center hover:bg-gray-400 hover:text-black border-b-2 border-gray-400	w-full `
+            }
           >
-            Modifier
-          </button>
-        </div>
-        <div className="flex mt-4 mr-12">
-          <IoAddCircle className="ioAddCircle" />
-          <p className="mt-3 ml-3 text-xl text-red-pink font-bold">
-            Ajouter un nouvel <p className="text-center">utilisateur</p>
-          </p>
-        </div>
-      </div>
-      <div className="usersListBoard grid grid-cols-8 text-center border-2 border-gray-200 border-solid border-2 border-gray-600">
-        <div className="usersListBoardCol">
-          <input type="checkbox" />
-        </div>
-        <div className="usersListBoardCol">Prénom</div>
-        <div className="usersListBoardCol">Nom</div>
-        <div className="usersListBoardCol">Email</div>
-        <div className="usersListBoardCol">Localisation</div>
-        <div className="usersListBoardCol">Téléphone</div>
-        <div className="usersListBoardCol">Photo</div>
-        <div className="usersListBoardCol">Status</div>
-      </div>
-      {users.map((user) => (
-        <div className="grid grid grid-cols-8 text-center mt-2">
-          <div>
-            <input type="checkbox" />
-          </div>
-          <div>{user.firstname}</div>
-          <div>{user.lastname}</div>
-          <div>{user.email}</div>
-
-          <div>{user.city}</div>
-
-          <div>{user.phone}</div>
-
-          <div>
+            <button
+              type="button"
+              onClick={() => {
+                setOpenModalAlertDelete(true);
+                setId(user.id);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                className="ml-10"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                <line x1="10" y1="11" x2="10" y2="17" />
+                <line x1="14" y1="11" x2="14" y2="17" />
+              </svg>
+            </button>
             <img
-              className="box w-[45px] rounded-full ml-14"
-              src={
-                user.avatar
-                  ? `http://localhost:5000/avatar/${user.avatar}`
-                  : { Avatar1 }
-              }
+              src={`http://localhost:5000/avatar/${user?.avatar}`}
               alt="avatar"
+              className="col-start-2 col-end-3 w-8 h-8 rounded-full"
             />
+            <p className="col-start-3 text-center">
+              {user.firstname} {user.firstname}
+            </p>
+            <p className="col-start-4 col-end-6 text-center">{user.email}</p>
+            <button type="button" className="col-start-6 col-end-7 text-center">
+              <p>{user.phone}</p>
+            </button>
           </div>
-
-          <div>{user.is_admin === 1 ? "Administrateur" : "Utilisateur"}</div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

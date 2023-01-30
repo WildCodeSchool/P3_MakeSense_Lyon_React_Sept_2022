@@ -354,6 +354,78 @@ const browseByPageAndFilter = (req, res) => {
     });
 };
 
+// search all decision for admin
+const browseAllByPageAndFilter = (req, res) => {
+  const page = parseInt(req.query.currentPage, 10);
+  const limit = parseInt(req.query.decisionPerPage, 10);
+  const offset = (page - 1) * limit;
+
+  models.decision
+    .findAllNbOfDecisions()
+    .then(([nbDecision]) => {
+      if (nbDecision[0].nbDecision === 0) {
+        res.send({ rows: [], nbDecision: nbDecision[0] });
+      } else {
+        models.decision
+          .findAllByPageAndFilter(limit, offset)
+          .then(([results]) => {
+            if (results[0] == null) {
+              res.sendStatus(404);
+            } else {
+              console.warn("result ", results);
+
+              const decisions = [];
+              results.forEach((result) => {
+                let decision = decisions.find(
+                  (element) => element.decisionId === result.decisionId
+                );
+                if (decision === undefined) {
+                  decision = {
+                    ...result,
+                    personExpert: [],
+                    personConcerne: [],
+                  };
+                  decisions.push(decision);
+                }
+                if (
+                  !decision.personExpert.some(
+                    (element) => element.expertedId === result.expertedId
+                  )
+                ) {
+                  decision.personExpert.push({
+                    expertedId: result.expertedId,
+                    lastname: result.expertedLastname,
+                    firstname: result.expertedFirstname,
+                  });
+                }
+                if (
+                  !decision.personConcerne.some(
+                    (element) => element.concernedId === result.concernedId
+                  )
+                ) {
+                  decision.personConcerne.push({
+                    concernedId: result.concernedId,
+                    lastname: result.concernedLastname,
+                    firstname: result.concernedFirstname,
+                  });
+                }
+              });
+              res.send({ rows: decisions, nbDecision: nbDecision[0] });
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -368,4 +440,5 @@ module.exports = {
   autoUpdateStatusTermineeWithDateConflict,
   autoUpdateStatusNonAboutieWithDateConflict,
   browseByPageAndFilter,
+  browseAllByPageAndFilter,
 };
