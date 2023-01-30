@@ -96,7 +96,7 @@ export default function DecisionCard({
 
   return (
     <div
-      className={`relative min-w-[250px] max-w-60 md:min-w-[200px] md:max-w-52 h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl ${
+      className={`relative w-[250px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl ${
         dark ? "" : "bg-dark-bg"
       }`}
     >

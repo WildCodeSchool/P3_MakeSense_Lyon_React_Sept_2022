@@ -368,7 +368,7 @@ export default function Decisions({ open }) {
       </Menu>
       <div className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start mt-3 gap-3 ">
         <div className="md:box col-start-1 col-end-4 ">
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-5 ml-10 mr-10">
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-5 ml-10 ">
             {valuesDetailsDecisions.map((valueDetailsDecision) => {
               return (
                 <DecisionCard
