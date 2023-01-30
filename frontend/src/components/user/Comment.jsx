@@ -150,8 +150,7 @@ function Comment({
             </p>
             {comment.user_id === user.id ? (
               <button type="button" onClick={handleCommentEdit}>
-                <img src={edit} alt="" className="h-4 mx-2" />{" "}
-                {t("modifier commentaire")}
+                <img src={edit} alt="" className="h-4 mx-2" />
               </button>
             ) : (
               ""
@@ -176,7 +175,7 @@ function Comment({
             <button
               type="button"
               onClick={() => handleUpdatedStatus("Pour")}
-              className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
+              className={`ml-2 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
                 chosenUpdatedStatusFor
                   ? "bg-light-green text-white "
                   : "border-2 border-light-green text-light-green"
@@ -187,7 +186,7 @@ function Comment({
             <button
               type="button"
               onClick={() => handleUpdatedStatus("Contre")}
-              className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
+              className={`ml-2 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
                 chosenUpdatedStatusAgainst
                   ? "bg-red-pink text-white "
                   : "border-2 border-red-pink text-red-pink"
