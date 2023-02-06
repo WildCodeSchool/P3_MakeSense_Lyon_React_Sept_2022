@@ -3,7 +3,6 @@ const Joi = require("joi");
 const userConnexionSchema = Joi.object({
   email: Joi.string().email().min(6).max(200).required(),
   password: Joi.string()
-    .required()
     .min(8)
     .max(100)
     .pattern(
