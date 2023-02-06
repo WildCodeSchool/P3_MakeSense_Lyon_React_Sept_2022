@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import { useCurrentUserContext } from "../../context/UserContext";
 import Comment from "./Comment";
 
@@ -59,6 +60,16 @@ function AccordionCommentsPart({
     }
   };
 
+  // alert notifications when the comment is posted or if there is an error after submit
+  const notifyError = () =>
+    toast.error(
+      "Une erreur est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
+    );
+
+  const notifySuccess = () => {
+    toast.success("Votre commentaire a bien été publié");
+  };
+
   // This addComment function is used to add comments to the database in the comment table when a user send a new comment on a decision.
   // It also sends the new comment to th front so it is automatically displayed
   function addComment() {
@@ -81,16 +92,19 @@ function AccordionCommentsPart({
       headers: myHeaders,
     })
       .then((response) => {
-        return response.json();
-      })
-      .then((comment) => {
-        console.warn(comment);
-        toggleUpdateDecision();
-        setValueNewComment("");
-        handleStatus();
+        console.warn(response.status);
+        if (response.status === 201) {
+          notifySuccess();
+          toggleUpdateDecision();
+          setValueNewComment("");
+          setNewValueStatus("");
+          handleStatus();
+        } else {
+          notifyError();
+        }
       })
 
-      .catch((error) => console.warn("error", error));
+      .catch(() => notifyError());
   }
 
   const updateDecisionCommentById = (idCom, content, status) => {
@@ -109,6 +123,8 @@ function AccordionCommentsPart({
 
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="flex flex-col md:flex-row mx-6 md:items-center">
         <h2 className="mt-4 mb-3">{t("Commentaire details")} :</h2>
         <div className="flex flex-row">

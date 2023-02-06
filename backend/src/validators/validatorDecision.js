@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 const Joi = require("joi");
 
 const decisionSchema = Joi.object({

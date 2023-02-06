@@ -108,7 +108,6 @@ export default function MyProfile() {
     })
       .then((response) => {
         if (response.status === 422) {
-          notifyErrorProfile();
           return;
         } else {
           return response.json();

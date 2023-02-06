@@ -29,8 +29,8 @@ const add = (req, res) => {
     .then(([result]) => {
       res
         .location(`/decision/${result.decision_id}/comments`)
-        .send(result)
-        .status(201);
+        .status(201)
+        .send(result);
     })
     .catch((err) => {
       console.error(err);
