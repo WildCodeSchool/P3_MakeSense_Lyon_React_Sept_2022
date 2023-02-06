@@ -11,6 +11,9 @@ const {
   verifyToken,
 } = require("./middlewares/auth");
 const { verifyEmail } = require("./middlewares/verifyEmail");
+const {
+  validateUserInscription,
+} = require("./validators/validateUserInscription");
 
 // call controller ******************************************
 const authControllers = require("./controllers/authController");
@@ -30,7 +33,13 @@ router.get("/user/bytoken", verifyToken, userControllers.findByToken);
 router.get("/user/byname", userControllers.browseByName);
 router.get("/user/:id", verifyToken, userControllers.read);
 router.put("/user/:id", verifyToken, userControllers.edit);
-router.post("/user", verifyEmail, hashPassword, userControllers.add);
+router.post(
+  "/user",
+  validateUserInscription,
+  verifyEmail,
+  hashPassword,
+  userControllers.add
+);
 router.delete("/user/:id", userControllers.destroy);
 
 // Route for login ******************************************
