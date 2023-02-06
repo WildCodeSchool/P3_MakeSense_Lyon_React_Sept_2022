@@ -29,13 +29,14 @@ const messageControllers = require("./controllers/messageController");
 
 // call validator ******************************************
 const { validatorDecision } = require("./validators/validatorDecision");
+const { validatorProfile } = require("./validators/validatorProfile");
 
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
 router.get("/user/bytoken", verifyToken, userControllers.findByToken);
 router.get("/user/byname", userControllers.browseByName);
 router.get("/user/:id", verifyToken, userControllers.read);
-router.put("/user/:id", verifyToken, userControllers.edit);
+router.put("/user/:id", verifyToken, validatorProfile, userControllers.edit);
 router.post(
   "/user",
   validateUserInscription,
