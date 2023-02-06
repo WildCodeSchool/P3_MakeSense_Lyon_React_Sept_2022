@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const userSchema = Joi.object({
+const userInscriptionSchema = Joi.object({
   email: Joi.string().email().max(200).required(),
   firstname: Joi.string().max(100).required(),
   lastname: Joi.string().max(100).required(),
@@ -15,7 +15,7 @@ const userSchema = Joi.object({
 const validateUserInscription = (req, res, next) => {
   const { firstname, lastname, email, password } = req.body;
 
-  const { error } = userSchema.validate(
+  const { error } = userInscriptionSchema.validate(
     { firstname, lastname, email, password },
     { abortEarly: false }
   );

@@ -13,7 +13,7 @@ const {
 const { verifyEmail } = require("./middlewares/verifyEmail");
 const {
   validateUserInscription,
-} = require("./validators/validateUserInscription");
+} = require("./validators/validatorUserInscription");
 
 // call controller ******************************************
 const authControllers = require("./controllers/authController");
@@ -26,6 +26,9 @@ const commentControllers = require("./controllers/commentController");
 const notificationControllers = require("./controllers/notificationController");
 const adminControllers = require("./controllers/adminController");
 const messageControllers = require("./controllers/messageController");
+
+// call validator ******************************************
+const { validatorDecision } = require("./validators/validatorDecision");
 
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
@@ -84,7 +87,12 @@ router.get(
   decisionControllers.readDecisionByUserId
 );
 router.put("/decision/:id", verifyToken, decisionControllers.editById);
-router.post("/decision", verifyToken, decisionControllers.add);
+router.post(
+  "/decision",
+  verifyToken,
+  validatorDecision,
+  decisionControllers.add
+);
 router.delete("/decision/:id", verifyToken, decisionControllers.destroy);
 
 // Routes for update avatar **********************************
