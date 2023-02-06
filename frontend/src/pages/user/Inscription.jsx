@@ -22,7 +22,7 @@ function Inscription() {
     toast.success("Votre inscription a bien été pris en compte");
 
   const notifyErrorSend = () =>
-    toast.error("Veuillez recommencer, une erreure est survenue");
+    toast.error("Veuillez recommencer, une erreur est survenue");
 
   /* This is a function for post a user in database for the form */
 
