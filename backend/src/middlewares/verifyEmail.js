@@ -12,7 +12,6 @@ const verifyEmail = (req, res, next) => {
         res.sendStatus(401);
         console.warn("cet email existe");
       } else {
-        console.warn("cet email n'existe pas ");
         next();
       }
     })

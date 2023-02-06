@@ -28,6 +28,9 @@ export default function MyProfile() {
     toast.error("Une erreur est survenue, veuillez recommencer");
   const notifyErrorProfile = () =>
     toast.error("Une erreur est survenue, veuillez vérifier vos informations");
+  const success = () => {
+    toast.success("Votre profil a bien été modifié !");
+  };
 
   // fetch user informations
   useEffect(() => {
@@ -96,25 +99,19 @@ export default function MyProfile() {
       phone,
       user_id: user.id,
     });
-    toast
-      .promise(
-        fetch(`${backEnd}/user/${user.id}`, {
-          method: "PUT",
-          redirect: "follow",
-          body: raw,
-          headers: myHeaders,
-        }),
-        {
-          loading: "Envoi en cours",
-          success: "Votre profil modifié a bien été envoyé",
-          error: "Une erreur sur le serveur est survenue lors de l'envoi",
-        }
-      )
+
+    fetch(`${backEnd}/user/${user.id}`, {
+      method: "PUT",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
       .then((response) => {
-        if (response.status !== 202) {
-          notifyErrorProfile();
+        if (response.status === 422) {
+          return;
+        } else {
+          return response.json();
         }
-        return response.json();
       })
       .then((results) => {
         setUser({
@@ -125,13 +122,12 @@ export default function MyProfile() {
           city: results.city,
           phone: results.phone,
         });
+        success();
         setTimeout(() => {
           navigate("/home");
         }, 2000);
       })
-      .catch((error) => {
-        console.warn("error", error);
-      });
+      .catch(() => notifyErrorProfile());
   }
 
   // fetch for the status of fetch of the avatar
