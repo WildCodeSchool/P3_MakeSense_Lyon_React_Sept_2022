@@ -5,7 +5,7 @@ const commentSchema = Joi.object({
   vote: Joi.string().required(),
 });
 
-const validateComment = (req, res, next) => {
+const validatorComment = (req, res, next) => {
   const { content, vote } = req.body;
 
   const { error } = commentSchema.validate(
@@ -20,4 +20,6 @@ const validateComment = (req, res, next) => {
   }
 };
 
-export default validateComment;
+module.exports = {
+  validatorComment,
+};
