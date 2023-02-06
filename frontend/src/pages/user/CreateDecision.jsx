@@ -62,6 +62,10 @@ export default function CreateDecision() {
       "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
     );
 
+  const success = () => {
+    toast.success("Votre décision a bien été créée");
+  };
+
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
     const year = dateConverted.getFullYear();
@@ -93,24 +97,16 @@ export default function CreateDecision() {
       person_concern: choosePersonConcern,
       notif: choosePersonConcern,
     });
-    toast
-      .promise(
-        fetch(`${backEnd}/decision`, {
-          method: "POST",
-          redirect: "follow",
-          body: raw,
-          headers: myHeaders,
-        }),
-        {
-          loading: "Envoi en cours",
-          success: "Décision envoyée",
-          error:
-            "Une erreur sur le serveur est survenue lors de l'envoi de la décision",
-        }
-      )
+
+    fetch(`${backEnd}/decision`, {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
       .then((response) => {
-        response.json();
         if (response.status === 201) {
+          success();
           setTimeout(() => {
             navigate("/home");
           }, 2000);
@@ -118,8 +114,7 @@ export default function CreateDecision() {
           notify();
         }
       })
-      .then((result) => console.warn(result))
-      .catch((error) => console.warn("error", error));
+      .catch(() => notify());
   }
 
   // This is for GET user by name for input autocomplete
