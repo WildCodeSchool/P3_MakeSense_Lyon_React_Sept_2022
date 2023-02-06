@@ -10,7 +10,7 @@
   },
   "rules": {
     "no-console": "off",
-    "camelcase":"off",
+    "camelcase": "off",
     "no-restricted-syntax": [
       "error",
       {

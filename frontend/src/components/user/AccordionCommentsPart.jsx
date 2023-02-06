@@ -97,6 +97,7 @@ function AccordionCommentsPart({
           notifySuccess();
           toggleUpdateDecision();
           setValueNewComment("");
+          setNewValueStatus("");
           handleStatus();
         } else {
           notifyError();
