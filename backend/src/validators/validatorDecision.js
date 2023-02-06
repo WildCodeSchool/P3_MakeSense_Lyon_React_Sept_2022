@@ -10,6 +10,7 @@ const decisionSchema = Joi.object({
   user_id: Joi.number().integer().required(),
   person_expert: Joi.array().required(),
   person_concern: Joi.array().required(),
+  decision_id: Joi.number().integer().required(),
 });
 
 const validatorDecision = (req, res, next) => {
@@ -24,6 +25,7 @@ const validatorDecision = (req, res, next) => {
     person_expert,
     person_concern,
   } = req.body;
+  const decision_id = parseInt(req.params.id, 10);
 
   const { error } = decisionSchema.validate(
     {
@@ -35,6 +37,7 @@ const validatorDecision = (req, res, next) => {
       user_id,
       person_expert,
       person_concern,
+      decision_id,
     },
     { abortEarly: false }
   );
