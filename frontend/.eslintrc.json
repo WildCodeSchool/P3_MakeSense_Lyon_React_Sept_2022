@@ -19,6 +19,9 @@
   "rules": {
     "react/prop-types": 0,
     "no-console": "off",
+    "no-useless-return": "off",
+    "no-else-return": "off",
+    "consistent-return": "off",
     "camelcase": "off",
     "react/no-array-index-key": 0,
     "no-param-reassign": "off",
