@@ -1,6 +1,7 @@
+/* eslint-disable camelcase */
 const Joi = require("joi");
 
-const decisionSchema = Joi.object({
+const decisionEditSchema = Joi.object({
   title: Joi.string().min(3).max(255).required(),
   content: Joi.string().required(),
   date_decision_conflict: Joi.date(),
@@ -9,10 +10,9 @@ const decisionSchema = Joi.object({
   user_id: Joi.number().integer().required(),
   person_expert: Joi.array().required(),
   person_concern: Joi.array().required(),
-  decision_id: Joi.number().integer().required(),
 });
 
-const validatorDecision = (req, res, next) => {
+const validatorEditDecision = (req, res, next) => {
   // validate req.body then call next() if everything is ok
   const {
     title,
@@ -24,9 +24,8 @@ const validatorDecision = (req, res, next) => {
     person_expert,
     person_concern,
   } = req.body;
-  const decision_id = parseInt(req.params.id, 10);
 
-  const { error } = decisionSchema.validate(
+  const { error } = decisionEditSchema.validate(
     {
       title,
       content,
@@ -36,7 +35,6 @@ const validatorDecision = (req, res, next) => {
       user_id,
       person_expert,
       person_concern,
-      decision_id,
     },
     { abortEarly: false }
   );
@@ -49,5 +47,5 @@ const validatorDecision = (req, res, next) => {
 };
 
 module.exports = {
-  validatorDecision,
+  validatorEditDecision,
 };

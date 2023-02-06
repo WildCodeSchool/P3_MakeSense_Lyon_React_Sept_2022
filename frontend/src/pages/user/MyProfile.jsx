@@ -108,8 +108,7 @@ export default function MyProfile() {
     })
       .then((response) => {
         if (response.status === 422) {
-          notifyErrorProfile();
-          return;
+          throw new Error("Error on profile update");
         } else {
           return response.json();
         }

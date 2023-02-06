@@ -11,9 +11,6 @@ const {
   verifyToken,
 } = require("./middlewares/auth");
 const { verifyEmail } = require("./middlewares/verifyEmail");
-const {
-  validateUserInscription,
-} = require("./validators/validatorUserInscription");
 
 // call controller ******************************************
 const authControllers = require("./controllers/authController");
@@ -29,7 +26,12 @@ const messageControllers = require("./controllers/messageController");
 
 // call validator ******************************************
 const { validatorDecision } = require("./validators/validatorDecision");
+const { validatorEditDecision } = require("./validators/validatorEditDecision");
+const {
+  validateUserInscription,
+} = require("./validators/validatorUserInscription");
 const { validatorProfile } = require("./validators/validatorProfile");
+const { validatorComment } = require("./validators/validatorComment");
 
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
@@ -87,7 +89,12 @@ router.get(
   verifyToken,
   decisionControllers.readDecisionByUserId
 );
-router.put("/decision/:id", verifyToken, decisionControllers.editById);
+router.put(
+  "/decision/:id",
+  verifyToken,
+  validatorEditDecision,
+  decisionControllers.editById
+);
 router.post(
   "/decision",
   verifyToken,
@@ -108,7 +115,12 @@ router.get("/avatar/:fileName", fileControllers.sendAvatar);
 
 // the following routes are used to add/update/delete comment from a chosen decision
 router.put("/decision/:id/comments/:id", verifyToken, commentControllers.edit);
-router.post("/decision/:id/comments", verifyToken, commentControllers.add);
+router.post(
+  "/decision/:id/comments",
+  verifyToken,
+  validatorComment,
+  commentControllers.add
+);
 
 // Route for notification *********************************************
 router.get("/notification/:id", verifyToken, notificationControllers.browse);
