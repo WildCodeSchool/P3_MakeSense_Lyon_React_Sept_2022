@@ -13,7 +13,7 @@ function Connexion() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useCurrentUserContext({});
+  const { setUser, setToken } = useCurrentUserContext({});
   const notify = () =>
     toast.error(
       "Vous n'êtes pas inscrit ou vous avez mal renseigné vos identifiants"
@@ -41,6 +41,7 @@ function Connexion() {
       .then((result) => {
         if (result.token) {
           setUser(result.user);
+          setToken(result.token);
           localStorage.setItem("token", result.token);
           navigate("/home");
         } else {
