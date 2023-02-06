@@ -61,6 +61,7 @@ const resources = {
       "Conflits filter": "Conflits",
       "Terminées filter": "Terminées",
       "Non abouties": "Non abouties",
+      "Filtrer btn": "Filtrer",
 
       // notifications
       "Notifications title": "Notifications",
@@ -81,7 +82,7 @@ const resources = {
       "Annuler btn": "Annuler",
 
       // page creation decision
-      "Créer une décision": "Créer une décision",
+      "Créer une décision": "Décision",
       "Décision title": "Décision",
       "Veuillez créer une décision en remplissant les champs ci-dessous":
         "Veuillez créer une décision en remplissant les champs ci-dessous",
@@ -188,6 +189,7 @@ const resources = {
       "Conflits filter": "Conflicts",
       "Terminées filter": "Finished",
       "Non abouties": "Not achieved",
+      "Filtrer btn": "Filter",
 
       // notifications
       "Notifications title": "Notifications",
@@ -207,7 +209,7 @@ const resources = {
       "Annuler btn": "Cancel",
 
       // page creation decision
-      "Créer une décision": "Create a decisio",
+      "Créer une décision": "Decision",
       "Décision title": "Decision",
       "Veuillez créer une décision en remplissant les champs ci-dessous":
         "Please create a decision by filling in the fields below",
@@ -314,6 +316,7 @@ const resources = {
       "Conflits filter": "Conflictos",
       "Terminées filter": "Terminadas",
       "Non abouties": "No logradas",
+      "Filtrer btn": "Filtrar",
 
       // notifications
       "Notifications title": "Notificaciones",
@@ -333,7 +336,7 @@ const resources = {
       "Annuler btn": "Cancelar",
 
       // page creation decision
-      "Créer une décision": "Crear una decisión",
+      "Créer une décision": "Decisión",
       "Décision title": "Decisión",
       "Veuillez créer une décision en remplissant les champs ci-dessous":
         "Por favor, cree una decisión completando los campos a continuación",

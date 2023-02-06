@@ -67,10 +67,11 @@ CREATE TABLE message_help (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   username varchar(100) NOT NULL,
   email varchar(100) NOT NULL,
+  objet text NOT NULL,
   content text NOT NULL
 );
 
-INSERT INTO message_help (username, email, content) VALUES ('Morgan Junkrate', 'morgan@gmail.com', 'Je suis un message d aide'), ('Rachid', 'rachid@gmail.com', 'Je suis un message d aide'),('Neo', 'neo@gmail.com', 'Bonjour Neo TOC TOC TOC...'), ('Rachid', 'rachid@gmail.com', 'Je suis un message d aide'),('Morgan Junkrate', 'morgan@gmail.com', 'Je suis un message d aide'), ('Rachid', 'rachid@gmail.com', 'Je suis un message d aide'),('Neo', 'neo@gmail.com', 'Bonjour Neo TOC TOC TOC...'), ('Rachid', 'rachid@gmail.com', 'Je suis un message d aide');
+INSERT INTO message_help (username, email, objet, content) VALUES ('Morgan Junkrate', 'morgan@gmail.com', 'Je suis un titre', 'J ai besoin d aide pour ...'), ('Rachid', 'rachid@gmail.com', 'Je suis un titre', 'J ai besoin d aide pour ...'),('Neo', 'neo@gmail.com', 'Bonjour Neo TOC TOC TOC...', 'J ai besoin d aide pour ...'), ('Rachid', 'rachid@gmail.com', 'Je suis un titre', 'J ai besoin d aide pour ...'),('Morgan Junkrate', 'morgan@gmail.com', 'Je suis un titre', 'J ai besoin d aide pour ...'), ('Rachid', 'rachid@gmail.com', 'Je suis un titre', 'J ai besoin d aide pour ...'),('Neo', 'neo@gmail.com', 'Bonjour Neo TOC TOC TOC...' , 'J ai besoin d aide pour ...'), ('Rachid', 'rachid@gmail.com', 'Je suis un objet', 'J ai besoin d aide pour ...');
 
 DROP TABLE IF EXISTS comment;
 

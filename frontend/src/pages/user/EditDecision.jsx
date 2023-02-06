@@ -9,15 +9,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import Close from "../../assets/icons/x.svg";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function EditDecision() {
   const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
   const [impact, setValueImpactOfDecision] = useState("");
@@ -197,9 +200,16 @@ export default function EditDecision() {
   };
 
   return (
-    <div className="w-screen">
+    <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">
@@ -208,7 +218,7 @@ export default function EditDecision() {
           ) : (
             <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight">
+          <p className="pl-10 text-x font-extralight pb-2">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -216,7 +226,11 @@ export default function EditDecision() {
           {t("Modifier ma décision")}
         </h1>
         <div className="hidden md:block logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <main className="mainCreateDecision">
@@ -230,7 +244,9 @@ export default function EditDecision() {
               type="text"
               value={title}
               id="title-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-xl block w-full p-2.5"
+              className={`border border-gray-300  text-sm rounded-xl block w-full p-2.5 ${
+                dark ? "text-gray-900" : "bg-dark-bg text-white"
+              }`}
             />
           </div>
           <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
@@ -268,12 +284,15 @@ export default function EditDecision() {
             :`}
           </h2>
           <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
-            <div className="containerDate">
+            <div className="z-20">
               <DatePicker
                 selected={dateDecisionConflict}
                 onChange={(date) => setStartDateConflictOfDecision(date)}
                 disabledKeyboardNavigation
                 placeholderText="Cliquer pour changer de date"
+                className={`border border-gray-300  text-sm rounded-xl block w-[200px] p-2.5 ${
+                  dark ? "text-black " : "text-white bg-dark-header"
+                }`}
               />
             </div>
           </div>
@@ -286,7 +305,9 @@ export default function EditDecision() {
             <select
               onChange={(e) => setStatusOfDecision(e.target.value)}
               id="status-input"
-              className="border border-gray-300 text-sm rounded-xl block w-80 p-2.5  bg-white"
+              className={`border border-gray-300 text-sm rounded-xl block w-80 p-2.5   ${
+                dark ? "bg-white text-black" : " bg-dark-header"
+              }`}
             >
               <option defaultValue="OptionStatus" disabled selected>
                 {t("Cliquer pour changer de statut")}

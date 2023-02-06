@@ -3,6 +3,7 @@ import { Switch } from "@material-tailwind/react";
 import "../../css/user/sidebar.css";
 import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentLangContext } from "../../context/LangContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeconnexion from "./AlertDeconnexion";
@@ -18,6 +19,7 @@ export default function Sidebar({
   const { user, setUser } = useCurrentUserContext();
   const { t } = useTranslation();
   const { lang, toggleLang } = useCurrentLangContext();
+  const { dark, toggleDark } = useCurrentDarkContext();
   const [logoutIsConfirm, setLogoutIsConfirm] = useState(false);
   const [openModalAlertDeconnexion, setOpenModalAlertDeconnexion] =
     useState(false);
@@ -43,9 +45,9 @@ export default function Sidebar({
 
   return (
     <div
-      className={`${
-        open ? "w-[290px]" : "w-[100px]"
-      } bg-light-blue duration-300 h-screen flex flex-col text-white`}
+      className={`${open ? "w-[290px]" : "w-[100px]"} ${
+        dark ? "bg-light-blue" : "bg-dark-bg"
+      }  duration-300 h-screen flex flex-col text-white`}
     >
       <AlertDeconnexion
         openModalAlertDeconnexion={openModalAlertDeconnexion}
@@ -53,7 +55,7 @@ export default function Sidebar({
         setLogoutIsConfirm={setLogoutIsConfirm}
       />
       {user?.is_admin === 1 ? (
-        <div className="text-white mt-4 ml-2">
+        <div className="text-white mt-4 ml-2 flex">
           {" "}
           <Switch
             id="amber"
@@ -61,9 +63,9 @@ export default function Sidebar({
             value={checked}
             onClick={handleChecked}
           />{" "}
+          <p className={`${open ? "text-l mt-1 pl-3" : "hidden"}`}>Admin ?</p>
         </div>
       ) : null}
-
       {checked ? (
         <>
           {" "}
@@ -238,7 +240,9 @@ export default function Sidebar({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className={`${open ? "w-6 h-6 mr-2 pt-1" : "w-7 h-7 ml-3"}`}
+                className={`${
+                  open ? "w-6 h-6 mr-2 pt-1 ml-1" : "w-7 h-7 ml-3"
+                }`}
               >
                 <path
                   strokeLinecap="round"
@@ -333,14 +337,14 @@ export default function Sidebar({
                 fill="none"
                 stroke="currentColor"
                 className={`${
-                  open ? "w-6 h-6 mr-2 mt-3" : "w-7 h-7 ml-3 mt-3"
+                  open ? "w-6 h-6 mr-2 mt-3 ml-1" : "w-7 h-7 ml-3 mt-3"
                 }`}
               >
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                 <polyline points="16 17 21 12 16 7" />
                 <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
-              <p className={`${open ? "text-xl mt-3" : "hidden"}`}>
+              <p className={`${open ? "text-xl mt-3 " : "hidden"}`}>
                 {t("Se déconnecter")}
               </p>
             </button>
@@ -379,6 +383,17 @@ export default function Sidebar({
         >
           ES
         </button>
+      </div>
+      <div className="pl-2 pt-2 flex">
+        <Switch
+          id="indigo"
+          color="indigo"
+          value={dark}
+          onClick={() => toggleDark()}
+        />{" "}
+        <p className={`${open ? "text-l mt-1 pl-3" : "hidden"}`}>
+          {dark ? "Dark" : "Light"} ?
+        </p>
       </div>
       <div
         className={`${open ? "block-color absolute bottom-36" : "hidden"}`}

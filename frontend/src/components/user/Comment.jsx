@@ -150,8 +150,7 @@ function Comment({
             </p>
             {comment.user_id === user.id ? (
               <button type="button" onClick={handleCommentEdit}>
-                <img src={edit} alt="" className="h-4 mx-2" />{" "}
-                {t("modifier commentaire")}
+                <img src={edit} alt="" className="h-4 mx-2" />
               </button>
             ) : (
               ""
@@ -161,11 +160,11 @@ function Comment({
       </div>
       {modifyComment ? (
         <div key={comment.id}>
-          <div className="flex flex-row mx-6">
+          <div className="flex flex-row mb-4">
             <button
               type="button"
               onClick={() => handleUpdatedStatus("Neutre")}
-              className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+              className={`flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
                 chosenUpdatedStatusNeutral
                   ? "bg-light-blue text-white "
                   : "border-2 border-light-blue text-light-blue"
@@ -176,7 +175,7 @@ function Comment({
             <button
               type="button"
               onClick={() => handleUpdatedStatus("Pour")}
-              className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+              className={`ml-2 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
                 chosenUpdatedStatusFor
                   ? "bg-light-green text-white "
                   : "border-2 border-light-green text-light-green"
@@ -187,7 +186,7 @@ function Comment({
             <button
               type="button"
               onClick={() => handleUpdatedStatus("Contre")}
-              className={`ml-10 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-3xl w-20 ${
+              className={`ml-2 flex items-center justify-center mt-5 h-10 pl-2 pr-2 rounded-xl w-20 ${
                 chosenUpdatedStatusAgainst
                   ? "bg-red-pink text-white "
                   : "border-2 border-red-pink text-red-pink"
@@ -206,7 +205,7 @@ function Comment({
           <button
             type="button"
             onClick={updateComment}
-            className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full my-6"
+            className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl my-6"
           >
             {t("Valider commentaire")}
           </button>

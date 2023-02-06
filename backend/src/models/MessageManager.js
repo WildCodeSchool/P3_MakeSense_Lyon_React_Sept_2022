@@ -7,8 +7,8 @@ class MessageManager extends AbstractManager {
 
   insertMessage(message) {
     return this.connection.query(
-      `insert into ${this.table} (username, email, content) values (?, ?, ?)`,
-      [message.username, message.email, message.content]
+      `insert into ${this.table} (username, email, objet, content) values (?, ?, ?, ?)`,
+      [message.username, message.email, message.objet, message.content]
     );
   }
 

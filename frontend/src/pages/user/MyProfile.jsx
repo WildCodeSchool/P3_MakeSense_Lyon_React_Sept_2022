@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -13,6 +15,7 @@ export default function MyProfile() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const avatarRef = useRef(null);
+  const { dark } = useCurrentDarkContext();
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const [city, setCity] = useState(user.city);
@@ -139,9 +142,16 @@ export default function MyProfile() {
   }, [user]);
 
   return (
-    <div className="w-screen">
+    <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">
@@ -150,7 +160,7 @@ export default function MyProfile() {
           ) : (
             <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight">
+          <p className="pl-10 text-x font-extralight pb-2">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -158,7 +168,11 @@ export default function MyProfile() {
           {t("Mon profil")}
         </h1>
         <div className="logo-home hidden md:flex ">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <div className="w-5/6 ml-5 md:m-auto md:flex md:flex-row items-end">
