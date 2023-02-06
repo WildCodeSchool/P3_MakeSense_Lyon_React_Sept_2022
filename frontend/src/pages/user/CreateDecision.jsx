@@ -217,6 +217,7 @@ export default function CreateDecision() {
                 value={content}
                 onChange={setValueDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
@@ -227,6 +228,7 @@ export default function CreateDecision() {
                 value={impact}
                 onChange={setValueImpactOfDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
@@ -237,6 +239,7 @@ export default function CreateDecision() {
                 value={benefits}
                 onChange={setValueBenefitsOfDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
@@ -249,6 +252,7 @@ export default function CreateDecision() {
                 value={risk}
                 onChange={setValueRiskOfDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
