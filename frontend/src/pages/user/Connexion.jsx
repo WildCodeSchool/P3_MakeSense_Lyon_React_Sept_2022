@@ -70,13 +70,18 @@ function Connexion() {
       <div className="flex flex-col justify-center items-center text-white ">
         <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 md:shadow-1 relative ">
           {/* <div className="connexion-YellowRectangle" /> */}
-          <div className="p-4 space-y-4 sm:p-8">
+          <form
+            className="p-4 space-y-4 sm:p-8"
+            action="#"
+            onSubmit={(e) => sendConnexion(e)}
+          >
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               {t("Connexion page")}
             </h1>
             <p className="text-xl text-center">{t("Accédez à votre compte")}</p>
             <div className="index space-y-8" action="#">
               <div>
+                {/* Email */}
                 <label
                   htmlFor="email"
                   className="text-white block mt-8 mb-2 text-md font-medium"
@@ -86,6 +91,9 @@ function Connexion() {
                 <input
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  minLength={8}
+                  maxLength={200}
                   name="email"
                   id="email"
                   className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
@@ -93,6 +101,7 @@ function Connexion() {
                   required=""
                 />
               </div>
+              {/* Mot de Passe */}
               <div>
                 <label
                   htmlFor="password"
@@ -104,17 +113,18 @@ function Connexion() {
                   type="password"
                   name="password"
                   id="password"
+                  minLength={8}
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                  title="Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
                   placeholder="••••••••"
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-black border text-sm rounded-lg block w-full p-2.5"
                   required=""
                 />
               </div>
-
               <div className="text-center ">
                 <button
                   type="submit"
-                  onClick={sendConnexion}
                   className=" text-white hover:bg-red-pink font-medium rounded-md text-xl p-4 text-center border hover:scale-105 duration-300"
                 >
                   {t("Se connecter")}
@@ -134,7 +144,7 @@ function Connexion() {
                 </p>
               </div>
             </div>
-          </div>
+          </form>
         </div>
         <br />
       </div>
