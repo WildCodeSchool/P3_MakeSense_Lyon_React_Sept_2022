@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../css/user/Inscription.css";
 import { useTranslation } from "react-i18next";
+import toast, { Toaster } from "react-hot-toast";
 import peoplepicture from "../../assets/peoplepicture.png";
 import "../../assets/logo-makesense.png";
 import HeaderCountryChoice from "../../components/user/HeaderCountryChoice";
@@ -15,6 +16,13 @@ function Inscription() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const notify = () =>
+    toast.error("Veuillez remplir tous les champs du formulaire");
+  const notifySucces = () =>
+    toast.success("Votre inscription a bien été pris en compte");
+
+  const notifyErrorSend = () =>
+    toast.error("Veuillez recommencer, une erreure est survenue");
 
   /* This is a function for post a user in database for the form */
 
@@ -39,21 +47,25 @@ function Inscription() {
       body: bodyRaw,
       redirect: "follow",
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("Votre inscription à été prise en compte");
-          navigate("/");
+      .then((result) => {
+        if (result.status === 201) {
+          notifySucces();
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        } else {
+          notify();
         }
       })
       .catch((error) => {
-        console.warn(error); /* 
-        alert("Vous êtes déjà inscrit");
-        navigate("/"); */
+        console.warn("error", error);
+        if (error) notifyErrorSend();
       });
   };
 
   return (
     <div className="inscriptionPage bg-dark-blue md:bg-white relative h-full md:w-screen sm:overflow-x-hidden ">
+      <Toaster position="top-center" reverseOrder={false} />
       <HeaderCountryChoice />
       <div className=" h-auto md-max:bg-dark-blue">
         <NavLink to="/">
@@ -96,6 +108,9 @@ function Inscription() {
                     type="text"
                     name="firstname"
                     id="firstname"
+                    minLength="2"
+                    maxLength="100"
+                    pattern="[A-Za-z-.]{1,32}"
                     value={firstname}
                     onChange={(e) => setFirstname(e.target.value)}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
@@ -114,6 +129,9 @@ function Inscription() {
                     type="text"
                     name="lastname"
                     id="lastname"
+                    minLength="2"
+                    maxLength="100"
+                    pattern="[A-Za-z-.]{1,32}"
                     value={lastname}
                     onChange={(e) => setLastname(e.target.value)}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
@@ -133,6 +151,7 @@ function Inscription() {
                     name="email"
                     id="email"
                     value={email}
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="adresse@examplecom"
                     className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
@@ -152,6 +171,9 @@ function Inscription() {
                     name="password"
                     id="password"
                     value={password}
+                    minLength="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                    title="Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="*********"
                     className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
