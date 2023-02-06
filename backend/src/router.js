@@ -24,6 +24,9 @@ const notificationControllers = require("./controllers/notificationController");
 const adminControllers = require("./controllers/adminController");
 const messageControllers = require("./controllers/messageController");
 
+// call validator ******************************************
+const { validatorDecision } = require("./validators/validatorDecision");
+
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
 router.get("/user/bytoken", verifyToken, userControllers.findByToken);
@@ -75,7 +78,12 @@ router.get(
   decisionControllers.readDecisionByUserId
 );
 router.put("/decision/:id", verifyToken, decisionControllers.editById);
-router.post("/decision", verifyToken, decisionControllers.add);
+router.post(
+  "/decision",
+  verifyToken,
+  validatorDecision,
+  decisionControllers.add
+);
 router.delete("/decision/:id", verifyToken, decisionControllers.destroy);
 
 // Routes for update avatar **********************************
