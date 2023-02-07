@@ -110,7 +110,7 @@ export default function CreateDecision() {
           success();
           setTimeout(() => {
             navigate("/home");
-          }, 2000);
+          }, 3000);
         } else {
           notify();
         }

@@ -42,14 +42,16 @@ export default function SidebarMobile({
       setLogoutIsConfirm(false);
     }
   }, [logoutIsConfirm]);
+
   return (
     <div
-      className={`${
-        !openMobile ? "h-[50px]" : "h-[500px]"
-      }  bg-light-blue duration-300 md:w-screen flex flex-col justify-between text-white z-50`}
+      className={`${!openMobile ? "h-[50px]" : "h-[500px]"} ${
+        dark ? `bg-light-blue` : "bg-dark-bg"
+      }
+      bg-light-blue duration-300 md:w-screen flex flex-col justify-between text-white z-40`}
     >
       {openMobile ? (
-        <div className="h-[500px] flex flex-col items-center z-50">
+        <div className="h-[500px] flex flex-col items-center z-40">
           <div className="flex flex-row mt-4 mb-[20px]">
             {user?.is_admin === 1 ? (
               <div className="text-white mt-4 mx-4 flex">

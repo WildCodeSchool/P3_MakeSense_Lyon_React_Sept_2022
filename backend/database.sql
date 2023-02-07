@@ -7,14 +7,14 @@ CREATE TABLE user (
   email varchar(200) NOT NULL,
   city varchar(100),
   phone varchar(20),
-  avatar varchar(255),
+  avatar varchar(255) DEFAULT 'randomuser.jpg',
   hashedPassword varchar(100) NOT NULL,
   is_admin tinyint NOT NULL DEFAULT 0,
   passwordToken varchar(100), 
   date_creation DATETIME NOT NULL DEFAULT NOW() 
 );
 
-INSERT INTO user (firstname, lastname, email, city, phone, avatar, hashedPassword, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatariris.jpg', '12345', '1', '2022-10-13 12:12:23'),('Madeline', 'Phara', 'madeline.phara@gmail.com', 'Lyon', '0606080907', 'monplusbelavatarmadeline.jpg', '12345', '1', '2022-10-13 12:12:23'),('John', 'Doe', 'test@test.com', 'Katmandu', '0606080907', 'monplusbelavatarjohn.jpg', '$argon2id$v=19$m=65536,t=5,p=1$cHKCeWcTAbFAoQip2FBoSQ$YEwzjtbjy/r88czZmo+Ess3AGPYvhonN2HTureWf3NY', '1', '2022-10-13 12:12:23'),('Davy', 'Mccree', 'davy.mccree@gmail.com', 'Oslo', '0606080907', 'monplusbelavatardavy.jpg', '12345', '1', '2022-10-13 12:12:23'),('Marion', 'Lagoth', 'marion.lagoth@gmail.com', 'Enfer', '0606080907', 'monplusbelavatariris.jpg', '12345', '1', '2022-10-13 12:12:23'),('Cloe', 'Symetra', 'cloe.symetra@gmail.com', 'Lyon', '0606080907', 'monplusbelavatarmadeline.jpg', '12345', '1', '2022-10-13 12:12:23'),('Rachid', 'Doomfist', 'doomfist@test.com', 'Katmandu', '0606080907', 'monplusbelavatarjohn.jpg', '$argon2id$v=19$m=65536,t=5,p=1$cHKCeWcTAbFAoQip2FBoSQ$YEwzjtbjy/r88czZmo+Ess3AGPYvhonN2HTureWf3NY', '1', '2022-10-13 12:12:23'),('Morgan', 'Junkrate', 'morgan.junkrat@gmail.com', 'Oslo', '0606080907', 'monplusbelavatardavy.jpg', '12345', '1', '2022-10-13 12:12:23');
+INSERT INTO user (firstname, lastname, email, city, phone, avatar, hashedPassword, is_admin, date_creation) VALUES ('Iris', 'Tracer', 'iris.tracer@gmail.com', 'Teahupo', '0606080907', 'monplusbelavatariris.jpg', '12345', '1', '2022-10-13 12:12:23'),('Madeline', 'Phara', 'madeline.phara@gmail.com', 'Lyon', '0606080907', 'monplusbelavatarmadeline.jpg', '12345', '1', '2022-10-13 12:12:23'),('John', 'Doe', 'test@test.com', 'Katmandu', '0606080907', 'monplusbelavatarjohn.jpg', '$argon2id$v=19$m=65536,t=5,p=1$w74Il7Z5LSbJeNQQPo031w$19FI3i4qKtfenAJXJNqWcc8wgHFkMyZ97ar6m8wmIeI', '1', '2022-10-13 12:12:23'),('Davy', 'Mccree', 'davy.mccree@gmail.com', 'Oslo', '0606080907', 'monplusbelavatardavy.jpg', '12345', '1', '2022-10-13 12:12:23'),('Marion', 'Lagoth', 'marion.lagoth@gmail.com', 'Enfer', '0606080907', 'monplusbelavatariris.jpg', '12345', '1', '2022-10-13 12:12:23'),('Cloe', 'Symetra', 'cloe.symetra@gmail.com', 'Lyon', '0606080907', 'monplusbelavatarmadeline.jpg', '12345', '1', '2022-10-13 12:12:23'),('Rachid', 'Doomfist', 'doomfist@test.com', 'Katmandu', '0606080907', 'monplusbelavatarjohn.jpg', '$argon2id$v=19$m=65536,t=5,p=1$cHKCeWcTAbFAoQip2FBoSQ$YEwzjtbjy/r88czZmo+Ess3AGPYvhonN2HTureWf3NY', '1', '2022-10-13 12:12:23'),('Morgan', 'Junkrate', 'morgan.junkrat@gmail.com', 'Oslo', '0606080907', 'monplusbelavatardavy.jpg', '12345', '1', '2022-10-13 12:12:23');
 
 DROP TABLE IF EXISTS decision;
 
