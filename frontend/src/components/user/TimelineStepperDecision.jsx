@@ -12,6 +12,8 @@ function TimelineStepperDecision({
   };
   const { t } = useTranslation();
 
+  const backEnd = import.meta.env.VITE_BACKEND_URL;
+
   return (
     <div className="w-60 h-fit border border-red-pink p-4 rounded-xl flex justify-center flex-col">
       <p className="mt-5">{t("Personnes expertes")}</p>
@@ -22,7 +24,7 @@ function TimelineStepperDecision({
             className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
             src={
               urlAvatarStatus?.status === 200
-                ? `http://localhost:5000/avatar/${expert?.avatar}`
+                ? `${backEnd}/avatar/${expert?.avatar}`
                 : userimg
             }
             alt="avatar"
@@ -37,7 +39,7 @@ function TimelineStepperDecision({
             className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
             src={
               urlAvatarStatus?.status === 200
-                ? `http://localhost:5000/avatar/${concern?.avatar}`
+                ? `http${backEnd}/${concern?.avatar}`
                 : userimg
             }
             alt="avatar"

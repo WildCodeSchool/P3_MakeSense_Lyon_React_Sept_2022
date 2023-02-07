@@ -49,7 +49,7 @@ export default function UserProfile() {
 
   // fetch for the status of fetch of the avatar
   useEffect(() => {
-    fetch(`http://localhost:5000/avatar/${urlAvatar}`)
+    fetch(`${backEnd}/avatar/${urlAvatar}`)
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);
@@ -65,7 +65,7 @@ export default function UserProfile() {
       headers: myHeader,
     };
 
-    fetch(`http://localhost:5000/decision-byuser/${idParam.id}`, requestOptions)
+    fetch(`${backEnd}/decision-byuser/${idParam.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setValuesDetailsDecision(result))
       .catch((error) => console.warn("error", error));
@@ -111,7 +111,7 @@ export default function UserProfile() {
               className="rounded-full w-32 md:w-[200px]"
               src={
                 urlAvatarStatus.status === 200
-                  ? `http://localhost:5000/avatar/${urlAvatar}`
+                  ? `${backEnd}/avatar/${urlAvatar}`
                   : Randomuser
               }
               alt="Avatar"
