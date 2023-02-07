@@ -372,8 +372,6 @@ const browseAllByPageAndFilter = (req, res) => {
             if (results[0] == null) {
               res.sendStatus(404);
             } else {
-              console.warn("result ", results);
-
               const decisions = [];
               results.forEach((result) => {
                 let decision = decisions.find(

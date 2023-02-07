@@ -181,7 +181,7 @@ export default function DecisionDetails() {
                 className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 mr-3"
                 src={
                   urlAvatarStatus.status === 200
-                    ? `http://localhost:5000/avatar/${valuesDetailsDecision.avatar}`
+                    ? `${backEnd}/avatar/${valuesDetailsDecision.avatar}`
                     : userimg
                 }
                 alt={`avatar${user.firstname}-${user.id}`}

@@ -123,7 +123,7 @@ function Comment({
             className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50 "
             src={
               urlAvatarStatus?.status === 200
-                ? `http://localhost:5000/avatar/${comment?.avatar}`
+                ? `${backEnd}/avatar/${comment?.avatar}`
                 : userimg
             }
             alt={`avatar${comment.firstname}`}
