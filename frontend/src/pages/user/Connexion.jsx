@@ -21,7 +21,9 @@ function Connexion() {
 
   const navigate = useNavigate();
 
-  const sendConnexion = () => {
+  const sendConnexion = (e) => {
+    e.preventDefault();
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     /* It's an object that will be sent in the body of request */
@@ -75,7 +77,11 @@ function Connexion() {
               {t("Connexion page")}
             </h1>
             <p className="text-xl text-center">{t("Accédez à votre compte")}</p>
-            <div className="index space-y-8" action="#">
+            <form
+              className="index space-y-8"
+              action="#"
+              onSubmit={(e) => sendConnexion(e)}
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -86,6 +92,9 @@ function Connexion() {
                 <input
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  minLength={8}
+                  maxLength={200}
                   name="email"
                   id="email"
                   className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
@@ -104,6 +113,9 @@ function Connexion() {
                   type="password"
                   name="password"
                   id="password"
+                  minLength={8}
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                  title="Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
                   placeholder="••••••••"
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-black border text-sm rounded-lg block w-full p-2.5"
@@ -114,7 +126,6 @@ function Connexion() {
               <div className="text-center ">
                 <button
                   type="submit"
-                  onClick={sendConnexion}
                   className=" text-white hover:bg-red-pink font-medium rounded-md text-xl p-4 text-center border hover:scale-105 duration-300"
                 >
                   {t("Se connecter")}
@@ -133,7 +144,7 @@ function Connexion() {
                   </NavLink>
                 </p>
               </div>
-            </div>
+            </form>
           </div>
         </div>
         <br />
