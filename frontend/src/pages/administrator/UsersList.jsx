@@ -26,7 +26,7 @@ export default function UsersList() {
     const requestOptions = {
       headers: myHeader,
     };
-    fetch("http://localhost:5000/user", requestOptions)
+    fetch(`${backEnd}/user`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
         console.warn(result);
@@ -163,7 +163,7 @@ export default function UsersList() {
               </svg>
             </button>
             <img
-              src={`http://localhost:5000/avatar/${user?.avatar}`}
+              src={`${backEnd}/avatar/${user?.avatar}`}
               alt="avatar"
               className="col-start-2 col-end-3 w-8 h-8 rounded-full"
             />
