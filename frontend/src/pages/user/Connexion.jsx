@@ -21,7 +21,9 @@ function Connexion() {
 
   const navigate = useNavigate();
 
-  const sendConnexion = () => {
+  const sendConnexion = (e) => {
+    e.preventDefault();
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     /* It's an object that will be sent in the body of request */
@@ -70,18 +72,17 @@ function Connexion() {
       <div className="flex flex-col justify-center items-center text-white ">
         <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 md:shadow-1 relative ">
           {/* <div className="connexion-YellowRectangle" /> */}
-          <form
-            className="p-4 space-y-4 sm:p-8"
-            action="#"
-            onSubmit={(e) => sendConnexion(e)}
-          >
+          <div className="p-4 space-y-4 sm:p-8">
             <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
               {t("Connexion page")}
             </h1>
             <p className="text-xl text-center">{t("Accédez à votre compte")}</p>
-            <div className="index space-y-8">
+            <form
+              className="index space-y-8"
+              action="#"
+              onSubmit={(e) => sendConnexion(e)}
+            >
               <div>
-                {/* Email */}
                 <label
                   htmlFor="email"
                   className="text-white block mt-8 mb-2 text-md font-medium"
@@ -90,17 +91,17 @@ function Connexion() {
                 </label>
                 <input
                   type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  minLength={8}
+                  maxLength={200}
                   name="email"
                   id="email"
-                  value={email}
-                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                  onChange={(e) => setEmail(e.target.value)}
                   className=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                   placeholder="pseudo@exemple.com"
                   required=""
                 />
               </div>
-              {/* Mot de Passe */}
               <div>
                 <label
                   htmlFor="password"
@@ -112,14 +113,16 @@ function Connexion() {
                   type="password"
                   name="password"
                   id="password"
-                  value={password}
+                  minLength={8}
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                   title="Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
                   placeholder="••••••••"
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-black border text-sm rounded-lg block w-full p-2.5"
+                  required=""
                 />
               </div>
+
               <div className="text-center ">
                 <button
                   type="submit"
@@ -141,8 +144,8 @@ function Connexion() {
                   </NavLink>
                 </p>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
         <br />
       </div>
