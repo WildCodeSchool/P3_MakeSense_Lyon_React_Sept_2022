@@ -41,6 +41,7 @@ const validatorEditDecision = (req, res, next) => {
 
   if (error) {
     res.status(422).json({ validationErrors: error.details });
+    console.warn("validatorEditDecision.js: error: ", error.details);
   } else {
     next();
   }

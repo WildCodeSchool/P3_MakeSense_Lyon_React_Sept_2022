@@ -58,9 +58,9 @@ const resources = {
       // page Décisions
       "Toutes les décisions": "Toutes les décisions",
       "En cours": "En cours",
-      "Conflits filter": "Conflits",
-      "Terminées filter": "Terminées",
-      "Non abouties": "Non abouties",
+      "Conflits filter": "Conflit",
+      "Terminées filter": "Terminée",
+      "Non abouties": "Non aboutie",
       "Filtrer btn": "Filtrer",
 
       // notifications
@@ -186,7 +186,7 @@ const resources = {
       // page Décisions
       "Toutes les décisions": "All decisions",
       "En cours": "In progress",
-      "Conflits filter": "Conflicts",
+      "Conflits filter": "Conflict",
       "Terminées filter": "Finished",
       "Non abouties": "Not achieved",
       "Filtrer btn": "Filter",

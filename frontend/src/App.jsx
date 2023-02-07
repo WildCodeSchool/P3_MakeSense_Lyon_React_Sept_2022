@@ -124,6 +124,9 @@ function App() {
               />
             }
           />
+          <Route path="/help" element={<Help />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/inscription" element={<Inscription />} />
           <Route path="/userslist" element={<UsersList />} />
           <Route path="/decisionslist" element={<DecisionsList />} />
           <Route path="mailbox" element={<Messages />} />
