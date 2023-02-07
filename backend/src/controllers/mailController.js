@@ -5,16 +5,15 @@ const transporter = nodemailer.createTransport({
   host: "smtp-relay.sendinblue.com",
   port: 587,
   secure: false,
-  auth: {
-    user: "succi.iris@gmail.com",
-    pass: "GqckUYmdyW2EPNht",
-  },
+  /*  auth: {
+    user:
+    pass: 
+  }, */
 });
 
 const sendForgottenPassword = (req) => {
   transporter.sendMail(
     {
-      from: "succi.iris@gmail.com",
       to: req.user.email,
       subject: "Réinitialisation de votre mot de passe.",
       text: "Vous souhaitez réinitialiser votre mot de passe ? http://localhost:3000",
