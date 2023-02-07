@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import LogoWhite from "../../assets/make_sense_white.png";
 import { useCurrentUserContext } from "../../context/UserContext";
 import Logo from "../../assets/logo-makesense.png";
 import "../../css/administrator/decisionList.css";
 import Paginate from "../../components/user/Paginate";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import AlertDeleteDecision from "../../components/user/AlertDeleteDecision";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
@@ -17,6 +20,8 @@ export default function DecisionsList() {
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
   const [deleteIsConfirm, setdeleteIsConfirm] = useState(false);
   const [idDecisionToDelete, setIdDecisionToDelete] = useState();
+  const { dark } = useCurrentDarkContext();
+  const { t } = useTranslation();
 
   const convertDate = (date) => {
     const dateParse = Date.parse(`${date}`);
@@ -125,14 +130,25 @@ export default function DecisionsList() {
   }, [deleteIsConfirm]);
 
   return (
-    <div className="usersListPage w-screen">
+    <div
+      className={`w-screen z-0${
+        dark ? "text-black" : "text-white bg-dark-header"
+      }`}
+    >
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
         setOpenModalAlertDelete={setOpenModalAlertDelete}
         setdeleteIsConfirm={setdeleteIsConfirm}
       />
-      <div className="usersListHeader flex flex-row items-center justify-between bg-light-grey">
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey ${
+          dark
+            ? "text-black"
+            : "text-white bg-dark-header border-b-2 border-dark-bg"
+        }`}
+      >
+        {" "}
         <div className="flex flex-col">
           {user ? (
             <p className="pl-10 pt-3 text-xl">LISTE DES DECISIONS </p>
@@ -140,16 +156,24 @@ export default function DecisionsList() {
             <p className="pl-10 pt-3 text-xl">Bonjour</p>
           )}
           <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="logo-home">
-          <img src={Logo} alt="logo make-sense" />
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <table className="mt-12 mx-auto">
         <thead>
-          <tr className="mt-12 text-center bg-gray-400 border-2 border-gray-600 border-solid">
+          <tr
+            className={`mt-12 text-center ${
+              dark ? "bg-white" : "bg-dark-header text-white"
+            }`}
+          >
             <th className="w-auto p-2">Supprimer</th>
             <th className="w-auto p-2">Auteur</th>
             <th className="w-auto p-2">Concerné</th>
@@ -162,8 +186,22 @@ export default function DecisionsList() {
         </thead>
         <tbody>
           {valuesDetailsDecisions.map((decision) => (
-            <tr className="bg-gray-200 border-gray-400">
-              <td className="w-auto border-gray-400 border-2 text-center ">
+            <tr
+              className={
+                decision.decisionId % 2 === 1
+                  ? `${
+                      dark
+                        ? "bg-gray-200 border-gray-400"
+                        : "bg-dark-bg border-gray-400 text-white"
+                    }`
+                  : `${
+                      dark
+                        ? "bg-white border-gray-400"
+                        : "bg-dark-header border-gray-400 text-white"
+                    }`
+              }
+            >
+              <td className="w-auto border-b-2 border-gray-400 text-center ">
                 <button
                   type="button"
                   className="pt-1"
@@ -175,10 +213,10 @@ export default function DecisionsList() {
                   <BsTrash />
                 </button>
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {decision.firstname} {decision.lastname}
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {decision.personConcerne.map((pconcerne) => (
                   <>
                     {pconcerne.firstname} {pconcerne.lastname}
@@ -186,7 +224,7 @@ export default function DecisionsList() {
                   </>
                 ))}
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {decision.personExpert.map((pexpert) => (
                   <>
                     {pexpert.firstname} {pexpert.lastname}
@@ -194,16 +232,16 @@ export default function DecisionsList() {
                   </>
                 ))}
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {decision.title}
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {convertDate(decision.date_decision_creation)}
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {convertDate(decision.date_decision_conflict)}
               </td>
-              <td className="w-auto p-2 border-2 border-gray-400">
+              <td className="w-auto p-2 border-b-2 border-gray-400">
                 {decision.status_decision}
               </td>
             </tr>
