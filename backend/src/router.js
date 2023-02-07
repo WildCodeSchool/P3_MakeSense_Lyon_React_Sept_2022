@@ -32,6 +32,9 @@ const {
 } = require("./validators/validatorUserInscription");
 const { validatorProfile } = require("./validators/validatorProfile");
 const { validatorComment } = require("./validators/validatorComment");
+const {
+  validateUserConnexion,
+} = require("./validators/validatorUserConnexion");
 
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
@@ -51,6 +54,7 @@ router.delete("/user/:id", userControllers.destroy);
 // Route for login ******************************************
 router.post(
   "/login",
+  validateUserConnexion,
   authControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
