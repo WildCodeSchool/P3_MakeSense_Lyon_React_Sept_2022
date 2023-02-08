@@ -39,7 +39,7 @@ function TimelineStepperDecision({
             className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
             src={
               urlAvatarStatus?.status === 200
-                ? `http${backEnd}/${concern?.avatar}`
+                ? `${backEnd}/avatar/${concern?.avatar}`
                 : userimg
             }
             alt="avatar"
