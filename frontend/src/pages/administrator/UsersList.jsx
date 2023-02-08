@@ -29,7 +29,6 @@ export default function UsersList() {
     fetch(`${backEnd}/user`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        console.warn(result);
         setUsers(result);
       })
       .catch((err) => console.error(err));

@@ -94,8 +94,7 @@ function Comment({
       requestOptions
     )
       .then((response) => response.text())
-      .then((result) => {
-        console.warn(result);
+      .then(() => {
         toggleUpdateDecision();
         setModifyComment(!modifyComment);
         navigate(`/decision/${decisionIdParam.id}`);
