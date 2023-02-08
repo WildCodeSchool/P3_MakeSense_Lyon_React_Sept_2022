@@ -156,7 +156,6 @@ export default function EditDecision() {
       )
       .then((response) => {
         response.json();
-        console.warn("response", response);
 
         if (response.status === 201) {
           setTimeout(() => {
@@ -166,11 +165,8 @@ export default function EditDecision() {
           notify();
         }
       })
-      .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
-
-  console.warn("status", status_decision);
 
   // This is for GET user by name for input autocomplete
   const handleChange = () => {

@@ -42,7 +42,6 @@ export default function UserProfile() {
       .then((result) => {
         setValuesUser(result);
         setUrlAvatar(result.avatar);
-        console.warn("result", result);
       })
       .catch((error) => console.warn("error", error));
   }, []);
@@ -53,8 +52,6 @@ export default function UserProfile() {
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);
-
-  // console.log("url", urlAvatarStatus);
 
   // fetch decisions infos by user id
   useEffect(() => {
