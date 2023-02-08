@@ -86,7 +86,7 @@ function Messages() {
           {user ? (
             <p className="pl-10 pt-3 text-xl">MESSAGES </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
@@ -125,9 +125,9 @@ function Messages() {
             <line x1="10" y1="11" x2="10" y2="17" />
             <line x1="14" y1="11" x2="14" y2="17" />
           </svg>
-          <p className="col-start-2 text-center">Nom, prémon</p>
+          <p className="col-start-2 text-center">{t("Nom, prénom")}</p>
           <p className="col-start-3 col-end-5 text-center">Email</p>
-          <p className="col-start-5 col-end-7 text-center">Content</p>
+          <p className="col-start-5 col-end-7 text-center">{t("Titre")}</p>
         </div>
         {messages.map((message) => (
           <div

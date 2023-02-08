@@ -133,6 +133,33 @@ const resources = {
       "Voir le profil de": "Voir le profil de",
       "Crée le": "Crée le",
       "Fin de conflit le": "Fin de conflit le",
+
+      // page Accueil admin
+      Administrateur: "Administrateur",
+      Statistiques: "Statistiques",
+      Utilisateurs: "Utilisateurs",
+      Decisions: "Decisions",
+      Terminées: "Terminées",
+      "Non abouties": "Non abouties",
+      conflits: "En conflits",
+
+      // message admin
+      "Nom, prénom": "Nom, prénom",
+      Titre: "Titre",
+
+      // liste utilisateur
+      "Liste utilisateurs": "Liste utilisateurs",
+
+      // liste decisions
+      "Liste des décisions": "Liste des décisions",
+      Supprimer: "Supprimer",
+      Auteur: "Auteur",
+      Concerné: "Concerné",
+      Expert: "Expert",
+      "Titre de la décision": "Titre de la décision",
+      "Date de création": "Date de création",
+      "Date de finalisation": "Date de finalisation",
+      Status: "Statut",
     },
   },
   EN: {
@@ -260,6 +287,33 @@ const resources = {
       "Voir le profil de": "See the profile of",
       "Créer le": "Created on",
       "Fin de conflit le": "End of conflict on",
+
+      // page Accueil admin
+      Administrateur: "Administrator",
+      Statistiques: "Statistics",
+      Utilisateurs: "Utilisators",
+      Decisions: "Decisions",
+      Terminées: "Finished",
+      "Non abouties": "Not achieved",
+      Conflits: "Conflicts",
+
+      // message admin
+      "Nom, prénom": "Lastname, firstname",
+      Titre: "Title",
+
+      // liste utilisateur
+      "Liste utilisateurs": "Users list",
+
+      // liste decisions
+      "Liste des décisions": "Decisions list",
+      Supprimer: "Delete",
+      Auteur: "Autor",
+      Concerné: "Concerned",
+      Expert: "Expert",
+      "Titre de la décision": "Decision's title",
+      "Date de création": "Creation date",
+      "Date de finalisation": "Finalization date",
+      Status: "Status",
     },
   },
   ES: {
@@ -387,6 +441,36 @@ const resources = {
       "Voir le profil de ": "Ver el perfil de ",
       "Créer le": "Creado el",
       "Fin de conflit le": "Fin del conflicto el",
+
+      // page Accueil admin
+      Administrateur: "Administrador",
+      Statistiques: "Estadísticas",
+      Utilisateurs: "Usuarios",
+      Decisions: "Decisiones",
+      Terminées: "Completado",
+      "Non abouties": "No abouties",
+      Conflits: "Conflictos",
+
+      // message admin
+      "Nom, prénom": "Apellido, nombre",
+      Titre: "Title",
+
+      // liste utilisateur
+      "Liste utilisateurs": "Lista de usuarios",
+
+      // liste decisions
+      "Liste des décisions": "Lista de decisiones",
+
+      // liste decisions
+      "Liste des décisions": "lista de decisiones",
+      Supprimer: "Borrar",
+      Auteur: "Autor",
+      Concerné: "Preocupado",
+      Expert: "Experto",
+      "Titre de la décision": "Titulo de la decision",
+      "Date de création": "Fecha de creacion",
+      "Date de finalisation": "Fecha de finalizacion",
+      Status: "Estado",
     },
   },
 };

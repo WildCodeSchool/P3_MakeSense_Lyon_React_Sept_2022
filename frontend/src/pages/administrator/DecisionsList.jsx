@@ -151,9 +151,9 @@ export default function DecisionsList() {
         {" "}
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">LISTE DES DECISIONS </p>
+            <p className="pl-10 pt-3 text-xl">{t("Liste des décisions")} </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
           <p className="pl-10 text-x font-extralight">
             {t("Nous sommes le")} : {new Date().toLocaleDateString()}
@@ -174,14 +174,14 @@ export default function DecisionsList() {
               dark ? "bg-white" : "bg-dark-header text-white"
             }`}
           >
-            <th className="w-auto p-2">Supprimer</th>
-            <th className="w-auto p-2">Auteur</th>
-            <th className="w-auto p-2">Concerné</th>
-            <th className="w-auto p-2">Expert</th>
-            <th className="w-auto p-2">Titre de la décision</th>
-            <th className="w-auto p-2">Date de création</th>
-            <th className="w-auto p-2">Date de finalisation</th>
-            <th className="w-auto p-2">Status</th>
+            <th className="w-auto p-2">{t("Supprimer")}</th>
+            <th className="w-auto p-2">{t("Auteur")}</th>
+            <th className="w-auto p-2">{t("Concerné")}</th>
+            <th className="w-auto p-2">{t("Expert")}</th>
+            <th className="w-auto p-2">{t("Titre de la décision")}</th>
+            <th className="w-auto p-2">{t("Date de création")}</th>
+            <th className="w-auto p-2">{t("Date de finalisation")}</th>
+            <th className="w-auto p-2">{t("Status")}</th>
           </tr>
         </thead>
         <tbody>
