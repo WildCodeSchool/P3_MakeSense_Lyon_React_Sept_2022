@@ -42,8 +42,6 @@ export default function Home() {
       .catch((error) => console.warn("error", error));
   }, [token]);
 
-  console.warn("valuesDetailsDecisions", valuesDetailsDecisions);
-
   return (
     <div
       className={`w-screen z-0${
