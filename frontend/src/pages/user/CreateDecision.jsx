@@ -109,7 +109,7 @@ export default function CreateDecision() {
           success();
           setTimeout(() => {
             navigate("/home");
-          }, 3000);
+          }, 2000);
         } else {
           notify();
         }
@@ -145,7 +145,11 @@ export default function CreateDecision() {
 
   return (
     <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 1000 }}
+      />
       <div
         className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
           ${
