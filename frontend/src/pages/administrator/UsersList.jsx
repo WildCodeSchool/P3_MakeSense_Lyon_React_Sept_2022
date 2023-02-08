@@ -78,7 +78,7 @@ export default function UsersList() {
       >
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">LISTE UTILISATEURS </p>
+            <p className="pl-10 pt-3 text-xl">{t("Liste utilisateurs")}</p>
           ) : (
             <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
@@ -121,7 +121,7 @@ export default function UsersList() {
             <line x1="14" y1="11" x2="14" y2="17" />
           </svg>
           <p className="col-start-2 ">Avatar</p>
-          <p className="col-start-3 text-center">Nom, prémon</p>
+          <p className="col-start-3 text-center">{t("Nom, prénom")}</p>
           <p className="col-start-4 col-end-6 text-center">Email</p>
           <p className="col-start-6 col-end-7 text-center">Phone</p>
         </div>
