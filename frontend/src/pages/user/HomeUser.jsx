@@ -99,8 +99,8 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="md:grid md:col-start-1 md:col-end-4 md:ml-10 md:justify-start flex justify-center items-center">
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-2 gap-4">
+        <div className="md:grid md:col-start-1 md:col-end-4 md:ml-10 md:justify-start flex justify-center items-center md:w-screen">
+          <div className="md:grid md:grid-cols-3 xl:grid-cols-4 grid-rows-2 gap-4">
             {valuesDetailsDecisions.slice(0, 9).map((valueDetailsDecision) => {
               if (valueDetailsDecision.user_id === user.id) {
                 return (
@@ -129,13 +129,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="box col-start-1 col-end-4 z-0">
+        <div className="box col-start-1 col-end-4 z-0 ">
           <h2 className="md:text-3xl text-xl text-red-pink font-extrabold p-3 ml-5 z-0">
             {t("Décisions en cours")} :{" "}
           </h2>
         </div>
-        <div className="box col-start-1 col-end-4 md:ml-10 md:justify-start flex justify-center items-center z-0">
-          <div className="md:grid md:mb-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 z-0">
+        <div className="box col-start-1 col-end-4 md:ml-10 md:justify-start flex justify-center items-center z-0 md:w-screen">
+          <div className="md:grid md:mb-5 md:grid-cols-3 xl:grid-cols-4 gap-4 z-0">
             {valuesDetailsDecisions.slice(0, 9).map((valueDetailsDecision) => {
               if (
                 valueDetailsDecision.status_decision === "En cours" ||
@@ -166,7 +166,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="hidden md:block md:row-start-1 md:row-end-4 md:col-start-4 md:justify-center md:items-center">
+        <div className="hidden xl:block md:row-start-1 md:row-end-4 md:col-start-4 md:justify-center md:items-center">
           <TimeStepperHome />
         </div>
       </div>

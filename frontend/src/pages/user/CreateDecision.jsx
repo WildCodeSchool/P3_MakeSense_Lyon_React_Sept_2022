@@ -179,7 +179,7 @@ export default function CreateDecision() {
       </div>
       <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
-          <div className="hidden md:block row-span-3 ...">
+          <div className="hidden md:block row-span-3 md:mr-4">
             <p className="mt-20 decision-resume">
               <img src={target} alt="targeticon" />
               {t("Décision title")}
@@ -190,7 +190,7 @@ export default function CreateDecision() {
               )}
             </p>
           </div>
-          <div className="col-span-2 ...">
+          <div className="col-span-2">
             <div className="mt-14 mb-6">
               <label htmlFor="title-input" className="block mb-2">
                 {t("Titre de la décision")}{" "}
@@ -342,7 +342,7 @@ export default function CreateDecision() {
                 ))}
               </ul>
             </div>
-            <div className="mt-8 mb-8">
+            <div className="mt-8 mb-8 md:mb-4 lg:mb-8">
               <label htmlFor="pexpert-input" className="block mb-2">
                 {t("Personnes expertes")}{" "}
               </label>
@@ -374,7 +374,7 @@ export default function CreateDecision() {
           </div>
         </div>
       </main>
-      <div className="mb-24 md:mb-5">
+      <div className="mb-24 md:mb-32 lg:mb-5">
         <button
           type="button"
           onClick={sendDecision}

@@ -48,7 +48,7 @@ function ForgottenPassword({ email, setEmail }) {
           width={350}
         />
       </NavLink>
-      <div className="flex flex-col justify-between md-max:h-3/4">
+      <div className="flex flex-col justify-between md-max:h-3/4 md:pt-40 lg:pt-0">
         <div className=" flex flex-col justify-center items-center text-white ">
           <div className="bg-dark-blue  rounded-lg max-w-xl xl:p-0 md:shadow-1 mt-[30px] md:mt-[60px] ">
             {/* <div className="connexion-YellowRectangle" /> */}

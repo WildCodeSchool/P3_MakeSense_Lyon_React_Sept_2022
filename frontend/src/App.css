@@ -15,3 +15,11 @@ body,
   height: auto;
   width: auto;
 }
+@media (max-width: 1024px) {
+  html,
+  body,
+  #root {
+    height: 100vh;
+    width: auto;
+  }
+}

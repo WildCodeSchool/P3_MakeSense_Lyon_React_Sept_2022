@@ -57,19 +57,21 @@ function Connexion() {
       <Toaster position="top-center" reverseOrder={false} />
       <NavLink to="/">
         <img
-          className="p-6 hidden md:block max-w-xs"
+          className="p-6 hidden md:block"
           src="/src/assets/logo-makesense.png"
           alt="logo"
+          width={350}
         />
       </NavLink>
       <NavLink to="/" className="flex justify-center">
         <img
-          className="p-6 md:hidden max-w-xs"
+          className="p-6 md:hidden"
           src="/src/assets/make_sense_white.png"
           alt="logo"
+          width={350}
         />
       </NavLink>
-      <div className="flex flex-col justify-center items-center text-white ">
+      <div className="flex flex-col justify-center items-center text-white md:pt-40 lg:pt-0">
         <div className="w-full bg-dark-blue rounded-lg max-w-md xl:p-0 md:shadow-1 relative ">
           {/* <div className="connexion-YellowRectangle" /> */}
           <div className="p-4 space-y-4 sm:p-8">
