@@ -72,7 +72,7 @@ export default function SidebarMobile({
                 id="indigo"
                 color="indigo"
                 value={dark}
-                onClick={() => toggleDark()}
+                onClick={toggleDark}
               />{" "}
               <p className={`${openMobile ? "text-l mt-1 ml-3" : ""}`}>
                 Dark ?
