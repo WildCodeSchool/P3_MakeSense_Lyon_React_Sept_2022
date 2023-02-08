@@ -137,7 +137,8 @@ function App() {
           <Route path="/userslist" element={<UsersList />} />
           <Route path="/decisionslist" element={<DecisionsList />} />
           <Route path="mailbox" element={<Messages />} />
-          {/* <Route path="bin" element={<Bin />} /> */}
+          <Route path="*" element={<Navigate replace to="/404" />} />
+          <Route path="/404" element={<Error />} />
         </Routes>
       ) : (
         <Routes>
