@@ -12,6 +12,6 @@
 html,
 body,
 #root {
-  height: auto;
+  height: 100vh;
   width: auto;
 }
