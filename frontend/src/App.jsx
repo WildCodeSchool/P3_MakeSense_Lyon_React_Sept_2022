@@ -1,5 +1,11 @@
 import { React, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import CreateDecision from "./pages/user/CreateDecision";
 import HomeUser from "./pages/user/HomeUser";
 import Authentification from "./pages/Authentification";
@@ -23,6 +29,7 @@ import HomeAdmin from "./pages/administrator/HomeAdmin";
 import UsersList from "./pages/administrator/UsersList";
 import DecisionsList from "./pages/administrator/DecisionsList";
 import Messages from "./pages/administrator/Messages";
+import Error from "./pages/Error";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -50,7 +57,8 @@ function App() {
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
       token === null ||
-      location.pathname === "/help" ? null : (
+      location.pathname === "/help" ||
+      location.pathname === "/404" ? null : (
         <div className="relative">
           <aside className="h-screen sticky top-0 overflow-hidden hidden lg:block">
             <Sidebar
@@ -110,7 +118,6 @@ function App() {
             path="/edit-decision/:id"
             element={<EditDecision valuesDetailsDecisions />}
           />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           {/*  route admin */}
           <Route
             path="/homeadmin"
@@ -143,7 +150,8 @@ function App() {
             path="/motdepasseoublie"
             element={<ForgottenPassword email={email} setEmail={setEmail} />}
           />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
+          <Route path="/404" element={<Error />} />
         </Routes>
       )}
     </div>

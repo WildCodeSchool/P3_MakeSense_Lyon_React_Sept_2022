@@ -127,7 +127,7 @@ function AccordionCommentsPart({
 
       <div className="flex flex-col md:flex-row mx-6 md:items-center">
         <h2 className="mt-4 mb-3">{t("Commentaire details")} :</h2>
-        <div className="flex flex-row">
+        <div className="flex flex-row mt-4">
           <button
             type="button"
             onClick={() => handleStatus("Neutre")}
@@ -175,7 +175,9 @@ function AccordionCommentsPart({
         <div> </div>
         <button
           type="button"
-          onClick={addComment}
+          onClick={() => {
+            addComment();
+          }}
           className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl my-6"
         >
           {t("Envoyer btn")}
