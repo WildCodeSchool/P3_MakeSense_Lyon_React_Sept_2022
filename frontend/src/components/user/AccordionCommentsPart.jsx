@@ -92,7 +92,6 @@ function AccordionCommentsPart({
       headers: myHeaders,
     })
       .then((response) => {
-        console.warn(response.status);
         if (response.status === 201) {
           notifySuccess();
           toggleUpdateDecision();

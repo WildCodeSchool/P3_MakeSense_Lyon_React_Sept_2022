@@ -42,7 +42,6 @@ export default function UserProfile() {
       .then((result) => {
         setValuesUser(result);
         setUrlAvatar(result.avatar);
-        console.warn("result", result);
       })
       .catch((error) => console.warn("error", error));
   }, []);
@@ -53,8 +52,6 @@ export default function UserProfile() {
       .then((response) => setAvatarStatus(response))
       .catch((error) => console.warn(error));
   }, [valuesDetailsDecision]);
-
-  // console.log("url", urlAvatarStatus);
 
   // fetch decisions infos by user id
   useEffect(() => {
@@ -148,16 +145,18 @@ export default function UserProfile() {
         <h2 className="ml-10 mt-10 text-2xl mb-5">
           {t("Les décisions de")} {valuesUser.firstname} :
         </h2>
-        <div className="box col-start-1 col-end-4 ml-10">
-          <div className="grid mb-16 grid-cols-4">
-            {valuesDetailsDecision.map((valueDetailsDecision) => {
-              return (
-                <DecisionCard
-                  key={valueDetailsDecision.id}
-                  valueDetailsDecision={valueDetailsDecision}
-                />
-              );
-            })}
+        <div className="flex flex-col items-center md:grid md:grid-cols-3 lg:grid-cols-4 md:items-start mt-3 ">
+          <div className="box col-start-1 col-end-4 md:ml-10">
+            <div className="grid mb-16 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {valuesDetailsDecision.map((valueDetailsDecision) => {
+                return (
+                  <DecisionCard
+                    key={valueDetailsDecision.id}
+                    valueDetailsDecision={valueDetailsDecision}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </main>

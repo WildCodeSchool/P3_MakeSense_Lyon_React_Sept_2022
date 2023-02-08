@@ -49,9 +49,6 @@ export default function Help() {
           notify();
         }
       })
-      .then((result) => {
-        console.warn(result);
-      })
       .catch((err) => {
         console.error(err);
       });

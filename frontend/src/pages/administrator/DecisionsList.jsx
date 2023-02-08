@@ -87,8 +87,6 @@ export default function DecisionsList() {
     setValuesDetailsDecisions([...valuesDetailsDecisions]);
   };
 
-  console.warn("valuesDetailsDecisions", idDecisionToDelete);
-
   const handleDeleteDecision = () => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -113,8 +111,7 @@ export default function DecisionsList() {
           notify();
         }
       })
-      .then((result) => {
-        console.warn(result);
+      .then(() => {
         updateArrayDecisionsAfterDelete(idDecisionToDelete);
       })
       .catch((error) => console.warn("error", error));

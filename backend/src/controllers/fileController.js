@@ -17,7 +17,6 @@ const renameAvatar = (req, res, next) => {
     (err) => {
       if (err) throw err;
       req.avatar = `${uuid}-${originalname}`;
-      console.warn(req.avatar);
       next();
     }
   );

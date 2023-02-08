@@ -71,8 +71,7 @@ export default function DecisionCard({
           notify();
         }
       })
-      .then((result) => {
-        console.warn(result);
+      .then(() => {
         updateArrayDecisionsAfterDelete(valueDetailsDecision.id);
       })
       .catch((error) => console.warn("error", error));

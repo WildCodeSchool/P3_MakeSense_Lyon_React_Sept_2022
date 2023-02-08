@@ -84,7 +84,7 @@ function Inscription() {
             width={350}
           />
         </NavLink>
-        <div className="flex flex-col justify-between md-max:h-3/4">
+        <div className="flex flex-col justify-between md-max:h-3/4 md:pt-40 lg:pt-0">
           <div className=" inscriptionBloc flex flex-col justify-center items-center text-white ">
             <div className="w-full bg-dark-blue rounded-lg max-w-xl md:shadow-1 p-6 sm-max:p-10 space-y-6 sm:p-8">
               <h1 className="text-flash-yellow text-center font-bold leading-tight tracking-tight text-3xl">
