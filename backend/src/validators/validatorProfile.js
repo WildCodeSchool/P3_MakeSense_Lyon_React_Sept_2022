@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const profileSchema = Joi.object({
-  firstname: Joi.string().min(3).max(100).required(),
-  lastname: Joi.string().min(3).max(100).required(),
+  firstname: Joi.string().min(2).max(100).required(),
+  lastname: Joi.string().min(2).max(100).required(),
   email: Joi.string().email().max(200).required(),
   city: Joi.string().min(3).max(100),
   phone: Joi.string().min(3).max(20),

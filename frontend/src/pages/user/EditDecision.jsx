@@ -314,7 +314,7 @@ export default function EditDecision() {
               </option>
               <option value="En cours">{t("En cours")}</option>
               <option value="En conflit">{t("Conflits filter")}</option>
-              <option value="Terminee">{t("Terminée filter")}</option>
+              <option value="Terminee">{t("Terminées filter")}</option>
               <option value="Non aboutie">{t("Non abouties")}</option>
             </select>
           </div>

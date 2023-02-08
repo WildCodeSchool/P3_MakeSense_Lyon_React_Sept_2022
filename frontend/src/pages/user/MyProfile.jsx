@@ -108,7 +108,7 @@ export default function MyProfile() {
     })
       .then((response) => {
         if (response.status === 422) {
-          return;
+          throw new Error("Error on profile update");
         } else {
           return response.json();
         }
@@ -177,7 +177,7 @@ export default function MyProfile() {
             {urlAvatarStatus.status === 200 ? (
               <img
                 className="shadow rounded-full w-40 h-36 align-middle border-none hover:opacity-25 transition ease-in-out delay-50 "
-                src={`http://localhost:5000/avatar/${user.avatar}`}
+                src={`${backEnd}/avatar/${user.avatar}`}
                 alt={`avatar${user.firstname}-${user.id}`}
               />
             ) : null}

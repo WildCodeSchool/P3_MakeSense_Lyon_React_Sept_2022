@@ -11,9 +11,6 @@ const {
   verifyToken,
 } = require("./middlewares/auth");
 const { verifyEmail } = require("./middlewares/verifyEmail");
-const {
-  validateUserInscription,
-} = require("./validators/validatorUserInscription");
 
 // call controller ******************************************
 const authControllers = require("./controllers/authController");
@@ -29,8 +26,15 @@ const messageControllers = require("./controllers/messageController");
 
 // call validator ******************************************
 const { validatorDecision } = require("./validators/validatorDecision");
+const { validatorEditDecision } = require("./validators/validatorEditDecision");
+const {
+  validateUserInscription,
+} = require("./validators/validatorUserInscription");
 const { validatorProfile } = require("./validators/validatorProfile");
 const { validatorComment } = require("./validators/validatorComment");
+const {
+  validateUserConnexion,
+} = require("./validators/validatorUserConnexion");
 
 // routes for user ******************************************
 router.get("/user", verifyToken, userControllers.browse);
@@ -50,6 +54,7 @@ router.delete("/user/:id", userControllers.destroy);
 // Route for login ******************************************
 router.post(
   "/login",
+  validateUserConnexion,
   authControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
@@ -88,7 +93,12 @@ router.get(
   verifyToken,
   decisionControllers.readDecisionByUserId
 );
-router.put("/decision/:id", verifyToken, decisionControllers.editById);
+router.put(
+  "/decision/:id",
+  verifyToken,
+  validatorEditDecision,
+  decisionControllers.editById
+);
 router.post(
   "/decision",
   verifyToken,
