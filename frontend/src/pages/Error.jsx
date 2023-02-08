@@ -5,8 +5,8 @@ import Back from "../assets/icons/corner-down-left.svg";
 function Error() {
   const navigate = useNavigate();
   return (
-    <div className="w-screen h-screen flex items-center m-auto">
-      <div className="border-2 w-1/2 h-80 m-auto border-dark-blue rounded-lg bg-dark-blue flex items-center justify-center">
+    <div className="w-screen h-screen flex items-center m-auto bg-dark-blue md:bg-white justify-center">
+      <div className="md:border-2 md:w-1/2 md:h-80 md:m-auto border-dark-blue md:rounded-lg bg-dark-blue flex items-center justify-center">
         <div className=" text-flash-yellow text-6xl flex justify-center flex-col items-center ">
           <p>Error 404</p>
           <p className="text-2xl pt-4">Not found</p>
