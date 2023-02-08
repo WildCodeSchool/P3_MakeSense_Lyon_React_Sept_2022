@@ -36,12 +36,12 @@ CREATE TABLE decision (
 INSERT INTO decision (title, content, impact, risk, benefits, date_decision_creation, date_decision_conflict, date_decision_close, status_decision, user_id) VALUES 
 ('Fixation des prix', '', '', '', '', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En cours','2'),
 ('Déterminer le montant des remises', '', '', '', '', '2022-10-13 12:12:23', '2022-12-13 12:12:23', '2022-10-13 12:12:23', 'En cours','4'),
-('Collecter des informations', '', '', '', '', '2023-01-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En conflit','3'),
+('Le contrat électronique', '', '', '', '', '2023-01-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'En conflit','3'),
 ('Mettre en place un management', '', '', '', '', '2022-10-13 12:12:23', '2023-04-13 12:12:23', '2022-10-13 12:12:23','Non aboutie','1'),
-('Changer la structure de l’entreprise', '', '', '', '', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'Terminee','4'),
-('Exposer les risques potentiels', '', '', '', '', '2022-10-13 12:12:23', '2022-12-13 12:12:23', '2022-10-13 12:12:23', 'En cours','2'),
-('Produire un spot radio', '', '', '', '', '2023-01-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'Terminee','3'),
-('L’animation du réseau des prestataires', '', '', '', '', '2022-10-13 12:12:23', '2023-04-13 12:12:23', '2022-10-13 12:12:23','Non aboutie','1');
+('L’achat d’espace publicitaire', '', '', '', '', '2022-10-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'Terminee','4'),
+('Changer la structure de l’entreprise ', '', '', '', '', '2022-10-13 12:12:23', '2022-12-13 12:12:23', '2022-10-13 12:12:23', 'En cours','2'),
+('Exposer les risques potentiels', '', '', '', '', '2023-01-13 12:12:23', '2022-10-13 12:12:23', '2022-10-13 12:12:23', 'Terminee','3'),
+('Produire un spot radio', '', '', '', '', '2022-10-13 12:12:23', '2023-04-13 12:12:23', '2022-10-13 12:12:23','Non aboutie','1'), ('L’animation du réseau des prestataires', '', '', '', '', '2022-10-13 12:12:23', '2023-04-13 12:12:23', '2022-10-13 12:12:23','Non aboutie','1'), ('Mettre en place des outils de fidélisation', '', '', '', '', '2022-10-13 12:12:23', '2023-04-13 12:12:23', '2022-10-13 12:12:23','Non aboutie','1');
 
 DROP TABLE IF EXISTS person_expert;
 
