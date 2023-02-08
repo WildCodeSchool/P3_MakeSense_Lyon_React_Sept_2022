@@ -24,11 +24,9 @@ function ForgottenPassword({ email, setEmail }) {
   };
 
   const sendEmail = () => {
-    fetch(`${backEnd}/forgottenpassword`, requestOptions)
-      .then((result) => {
-        console.warn(result);
-      })
-      .catch((err) => console.warn(err));
+    fetch(`${backEnd}/forgottenpassword`, requestOptions).catch((err) =>
+      console.warn(err)
+    );
   };
 
   return (

@@ -36,7 +36,6 @@ export default function DecisionDetails() {
       .then((response) => response.json())
       .then((result) => {
         setValuesDetailsDecision(result);
-        console.warn(result);
       })
       .catch((error) => console.warn("error", error));
   }, [updateDecision]);
@@ -108,9 +107,6 @@ export default function DecisionDetails() {
             <div className="border-b mb-3">
               <div className="flex flex-row justify-between">
                 <div>
-                  {console.warn(
-                    valuesDetailsDecision?.date_decision_conflict?.split("-")
-                  )}
                   <p className="text-xs font-thin text-left mt-2 text-gray-500">
                     {t("Crée le")} :{" "}
                     {valuesDetailsDecision?.date_decision_creation

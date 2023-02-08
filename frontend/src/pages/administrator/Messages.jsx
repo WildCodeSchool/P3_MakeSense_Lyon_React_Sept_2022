@@ -30,7 +30,6 @@ function Messages() {
     fetch(`${backEnd}/admin/message`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        console.warn(result);
         setMessages(result);
       })
       .catch((err) => console.error(err));
