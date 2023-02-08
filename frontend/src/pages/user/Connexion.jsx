@@ -57,7 +57,7 @@ function Connexion() {
       <Toaster position="top-center" reverseOrder={false} />
       <NavLink to="/">
         <img
-          className="p-6 hidden md:block max-w-xs"
+          className="p-6 hidden md:block"
           src="/src/assets/logo-makesense.png"
           alt="logo"
           width={350}
@@ -65,7 +65,7 @@ function Connexion() {
       </NavLink>
       <NavLink to="/" className="flex justify-center">
         <img
-          className="p-6 md:hidden max-w-xs"
+          className="p-6 md:hidden"
           src="/src/assets/make_sense_white.png"
           alt="logo"
           width={350}
