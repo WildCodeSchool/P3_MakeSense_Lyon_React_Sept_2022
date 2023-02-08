@@ -139,7 +139,11 @@ export default function MyProfile() {
 
   return (
     <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 1000 }}
+      />
       <div
         className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
           ${
