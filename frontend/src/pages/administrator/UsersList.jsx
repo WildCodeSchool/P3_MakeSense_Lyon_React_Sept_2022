@@ -167,7 +167,7 @@ export default function UsersList() {
               className="col-start-2 col-end-3 w-8 h-8 rounded-full"
             />
             <p className="col-start-3 text-center">
-              {user.firstname} {user.firstname}
+              {user.firstname} {user.lastname}
             </p>
             <p className="col-start-4 col-end-6 text-center">{user.email}</p>
             <button type="button" className="col-start-6 col-end-7 text-center">
