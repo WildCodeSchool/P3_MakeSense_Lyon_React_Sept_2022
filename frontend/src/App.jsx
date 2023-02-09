@@ -1,12 +1,19 @@
 import { React, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import CreateDecision from "./pages/user/CreateDecision";
 import HomeUser from "./pages/user/HomeUser";
-import Sidebar from "./components/user/Sidebar";
 import Authentification from "./pages/Authentification";
 import UserProfile from "./pages/user/UserProfile";
 import "./App.css";
+import "./i18n";
 import LegalNotice from "./pages/user/LegalNotice";
+import Sidebar from "./components/user/Sidebar";
 import MyProfile from "./pages/user/MyProfile";
 import Help from "./pages/user/Help";
 import Decisions from "./pages/user/Decisions";
@@ -19,11 +26,16 @@ import EditDecision from "./pages/user/EditDecision";
 import Password from "./pages/user/Password";
 import SidebarMobile from "./components/user/SidebarMobile";
 import HomeAdmin from "./pages/administrator/HomeAdmin";
+import UsersList from "./pages/administrator/UsersList";
+import DecisionsList from "./pages/administrator/DecisionsList";
+import Messages from "./pages/administrator/Messages";
+import Error from "./pages/Error";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState();
   const [open, setOpen] = useState(true);
+  const [openMobile, setOpenMobile] = useState(false);
   const location = useLocation();
   const { token } = useCurrentUserContext();
   const navigate = useNavigate();
@@ -39,15 +51,16 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:h-full w-full">
+    <div className="flex flex-col md:flex-row h-full ">
       {location.pathname === "/" ||
       location.pathname === "/inscription" ||
       location.pathname === "/motdepasseoublie" ||
       location.pathname === "/legal-notice" ||
       token === null ||
-      location.pathname === "/help" ? null : (
+      location.pathname === "/help" ||
+      location.pathname === "/404" ? null : (
         <div className="relative">
-          <aside className="h-screen sticky top-0 overflow-hidden hidden md:block">
+          <aside className="h-screen sticky top-0 overflow-hidden hidden lg:block">
             <Sidebar
               showModal={showModal}
               setShowModal={setShowModal}
@@ -58,7 +71,7 @@ function App() {
               handleChecked={handleChecked}
             />
           </aside>
-          <div className="w-screen md:hidden fixed bottom-0 left-0 right-0">
+          <div className="w-screen lg:hidden fixed bottom-0 left-0 right-0 z-50">
             <SidebarMobile
               showModal={showModal}
               setShowModal={setShowModal}
@@ -67,6 +80,8 @@ function App() {
               checked={checked}
               setChecked={setChecked}
               handleChecked={handleChecked}
+              openMobile={openMobile}
+              setOpenMobile={setOpenMobile}
             />
           </div>
         </div>
@@ -80,6 +95,8 @@ function App() {
       ) : null}
       {token ? (
         <Routes>
+          <Route path="/help" element={<Help />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
           <Route
             path="/home"
             element={<HomeUser open={open} setOpen={setOpen} />}
@@ -101,7 +118,6 @@ function App() {
             path="/edit-decision/:id"
             element={<EditDecision valuesDetailsDecisions />}
           />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           {/*  route admin */}
           <Route
             path="/homeadmin"
@@ -115,7 +131,14 @@ function App() {
               />
             }
           />
-          {/* <Route path="messages" element={<Messages />} /> */}
+          <Route path="/help" element={<Help />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/userslist" element={<UsersList />} />
+          <Route path="/decisionslist" element={<DecisionsList />} />
+          <Route path="mailbox" element={<Messages />} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
+          <Route path="/404" element={<Error />} />
         </Routes>
       ) : (
         <Routes>
@@ -131,7 +154,8 @@ function App() {
             path="/motdepasseoublie"
             element={<ForgottenPassword email={email} setEmail={setEmail} />}
           />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
+          <Route path="/404" element={<Error />} />
         </Routes>
       )}
     </div>

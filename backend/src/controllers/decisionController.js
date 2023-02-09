@@ -93,7 +93,6 @@ const editById = (req, res) => {
   const expert = req.body.person_expert;
   const concern = req.body.person_concern;
   // TODO validations (length, format...)
-
   decision.id = parseInt(req.params.id, 10);
 
   models.decision
@@ -136,12 +135,10 @@ const editById = (req, res) => {
 };
 
 const add = (req, res) => {
-  console.warn(req.body);
   const decision = req.body;
   const experts = req.body.person_expert;
   const concerns = req.body.person_concern;
   const notif = req.body.notif;
-  console.warn(experts);
 
   // TODO validations (length, format...)
   models.decision
@@ -322,6 +319,111 @@ const autoUpdateStatusNonAboutieWithDateConflict = (req, res) => {
 // execute function every day
 setInterval(autoUpdateStatusNonAboutieWithDateConflict, 1000 * 60 * 60 * 24);
 
+// search decision by page (in front)
+const browseByPageAndFilter = (req, res) => {
+  const page = parseInt(req.query.currentPage, 10);
+  const limit = parseInt(req.query.decisionPerPage, 10);
+  const offset = (page - 1) * limit;
+  const status = req.query.status;
+
+  models.decision
+    .findNbOfDecisions(status)
+    .then(([nbDecision]) => {
+      if (nbDecision[0].nbDecision === 0) {
+        res.send({ rows: [], nbDecision: nbDecision[0] });
+      } else {
+        models.decision
+          .findByPageAndFilter(limit, offset, status)
+          .then(([rows]) => {
+            if (rows[0] == null) {
+              res.sendStatus(404);
+            } else {
+              res.send({ rows, nbDecision: nbDecision[0] });
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+// search all decision for admin
+const browseAllByPageAndFilter = (req, res) => {
+  const page = parseInt(req.query.currentPage, 10);
+  const limit = parseInt(req.query.decisionPerPage, 10);
+  const offset = (page - 1) * limit;
+
+  models.decision
+    .findAllNbOfDecisions()
+    .then(([nbDecision]) => {
+      if (nbDecision[0].nbDecision === 0) {
+        res.send({ rows: [], nbDecision: nbDecision[0] });
+      } else {
+        models.decision
+          .findAllByPageAndFilter(limit, offset)
+          .then(([results]) => {
+            if (results[0] == null) {
+              res.sendStatus(404);
+            } else {
+              const decisions = [];
+              results.forEach((result) => {
+                let decision = decisions.find(
+                  (element) => element.decisionId === result.decisionId
+                );
+                if (decision === undefined) {
+                  decision = {
+                    ...result,
+                    personExpert: [],
+                    personConcerne: [],
+                  };
+                  decisions.push(decision);
+                }
+                if (
+                  !decision.personExpert.some(
+                    (element) => element.expertedId === result.expertedId
+                  )
+                ) {
+                  decision.personExpert.push({
+                    expertedId: result.expertedId,
+                    lastname: result.expertedLastname,
+                    firstname: result.expertedFirstname,
+                  });
+                }
+                if (
+                  !decision.personConcerne.some(
+                    (element) => element.concernedId === result.concernedId
+                  )
+                ) {
+                  decision.personConcerne.push({
+                    concernedId: result.concernedId,
+                    lastname: result.concernedLastname,
+                    firstname: result.concernedFirstname,
+                  });
+                }
+              });
+              res.send({ rows: decisions, nbDecision: nbDecision[0] });
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -335,4 +437,6 @@ module.exports = {
   autoUpdateStatusTDecisionNonAboutieByDateAndVote,
   autoUpdateStatusTermineeWithDateConflict,
   autoUpdateStatusNonAboutieWithDateConflict,
+  browseByPageAndFilter,
+  browseAllByPageAndFilter,
 };

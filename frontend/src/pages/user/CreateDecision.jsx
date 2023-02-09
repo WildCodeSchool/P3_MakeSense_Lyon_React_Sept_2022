@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import toast, { Toaster } from "react-hot-toast";
 import target from "../../assets/icons/target.svg";
@@ -10,19 +11,23 @@ import "../../css/user/createDecision.css";
 import Close from "../../assets/icons/x.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function CreateDecision() {
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
   const [impact, setValueImpactOfDecision] = useState("");
   const [benefits, setValueBenefitsOfDecision] = useState("");
   const [risk, setValueRiskOfDecision] = useState("");
-  const [dateDecisionConflict, setStartDateConflictOfDecision] = useState(
+  const [date_Decision_Conflict, setStartDateConflictOfDecision] = useState(
     new Date()
   );
   const [personImpactedDecision, setPersonImpactedDecision] = useState([]);
@@ -57,6 +62,10 @@ export default function CreateDecision() {
       "Une erreure est survenue, veuillez vérifier que vous avez bien rempli tous les champs"
     );
 
+  const success = () => {
+    toast.success("Votre décision a bien été créée");
+  };
+
   const dateConvertedToSqlFormat = (date) => {
     const dateConverted = new Date(date);
     const year = dateConverted.getFullYear();
@@ -81,32 +90,23 @@ export default function CreateDecision() {
       risk,
       benefits,
       date_decision_creation: dateConvertedToSqlFormat(Date.now()),
-      date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
+      date_decision_conflict: dateConvertedToSqlFormat(date_Decision_Conflict),
       status_decision: "En cours",
       user_id: user.id,
       person_expert: choosePersonExpert,
       person_concern: choosePersonConcern,
       notif: choosePersonConcern,
     });
-    toast
-      .promise(
-        fetch(`${backEnd}/decision`, {
-          method: "POST",
-          redirect: "follow",
-          body: raw,
-          headers: myHeaders,
-        }),
-        {
-          loading: "Envoi en cours",
-          success: "Décision envoyée",
-          error:
-            "Une erreur sur le serveur est survenue lors de l'envoi de la décision",
-        }
-      )
+
+    fetch(`${backEnd}/decision`, {
+      method: "POST",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
       .then((response) => {
-        response.json();
-        console.warn(response.status);
         if (response.status === 201) {
+          success();
           setTimeout(() => {
             navigate("/home");
           }, 2000);
@@ -114,8 +114,7 @@ export default function CreateDecision() {
           notify();
         }
       })
-      .then((result) => console.warn(result))
-      .catch((error) => console.warn("error", error));
+      .catch(() => notify());
   }
 
   // This is for GET user by name for input autocomplete
@@ -145,144 +144,180 @@ export default function CreateDecision() {
   };
 
   return (
-    <div className="w-screen">
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 1000 }}
+      />
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+          <p className="pl-10 text-x font-extralight pb-2">
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Créer une décision</h1>
-        <div className="logo-home">
-          <img src={Logo} alt="logo make-sense" />
+        <h1 className="hidden md:flex text-2xl text-red-pink">
+          {t("Créer une décision")}
+        </h1>
+        <div className="hidden md:block logo-home">
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <main className="mainCreateDecision">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
-          <div className="hidden md:block row-span-3 ...">
+          <div className="hidden md:block row-span-3 md:mr-4">
             <p className="mt-20 decision-resume">
               <img src={target} alt="targeticon" />
-              Décision
+              {t("Décision title")}
             </p>
             <p className="decision-explaination">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-              totam natus assumenda placeat ex vel, omnis et corrupti eius! Ut
-              asperiores adipisci, vero
+              {t(
+                "Veuillez créer une décision en remplissant les champs ci-dessous."
+              )}
             </p>
           </div>
-          <div className="col-span-2 ...">
+          <div className="col-span-2">
             <div className="mt-14 mb-6">
               <label htmlFor="title-input" className="block mb-2">
-                Titre de la décision{" "}
+                {t("Titre de la décision")}{" "}
               </label>
               <input
                 onChange={(e) => setTitleDecision(e.target.value)}
                 type="text"
                 value={title}
                 id="title-input"
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className={`border border-gray-300  text-sm rounded-xl block w-full p-2.5 ${
+                  dark ? "text-gray-900" : "bg-dark-bg text-white"
+                }`}
               />
             </div>
             <div className="hidden md:block">
-              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={content}
                 onChange={setValueDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
             <div className="hidden md:block">
-              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <h2 className="mt-8 mb-3">{t("Impact sur l'organisation")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={impact}
                 onChange={setValueImpactOfDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
             <div className="hidden md:block">
-              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Bénéfice de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={benefits}
                 onChange={setValueBenefitsOfDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
             <div className="hidden md:hidden">
-              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <h2 className="mt-8 mb-3">
+                {t("Risques potentiels de la décision")} :
+              </h2>
               <ReactQuill
                 theme="snow"
                 value={risk}
                 onChange={setValueRiskOfDecision}
                 modules={modules}
+                preserveWhitespace
               />
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Description de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={content}
                 onChange={setValueDecision}
                 modules={modulesmobile}
+                preserveWhitespace
               />
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+              <h2 className="mt-8 mb-3">{t("Impact sur l'organisation")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={impact}
                 onChange={setValueImpactOfDecision}
                 modules={modulesmobile}
+                preserveWhitespace
               />
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+              <h2 className="mt-8 mb-3">{t("Bénéfice de la décision")} :</h2>
               <ReactQuill
                 theme="snow"
                 value={benefits}
                 onChange={setValueBenefitsOfDecision}
                 modules={modulesmobile}
+                preserveWhitespace
               />
             </div>
 
             <div className="md:hidden">
-              <h2 className="mt-8 mb-3">Risques potentiels de la décision :</h2>
+              <h2 className="mt-8 mb-3">
+                {t("Risques potentiels de la décision")} :
+              </h2>
               <ReactQuill
                 theme="snow"
                 value={risk}
                 onChange={setValueRiskOfDecision}
                 modules={modulesmobile}
+                preserveWhitespace
               />
             </div>
 
-            <h2 className="mt-8 mb-3">Date finale de la décision :</h2>
-            <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
-              <div className="containerDate">
+            <h2 className="mt-8 mb-3">{t("Date finale de la décision")} :</h2>
+            <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8 xl p-2 ">
+              <div className=" z-20">
                 <DatePicker
-                  selected={dateDecisionConflict}
+                  selected={date_Decision_Conflict}
                   onChange={(date) => setStartDateConflictOfDecision(date)}
                   disabledKeyboardNavigation
                   placeholderText="Donner son avis"
+                  className={`border border-gray-300  text-sm rounded-xl block w-[200px] p-2.5 ${
+                    dark ? "text-black " : "text-white bg-dark-header"
+                  }`}
                 />
               </div>
             </div>
             <div className="mt-8">
               <label htmlFor="pconcern-input" className="block mb-2">
-                Personnes impactées{" "}
+                {t("Personnes impactées")}{" "}
               </label>
               <ReactSearchAutocomplete
                 items={personImpactedDecision}
@@ -294,7 +329,7 @@ export default function CreateDecision() {
                   ])
                 }
                 styling={{ zIndex: 3 }}
-                maxResults={15}
+                maxResults={3}
               />
               {/* this is for display expert person */}
               <ul className="m-3">
@@ -311,9 +346,9 @@ export default function CreateDecision() {
                 ))}
               </ul>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 mb-8 md:mb-4 lg:mb-8">
               <label htmlFor="pexpert-input" className="block mb-2">
-                Personne expertes{" "}
+                {t("Personnes expertes")}{" "}
               </label>
               <ReactSearchAutocomplete
                 items={personExperteDecision}
@@ -324,7 +359,7 @@ export default function CreateDecision() {
                     newChoosePersonExpert,
                   ])
                 }
-                maxResults={15}
+                maxResults={3}
               />
               <ul className="m-3">
                 {choosePersonExpert?.map((person, index) => (
@@ -343,14 +378,16 @@ export default function CreateDecision() {
           </div>
         </div>
       </main>
-      <button
-        type="button"
-        onClick={sendDecision}
-        id="buttonEnvoyerDecision"
-        className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
-      >
-        Envoyer
-      </button>
+      <div className="mb-24 md:mb-32 lg:mb-5">
+        <button
+          type="button"
+          onClick={sendDecision}
+          id="buttonEnvoyerDecision"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-xl"
+        >
+          {t("Envoyer btn")}
+        </button>
+      </div>
     </div>
   );
 }

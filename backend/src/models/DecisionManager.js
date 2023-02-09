@@ -78,9 +78,9 @@ class DecisionManager extends AbstractManager {
 
   findByUserId(id) {
     return this.connection.query(
-      `SELECT ${this.table}.id, title, date_decision_creation, status_decision, user_id 
+      `SELECT ${this.table}.id, title, date_decision_creation, date_decision_conflict, status_decision, user_id, firstname, lastname, avatar 
     FROM ${this.table}
-    LEFT JOIN user on ${this.table}.user_id = user.id
+    JOIN user on ${this.table}.user_id = user.id
     WHERE user_id = ?`,
       [id]
     );
@@ -188,6 +188,51 @@ class DecisionManager extends AbstractManager {
   getNumberOfDecisionUnresolved() {
     return this.connection.query(
       `SELECT COUNT(status_decision) as decisionsunresolved FROM ${this.table} where status_decision = 'Non aboutie'`
+    );
+  }
+
+  findNbOfDecisions(status) {
+    return this.connection.query(
+      `SELECT count(${this.table}.id) as nbDecision
+      FROM ${this.table}
+      WHERE (status_decision = '${status}' or '${status}' = 'all')`
+    );
+  }
+
+  findByPageAndFilter(limit, offset, status) {
+    return this.connection.query(
+      `SELECT ${this.table}.id, title, date_decision_creation, date_decision_conflict, status_decision, user_id, firstname, lastname, avatar
+      FROM ${this.table}
+      JOIN user on ${this.table}.user_id = user.id
+      WHERE (status_decision = '${status}' or '${status}' = 'all')
+      ORDER BY date_decision_conflict ASC
+      LIMIT ${limit} OFFSET ${offset}`
+    );
+  }
+
+  findAllNbOfDecisions() {
+    return this.connection.query(
+      `SELECT count(${this.table}.id) as nbDecision
+      FROM ${this.table}`
+    );
+  }
+
+  findAllByPageAndFilter(limit, offset) {
+    return this.connection.query(
+      `SELECT ${this.table}.title, ${this.table}.date_decision_creation,
+      ${this.table}.date_decision_conflict, ${this.table}.status_decision,
+      ${this.table}.id as decisionId,
+       u.id as userId, u.firstname, u.lastname,
+       concerned.id as concernedId, experted.id as expertedId,
+       concerned.firstname AS concernedFirstname, concerned.lastname AS concernedLastname,
+       experted.lastname AS expertedLastname, experted.firstname AS expertedFirstname
+       FROM ${this.table}
+       left JOIN user AS u ON ${this.table}.USER_ID = u.id
+       left JOIN person_concern as pc ON ${this.table}.id = pc.decision_id
+       left JOIN user AS concerned on pc.user_id=concerned.id
+       left JOIN person_expert as pe ON ${this.table}.id = pe.decision_id
+       left JOIN user AS experted on pe.user_id=experted.id
+       LIMIT ${limit} OFFSET ${offset}`
     );
   }
 }

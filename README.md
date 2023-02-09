@@ -1,7 +1,22 @@
-## Concept
 
-This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
-It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying as simple as possible to use.
+# Project : Makesense
+
+*This project is pitched by the company Makesense.*  
+Makesense is an international community that accompanies and brings together committed citizens, passionate entrepreneurs, and visionary organizations to solve together the social and environmental challenges of our time.
+
+### Pitch  
+Development of an internal platform for the association which will be a management tool for decision making. We will be able to find there a follow-up of the current and past decisions... 
+Secured authentication, users management, CRUD, navigation, etc
+
+
+
+## 🚀 Team
+Student project by :
+- Iris Succi : https://github.com/Iris-succi
+- Jonathan Garonian : https://github.com/JohnGaro
+- Davy Robert : https://github.com/DavyR01
+- Madeline Thomas : https://github.com/MaddieThms
+
 
 ## Setup & Use
 
@@ -9,8 +24,9 @@ It's pre-configured with a set of tools which'll help students produce industry-
 
 - In VSCode, install plugins **Prettier - Code formatter** and **ESLint** and configure them
 - Clone this repo, enter it
-- Run command `npm run setup`
-- _NB: To launch the backend server, you'll need an environment file with database credentials. You'll find a template one in `backend/.env.sample`_
+- Run command `npm run setup`, `npm run migrate`
+- create .env files for the frontend and backend  
+ _NB: To launch the backend server, you'll need an environment file with database credentials. You'll find a template one in `backend/.env.sample`_
 
 ### Available Commands
 
@@ -22,14 +38,4 @@ It's pre-configured with a set of tools which'll help students produce industry-
 - `lint` : Runs validation tools, and refuses unclean code (will be executed on every _commit_)
 - `fix` : Fixes linter errors (run it if `lint` growls on your code !)
 
-## FAQ
-
-### Tools
-
-- _Concurrently_ : Allows for several commands to run concurrently in the same CLI
-- _Husky_ : Allows to execute specific commands that trigger on _git_ events
-- _Vite_ : Alternative to _Create-React-App_, packaging less tools for a more fluid experience
-- _ESLint_ : "Quality of code" tool, ensures chosen rules will be enforced
-- _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
-- _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
-- _Nodemon_ : Allows to restart the server everytime a .js file is udated
+    

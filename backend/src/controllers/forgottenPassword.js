@@ -7,7 +7,6 @@ const verifyEmail = (req, res, next) => {
   models.user
     .selectEmail(email)
     .then(([users]) => {
-      console.warn(users);
       if (users[0] != null) {
         // eslint-disable-next-line prefer-destructuring
         req.user = users[0];
@@ -44,7 +43,6 @@ const verifyTokenPassword = (req, res, next) => {
   models.user
     .selectToken(passwordToken)
     .then(([users]) => {
-      console.warn(users);
       if (users[0] != null) {
         // eslint-disable-next-line prefer-destructuring
         req.user = users[0];

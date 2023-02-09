@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../css/user/decisionCard.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import iconTrash from "../../assets/icons/trash-orange.svg";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import AlertDeleteDecision from "./AlertDeleteDecision";
+import userimg from "../../assets/icons/user.png";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
@@ -22,7 +25,11 @@ export default function DecisionCard({
     return `${day}/${month}/${year}`;
   };
   const [openModalAlertDelete, setOpenModalAlertDelete] = useState(false);
-  const [deleteIsConfirm, setdeleteIsConfirm] = useState(false);
+  const { dark } = useCurrentDarkContext();
+  const [deleteIsConfirm, setDeleteIsConfirm] = useState(false);
+  const [urlAvatarStatus, setAvatarStatus] = useState("");
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // for alert notification error delete decision after submit
   const notify = () =>
@@ -64,8 +71,7 @@ export default function DecisionCard({
           notify();
         }
       })
-      .then((result) => {
-        console.warn(result);
+      .then(() => {
         updateArrayDecisionsAfterDelete(valueDetailsDecision.id);
       })
       .catch((error) => console.warn("error", error));
@@ -76,17 +82,28 @@ export default function DecisionCard({
       setOpenModalAlertDelete(false);
       handleDeleteDecision();
     } else {
-      setdeleteIsConfirm(false);
+      setDeleteIsConfirm(false);
     }
   }, [deleteIsConfirm]);
 
+  // fetch avatar status
+  useEffect(() => {
+    fetch(`${backEnd}/avatar/${valueDetailsDecision.avatar}`)
+      .then((response) => setAvatarStatus(response))
+      .catch((error) => console.warn(error));
+  }, [valueDetailsDecision]);
+
   return (
-    <div className="border-2 rounded-xl w-[250px] md:w-[160px] h-[160px] cardsize p-2 shadow-md hover:scale-110 duration-200	mb-3">
+    <div
+      className={`relative w-[250px] md:min-w-[200px] md:max-w-[210px] h-[180px] hover:scale-110 duration-200	md:mb-0 mb-3 bg-[#fcfcfc] px-4 py-4 sm:px-6 shadow-lg rounded-xl ${
+        dark ? "" : "bg-dark-bg"
+      }`}
+    >
       <Toaster position="top-center" reverseOrder={false} />
       <AlertDeleteDecision
         openModalAlertDelete={openModalAlertDelete}
         setOpenModalAlertDelete={setOpenModalAlertDelete}
-        setdeleteIsConfirm={setdeleteIsConfirm}
+        setdeleteIsConfirm={setDeleteIsConfirm}
       />
       {valueDetailsDecision.user_id === user.id ? (
         <div className="flex justify-between">
@@ -94,21 +111,59 @@ export default function DecisionCard({
           <button type="button" onClick={() => setOpenModalAlertDelete(true)}>
             <div className="wrapForHide flex justify-center flex-row items-center group-hover:opacity-50">
               <span className="spanhidden text-xs text-slate-400">
-                Supprimer
+                {t("Supprimer btn")}
               </span>
               <img className="" src={iconTrash} alt="trash" />
             </div>
           </button>
         </div>
       ) : (
-        <div className={statusForClassname()} />
+        <div className="flex justify-between items-center">
+          <div className={statusForClassname()} />
+          <button
+            type="button"
+            onClick={() =>
+              navigate(`/user-profile/${valueDetailsDecision.user_id}`)
+            }
+          >
+            <div className="wrapForHide flex justify-center flex-row items-center group-hover:opacity-50">
+              <span className="spanhidden text-xs text-right text-slate-400">
+                {t("Voir le profil de")} {valueDetailsDecision.firstname}
+              </span>
+              <img
+                className="w-10 h-10 rounded-full hover:opacity-25 transition ease-in-out delay-50"
+                src={
+                  urlAvatarStatus.status === 200
+                    ? `${backEnd}/avatar/${valueDetailsDecision.avatar}`
+                    : userimg
+                }
+                alt="avatar-decision"
+              />
+            </div>
+          </button>
+        </div>
       )}
       {valueDetailsDecision ? (
         <NavLink to={`/decision/${valueDetailsDecision.id}`}>
-          <p className="p-2 text-center">{valueDetailsDecision.title}</p>
-          <p className="text-xs font-thin text-center">
-            {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
-          </p>
+          <div className="flex items-center">
+            <p
+              className={`text-left mt-5 mb-5 ${
+                dark ? "text-black" : "text-white"
+              }`}
+            >
+              {valueDetailsDecision.title}
+            </p>
+          </div>
+          <div className="border-t absolute bottom-3 ">
+            <p className="text-xs font-thin text-left mt-2 text-gray-500">
+              {t("Crée le")} :{" "}
+              {convertDateFromApi(valueDetailsDecision.date_decision_creation)}
+            </p>
+            <p className="text-xs font-thin text-left text-gray-500">
+              {t("Fin de conflit le")} :{" "}
+              {convertDateFromApi(valueDetailsDecision.date_decision_conflict)}
+            </p>
+          </div>
         </NavLink>
       ) : null}
     </div>

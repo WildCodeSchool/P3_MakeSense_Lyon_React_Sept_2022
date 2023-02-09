@@ -15,14 +15,19 @@
     "@material-tailwind/react": "^1.2.5",
     "flowbite": "^1.5.5",
     "flowbite-react": "^0.3.7",
+    "i18next": "^22.4.9",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.0.0",
     "react-hot-toast": "^2.4.0",
+    "react-i18next": "^12.1.4",
+    "react-icons": "^4.7.1",
+    "react-paginate": "^8.1.4",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.5",
-    "react-search-autocomplete": "^8.3.1"
+    "react-search-autocomplete": "^8.3.1",
+    "template-fullstack": "file:.."
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.7",

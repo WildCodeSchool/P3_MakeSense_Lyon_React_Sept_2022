@@ -13,5 +13,13 @@ html,
 body,
 #root {
   height: auto;
-  width: 100vw;
+  width: auto;
+}
+@media (max-width: 1024px) {
+  html,
+  body,
+  #root {
+    height: 100vh;
+    width: auto;
+  }
 }

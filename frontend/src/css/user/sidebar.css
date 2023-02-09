@@ -27,3 +27,18 @@
 .yellow-point:hover {
   background-color: #ffffff;
 }
+
+.shake {
+  animation: shake 1s;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(-300px);
+    opacity: 0;
+    z-index: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}

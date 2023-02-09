@@ -6,16 +6,21 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.bubble.css";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 import { useCurrentUserContext } from "../../context/UserContext";
 import Close from "../../assets/icons/x.svg";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function EditDecision() {
+  const { t } = useTranslation();
   const { user, token } = useCurrentUserContext();
+  const { dark } = useCurrentDarkContext();
   const [title, setTitleDecision] = useState("");
   const [content, setValueDecision] = useState("");
   const [impact, setValueImpactOfDecision] = useState("");
@@ -35,7 +40,7 @@ export default function EditDecision() {
   const [choosePersonExpert, setChoosePersonExpert] = useState([]);
   const [choosePersonConcern, setChoosePersonConcern] = useState([]);
 
-  const [statusDecision, setStatusOfDecision] = useState("");
+  const [status_decision, setStatusOfDecision] = useState("");
   const navigate = useNavigate();
   const idParam = useParams();
 
@@ -129,7 +134,7 @@ export default function EditDecision() {
       impact,
       risk,
       benefits,
-      statusDecision,
+      status_decision,
       date_decision_conflict: dateConvertedToSqlFormat(dateDecisionConflict),
       user_id: user.id,
       person_expert: choosePersonExpert,
@@ -151,7 +156,6 @@ export default function EditDecision() {
       )
       .then((response) => {
         response.json();
-        console.warn("response", response);
 
         if (response.status === 201) {
           setTimeout(() => {
@@ -161,7 +165,6 @@ export default function EditDecision() {
           notify();
         }
       })
-      .then((result) => console.warn(result))
       .catch((error) => console.warn("error", error));
   }
 
@@ -193,60 +196,81 @@ export default function EditDecision() {
   };
 
   return (
-    <div className="w-screen">
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 1000 }}
+      />
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+          <p className="pl-10 text-x font-extralight pb-2">
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Modifier ma décision</h1>
-        <div className="logo-home">
-          <img src={Logo} alt="logo make-sense" />
+        <h1 className="hidden md:flex text-2xl text-red-pink">
+          {t("Modifier ma décision")}
+        </h1>
+        <div className="hidden md:block logo-home">
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
       <main className="mainCreateDecision">
         <div className="col-span-2 ...">
           <div className="mt-14 mb-6">
             <label htmlFor="title-input" className="block mb-2">
-              Titre de la décision :
+              {t("Titre de la décision")} :
             </label>
             <input
               onChange={(e) => setTitleDecision(e.target.value)}
               type="text"
               value={title}
               id="title-input"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              className={`border border-gray-300  text-sm rounded-xl block w-full p-2.5 ${
+                dark ? "text-gray-900" : "bg-dark-bg text-white"
+              }`}
             />
           </div>
-          <h2 className="mt-8 mb-3">Description de la décision :</h2>
+          <h2 className="mt-8 mb-3">{t("Description de la décision")} :</h2>
           <ReactQuill
             theme="snow"
             value={content}
             onChange={setValueDecision}
             modules={modules}
           />
-          <h2 className="mt-8 mb-3">Impact sur l'organisation :</h2>
+          <h2 className="mt-8 mb-3">{t("Impact sur l'organisation")} :</h2>
           <ReactQuill
             theme="snow"
             value={impact}
             onChange={setValueImpactOfDecision}
             modules={modules}
           />
-          <h2 className="mt-8 mb-3">Bénéfice de la décision :</h2>
+          <h2 className="mt-8 mb-3">{t("Bénéfice de la décision")} :</h2>
           <ReactQuill
             theme="snow"
             value={benefits}
             onChange={setValueBenefitsOfDecision}
             modules={modules}
           />
-          <h2 className="mt-8 mb-3">Risques potentiels :</h2>
+          <h2 className="mt-8 mb-3">{t("Risque potentiel")} :</h2>
           <ReactQuill
             theme="snow"
             value={risk}
@@ -260,37 +284,43 @@ export default function EditDecision() {
             :`}
           </h2>
           <div className="flex items-center max-xl:flex-col xl:justify-between max-xl:gap-y-8">
-            <div className="containerDate">
+            <div className="z-20">
               <DatePicker
                 selected={dateDecisionConflict}
                 onChange={(date) => setStartDateConflictOfDecision(date)}
                 disabledKeyboardNavigation
                 placeholderText="Cliquer pour changer de date"
+                className={`border border-gray-300  text-sm rounded-xl block w-[200px] p-2.5 ${
+                  dark ? "text-black " : "text-white bg-dark-header"
+                }`}
               />
             </div>
           </div>
           <br />
           <div>
             <label htmlFor="status-input" className="block mb-2">
-              Statut de la décision (Actuel : {valueDefaultStatusOfDecision}) :
+              {t("Statut de la décision")} ({t("Actuel statut")} :{" "}
+              {valueDefaultStatusOfDecision}) :
             </label>
             <select
               onChange={(e) => setStatusOfDecision(e.target.value)}
               id="status-input"
-              className="border border-gray-300 text-sm rounded-lg block w-80 p-2.5  bg-white"
+              className={`border border-gray-300 text-sm rounded-xl block w-80 p-2.5   ${
+                dark ? "bg-white text-black" : " bg-dark-header"
+              }`}
             >
               <option defaultValue="OptionStatus" disabled selected>
-                Cliquer pour changer de statut
+                {t("Cliquer pour changer de statut")}
               </option>
-              <option value="En cours">En cours</option>
-              <option value="En conflit">En conflit</option>
-              <option value="Terminee">Terminée</option>
-              <option value="Non aboutie">Non aboutie</option>
+              <option value="En cours">{t("En cours")}</option>
+              <option value="En conflit">{t("Conflits filter")}</option>
+              <option value="Terminee">{t("Terminées filter")}</option>
+              <option value="Non aboutie">{t("Non abouties")}</option>
             </select>
           </div>
           <div className="mt-8">
             <label htmlFor="pconcern-input" className="block mb-2">
-              Personnes impactées{" "}
+              {t("Personnes impactées")}{" "}
             </label>
             <ReactSearchAutocomplete
               items={personImpactedDecision}
@@ -319,9 +349,9 @@ export default function EditDecision() {
               ))}
             </ul>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 mb-8">
             <label htmlFor="pexpert-input" className="block mb-2 ">
-              Personne expertes{" "}
+              {t("Personnes expertes")}{" "}
             </label>
             <ReactSearchAutocomplete
               items={personExperteDecision}
@@ -350,14 +380,16 @@ export default function EditDecision() {
           </div>
         </div>
       </main>
-      <button
-        type="button"
-        onClick={sendEditDecision}
-        id="buttonEnvoyerDecision"
-        className="bg-red-400 hover:bg-red-500 mt-8 mb-11 text-white font-bold py-2 px-4 rounded-full"
-      >
-        Envoyer
-      </button>
+      <div className="mb-24 md:mb-5">
+        <button
+          type="button"
+          onClick={sendEditDecision}
+          id="buttonEnvoyerDecision"
+          className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 mr-0 md:float-right md:mr-48 ml-14 md:mb-8 rounded-xl"
+        >
+          {t("Envoyer btn")}
+        </button>
+      </div>
     </div>
   );
 }

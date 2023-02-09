@@ -1,17 +1,21 @@
 import { React, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/logo-makesense.png";
+import LogoWhite from "../../assets/make_sense_white.png";
 import "../../css/user/myprofile.css";
 import { useCurrentUserContext } from "../../context/UserContext";
+import { useCurrentDarkContext } from "../../context/DarkContext";
 
 const backEnd = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyProfile() {
   const { user, setUser, token } = useCurrentUserContext();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const avatarRef = useRef(null);
+  const { dark } = useCurrentDarkContext();
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const [city, setCity] = useState(user.city);
@@ -24,6 +28,30 @@ export default function MyProfile() {
     toast.error("Une erreur est survenue, veuillez recommencer");
   const notifyErrorProfile = () =>
     toast.error("Une erreur est survenue, veuillez vérifier vos informations");
+  const success = () => {
+    toast.success("Votre profil a bien été modifié !");
+  };
+
+  // fetch user informations
+  useEffect(() => {
+    const myHeader = new Headers();
+    myHeader.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      headers: myHeader,
+    };
+
+    fetch(`${backEnd}/user/bytoken`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setFirstname(result.firstname);
+        setLastname(result.lastname);
+        setEmail(result.email);
+        setCity(result.city);
+        setPhone(result.phone);
+      })
+      .catch((error) => console.warn("error", error));
+  }, []);
 
   // fetch to submit my avatr
   const handleSubmit = (e) => {
@@ -42,7 +70,7 @@ export default function MyProfile() {
         body: formData,
       };
 
-      fetch("http://localhost:5000/avatar", requestOptions)
+      fetch(`${backEnd}/avatar`, requestOptions)
         .then((response) => response.json())
         .then((results) => {
           setUser({ ...user, avatar: results.avatar });
@@ -71,28 +99,18 @@ export default function MyProfile() {
       phone,
       user_id: user.id,
     });
-    toast
-      .promise(
-        fetch(`${backEnd}/user/${user.id}`, {
-          method: "PUT",
-          redirect: "follow",
-          body: raw,
-          headers: myHeaders,
-        }),
-        {
-          loading: "Envoi en cours",
-          success: "Votre profil modifié a bien été envoyé",
-          error: "Une erreur sur le serveur est survenue lors de l'envoi",
-        }
-      )
+
+    fetch(`${backEnd}/user/${user.id}`, {
+      method: "PUT",
+      redirect: "follow",
+      body: raw,
+      headers: myHeaders,
+    })
       .then((response) => {
-        response.json();
-        if (response.status === 202) {
-          setTimeout(() => {
-            navigate("/home");
-          }, 2000);
+        if (response.status === 422) {
+          throw new Error("Error on profile update");
         } else {
-          notifyErrorProfile();
+          return response.json();
         }
       })
       .then((results) => {
@@ -104,13 +122,12 @@ export default function MyProfile() {
           city: results.city,
           phone: results.phone,
         });
+        success();
         setTimeout(() => {
           navigate("/home");
         }, 2000);
       })
-      .catch((error) => {
-        console.warn("error", error);
-      });
+      .catch(() => notifyErrorProfile());
   }
 
   // fetch for the status of fetch of the avatar
@@ -121,62 +138,79 @@ export default function MyProfile() {
   }, [user]);
 
   return (
-    <div className="w-screen">
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="flex flex-row items-center justify-between bg-light-grey">
+    <div className={`w-screen ${dark ? "" : "bg-dark-header text-white"}`}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 1000 }}
+      />
+      <div
+        className={`flex flex-row items-center justify-between bg-light-grey pr-16 pl-10
+          ${
+            dark
+              ? "text-black"
+              : "text-white bg-dark-header border-b-2 border-dark-bg"
+          }`}
+      >
         <div className="flex flex-col">
           {user ? (
-            <p className="pl-10 pt-3 text-xl">Bonjour {user.firstname}</p>
+            <p className="pl-10 pt-3 text-xl">
+              {t("Bonjour home")} {user.firstname}
+            </p>
           ) : (
-            <p className="pl-10 pt-3 text-xl">Bonjour</p>
+            <p className="pl-10 pt-3 text-xl">{t("Bonjour home")}</p>
           )}
-          <p className="pl-10 text-x font-extralight">
-            Nous sommes le : {new Date().toLocaleDateString()}
+          <p className="pl-10 text-x font-extralight pb-2">
+            {t("Nous sommes le")} : {new Date().toLocaleDateString()}
           </p>
         </div>
-        <h1 className="text-2xl text-red-pink">Mon profil</h1>
-        <div className="logo-home">
-          <img src={Logo} alt="logo make-sense" />
+        <h1 className="text-2xl md:flex hidden text-red-pink">
+          {t("Mon profil")}
+        </h1>
+        <div className="logo-home hidden md:flex ">
+          {dark ? (
+            <img src={Logo} alt="logo make-sense" />
+          ) : (
+            <img src={LogoWhite} alt="logo make-sense" />
+          )}
         </div>
       </div>
-      <div className="w-5/6 m-auto md:flex md:flex-row items-end">
-        <div className="flex flex-wrap justify-center items-center justify-items-center content-center">
+      <div className="w-5/6 ml-5 md:m-auto md:flex md:flex-row items-end">
+        <div className="flex flex-wrap justify-start md:justify-center items-center justify-items-center content-center">
           <div className="circle_add mt-10 md:mt-[80px]">
             {urlAvatarStatus.status === 200 ? (
               <img
                 className="shadow rounded-full w-40 h-36 align-middle border-none hover:opacity-25 transition ease-in-out delay-50 "
-                src={`http://localhost:5000/avatar/${user.avatar}`}
+                src={`${backEnd}/avatar/${user.avatar}`}
                 alt={`avatar${user.firstname}-${user.id}`}
               />
             ) : null}
           </div>
         </div>
         <div className="flex flex-col">
-          <p className=" mt-10 md:mt-[125px] ml-5">
-            Ajoute une photo de profil avec ton plus beau sourire !
-          </p>
+          <p className=" mt-6 md:mt-[125px] md:ml-5">{t("Ajoute une photo")}</p>
           <form
-            className="flex flex-col items-start ml-5"
+            className="flex flex-col items-start md:ml-5"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
           >
             <input type="file" ref={avatarRef} />
             <button
-              className=" bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full mt-2"
+              className=" bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl mt-2"
               type="submit"
             >
-              Envoyer
+              {t("Envoyer btn")}
             </button>
           </form>
         </div>
       </div>
-      <form className="flex flex-col m-auto pt-8 items-center justify-center">
+      <form className="flex flex-col md:m-auto pt-8 items-start md:items-center justify-center">
         <div className="md:grid md:w-2/3 ml-5 overflow-hidden md:grid-cols-2 md:grid-rows-4 md:gap-3 md:pt-5">
-          <div className="md:box md:col-start-1 md:col-end-2 ">
+          <div className="md:box mt-3 md:col-start-1 md:col-end-2 ">
             <label className="flex flex-col text font-light">
-              Prénom :
+              {t("Prénom input")} :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setFirstname(e.target.value)}
@@ -186,9 +220,9 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-2 col-end-3">
             <label className="flex flex-col text font-light">
-              Nom:
+              {t("Nom input")} :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 mb-5 md:mb-0 md:w-[200px] border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setLastname(e.target.value)}
@@ -198,9 +232,9 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-1 col-end-2">
             <label className="flex flex-col text font-light">
-              Localisation:
+              {t("Localisation input")} :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] mb-5 md:mb-0 border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setCity(e.target.value)}
@@ -210,9 +244,9 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-2 col-end-3">
             <label className="flex flex-col text font-light">
-              Email:
+              Email :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] border-2 mb-5 md:mb-0 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setEmail(e.target.value)}
@@ -222,9 +256,9 @@ export default function MyProfile() {
           </div>
           <div className="box col-start-1 col-end-2">
             <label className="flex flex-col text font-light">
-              Téléphone:
+              {t("Téléphone input")} :
               <input
-                className="mt-3 md:w-[200px] border-2 rounded-lg h-10"
+                className="mt-3 md:w-[200px] border-2 rounded-xl h-10 px-2"
                 type="text"
                 name="name"
                 onChange={(e) => setPhone(e.target.value)}
@@ -233,14 +267,14 @@ export default function MyProfile() {
             </label>
           </div>
           <div className="box pt-[32px] col-start-2 col-end-3">
-            <div className="flex md:pl-[56px]">
+            <div className="flex mb-10 md:pl-[56px]">
               <button
                 type="button"
                 onClick={sendUserInformations}
                 id="buttonEnvoyerDecision"
-                className="flex bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+                className="flex mb-8 bg-red-pink hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl"
               >
-                Envoyer
+                {t("Envoyer btn")}
               </button>
             </div>
           </div>

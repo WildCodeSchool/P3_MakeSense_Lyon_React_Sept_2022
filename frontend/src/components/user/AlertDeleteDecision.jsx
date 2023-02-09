@@ -1,5 +1,6 @@
 import { React, useRef, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useTranslation } from "react-i18next";
 import alertTriangleIcon from "../../assets/icons/alert-triangle.svg";
 
 function AlertDeleteDecision({
@@ -8,6 +9,7 @@ function AlertDeleteDecision({
   openModalAlertDelete,
 }) {
   const cancelButtonRef = useRef(null);
+  const { t } = useTranslation();
 
   return (
     <Transition.Root show={openModalAlertDelete} as={Fragment}>
@@ -51,11 +53,11 @@ function AlertDeleteDecision({
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
                       >
-                        Suppression
+                        {t("Suppression decision")}
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Êtes-vous sûr de vouloir supprimer votre décision ?
+                          {t("Êtes-vous sûr de vouloir supprimer ?")}
                         </p>
                       </div>
                     </div>
@@ -67,7 +69,7 @@ function AlertDeleteDecision({
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => setdeleteIsConfirm(true)}
                   >
-                    Oui, je souhaite supprimer ma décision
+                    {t("Oui, je souhaite supprimer")}
                   </button>
                   <button
                     type="button"
@@ -75,7 +77,7 @@ function AlertDeleteDecision({
                     onClick={() => setOpenModalAlertDelete(false)}
                     ref={cancelButtonRef}
                   >
-                    Annuler
+                    {t("Annuler btn")}
                   </button>
                 </div>
               </Dialog.Panel>

@@ -6,13 +6,9 @@ const verifyEmail = (req, res, next) => {
   models.user
     .selectEmail(email)
     .then(([result]) => {
-      console.warn(email);
-      console.warn(result);
       if (email === result[0]?.email) {
         res.sendStatus(401);
-        console.warn("cet email existe");
       } else {
-        console.warn("cet email n'existe pas ");
         next();
       }
     })
