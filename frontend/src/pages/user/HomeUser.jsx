@@ -101,7 +101,7 @@ export default function Home() {
         </div>
         <div className="md:grid md:col-start-1 md:col-end-4 md:ml-10 md:justify-start flex justify-center items-center md:w-screen">
           <div className="md:grid md:grid-cols-3 xl:grid-cols-4 grid-rows-2 gap-4">
-            {valuesDetailsDecisions.slice(0, 9).map((valueDetailsDecision) => {
+            {valuesDetailsDecisions.map((valueDetailsDecision) => {
               if (valueDetailsDecision.user_id === user.id) {
                 return (
                   <DecisionCard

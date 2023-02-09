@@ -291,7 +291,7 @@ const resources = {
       // page Accueil admin
       Administrateur: "Administrator",
       Statistiques: "Statistics",
-      Utilisateurs: "Utilisators",
+      Utilisateurs: "Users",
       Decisions: "Decisions",
       Terminées: "Finished",
       "Non abouties": "Not achieved",
