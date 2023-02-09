@@ -92,8 +92,8 @@ const resources = {
       "Bénéfice de la décision": "Bénéfice de la décision",
       "Risques potentiels de la décision": "Risques potentiels de la décision",
       "Date finale de la décision": "Date finale de la décision",
-      "Personnes impactées": "Personne impactées",
-      "Personnes expertes": "Personne expertes",
+      "Personnes impactées": "Public impacté",
+      "Personnes expertes": "Public expert",
 
       // détails décision
       "Détails de la décision": "Détails de la décision",
